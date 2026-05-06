@@ -1,0 +1,28 @@
+services:
+  backend:
+    image: node:24.15.0
+    working_dir: /app
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./quiziset-backend:/app
+      - backend_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: tail -f /dev/null
+
+  db:
+    image: mysql:8.4.9
+    environment:
+      MYSQL_ROOT_PASSWORD: quiziset
+      MYSQL_DATABASE: quiziset
+      MYSQL_USER: quiziset
+      MYSQL_PASSWORD: quiziset
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  backend_node_modules:
+  db_data:
