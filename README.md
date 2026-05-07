@@ -9,6 +9,7 @@ To start backend run:
 ```shell
 docker compose exec backend /bin/bash # enter "backend" container
 npm install
+node ./scripts/setup-development-dotenv.js # will auto-generate .env file (for development environment)
 npm run start:dev
 ```
 
