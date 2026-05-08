@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
-import { PrismaService } from '../../prisma.service'
-import { AuthService } from './auth.service'
-import { AuthController } from './auth.controller'
+import { PrismaService } from '@/prisma.service'
+import { AuthService } from '@/modules/auth/auth.service'
+import { AuthController } from '@/modules/auth/auth.controller'
 import { JwtModule } from '@nestjs/jwt'
 import process from 'node:process'
 
@@ -16,5 +16,4 @@ import process from 'node:process'
   controllers: [AuthController],
   providers: [AuthService, PrismaService],
 })
-export class AuthModule {
-}
+export class AuthModule {}

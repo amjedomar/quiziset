@@ -1,17 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import {
-  ApiOperation,
-  ApiResponse,
-} from '@nestjs/swagger'
-import { SignupDto } from './dto/signup.dto'
-import { AuthToken } from './entities/auth-access.entity'
-import { AuthErrors, AuthService } from './auth.service'
-import { LoginDto } from './dto/login.dto'
+import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { SignupDto } from '@/modules/auth/dto/signup.dto'
+import { AuthToken } from '@/modules/auth/entities/auth-access.entity'
+import { AuthErrors, AuthService } from '@/modules/auth/auth.service'
+import { LoginDto } from '@/modules/auth/dto/login.dto'
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {
-  }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
   @ApiOperation({ summary: 'Registers a new user' })

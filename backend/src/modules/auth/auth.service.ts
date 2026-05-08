@@ -1,14 +1,10 @@
-import {
-  BadRequestException,
-  InternalServerErrorException,
-  Injectable, UnauthorizedException,
-} from '@nestjs/common'
+import { BadRequestException, InternalServerErrorException, Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { PrismaErrorCode, PrismaService } from '../../prisma.service'
-import { AuthToken } from './entities/auth-access.entity'
-import { LoginDto } from './dto/login.dto'
-import { SignupDto } from './dto/signup.dto'
-import * as Prisma from '../../generated/prisma/client'
+import { PrismaErrorCode, PrismaService } from '@/prisma.service'
+import { AuthToken } from '@/modules/auth/entities/auth-access.entity'
+import { LoginDto } from '@/modules/auth/dto/login.dto'
+import { SignupDto } from '@/modules/auth/dto/signup.dto'
+import * as Prisma from '@/generated/prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client'
 import argon2 from 'argon2'
 
@@ -22,8 +18,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
-  ) {
-  }
+  ) {}
 
   private async generateAccessToken(userId: number) {
     return await this.jwtService.signAsync({ userId })
@@ -45,10 +40,7 @@ export class AuthService {
         data: newUserData,
       })
     } catch (error) {
-      if (
-        error instanceof PrismaClientKnownRequestError &&
-        error.code === PrismaErrorCode.UniqueConstraintViolation
-      ) {
+      if (error instanceof PrismaClientKnownRequestError && error.code === PrismaErrorCode.UniqueConstraintViolation) {
         throw new BadRequestException(AuthErrors.USER_ALREADY_EXISTS)
       }
 

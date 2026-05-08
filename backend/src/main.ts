@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { AppModule } from './app.module'
+import { AppModule } from '@/app.module'
 import { HttpStatus, ValidationPipe } from '@nestjs/common'
 
 const PORT = 4004
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule)
 
   // Swagger Configuration
@@ -21,9 +21,11 @@ async function bootstrap() {
   SwaggerModule.setup('/', app, document)
 
   // Validation
-  app.useGlobalPipes(new ValidationPipe({
-    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-  }))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+    }),
+  )
 
   // Run App
   await app.listen(PORT)
@@ -31,4 +33,5 @@ async function bootstrap() {
   console.log(`Application is running on http://localhost:${PORT}`)
 }
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap()
