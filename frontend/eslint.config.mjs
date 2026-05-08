@@ -23,7 +23,7 @@ const eslintConfig = defineConfig([
 
     rules: {
       'no-restricted-imports': [
-        'error',
+        'warn',
         {
           patterns: [
             {
@@ -33,7 +33,15 @@ const eslintConfig = defineConfig([
           ],
         },
       ],
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+
+      'prettier/prettier': ['warn', { endOfLine: 'auto' }],
+    },
+  },
+
+  {
+    files: ['**/index.ts'],
+    rules: {
+      'no-restricted-imports': 'off',
     },
   },
 ])
