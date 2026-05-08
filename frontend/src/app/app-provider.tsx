@@ -1,17 +1,11 @@
 'use client'
 import { ReactNode } from 'react'
-import { theme } from '@/theme'
-import { CssBaseline, CssVarsProvider } from '@mui/joy'
+import ThemeRegistry from '@/components/theme-registry/theme-registry'
 
 interface AppProviderProps {
   children: ReactNode
 }
 
 export function AppProvider({ children }: AppProviderProps) {
-  return (
-    <CssVarsProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </CssVarsProvider>
-  )
+  return <ThemeRegistry options={{ key: 'joy' }}>{children}</ThemeRegistry>
 }

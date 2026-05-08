@@ -5,6 +5,7 @@ export const theme = extendTheme({
     light: {
       palette: {
         primary: {
+          // Please also update "theme.scss" with the same values
           50: '#e7e9ed',
           100: '#c1c8d5',
           200: '#9aa5b8',

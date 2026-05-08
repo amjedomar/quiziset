@@ -3,3 +3,11 @@
   justify-content: space-between;
   padding: 12px 16px;
 }
+
+.appName {
+  line-height: 1.4;
+  font-size: 24px;
+  font-weight: 600;
+  text-decoration: none;
+  color: $color-primary-500;
+}
