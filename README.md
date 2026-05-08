@@ -13,6 +13,13 @@ node ./scripts/setup-development-dotenv.js # will auto-generate .env file (for d
 npm run start:dev
 ```
 
+To start frontend run:
+```shell
+docker compose exec frontend /bin/bash # enter "backend" container
+npm install
+npm run start:dev
+```
+
 To stop docker containers run
 ```shell
 docker compose down
