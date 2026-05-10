@@ -1,24 +1,46 @@
 'use client'
-import { Box, Button, Stack } from '@mui/joy'
+import { Box, Button, Container, Stack } from '@mui/joy'
 import styles from '@/components/navbar/navbar.module.scss'
 import Link from 'next/link'
 
 export default function Navbar() {
   return (
-    <Box className={styles.navbar} sx={{ boxShadow: 'md' }}>
-      <Link className={styles.appName} href="/">
-        Quiziset
-      </Link>
+    <>
+      <div className={styles.spacer}></div>
 
-      <Stack direction="row" spacing={1}>
-        <Button variant="outlined" component={Link} href="/login">
-          Login
-        </Button>
+      <Box className={styles.navbar} sx={{ boxShadow: 'md' }}>
+        <Container className={styles.navbarInner} maxWidth="xl">
+          <div className={styles.mainNav}>
+            <Link className={styles.appName} href="/">
+              Quiziset
+            </Link>
 
-        <Button variant="solid" component={Link} href="/signup">
-          Sign Up
-        </Button>
-      </Stack>
-    </Box>
+            <div className={styles.linksWrapper}>
+              <Button component={Link} color="neutral" variant="plain" href="/">
+                Explore
+              </Button>
+
+              <Button component={Link} color="neutral" variant="plain" href="/my-quizzes">
+                My Quizzes
+              </Button>
+
+              <Button component={Link} color="neutral" variant="plain" href="/bookmarks">
+                Bookmarks
+              </Button>
+            </div>
+          </div>
+
+          <Stack direction="row" spacing={1.5}>
+            <Button variant="outlined" component={Link} href="/login">
+              Login
+            </Button>
+
+            <Button variant="solid" component={Link} href="/signup">
+              Sign Up
+            </Button>
+          </Stack>
+        </Container>
+      </Box>
+    </>
   )
 }

@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
 import prettier from 'eslint-config-prettier/flat'
-import prettierPlugin from 'eslint-plugin-prettier'
+import unicorn from 'eslint-plugin-unicorn'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -18,7 +18,7 @@ const eslintConfig = defineConfig([
   ]),
   {
     plugins: {
-      prettier: prettierPlugin,
+      unicorn,
     },
 
     rules: {
@@ -34,12 +34,17 @@ const eslintConfig = defineConfig([
         },
       ],
 
-      'prettier/prettier': ['warn', { endOfLine: 'auto' }],
+      'unicorn/filename-case': [
+        'warn',
+        {
+          case: 'kebabCase',
+        },
+      ],
     },
   },
 
   {
-    files: ['**/index.ts'],
+    files: ['**/index.ts', 'src/api-client/**/*'],
     rules: {
       'no-restricted-imports': 'off',
     },

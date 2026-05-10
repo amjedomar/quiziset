@@ -3,11 +3,17 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from '@/app.module'
 import { HttpStatus, ValidationPipe } from '@nestjs/common'
+import process from 'node:process'
 
 const PORT = 4004
+const { FRONTEND_URL } = process.env
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: FRONTEND_URL,
+    },
+  })
 
   // Swagger Configuration
   const options = new DocumentBuilder()
@@ -17,8 +23,10 @@ async function bootstrap(): Promise<void> {
     .addBearerAuth()
     .build()
 
-  const document = SwaggerModule.createDocument(app, options)
-  SwaggerModule.setup('/', app, document)
+  const document = SwaggerModule.createDocument(app, options, {
+    operationIdFactory: (_, methodKey) => methodKey,
+  })
+  SwaggerModule.setup('/api-docs', app, document)
 
   // Validation
   app.useGlobalPipes(

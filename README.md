@@ -17,6 +17,7 @@ To start frontend run:
 ```shell
 docker compose exec frontend /bin/bash # enter "backend" container
 npm install
+cp .env.sample .env
 npm run start:dev
 ```
 

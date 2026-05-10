@@ -1,2 +1,2 @@
-cd frontend && npm run lint
-cd ../backend && npm run lint
+cd frontend && npm run format -- --log-level silent && npm run lint
+cd ../backend && npm run format -- --log-level silent && npm run lint
