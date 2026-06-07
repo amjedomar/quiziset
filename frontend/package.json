@@ -13,16 +13,19 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@hookform/resolvers": "^5.4.0",
     "@mui/icons-material": "^9.0.1",
     "@mui/joy": "^5.0.0-beta.52",
     "@tanstack/react-query": "^5.100.9",
+    "clsx": "^2.1.1",
     "eslint-config-prettier": "^10.1.8",
     "js-cookie": "^3.0.8",
     "next": "16.2.6",
     "prettier": "^3.8.3",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-hook-form": "^7.75.0"
+    "react-hook-form": "^7.75.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

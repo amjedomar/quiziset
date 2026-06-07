@@ -1,0 +1,22 @@
+.formImage {
+  background-color: var(--joy-palette-background-surface);
+  width: 195px;
+  height: 195px;
+  border: 1px solid var(--joy-palette-neutral-outlinedBorder);
+  border-radius: var(--joy-radius-sm);
+  color: var(--joy-palette-neutral-outlinedColor);
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formImageError {
+  color: var(--joy-palette-danger-500);
+  border-color: var(--joy-palette-danger-outlinedBorder);
+}
+
+.icon {
+  opacity: 0.64;
+  color: inherit;
+}

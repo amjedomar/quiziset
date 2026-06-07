@@ -1,0 +1,9 @@
+.overviewSection {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+
+  @media ($max-screen-sm) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -29,7 +29,7 @@ const eslintConfig = defineConfig([
         {
           patterns: [
             {
-              group: ['../*', './*'],
+              group: ['../*'],
               message: 'Use @/ imports instead of relative imports',
             },
           ],
@@ -42,13 +42,6 @@ const eslintConfig = defineConfig([
           case: 'kebabCase',
         },
       ],
-    },
-  },
-
-  {
-    files: ['**/index.ts', 'src/api-client/**/*'],
-    rules: {
-      'no-restricted-imports': 'off',
     },
   },
 ])
