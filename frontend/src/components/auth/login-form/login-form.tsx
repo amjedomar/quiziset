@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { LoginDto } from '@/api-client/model'
 import { useAuth } from '@/hooks/use-auth'
 
-export default function LoginForm() {
+export function LoginForm() {
   const { register, handleSubmit } = useForm<LoginDto>()
 
   const { login, isLogging } = useAuth()

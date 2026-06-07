@@ -1,5 +1,5 @@
 import { Container } from '@mui/joy'
-import { QuizForm } from '@/components/forms/quiz-form'
+import { QuizForm } from '@/components/quiz/quiz-form'
 
 export default function CreateQuizPage() {
   return (

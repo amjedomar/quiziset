@@ -1,7 +1,6 @@
-import { ListItemDecorator, Option, Select, SelectOption, SelectProps } from '@mui/joy'
 import { FormControlField } from '@/ui/form-fields/form-control-field'
-import { CSSProperties, ReactNode, useCallback } from 'react'
-import { SelectValue } from '@mui/base/useSelect'
+import { ReactNode } from 'react'
+import { SelectEnhanced, SelectEnhancedProps } from '@/ui/select-enhanced'
 
 export interface FormSelectOption {
   label: string
@@ -9,11 +8,9 @@ export interface FormSelectOption {
   decorator?: ReactNode
 }
 
-interface FormSelectProps {
+interface FormSelectProps<Multiple extends boolean> extends SelectEnhancedProps<Multiple> {
   name: string
   label?: string
-  options: FormSelectOption[]
-  decoratorStyle?: CSSProperties
 }
 
 export function FormSelect<Multiple extends boolean>({
@@ -23,51 +20,22 @@ export function FormSelect<Multiple extends boolean>({
   options,
   decoratorStyle,
   ...selectProps
-}: SelectProps<string, Multiple> & FormSelectProps) {
-  const renderSelectedOption = useCallback(
-    (selectedOption: SelectValue<SelectOption<string>, Multiple>) => {
-      if (!selectedOption) {
-        return null
-      }
-
-      if (Array.isArray(selectedOption)) {
-        return selectedOption.join(', ')
-      }
-
-      const decorator = options.find((option) => option.value === selectedOption.value)?.decorator
-
-      return (
-        <>
-          {decorator && <ListItemDecorator style={decoratorStyle}>{decorator}</ListItemDecorator>}
-          {selectedOption.label}
-        </>
-      )
-    },
-    [options, decoratorStyle],
-  )
-
+}: FormSelectProps<Multiple>) {
   return (
     <FormControlField
       name={name}
       label={label}
       defaultValue=""
       renderField={({ field: { ref, onChange, ...fieldProps } }) => (
-        <Select
+        <SelectEnhanced
           ref={ref}
-          {...fieldProps}
           {...selectProps}
-          placeholder={placeholder ?? label}
-          renderValue={renderSelectedOption}
+          {...fieldProps}
           onChange={(_, value) => onChange(value)}
-        >
-          {options.map((option) => (
-            <Option key={option.value} value={option.value}>
-              {option.decorator && <ListItemDecorator style={decoratorStyle}>{option.decorator}</ListItemDecorator>}
-
-              {option.label}
-            </Option>
-          ))}
-        </Select>
+          options={options}
+          decoratorStyle={decoratorStyle}
+          placeholder={placeholder ?? label}
+        />
       )}
     />
   )

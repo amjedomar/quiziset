@@ -4,14 +4,15 @@ import { Button, Stack, Typography } from '@mui/joy'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { FormTextarea } from '@/ui/form-fields/form-textarea'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
-import AddIcon from '@mui/icons-material/Add'
 import SaveIcon from '@mui/icons-material/Save'
 import { useCallback } from 'react'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormImage } from '@/ui/form-fields/form-image'
 import styles from './quiz-form.module.scss'
-import QuizQuestionForm from '@/components/forms/quiz-question-form/quiz-question-form'
+import { QuizQuestionForm } from '@/components/quiz/quiz-question-form'
+import NewQuestionAction from '@/components/quiz/new-question-action/new-question-action'
+import { QuestionType } from '@/components/quiz/question-type-select'
 
 const answerSchema = z.object({
   text: z.string().nonempty('Please enter answer text'),
@@ -34,7 +35,7 @@ type QuizData = z.infer<typeof schema>
 
 const defaultQuestion = {
   title: '',
-  questionType: 'checkbox',
+  questionType: QuestionType.Checkbox,
   answers: [{ text: '' }],
 }
 
@@ -95,12 +96,9 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
           ))}
 
           <Stack direction="row" spacing={2}>
-            <Button startDecorator={<AddIcon />} onClick={() => addQuestion(defaultQuestion)}>
-              New Question
-            </Button>
-
-            <Button startDecorator={<SaveIcon />} type="submit">
-              Save
+            <NewQuestionAction onCreate={(questionType) => addQuestion({ ...defaultQuestion, questionType })} />
+            <Button variant="soft" startDecorator={<SaveIcon />} type="submit">
+              Create Quiz
             </Button>
           </Stack>
         </Stack>

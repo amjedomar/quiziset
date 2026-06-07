@@ -1,5 +1,5 @@
 import { Container } from '@mui/joy'
-import LoginForm from '@/components/forms/login-form/login-form'
+import { LoginForm } from '@/components/auth/login-form'
 
 export default function LoginPage() {
   return (
