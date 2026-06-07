@@ -1,9 +1,12 @@
 'use client'
-import { Box, Button, Container, Stack } from '@mui/joy'
+import { Avatar, Box, Button, Container, Stack } from '@mui/joy'
 import styles from '@/components/navbar/navbar.module.scss'
 import Link from 'next/link'
+import { useAuth } from '@/hooks/use-auth'
 
 export default function Navbar() {
+  const { isLoggedIn } = useAuth()
+
   return (
     <>
       <div className={styles.spacer}></div>
@@ -31,13 +34,25 @@ export default function Navbar() {
           </div>
 
           <Stack direction="row" spacing={1.5}>
-            <Button variant="outlined" component={Link} href="/login">
-              Login
-            </Button>
+            {isLoggedIn ? (
+              <Avatar
+                sx={(theme) => ({
+                  border: `1px solid ${theme.vars.palette.primary[200]}`,
+                })}
+              >
+                AO
+              </Avatar>
+            ) : (
+              <>
+                <Button variant="outlined" component={Link} href="/login">
+                  Login
+                </Button>
 
-            <Button variant="solid" component={Link} href="/signup">
-              Sign Up
-            </Button>
+                <Button variant="solid" component={Link} href="/signup">
+                  Sign Up
+                </Button>
+              </>
+            )}
           </Stack>
         </Container>
       </Box>

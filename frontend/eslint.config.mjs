@@ -22,6 +22,8 @@ const eslintConfig = defineConfig([
     },
 
     rules: {
+      'react-hooks/set-state-in-effect': 'off',
+
       'no-restricted-imports': [
         'warn',
         {

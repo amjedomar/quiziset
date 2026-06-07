@@ -10,7 +10,7 @@ export class SignupDto {
   })
   readonly name: string
 
-  @IsEmail()
+  @IsEmail({}, { message: 'Email is invalid' })
   @Length(1, 255)
   @ApiProperty({
     example: 'johndoe@example.com',

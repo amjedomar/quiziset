@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from '@/app.module'
-import { HttpStatus, ValidationPipe } from '@nestjs/common'
+import { UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
 import process from 'node:process'
 
 const PORT = 4004
@@ -31,7 +31,15 @@ async function bootstrap(): Promise<void> {
   // Validation
   app.useGlobalPipes(
     new ValidationPipe({
-      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      exceptionFactory: (errors) => {
+        const formatted: Record<string, string[]> = {}
+
+        errors.forEach((error) => {
+          formatted[error.property] = Object.values(error.constraints ?? {})
+        })
+
+        return new UnprocessableEntityException({ errors: formatted })
+      },
     }),
   )
 
