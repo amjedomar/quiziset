@@ -44,7 +44,14 @@ export default function ThemeRegistry({ children, options }: { children: ReactNo
         key={cache.key}
         data-emotion={`${cache.key} ${names.join(' ')}`}
         dangerouslySetInnerHTML={{
-          __html: styles,
+          /**
+           * "@layer" is a workaround so "prepend" works
+           *
+           * see:
+           * - https://github.com/emotion-js/emotion/issues/3059
+           * - https://v6.mui.com/base-ui/guides/next-js-app-router
+           */
+          __html: options.prepend ? `@layer emotion {${styles}}` : styles,
         }}
       />
     )

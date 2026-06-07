@@ -4,12 +4,12 @@ import { ControllerProps } from 'react-hook-form'
 
 interface FormFieldProps {
   name: string
-  label: string
+  label?: string
   defaultValue: unknown
   renderField: ControllerProps['render']
 }
 
-export function FormField({ name, label, renderField, defaultValue }: FormFieldProps) {
+export function FormControlField({ name, label, renderField, defaultValue }: FormFieldProps) {
   const { control } = useFormContext()
 
   return (
@@ -23,7 +23,7 @@ export function FormField({ name, label, renderField, defaultValue }: FormFieldP
 
         return (
           <FormControl error={fieldState.invalid}>
-            <FormLabel>{label}</FormLabel>
+            {label && <FormLabel>{label}</FormLabel>}
             {renderField(renderData)}
             {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
           </FormControl>

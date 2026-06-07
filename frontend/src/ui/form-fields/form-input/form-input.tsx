@@ -1,5 +1,5 @@
 import { Input, InputProps } from '@mui/joy'
-import { FormField } from '@/app/ui/form-field'
+import { FormControlField } from '@/ui/form-fields/form-control-field'
 
 interface FormInputProps extends InputProps {
   name: string
@@ -8,7 +8,7 @@ interface FormInputProps extends InputProps {
 
 export function FormInput({ name, label, placeholder, slotProps, ...inputProps }: FormInputProps) {
   return (
-    <FormField
+    <FormControlField
       name={name}
       label={label}
       defaultValue=""

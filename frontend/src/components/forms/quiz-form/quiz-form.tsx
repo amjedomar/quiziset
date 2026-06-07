@@ -1,23 +1,42 @@
 'use client'
 
 import { Button, Stack, Typography } from '@mui/joy'
-import { FormInput } from '@/app/ui/form-input'
-import { FormTextarea } from '@/app/ui/form-textarea'
-import { FormProvider, useForm } from 'react-hook-form'
+import { FormInput } from '@/ui/form-fields/form-input'
+import { FormTextarea } from '@/ui/form-fields/form-textarea'
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import AddIcon from '@mui/icons-material/Add'
+import SaveIcon from '@mui/icons-material/Save'
 import { useCallback } from 'react'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormImage } from '@/app/ui/form-image'
+import { FormImage } from '@/ui/form-fields/form-image'
 import styles from './quiz-form.module.scss'
+import QuizQuestionForm from '@/components/forms/quiz-question-form/quiz-question-form'
 
-const schema = z.object({
+const answerSchema = z.object({
+  text: z.string().nonempty('Please enter answer text'),
+})
+
+const questionSchema = z.object({
+  title: z.string().nonempty('Please enter a question title'),
+  questionType: z.string(),
+  answers: z.array(answerSchema),
+})
+
+export const schema = z.object({
   title: z.string().nonempty('Please enter a title'),
   description: z.string().nonempty('Please enter a description'),
   image: z.string().nonempty('Please upload an image'),
+  questions: z.array(questionSchema).min(1, 'Please add at least one question'),
 })
 
 type QuizData = z.infer<typeof schema>
+
+const defaultQuestion = {
+  title: '',
+  questionType: 'checkbox',
+  answers: [{ text: '' }],
+}
 
 interface QuizFormProps {
   /**
@@ -32,8 +51,19 @@ interface QuizFormProps {
 export function QuizForm({ existingQuiz }: QuizFormProps) {
   const form = useForm<QuizData>({
     resolver: zodResolver(schema),
-    defaultValues: existingQuiz,
+    defaultValues: existingQuiz ?? { questions: [defaultQuestion] },
   })
+
+  const {
+    fields: questions,
+    append: addQuestion,
+    remove: removeQuestion,
+  } = useFieldArray({
+    control: form.control,
+    name: 'questions',
+  })
+
+  console.log('debugging questions', questions)
 
   const onSubmit = useCallback((data: QuizData) => {
     console.log('debugging quiz data', data)
@@ -54,11 +84,25 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             <FormImage name="image" label="Image" />
           </div>
 
-          <div>
-            <Button startDecorator={<AddIcon />} type="submit">
-              Create
+          {questions.map((question, index) => (
+            <QuizQuestionForm
+              key={question.id}
+              questionFieldName={`questions.${index}`}
+              onDelete={() => removeQuestion(index)}
+              disableDeletion={questions.length <= 1}
+              index={index}
+            />
+          ))}
+
+          <Stack direction="row" spacing={2}>
+            <Button startDecorator={<AddIcon />} onClick={() => addQuestion(defaultQuestion)}>
+              New Question
             </Button>
-          </div>
+
+            <Button startDecorator={<SaveIcon />} type="submit">
+              Save
+            </Button>
+          </Stack>
         </Stack>
       </form>
     </FormProvider>

@@ -1,4 +1,4 @@
-import { FormField } from '@/app/ui/form-field'
+import { FormControlField } from '@/ui/form-fields/form-control-field'
 import styles from './form-image.module.scss'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import clsx from 'clsx'
@@ -10,7 +10,7 @@ interface FormImageProps {
 
 export function FormImage({ name, label }: FormImageProps) {
   return (
-    <FormField
+    <FormControlField
       name={name}
       label={label}
       defaultValue=""
