@@ -1,12 +1,15 @@
 import { Input, InputProps } from '@mui/joy'
 import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { mergeRefs } from '@/utils/merge-refs'
+import { Ref } from 'react'
 
 interface FormInputProps extends InputProps {
   name: string
-  label: string
+  label?: string
+  inputRef?: Ref<HTMLInputElement>
 }
 
-export function FormInput({ name, label, placeholder, slotProps, ...inputProps }: FormInputProps) {
+export function FormInput({ name, label, placeholder, inputRef, slotProps, ...inputProps }: FormInputProps) {
   return (
     <FormControlField
       name={name}
@@ -19,7 +22,10 @@ export function FormInput({ name, label, placeholder, slotProps, ...inputProps }
           placeholder={placeholder ?? label}
           slotProps={{
             ...slotProps,
-            input: { ...slotProps?.input, ref },
+            input: {
+              ...slotProps?.input,
+              ref: mergeRefs(ref, inputRef),
+            },
           }}
         />
       )}

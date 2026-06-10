@@ -11,3 +11,17 @@
   display: flex;
   justify-content: space-between;
 }
+
+.answerInput {
+  flex: 1;
+  min-width: 0; // to allow the answer input to shrink (in mobile screens)
+}
+
+.correctSelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  min-height: 32px;
+  margin-top: 2px;
+}

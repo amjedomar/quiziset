@@ -16,13 +16,29 @@ import { QuestionType } from '@/components/quiz/question-type-select'
 
 const answerSchema = z.object({
   text: z.string().nonempty('Please enter answer text'),
+  isCorrect: z.boolean().optional(),
 })
 
-const questionSchema = z.object({
-  title: z.string().nonempty('Please enter a question title'),
-  questionType: z.string(),
-  answers: z.array(answerSchema),
-})
+const questionSchema = z
+  .object({
+    title: z.string().nonempty('Please enter a question title'),
+    questionType: z.enum(QuestionType),
+    answers: z.array(answerSchema).min(2, 'Please provide at least two answers'),
+  })
+  .superRefine((data, ctx) => {
+    if (data.questionType !== QuestionType.Checkbox && data.questionType !== QuestionType.Radio) {
+      return
+    }
+
+    const hasCorrectAnswer = data.answers.some((answer) => answer.isCorrect === true)
+    if (!hasCorrectAnswer) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Please select at least one correct answer',
+        path: ['answers'],
+      })
+    }
+  })
 
 export const schema = z.object({
   title: z.string().nonempty('Please enter a title'),
@@ -36,7 +52,7 @@ type QuizData = z.infer<typeof schema>
 const defaultQuestion = {
   title: '',
   questionType: QuestionType.Checkbox,
-  answers: [{ text: '' }],
+  answers: [{ text: '' }, { text: '' }, { text: '' }],
 }
 
 interface QuizFormProps {
