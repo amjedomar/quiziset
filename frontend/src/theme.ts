@@ -1,6 +1,25 @@
 import { extendTheme } from '@mui/joy'
 
 export const theme = extendTheme({
+  components: {
+    JoyButton: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            '--Button-paddingBlock': '8px',
+            [theme.breakpoints.down('md')]: {
+              '--Button-paddingBlock': '10px',
+              paddingInline: '20px',
+            },
+          }),
+          ...(ownerState.size === 'lg' && {
+            fontSize: '14px',
+            '--Icon-fontSize': '20px',
+          }),
+        }),
+      },
+    },
+  },
   colorSchemes: {
     light: {
       palette: {

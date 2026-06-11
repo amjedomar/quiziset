@@ -3,36 +3,25 @@ $navbarTop: 16px;
 $bottomSpace: 48px;
 
 .spacer {
-  height: $navbarHeight + $navbarTop + $bottomSpace;
-
-  @media (max-width: 3540px) {
-    height: $navbarHeight + $bottomSpace;
-  }
+  height: $navbarHeight + $bottomSpace;
 }
 
 .navbar {
   position: fixed;
-  top: $navbarTop;
+  top: 0;
   width: 100%;
-  max-width: 1500px;
+  max-width: none;
   left: 50%;
   transform: translateX(-50%);
   padding: 12px 0;
   border-radius: 16px;
+  border-radius: 0;
   height: $navbarHeight;
-  border: 1px solid #E0E0E0;
-
-  @media (max-width: 3540px) {
-    max-width: none;
-    top: 0;
-    border-radius: 0;
-    border: none;
-  }
-
+  border: none;
 }
 
 .navbarInner {
-  display: flex !important;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -41,15 +30,26 @@ $bottomSpace: 48px;
   flex-grow: 1;
 }
 
-.linksWrapper {
-
-}
-
 .appName {
   line-height: 1.4;
   font-size: 24px;
   font-weight: 600;
   text-decoration: none;
   color: $color-primary-500;
-  margin-right: 16px;
+  margin-right: 12px;
+}
+
+.desktopNav,
+.desktopAuth {
+  @media ($max-screen-md) {
+    display: none;
+  }
+}
+
+.mobileMenuButton {
+  display: none;
+
+  @media ($max-screen-md) {
+    display: inline-flex;
+  }
 }

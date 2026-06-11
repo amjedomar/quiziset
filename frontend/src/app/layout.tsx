@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google'
 import '@/app/globals.css'
 import { AppProvider } from '@/app/app-provider'
 import Navbar from '@/components/navbar/navbar'
+import { Footer } from '@/components/footer'
 
 const inter = Geist({
   variable: '--font-inter',
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Navbar />
           {children}
         </AppProvider>
+        <Footer />
       </body>
     </html>
   )

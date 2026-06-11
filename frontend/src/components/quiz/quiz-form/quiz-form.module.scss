@@ -7,3 +7,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}

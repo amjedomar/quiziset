@@ -111,12 +111,12 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             />
           ))}
 
-          <Stack direction="row" spacing={2}>
+          <div className={styles.footerActions}>
             <NewQuestionAction onCreate={(questionType) => addQuestion({ ...defaultQuestion, questionType })} />
             <Button variant="soft" startDecorator={<SaveIcon />} type="submit">
               Create Quiz
             </Button>
-          </Stack>
+          </div>
         </Stack>
       </form>
     </FormProvider>

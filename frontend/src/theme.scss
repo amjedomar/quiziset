@@ -12,6 +12,9 @@ $color-primary-900: #1e263d;
 
 // media breakpoints
 $screen-sm: 600px;
+$screen-md: 900px;
 
 $min-screen-sm: "(min-width: #{$screen-sm})";
 $max-screen-sm: "(max-width: #{$screen-sm - 1px})";
+$min-screen-md: "(min-width: #{$screen-md})";
+$max-screen-md: "(max-width: #{$screen-md - 1px})";
