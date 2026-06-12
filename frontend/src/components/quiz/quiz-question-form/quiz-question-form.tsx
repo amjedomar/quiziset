@@ -170,6 +170,13 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
           <Stack spacing={1}>
             <FormLabel>Answers</FormLabel>
 
+            {/*
+              In case no answers are selected.
+              Then zod validation will set the error on the first answer's "isCorrect" field
+              This is why we set the path to the first answer's "isCorrect" field
+            */}
+            <FormFieldError name={`${questionFieldName}.answers.0.isCorrect`} />
+
             {isReorderQuestion ? (
               <DragDropProvider onDragEnd={handleAnswerDragEnd}>
                 <Stack spacing={1}>
@@ -189,12 +196,14 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
                         <FormCheckbox
                           name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
                           slotProps={{ input: { tabIndex: -1 } }}
+                          disableErrorState
                         />
                       ) : (
                         <FormRadio
                           name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
                           slotProps={{ input: { tabIndex: -1 } }}
                           onChange={() => handleRadioSelect(answerIndex)}
+                          disableErrorState
                         />
                       )}
                     </div>
@@ -205,8 +214,6 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
               ))
             )}
           </Stack>
-
-          <FormFieldError name={`${questionFieldName}.answers`} />
         </FormControl>
       </Stack>
     </Sheet>

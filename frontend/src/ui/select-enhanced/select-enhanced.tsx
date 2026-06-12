@@ -11,6 +11,7 @@ export interface SelectEnhancedOption {
 export interface SelectEnhancedProps<Multiple extends boolean> extends SelectProps<string, Multiple> {
   options: SelectEnhancedOption[]
   decoratorStyle?: CSSProperties
+  hideSelectedOptionLabel?: boolean
 }
 
 /**
@@ -21,6 +22,7 @@ export interface SelectEnhancedProps<Multiple extends boolean> extends SelectPro
 export function SelectEnhanced<Multiple extends boolean>({
   options,
   decoratorStyle,
+  hideSelectedOptionLabel,
   ...selectProps
 }: SelectEnhancedProps<Multiple>) {
   const renderSelectedOption = useCallback(
@@ -38,11 +40,11 @@ export function SelectEnhanced<Multiple extends boolean>({
       return (
         <>
           {decorator && <ListItemDecorator style={decoratorStyle}>{decorator}</ListItemDecorator>}
-          {selectedOption.label}
+          {!hideSelectedOptionLabel && selectedOption.label}
         </>
       )
     },
-    [options, decoratorStyle],
+    [options, decoratorStyle, hideSelectedOptionLabel],
   )
 
   return (

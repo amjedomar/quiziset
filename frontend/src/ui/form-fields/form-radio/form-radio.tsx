@@ -5,14 +5,16 @@ interface FormRadioProps extends Omit<RadioProps, 'checked' | 'onChange'> {
   name: string
   label?: string
   onChange?: RadioProps['onChange']
+  disableErrorState?: boolean
 }
 
-export function FormRadio({ name, label, onChange, ...radioProps }: FormRadioProps) {
+export function FormRadio({ name, label, onChange, disableErrorState, ...radioProps }: FormRadioProps) {
   return (
     <FormControlField
       name={name}
       label={label}
       defaultValue={false}
+      disableErrorState={disableErrorState}
       renderField={({ field: { value, onChange: fieldOnChange, ...fieldProps } }) => (
         <Radio
           {...radioProps}

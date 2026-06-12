@@ -77,7 +77,7 @@ export default function Navbar() {
               Quiziset
             </Link>
 
-            <Stack className={styles.desktopNav} direction="row" spacing={0.75}>
+            <Stack className={styles.desktopNav} direction="row" spacing={2}>
               {NAV_LINKS.map((link) => (
                 <NavLinkButton key={link.href} {...link} />
               ))}

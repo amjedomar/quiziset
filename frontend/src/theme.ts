@@ -1,6 +1,15 @@
 import { extendTheme } from '@mui/joy'
 
 export const theme = extendTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   components: {
     JoyButton: {
       styleOverrides: {

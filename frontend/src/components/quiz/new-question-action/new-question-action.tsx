@@ -23,6 +23,7 @@ export default function NewQuestionAction({ onCreate }: NewQuestionActionProps) 
         style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
         value={questionType}
         onChange={setQuestionType}
+        hideSelectedOptionLabel
       />
     </Stack>
   )

@@ -18,6 +18,8 @@ $bottomSpace: 48px;
   border-radius: 0;
   height: $navbarHeight;
   border: none;
+  background-color: #fff;
+  z-index: 1024;
 }
 
 .navbarInner {
@@ -36,7 +38,12 @@ $bottomSpace: 48px;
   font-weight: 600;
   text-decoration: none;
   color: $color-primary-500;
-  margin-right: 12px;
+}
+
+.desktopNav {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .desktopNav,

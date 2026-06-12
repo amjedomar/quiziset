@@ -26,17 +26,26 @@ const questionSchema = z
     answers: z.array(answerSchema).min(2, 'Please provide at least two answers'),
   })
   .superRefine((data, ctx) => {
-    if (data.questionType !== QuestionType.Checkbox && data.questionType !== QuestionType.Radio) {
-      return
-    }
+    if (data.questionType === QuestionType.Checkbox || data.questionType === QuestionType.Radio) {
+      const hasCorrectAnswer = data.answers.some((answer) => answer.isCorrect === true)
 
-    const hasCorrectAnswer = data.answers.some((answer) => answer.isCorrect === true)
-    if (!hasCorrectAnswer) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Please select at least one correct answer',
-        path: ['answers'],
-      })
+      if (!hasCorrectAnswer) {
+        const errorMessage =
+          data.questionType === QuestionType.Checkbox
+            ? 'Please select at least one correct answer'
+            : 'Please select the correct answer'
+
+        ctx.addIssue({
+          code: 'custom',
+          message: errorMessage,
+          /**
+           * set the path to the first answer's "isCorrect" field (which is Checkbox or Radio)
+           * this will make sure that this checkbox/radio is focused when the error is shown
+           * Therefore it will scroll to it
+           */
+          path: ['answers.0.isCorrect'],
+        })
+      }
     }
   })
 

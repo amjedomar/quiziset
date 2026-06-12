@@ -26,14 +26,23 @@ interface QuestionTypeSelectProps extends Omit<SelectEnhancedProps<false>, 'opti
   onChange?: (newValue: QuestionType) => void
 }
 
-export function QuestionTypeSelect({ formFieldName, onChange, ...restProps }: QuestionTypeSelectProps) {
+export function QuestionTypeSelect({
+  formFieldName,
+  onChange,
+  hideSelectedOptionLabel,
+  ...restProps
+}: QuestionTypeSelectProps) {
   const selectProps: SelectEnhancedProps<false> = {
     ...restProps,
     options: QUESTION_TYPES,
-    style: { ...restProps.style, width: 150 },
+    style: { ...restProps.style, width: hideSelectedOptionLabel ? 70 : 150 },
     decoratorStyle: { ...restProps.decoratorStyle, minWidth: 27, fontSize: 20 },
     onChange: (_, value) => onChange?.(value as QuestionType),
   }
 
-  return formFieldName ? <FormSelect {...selectProps} name={formFieldName} /> : <SelectEnhanced {...selectProps} />
+  return formFieldName ? (
+    <FormSelect {...selectProps} name={formFieldName} />
+  ) : (
+    <SelectEnhanced {...selectProps} hideSelectedOptionLabel={hideSelectedOptionLabel} />
+  )
 }

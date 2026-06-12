@@ -7,9 +7,10 @@ interface FormFieldProps {
   label?: string
   defaultValue: unknown
   renderField: ControllerProps['render']
+  disableErrorState?: boolean
 }
 
-export function FormControlField({ name, label, renderField, defaultValue }: FormFieldProps) {
+export function FormControlField({ name, label, renderField, defaultValue, disableErrorState }: FormFieldProps) {
   const { control } = useFormContext()
 
   return (
@@ -22,10 +23,10 @@ export function FormControlField({ name, label, renderField, defaultValue }: For
         const errorMessage = fieldState.error?.message
 
         return (
-          <FormControl error={fieldState.invalid}>
+          <FormControl error={!disableErrorState && fieldState.invalid}>
             {label && <FormLabel>{label}</FormLabel>}
             {renderField(renderData)}
-            {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
+            {!disableErrorState && errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
           </FormControl>
         )
       }}
