@@ -1,5 +1,5 @@
 import { Radio, RadioProps } from '@mui/joy'
-import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
 
 interface FormRadioProps extends Omit<RadioProps, 'checked' | 'onChange'> {
   name: string
@@ -10,7 +10,7 @@ interface FormRadioProps extends Omit<RadioProps, 'checked' | 'onChange'> {
 
 export function FormRadio({ name, label, onChange, disableErrorState, ...radioProps }: FormRadioProps) {
   return (
-    <FormControlField
+    <FormFieldCore
       name={name}
       label={label}
       defaultValue={false}

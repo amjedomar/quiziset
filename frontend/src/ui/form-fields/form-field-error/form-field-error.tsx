@@ -15,7 +15,7 @@ interface FormFieldErrorProps {
  * But use it only for general fields only (e.g. an "answers" array that requires at least one correct answer)
  * 
  * However, for error that is related to a single input only
- * Then use the "FormControlField" component instead (as it automatically handles the error message for the input)
+ * Then use the "FormFieldCore" component instead (as it automatically handles the error message for the input)
  */
 export function FormFieldError({ name }: FormFieldErrorProps) {
   const { getFieldState } = useFormContext()

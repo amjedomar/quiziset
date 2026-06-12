@@ -2,7 +2,7 @@ import { FormControl, FormHelperText, FormLabel } from '@mui/joy'
 import { Controller, useFormContext } from 'react-hook-form'
 import { ControllerProps } from 'react-hook-form'
 
-interface FormFieldProps {
+interface FormFieldCoreProps {
   name: string
   label?: string
   defaultValue: unknown
@@ -10,7 +10,14 @@ interface FormFieldProps {
   disableErrorState?: boolean
 }
 
-export function FormControlField({ name, label, renderField, defaultValue, disableErrorState }: FormFieldProps) {
+/**
+ * This is the core component for all form fields:
+ * 
+ * - It is used to register the field to the form context
+ * - Displays label
+ * - Error message is the field is invalid
+ */
+export function FormFieldCore({ name, label, renderField, defaultValue, disableErrorState }: FormFieldCoreProps) {
   const { control } = useFormContext()
 
   return (

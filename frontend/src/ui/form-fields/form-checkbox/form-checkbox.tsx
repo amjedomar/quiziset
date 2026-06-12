@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxProps } from '@mui/joy'
-import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
 
 interface FormCheckboxProps extends Omit<CheckboxProps, 'checked' | 'onChange'> {
   name: string
@@ -9,7 +9,7 @@ interface FormCheckboxProps extends Omit<CheckboxProps, 'checked' | 'onChange'> 
 
 export function FormCheckbox({ name, label, disableErrorState, ...checkboxProps }: FormCheckboxProps) {
   return (
-    <FormControlField
+    <FormFieldCore
       name={name}
       label={label}
       defaultValue={false}

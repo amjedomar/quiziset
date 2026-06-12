@@ -1,4 +1,4 @@
-import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
 import { ReactNode } from 'react'
 import { SelectEnhanced, SelectEnhancedProps } from '@/ui/select-enhanced'
 
@@ -22,7 +22,7 @@ export function FormSelect<Multiple extends boolean>({
   ...selectProps
 }: FormSelectProps<Multiple>) {
   return (
-    <FormControlField
+    <FormFieldCore
       name={name}
       label={label}
       defaultValue=""

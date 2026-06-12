@@ -1,5 +1,5 @@
 import { Textarea, TextareaProps } from '@mui/joy'
-import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
 
 interface FormTextareaProps extends TextareaProps {
   name: string
@@ -8,7 +8,7 @@ interface FormTextareaProps extends TextareaProps {
 
 export function FormTextarea({ name, label, placeholder, slotProps, ...inputProps }: FormTextareaProps) {
   return (
-    <FormControlField
+    <FormFieldCore
       name={name}
       label={label}
       defaultValue=""

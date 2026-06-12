@@ -1,5 +1,5 @@
 import { Input, InputProps } from '@mui/joy'
-import { FormControlField } from '@/ui/form-fields/form-control-field'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
 import { mergeRefs } from '@/utils/merge-refs'
 import { Ref } from 'react'
 
@@ -11,7 +11,7 @@ interface FormInputProps extends InputProps {
 
 export function FormInput({ name, label, placeholder, inputRef, slotProps, ...inputProps }: FormInputProps) {
   return (
-    <FormControlField
+    <FormFieldCore
       name={name}
       label={label}
       defaultValue=""
