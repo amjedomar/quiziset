@@ -1,7 +1,5 @@
 .formImage {
   background-color: var(--joy-palette-background-surface);
-  width: 195px;
-  height: 195px;
   border: 1px solid var(--joy-palette-neutral-outlinedBorder);
   border-radius: var(--joy-radius-sm);
   color: var(--joy-palette-neutral-outlinedColor);
@@ -9,6 +7,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.sm {
+  width: 100px;
+  height: 100px;
+}
+
+.md {
+  width: 195px;
+  height: 195px;
 }
 
 .formImageError {

@@ -3,6 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { ControllerProps } from 'react-hook-form'
 
 interface FormFieldCoreProps {
+  formControlClassName?: string
   name: string
   label?: string
   defaultValue: unknown
@@ -12,16 +13,24 @@ interface FormFieldCoreProps {
 
 /**
  * This is the core component for all form fields:
- * 
+ *
  * - It is used to register the field to the form context
  * - Displays label
  * - Error message is the field is invalid
  */
-export function FormFieldCore({ name, label, renderField, defaultValue, disableErrorState }: FormFieldCoreProps) {
+export function FormFieldCore({
+  formControlClassName,
+  name,
+  label,
+  renderField,
+  defaultValue,
+  disableErrorState,
+}: FormFieldCoreProps) {
   const { control } = useFormContext()
 
   return (
     <Controller
+      
       name={name}
       control={control}
       defaultValue={defaultValue}
@@ -30,7 +39,7 @@ export function FormFieldCore({ name, label, renderField, defaultValue, disableE
         const errorMessage = fieldState.error?.message
 
         return (
-          <FormControl error={!disableErrorState && fieldState.invalid}>
+          <FormControl className={formControlClassName} error={!disableErrorState && fieldState.invalid}>
             {label && <FormLabel>{label}</FormLabel>}
             {renderField(renderData)}
             {!disableErrorState && errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}

@@ -7,7 +7,7 @@ interface FormCheckboxProps extends Omit<CheckboxProps, 'checked' | 'onChange'> 
   disableErrorState?: boolean
 }
 
-export function FormCheckbox({ name, label, disableErrorState, ...checkboxProps }: FormCheckboxProps) {
+export function FormCheckbox({ name, label, disableErrorState, slotProps, ...checkboxProps }: FormCheckboxProps) {
   return (
     <FormFieldCore
       name={name}
@@ -19,7 +19,7 @@ export function FormCheckbox({ name, label, disableErrorState, ...checkboxProps 
           {...fieldProps}
           checked={!!value}
           onChange={(event) => onChange(event.target.checked)}
-          slotProps={{ input: { ref } }}
+          slotProps={{ ...slotProps, input: { ...slotProps?.input, ref } }}
         />
       )}
       disableErrorState={disableErrorState}

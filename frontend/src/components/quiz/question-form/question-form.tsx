@@ -2,15 +2,18 @@ import { FormInput } from '@/ui/form-fields/form-input'
 import { FormCheckbox } from '@/ui/form-fields/form-checkbox'
 import { FormRadio } from '@/ui/form-fields/form-radio'
 import { FormFieldError } from '@/ui/form-fields/form-field-error'
-import { SortableAnswerRow } from '@/components/quiz/quiz-question-form/sortable-answer-row'
+import { HandleRef, Sortable } from '@/ui/sortable'
 import { FormControl, FormLabel, IconButton, Sheet, Stack } from '@mui/joy'
 import DeleteIcon from '@mui/icons-material/Delete'
-import styles from './quiz-question-form.module.scss'
+import styles from './question-form.module.scss'
 import { QuestionType, QuestionTypeSelect } from '@/components/quiz/question-type-select'
 import { DragDropProvider, DragEndEvent } from '@dnd-kit/react'
 import { isSortableOperation } from '@dnd-kit/react/sortable'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { FormImage } from '@/ui/form-fields/form-image'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
+import clsx from 'clsx'
 
 interface QuizQuestionFormProps {
   questionFieldName: string
@@ -29,9 +32,6 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     name: `${questionFieldName}.questionType`,
   })
 
-  const isCheckboxOrRadioQuestion = questionType === QuestionType.Checkbox || questionType === QuestionType.Radio
-  const isReorderQuestion = questionType === QuestionType.Reorder
-
   const {
     fields: answers,
     append,
@@ -42,6 +42,10 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     name: `${questionFieldName}.answers`,
   })
 
+  /**
+   * This useEffect is used to focus the new answer input when
+   * a new answer is added via pressing the "Enter" key
+   */
   useEffect(() => {
     if (newAnswerFocusIndex === null) {
       return
@@ -51,6 +55,9 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     setNewAnswerFocusIndex(null)
   }, [newAnswerFocusIndex, answers.length])
 
+  /**
+   * This callback handle shortcuts for the answer input
+   */
   const handleAnswerKeyDown = useCallback(
     (answerIndex: number, event: React.KeyboardEvent<HTMLInputElement>) => {
       const value = event.currentTarget.value
@@ -85,6 +92,10 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     [answers.length, append, remove],
   )
 
+  /**
+   * Once the drag ends, this callback updates the order of "answers"
+   * in react-hook-form (by using the "move" method)
+   */
   const handleAnswerDragEnd = useCallback(
     (event: DragEndEvent) => {
       if (event.canceled || !isSortableOperation(event.operation)) {
@@ -108,11 +119,22 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     [move],
   )
 
+  /**
+   * This callback renders
+   * - the answer input
+   * - the answer image (in case of QuestionType.Cards)
+   * - the delete button
+   */
   const renderAnswerRowContent = useCallback(
     (answerIndex: number) => (
       <>
-        <div className={styles.answerInput}>
+        <div className={styles.answerInputWrapper}>
+          {questionType === QuestionType.Cards && (
+            <FormImage name={`${questionFieldName}.answers.${answerIndex}.image`} boxSize="sm" />
+          )}
+
           <FormInput
+            formControlClassName={styles.answerInput}
             name={`${questionFieldName}.answers.${answerIndex}.text`}
             placeholder={`Answer ${answerIndex + 1}`}
             inputRef={(element) => {
@@ -129,7 +151,6 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
         <IconButton
           color="danger"
           size="sm"
-          sx={{ ml: 0.75 }}
           disabled={answers.length <= 2}
           onClick={() => remove(answerIndex)}
           tabIndex={-1}
@@ -138,9 +159,15 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
         </IconButton>
       </>
     ),
-    [answers.length, handleAnswerKeyDown, questionFieldName, remove],
+    [answers.length, handleAnswerKeyDown, questionFieldName, questionType, remove],
   )
 
+  /**
+   * Radios are a special case.
+   * Their value change must be handled here (in the parent component)
+   *
+   * Because in group of radios, only one radio should be selected at a time
+   */
   const handleRadioSelect = useCallback(
     (answerIndex: number) => {
       answers.forEach((_, currentIndex) => {
@@ -150,6 +177,30 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
     [answers, questionFieldName, setValue],
   )
 
+  /**
+   * This callback renders the drag handle for the answer row
+   */
+  const renderSortableHandle = useCallback(
+    (handleRef: HandleRef) => (
+      <div className={clsx(styles.correctSelector, styles.dragHandle)}>
+        <IconButton
+          ref={handleRef}
+          size="sm"
+          variant="plain"
+          color="neutral"
+          tabIndex={-1}
+          sx={{ cursor: 'grab', mt: 0.25 }}
+        >
+          <DragIndicatorIcon />
+        </IconButton>
+      </div>
+    ),
+    [],
+  )
+
+  /**
+   * This component renders the entire form for a quiz question
+   */
   return (
     <Sheet className={styles.sheet} sx={{ boxShadow: 'md' }} style={{ padding: 0 }}>
       <div className={styles.header}>
@@ -177,40 +228,44 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
             */}
             <FormFieldError name={`${questionFieldName}.answers.0.isCorrect`} />
 
-            {isReorderQuestion ? (
+            {questionType === QuestionType.Reorder ? (
               <DragDropProvider onDragEnd={handleAnswerDragEnd}>
                 <Stack spacing={1}>
                   {answers.map((answer, answerIndex) => (
-                    <SortableAnswerRow key={answer.id} id={answer.id} index={answerIndex}>
+                    <Sortable
+                      className={styles.answerRow}
+                      key={answer.id}
+                      id={answer.id}
+                      index={answerIndex}
+                      renderHandle={renderSortableHandle}
+                    >
                       {renderAnswerRowContent(answerIndex)}
-                    </SortableAnswerRow>
+                    </Sortable>
                   ))}
                 </Stack>
               </DragDropProvider>
             ) : (
               answers.map((answer, answerIndex) => (
-                <Stack key={answer.id} direction="row" alignItems="flex-start" spacing={1}>
-                  {isCheckboxOrRadioQuestion && (
-                    <div className={styles.correctSelector}>
-                      {questionType === QuestionType.Checkbox ? (
-                        <FormCheckbox
-                          name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
-                          slotProps={{ input: { tabIndex: -1 } }}
-                          disableErrorState
-                        />
-                      ) : (
-                        <FormRadio
-                          name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
-                          slotProps={{ input: { tabIndex: -1 } }}
-                          onChange={() => handleRadioSelect(answerIndex)}
-                          disableErrorState
-                        />
-                      )}
-                    </div>
-                  )}
+                <div key={answer.id} className={styles.answerRow}>
+                  <div className={styles.correctSelector}>
+                    {questionType === QuestionType.Radio ? (
+                      <FormRadio
+                        name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
+                        slotProps={{ input: { tabIndex: -1 } }}
+                        onChange={() => handleRadioSelect(answerIndex)}
+                        disableErrorState
+                      />
+                    ) : (
+                      <FormCheckbox
+                        name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
+                        slotProps={{ input: { tabIndex: -1 } }}
+                        disableErrorState
+                      />
+                    )}
+                  </div>
 
                   {renderAnswerRowContent(answerIndex)}
-                </Stack>
+                </div>
               ))
             )}
           </Stack>

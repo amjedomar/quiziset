@@ -5,17 +5,18 @@ import clsx from 'clsx'
 
 interface FormImageProps {
   name: string
-  label: string
+  label?: string
+  boxSize?: 'sm' | 'md'
 }
 
-export function FormImage({ name, label }: FormImageProps) {
+export function FormImage({ name, label, boxSize = 'md' }: FormImageProps) {
   return (
     <FormFieldCore
       name={name}
       label={label}
       defaultValue=""
       renderField={({ fieldState: { invalid } }) => (
-        <div className={clsx(styles.formImage, { [styles.formImageError]: invalid })}>
+        <div className={clsx(styles.formImage, styles[boxSize], { [styles.formImageError]: invalid })}>
           <AddOutlinedIcon className={styles.icon} />
         </div>
       )}

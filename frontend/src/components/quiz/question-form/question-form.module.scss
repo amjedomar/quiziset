@@ -12,8 +12,25 @@
   justify-content: space-between;
 }
 
-.answerInput {
+.answerRow {
+  display: flex;
+  gap: 8px;
+}
+
+.answerInputWrapper {
   flex: 1;
+  display: flex;
+  gap: 8px;
+  min-width: 0; // to allow the answer input wrapper to shrink (in mobile screens)
+
+  @media ($max-screen-sm) {
+    flex-direction: column-reverse;
+    padding-bottom: 12px;
+  }
+}
+
+.answerInput {
+  flex-grow: 1;
   min-width: 0; // to allow the answer input to shrink (in mobile screens)
 }
 
@@ -22,6 +39,10 @@
   align-items: center;
   justify-content: center;
   width: 32px;
-  min-height: 32px;
+  height: 32px;
   margin-top: 2px;
+}
+
+.dragHandle {
+  margin-top: 0; // override the 2px margin-top of the correctSelector
 }

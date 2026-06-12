@@ -7,11 +7,21 @@ interface FormInputProps extends InputProps {
   name: string
   label?: string
   inputRef?: Ref<HTMLInputElement>
+  formControlClassName?: string
 }
 
-export function FormInput({ name, label, placeholder, inputRef, slotProps, ...inputProps }: FormInputProps) {
+export function FormInput({
+  name,
+  label,
+  placeholder,
+  inputRef,
+  slotProps,
+  formControlClassName,
+  ...inputProps
+}: FormInputProps) {
   return (
     <FormFieldCore
+      formControlClassName={formControlClassName}
       name={name}
       label={label}
       defaultValue=""

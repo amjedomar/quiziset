@@ -6,57 +6,13 @@ import { FormTextarea } from '@/ui/form-fields/form-textarea'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import SaveIcon from '@mui/icons-material/Save'
 import { useCallback } from 'react'
-import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormImage } from '@/ui/form-fields/form-image'
 import styles from './quiz-form.module.scss'
-import { QuizQuestionForm } from '@/components/quiz/quiz-question-form'
+import { QuizQuestionForm } from '@/components/quiz/question-form'
 import NewQuestionAction from '@/components/quiz/new-question-action/new-question-action'
 import { QuestionType } from '@/components/quiz/question-type-select'
-
-const answerSchema = z.object({
-  text: z.string().nonempty('Please enter answer text'),
-  isCorrect: z.boolean().optional(),
-})
-
-const questionSchema = z
-  .object({
-    title: z.string().nonempty('Please enter a question title'),
-    questionType: z.enum(QuestionType),
-    answers: z.array(answerSchema).min(2, 'Please provide at least two answers'),
-  })
-  .superRefine((data, ctx) => {
-    if (data.questionType === QuestionType.Checkbox || data.questionType === QuestionType.Radio) {
-      const hasCorrectAnswer = data.answers.some((answer) => answer.isCorrect === true)
-
-      if (!hasCorrectAnswer) {
-        const errorMessage =
-          data.questionType === QuestionType.Checkbox
-            ? 'Please select at least one correct answer'
-            : 'Please select the correct answer'
-
-        ctx.addIssue({
-          code: 'custom',
-          message: errorMessage,
-          /**
-           * set the path to the first answer's "isCorrect" field (which is Checkbox or Radio)
-           * this will make sure that this checkbox/radio is focused when the error is shown
-           * Therefore it will scroll to it
-           */
-          path: ['answers.0.isCorrect'],
-        })
-      }
-    }
-  })
-
-export const schema = z.object({
-  title: z.string().nonempty('Please enter a title'),
-  description: z.string().nonempty('Please enter a description'),
-  image: z.string().nonempty('Please upload an image'),
-  questions: z.array(questionSchema).min(1, 'Please add at least one question'),
-})
-
-type QuizData = z.infer<typeof schema>
+import { quizSchema, QuizData } from '@/components/quiz/quiz-form/quiz-schema'
 
 const defaultQuestion = {
   title: '',
@@ -76,7 +32,7 @@ interface QuizFormProps {
 
 export function QuizForm({ existingQuiz }: QuizFormProps) {
   const form = useForm<QuizData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(quizSchema),
     defaultValues: existingQuiz ?? { questions: [defaultQuestion] },
   })
 
