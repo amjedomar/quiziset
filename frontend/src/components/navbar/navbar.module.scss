@@ -38,12 +38,13 @@ $bottomSpace: 48px;
   font-weight: 600;
   text-decoration: none;
   color: $color-primary-500;
+  margin-right: 16px;
 }
 
 .desktopNav {
   display: flex;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: start;
 }
 
 .desktopNav,

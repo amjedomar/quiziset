@@ -63,7 +63,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
               <FormTextarea name="description" label="Description" minRows={4} maxRows={6} />
             </Stack>
 
-            <FormImage name="image" label="Image" />
+            <FormImage name="image" label="Image" bucketName="quizzes" />
           </div>
 
           {questions.map((question, index) => (

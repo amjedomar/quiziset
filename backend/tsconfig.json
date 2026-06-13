@@ -16,12 +16,19 @@
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
+    "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    /**
+     * we need to add "multer" to "types"
+     * so we can use "Express.Multer.File" type
+     * see https://stackoverflow.com/a/76733168/8148505
+     */
+    "types": ["node", "jest", "multer"]
   }
 }

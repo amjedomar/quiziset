@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaClient } from '@/generated/prisma/client'
 import { PrismaMariaDb } from '@prisma/adapter-mariadb'
-import process from 'node:process'
 
 /**
  * Check docs https://www.prisma.io/docs/orm/reference/error-reference

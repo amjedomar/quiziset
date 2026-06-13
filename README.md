@@ -23,6 +23,13 @@ cp .env.sample .env
 npm run dev
 ```
 
+During development to generate api client hooks then run the following in "frontend" directory:
+```shell
+# Important!!: make sure to run it inside the Docker container
+# OR update "API_OPENAPI_JSON_URL" to localhost if you want to run it in your local machine
+npm run generate:api-client
+```
+
 To stop docker containers run
 ```shell
 docker compose down

@@ -2,7 +2,6 @@
 // npm install --save-dev prisma dotenv
 import 'dotenv/config'
 import { defineConfig } from 'prisma/config'
-import * as process from 'node:process'
 
 const {
   DB_USER,

@@ -1,4 +1,5 @@
-.formImage {
+// wrapper classes
+.wrapper {
   background-color: var(--joy-palette-background-surface);
   border: 1px solid var(--joy-palette-neutral-outlinedBorder);
   border-radius: var(--joy-radius-sm);
@@ -7,24 +8,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.sm {
+.wrapperSm {
   width: 100px;
   height: 100px;
 }
 
-.md {
+.wrapperMd {
   width: 195px;
   height: 195px;
 }
 
-.formImageError {
+.wrapperInvalid {
   color: var(--joy-palette-danger-500);
   border-color: var(--joy-palette-danger-outlinedBorder);
 }
 
-.icon {
-  opacity: 0.64;
-  color: inherit;
+// inputLabel
+.inputLabel {
+  width: 100%;
+  height: 100%;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// preview mode classes (image & deleteButton)
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 6px;
+  right: 6px;
 }

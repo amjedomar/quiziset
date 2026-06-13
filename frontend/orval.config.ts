@@ -1,10 +1,10 @@
 import 'dotenv/config'
 import { defineConfig } from 'orval'
 
-const { API_BASE_URL, API_OPENAPI_JSON_URL } = process.env
+const { NEXT_PUBLIC_API_BASE_URL, API_OPENAPI_JSON_URL } = process.env
 
-if (!API_BASE_URL || !API_OPENAPI_JSON_URL) {
-  throw new Error('please specify API_BASE_URL & API_OPENAPI_JSON_URL in .env file');
+if (!NEXT_PUBLIC_API_BASE_URL || !API_OPENAPI_JSON_URL) {
+  throw new Error('please specify NEXT_PUBLIC_API_BASE_URL & API_OPENAPI_JSON_URL in .env file');
 }
 
 export default defineConfig({
@@ -12,7 +12,7 @@ export default defineConfig({
     input: API_OPENAPI_JSON_URL,
     output: {
       target: './src/api-client/quiziset.ts',
-      baseUrl: API_BASE_URL,
+      baseUrl: NEXT_PUBLIC_API_BASE_URL,
       mode: 'tags',
       schemas: './src/api-client/model',
       client: 'react-query',

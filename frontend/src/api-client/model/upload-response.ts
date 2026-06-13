@@ -6,8 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export * from './auth-token'
-export * from './login-dto'
-export * from './signup-dto'
-export * from './upload-body-dto'
-export * from './upload-response'
+export interface UploadResponse {
+  /** returns the url of the uploaded file */
+  url: string
+}

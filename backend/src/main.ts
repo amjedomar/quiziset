@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from '@/app.module'
 import { UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
-import process from 'node:process'
 
 const PORT = 4004
 const { FRONTEND_URL } = process.env

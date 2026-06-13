@@ -3,7 +3,6 @@ import { PrismaService } from '@/prisma.service'
 import { AuthService } from '@/modules/auth/auth.service'
 import { AuthController } from '@/modules/auth/auth.controller'
 import { JwtModule } from '@nestjs/jwt'
-import process from 'node:process'
 
 @Module({
   imports: [
