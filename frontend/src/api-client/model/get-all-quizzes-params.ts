@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type GetAllParams = {
+export type GetAllQuizzesParams = {
   /**
    * when true returns only quizzes managed by the current user
    */
