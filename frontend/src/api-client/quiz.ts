@@ -23,6 +23,10 @@ import type {
 
 import type { CreateQuizDto, GetAllQuizzesParams, QuizEntity, UpdateQuizDto } from './model'
 
+import { customFetch } from '../utils/orval-custom-fetch'
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
+
 export type getAllQuizzesResponse200 = {
   data: QuizEntity[]
   status: 200
@@ -45,6 +49,8 @@ export type getAllQuizzesResponseError = (getAllQuizzesResponse401 | getAllQuizz
   headers: Headers
 }
 
+export type getAllQuizzesResponse = getAllQuizzesResponseSuccess | getAllQuizzesResponseError
+
 export const getGetAllQuizzesUrl = (params?: GetAllQuizzesParams) => {
   const normalizedParams = new URLSearchParams()
 
@@ -56,53 +62,36 @@ export const getGetAllQuizzesUrl = (params?: GetAllQuizzesParams) => {
 
   const stringifiedParams = normalizedParams.toString()
 
-  return stringifiedParams.length > 0
-    ? `http://localhost:4004/quizzes?${stringifiedParams}`
-    : `http://localhost:4004/quizzes`
+  return stringifiedParams.length > 0 ? `/quizzes?${stringifiedParams}` : `/quizzes`
 }
 
 /**
  * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
  */
-export const getAllQuizzes = async (
-  params?: GetAllQuizzesParams,
-  options?: RequestInit,
-): Promise<getAllQuizzesResponseSuccess> => {
-  const res = await fetch(getGetAllQuizzesUrl(params), {
+export const getAllQuizzes = async (params?: GetAllQuizzesParams, options?: RequestInit) => {
+  return customFetch<getAllQuizzesResponse>(getGetAllQuizzesUrl(params), {
     ...options,
     method: 'GET',
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: getAllQuizzesResponseError['data']; status?: number } =
-      new globalThis.Error()
-    const data: getAllQuizzesResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: getAllQuizzesResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getAllQuizzesResponseSuccess
 }
 
 export const getGetAllQuizzesQueryKey = (params?: GetAllQuizzesParams) => {
-  return [`http://localhost:4004/quizzes`, ...(params ? [params] : [])] as const
+  return [`/quizzes`, ...(params ? [params] : [])] as const
 }
 
 export const getGetAllQuizzesQueryOptions = <TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
 ) => {
-  const { query: queryOptions, fetch: fetchOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getGetAllQuizzesQueryKey(params)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllQuizzes>>> = ({ signal }) =>
-    getAllQuizzes(params, { signal, ...fetchOptions })
+    getAllQuizzes(params, { signal, ...requestOptions })
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getAllQuizzes>>,
@@ -126,7 +115,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
         >,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -142,7 +131,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
         >,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -150,7 +139,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -162,7 +151,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -202,51 +191,39 @@ export type createQuizResponseError = (createQuizResponse401 | createQuizRespons
   headers: Headers
 }
 
+export type createQuizResponse = createQuizResponseSuccess | createQuizResponseError
+
 export const getCreateQuizUrl = () => {
-  return `http://localhost:4004/quizzes`
+  return `/quizzes`
 }
 
 /**
  * @summary create a new quiz
  */
-export const createQuiz = async (
-  createQuizDto: CreateQuizDto,
-  options?: RequestInit,
-): Promise<createQuizResponseSuccess> => {
-  const res = await fetch(getCreateQuizUrl(), {
+export const createQuiz = async (createQuizDto: CreateQuizDto, options?: RequestInit) => {
+  return customFetch<createQuizResponse>(getCreateQuizUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createQuizDto),
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: createQuizResponseError['data']; status?: number } = new globalThis.Error()
-    const data: createQuizResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: createQuizResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createQuizResponseSuccess
 }
 
 export const getCreateQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
   const mutationKey = ['createQuiz']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof createQuiz>>, { data: CreateQuizDto }> = (props) => {
     const { data } = props ?? {}
 
-    return createQuiz(data, fetchOptions)
+    return createQuiz(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -262,7 +239,7 @@ export type CreateQuizMutationError = void
 export const useCreateQuiz = <TError = void, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
@@ -299,49 +276,39 @@ export type getSingleQuizResponseError = (
   headers: Headers
 }
 
+export type getSingleQuizResponse = getSingleQuizResponseSuccess | getSingleQuizResponseError
+
 export const getGetSingleQuizUrl = (id: number) => {
-  return `http://localhost:4004/quizzes/${id}`
+  return `/quizzes/${id}`
 }
 
 /**
  * @summary get a quiz by id
  */
-export const getSingleQuiz = async (id: number, options?: RequestInit): Promise<getSingleQuizResponseSuccess> => {
-  const res = await fetch(getGetSingleQuizUrl(id), {
+export const getSingleQuiz = async (id: number, options?: RequestInit) => {
+  return customFetch<getSingleQuizResponse>(getGetSingleQuizUrl(id), {
     ...options,
     method: 'GET',
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: getSingleQuizResponseError['data']; status?: number } =
-      new globalThis.Error()
-    const data: getSingleQuizResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: getSingleQuizResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getSingleQuizResponseSuccess
 }
 
 export const getGetSingleQuizQueryKey = (id: number) => {
-  return [`http://localhost:4004/quizzes/${id}`] as const
+  return [`/quizzes/${id}`] as const
 }
 
 export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
 ) => {
-  const { query: queryOptions, fetch: fetchOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getGetSingleQuizQueryKey(id)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getSingleQuiz>>> = ({ signal }) =>
-    getSingleQuiz(id, { signal, ...fetchOptions })
+    getSingleQuiz(id, { signal, ...requestOptions })
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getSingleQuiz>>,
@@ -365,7 +332,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
         >,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -381,7 +348,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
         >,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -389,7 +356,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -401,7 +368,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -457,35 +424,22 @@ export type updateQuizResponseError = (
   headers: Headers
 }
 
+export type updateQuizResponse = updateQuizResponseSuccess | updateQuizResponseError
+
 export const getUpdateQuizUrl = (id: number) => {
-  return `http://localhost:4004/quizzes/${id}`
+  return `/quizzes/${id}`
 }
 
 /**
  * @summary update a quiz
  */
-export const updateQuiz = async (
-  id: number,
-  updateQuizDto: UpdateQuizDto,
-  options?: RequestInit,
-): Promise<updateQuizResponseSuccess> => {
-  const res = await fetch(getUpdateQuizUrl(id), {
+export const updateQuiz = async (id: number, updateQuizDto: UpdateQuizDto, options?: RequestInit) => {
+  return customFetch<updateQuizResponse>(getUpdateQuizUrl(id), {
     ...options,
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateQuizDto),
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: updateQuizResponseError['data']; status?: number } = new globalThis.Error()
-    const data: updateQuizResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: updateQuizResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateQuizResponseSuccess
 }
 
 export const getUpdateQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
@@ -495,7 +449,7 @@ export const getUpdateQuizMutationOptions = <TError = void, TContext = unknown>(
     { id: number; data: UpdateQuizDto },
     TContext
   >
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof updateQuiz>>,
   TError,
@@ -503,18 +457,18 @@ export const getUpdateQuizMutationOptions = <TError = void, TContext = unknown>(
   TContext
 > => {
   const mutationKey = ['updateQuiz']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateQuiz>>, { id: number; data: UpdateQuizDto }> = (
     props,
   ) => {
     const { id, data } = props ?? {}
 
-    return updateQuiz(id, data, fetchOptions)
+    return updateQuiz(id, data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -535,7 +489,7 @@ export const useUpdateQuiz = <TError = void, TContext = unknown>(
       { id: number; data: UpdateQuizDto },
       TContext
     >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof updateQuiz>>, TError, { id: number; data: UpdateQuizDto }, TContext> => {
@@ -578,46 +532,37 @@ export type deleteQuizResponseError = (
   headers: Headers
 }
 
+export type deleteQuizResponse = deleteQuizResponseSuccess | deleteQuizResponseError
+
 export const getDeleteQuizUrl = (id: number) => {
-  return `http://localhost:4004/quizzes/${id}`
+  return `/quizzes/${id}`
 }
 
 /**
  * @summary delete a quiz
  */
-export const deleteQuiz = async (id: number, options?: RequestInit): Promise<deleteQuizResponseSuccess> => {
-  const res = await fetch(getDeleteQuizUrl(id), {
+export const deleteQuiz = async (id: number, options?: RequestInit) => {
+  return customFetch<deleteQuizResponse>(getDeleteQuizUrl(id), {
     ...options,
     method: 'DELETE',
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: deleteQuizResponseError['data']; status?: number } = new globalThis.Error()
-    const data: deleteQuizResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: deleteQuizResponseSuccess['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteQuizResponseSuccess
 }
 
 export const getDeleteQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {
   const mutationKey = ['deleteQuiz']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteQuiz>>, { id: number }> = (props) => {
     const { id } = props ?? {}
 
-    return deleteQuiz(id, fetchOptions)
+    return deleteQuiz(id, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -633,7 +578,7 @@ export type DeleteQuizMutationError = void
 export const useDeleteQuiz = <TError = void, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {

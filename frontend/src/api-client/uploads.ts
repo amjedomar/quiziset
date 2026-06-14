@@ -23,6 +23,10 @@ import type {
 
 import type { UploadBodyDto, UploadResponse } from './model'
 
+import { customFetch } from '../utils/orval-custom-fetch'
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
+
 export type uploadResponse201 = {
   data: UploadResponse
   status: 201
@@ -45,8 +49,10 @@ export type uploadResponseError = (uploadResponse422 | uploadResponse500) & {
   headers: Headers
 }
 
+export type uploadResponse = uploadResponseSuccess | uploadResponseError
+
 export const getUploadUrl = (bucketName: 'quizzes' | 'profiles') => {
-  return `http://localhost:4004/uploads/${bucketName}`
+  return `/uploads/${bucketName}`
 }
 
 /**
@@ -56,26 +62,15 @@ export const upload = async (
   bucketName: 'quizzes' | 'profiles',
   uploadBodyDto: UploadBodyDto,
   options?: RequestInit,
-): Promise<uploadResponseSuccess> => {
+) => {
   const formData = new FormData()
   formData.append(`file`, uploadBodyDto.file)
 
-  const res = await fetch(getUploadUrl(bucketName), {
+  return customFetch<uploadResponse>(getUploadUrl(bucketName), {
     ...options,
     method: 'POST',
     body: formData,
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: uploadResponseError['data']; status?: number } = new globalThis.Error()
-    const data: uploadResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: uploadResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as uploadResponseSuccess
 }
 
 export const getUploadMutationOptions = <TError = void, TContext = unknown>(options?: {
@@ -85,7 +80,7 @@ export const getUploadMutationOptions = <TError = void, TContext = unknown>(opti
     { bucketName: 'quizzes' | 'profiles'; data: UploadBodyDto },
     TContext
   >
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<
   Awaited<ReturnType<typeof upload>>,
   TError,
@@ -93,11 +88,11 @@ export const getUploadMutationOptions = <TError = void, TContext = unknown>(opti
   TContext
 > => {
   const mutationKey = ['upload']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<
     Awaited<ReturnType<typeof upload>>,
@@ -105,7 +100,7 @@ export const getUploadMutationOptions = <TError = void, TContext = unknown>(opti
   > = (props) => {
     const { bucketName, data } = props ?? {}
 
-    return upload(bucketName, data, fetchOptions)
+    return upload(bucketName, data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -126,7 +121,7 @@ export const useUpload = <TError = void, TContext = unknown>(
       { bucketName: 'quizzes' | 'profiles'; data: UploadBodyDto },
       TContext
     >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<
@@ -159,37 +154,24 @@ export type getFileResponseError = (getFileResponse404 | getFileResponse500) & {
   headers: Headers
 }
 
+export type getFileResponse = getFileResponseSuccess | getFileResponseError
+
 export const getGetFileUrl = (bucketName: 'quizzes' | 'profiles', fileName: string) => {
-  return `http://localhost:4004/uploads/${bucketName}/${fileName}`
+  return `/uploads/${bucketName}/${fileName}`
 }
 
 /**
  * @summary returns file (e.g. image)
  */
-export const getFile = async (
-  bucketName: 'quizzes' | 'profiles',
-  fileName: string,
-  options?: RequestInit,
-): Promise<getFileResponseSuccess> => {
-  const res = await fetch(getGetFileUrl(bucketName, fileName), {
+export const getFile = async (bucketName: 'quizzes' | 'profiles', fileName: string, options?: RequestInit) => {
+  return customFetch<getFileResponse>(getGetFileUrl(bucketName, fileName), {
     ...options,
     method: 'GET',
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: getFileResponseError['data']; status?: number } = new globalThis.Error()
-    const data: getFileResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: getFileResponseSuccess['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as getFileResponseSuccess
 }
 
 export const getGetFileQueryKey = (bucketName: 'quizzes' | 'profiles', fileName: string) => {
-  return [`http://localhost:4004/uploads/${bucketName}/${fileName}`] as const
+  return [`/uploads/${bucketName}/${fileName}`] as const
 }
 
 export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
@@ -197,15 +179,15 @@ export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile
   fileName: string,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getFile>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
 ) => {
-  const { query: queryOptions, fetch: fetchOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {}
 
   const queryKey = queryOptions?.queryKey ?? getGetFileQueryKey(bucketName, fileName)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getFile>>> = ({ signal }) =>
-    getFile(bucketName, fileName, { signal, ...fetchOptions })
+    getFile(bucketName, fileName, { signal, ...requestOptions })
 
   return { queryKey, queryFn, enabled: !!(bucketName && fileName), ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getFile>>,
@@ -226,7 +208,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
         DefinedInitialDataOptions<Awaited<ReturnType<typeof getFile>>, TError, Awaited<ReturnType<typeof getFile>>>,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -239,7 +221,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
         UndefinedInitialDataOptions<Awaited<ReturnType<typeof getFile>>, TError, Awaited<ReturnType<typeof getFile>>>,
         'initialData'
       >
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -248,7 +230,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   fileName: string,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getFile>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -261,7 +243,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   fileName: string,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getFile>>, TError, TData>>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {

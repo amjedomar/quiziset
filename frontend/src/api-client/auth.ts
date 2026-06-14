@@ -10,6 +10,10 @@ import type { MutationFunction, QueryClient, UseMutationOptions, UseMutationResu
 
 import type { AuthToken, LoginDto, SignupDto } from './model'
 
+import { customFetch } from '../utils/orval-custom-fetch'
+
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
+
 export type signupResponse201 = {
   data: AuthToken
   status: 201
@@ -37,48 +41,39 @@ export type signupResponseError = (signupResponse400 | signupResponse422 | signu
   headers: Headers
 }
 
+export type signupResponse = signupResponseSuccess | signupResponseError
+
 export const getSignupUrl = () => {
-  return `http://localhost:4004/auth/signup`
+  return `/auth/signup`
 }
 
 /**
  * @summary Registers a new user
  */
-export const signup = async (signupDto: SignupDto, options?: RequestInit): Promise<signupResponseSuccess> => {
-  const res = await fetch(getSignupUrl(), {
+export const signup = async (signupDto: SignupDto, options?: RequestInit) => {
+  return customFetch<signupResponse>(getSignupUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(signupDto),
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: signupResponseError['data']; status?: number } = new globalThis.Error()
-    const data: signupResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: signupResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as signupResponseSuccess
 }
 
 export const getSignupMutationOptions = <TError = void, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext>
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext> => {
   const mutationKey = ['signup']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof signup>>, { data: SignupDto }> = (props) => {
     const { data } = props ?? {}
 
-    return signup(data, fetchOptions)
+    return signup(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -94,7 +89,7 @@ export type SignupMutationError = void
 export const useSignup = <TError = void, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext> => {
@@ -122,48 +117,39 @@ export type loginResponseError = (loginResponse401 | loginResponse500) & {
   headers: Headers
 }
 
+export type loginResponse = loginResponseSuccess | loginResponseError
+
 export const getLoginUrl = () => {
-  return `http://localhost:4004/auth/login`
+  return `/auth/login`
 }
 
 /**
  * @summary Logins User
  */
-export const login = async (loginDto: LoginDto, options?: RequestInit): Promise<loginResponseSuccess> => {
-  const res = await fetch(getLoginUrl(), {
+export const login = async (loginDto: LoginDto, options?: RequestInit) => {
+  return customFetch<loginResponse>(getLoginUrl(), {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(loginDto),
   })
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text()
-  if (!res.ok) {
-    const err: globalThis.Error & { info?: loginResponseError['data']; status?: number } = new globalThis.Error()
-    const data: loginResponseError['data'] = body ? JSON.parse(body) : {}
-    err.info = data
-    err.status = res.status
-    throw err
-  }
-  const data: loginResponseSuccess['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as loginResponseSuccess
 }
 
 export const getLoginMutationOptions = <TError = void, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext>
-  fetch?: RequestInit
+  request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext> => {
   const mutationKey = ['login']
-  const { mutation: mutationOptions, fetch: fetchOptions } = options
+  const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
-    : { mutation: { mutationKey }, fetch: undefined }
+    : { mutation: { mutationKey }, request: undefined }
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof login>>, { data: LoginDto }> = (props) => {
     const { data } = props ?? {}
 
-    return login(data, fetchOptions)
+    return login(data, requestOptions)
   }
 
   return { mutationFn, ...mutationOptions }
@@ -179,7 +165,7 @@ export type LoginMutationError = void
 export const useLogin = <TError = void, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext>
-    fetch?: RequestInit
+    request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext> => {
