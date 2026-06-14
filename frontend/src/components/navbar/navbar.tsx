@@ -13,9 +13,9 @@ import { ReactNode, useCallback, useState } from 'react'
 
 const NAV_LINKS = [
   { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
-  { href: '/my-quizzes', label: 'Manage Quizzes', icon: <BallotOutlinedIcon />, variant: 'plain' as const },
+  { href: '/manage-quizzes', label: 'Manage Quizzes', icon: <BallotOutlinedIcon />, variant: 'plain' as const },
   { href: '/bookmarks', label: 'Bookmarks', icon: <BookmarkIcon />, variant: 'plain' as const },
-  { href: '/my-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
+  { href: '/manage-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
 ]
 
 function UserAvatar() {

@@ -4,6 +4,7 @@ import { QuestionType } from '@/components/quiz/question-type-select'
 const answerSchema = z.object({
   text: z.string().nonempty('Please enter answer text'),
   isCorrect: z.boolean().optional(),
+  imageUrl: z.string().optional(),
 })
 
 const questionSchema = z
@@ -39,10 +40,10 @@ const questionSchema = z
 export const quizSchema = z.object({
   title: z.string().nonempty('Please enter a title'),
   description: z.string().nonempty('Please enter a description'),
-  image: z.string().nonempty('Please upload an image'),
+  imageUrl: z.string().nonempty('Please upload an image'),
   isPublic: z.boolean(),
   isAnalyticsEnabled: z.boolean(),
   questions: z.array(questionSchema),
 })
 
-export type QuizData = z.infer<typeof quizSchema>
+export type QuizFormData = z.infer<typeof quizSchema>

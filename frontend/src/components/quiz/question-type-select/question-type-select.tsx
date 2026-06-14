@@ -4,13 +4,20 @@ import QuestionRadioIcon from '@mui/icons-material/RadioButtonChecked'
 import QuestionReorderIcon from '@mui/icons-material/Loop'
 import QuestionCardsIcon from '@mui/icons-material/PaymentsOutlined'
 import { SelectEnhanced, SelectEnhancedProps } from '@/ui/select-enhanced'
+import { ValueOf } from '@/utils/typescript-utils'
 
-export enum QuestionType {
-  Checkbox = 'question-checkbox',
-  Radio = 'question-radio',
-  Reorder = 'question-reorder',
-  Cards = 'question-cards',
-}
+/**
+ * defined as an object (instead of a TS enum)
+ * so that this "QuestionType" can be assigned to orval's generated QuestionEntityQuestionType
+ */
+export const QuestionType = {
+  Checkbox: 'question-checkbox',
+  Radio: 'question-radio',
+  Reorder: 'question-reorder',
+  Cards: 'question-cards',
+} as const
+
+export type QuestionType = ValueOf<typeof QuestionType>
 
 type QuestionTypeOption = FormSelectOption & { value: QuestionType }
 

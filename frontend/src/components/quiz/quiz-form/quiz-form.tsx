@@ -12,8 +12,11 @@ import styles from './quiz-form.module.scss'
 import { QuizQuestionForm } from '@/components/quiz/question-form'
 import NewQuestionAction from '@/components/quiz/new-question-action/new-question-action'
 import { QuestionType } from '@/components/quiz/question-type-select'
-import { quizSchema, QuizData } from '@/components/quiz/quiz-form/quiz-schema'
+import { quizSchema, QuizFormData } from '@/components/quiz/quiz-form/quiz-schema'
 import { FormSwitch } from '@/ui/form-fields/form-switch'
+import { useCreateQuiz, useUpdateQuiz } from '@/api-client/quiz'
+import { useRouter } from 'next/navigation'
+import { QuizEntity } from '@/api-client/model'
 
 const defaultQuestion = {
   title: '',
@@ -28,12 +31,18 @@ interface QuizFormProps {
    *
    * Otherwise, if not passed it will behave as "Create" form
    */
-  existingQuiz?: QuizData
+  existingQuiz?: QuizEntity
 }
 
 export function QuizForm({ existingQuiz }: QuizFormProps) {
-  const form = useForm<QuizData>({
+  const router = useRouter()
+  const { mutateAsync: createQuiz } = useCreateQuiz()
+  const { mutateAsync: updateQuiz } = useUpdateQuiz()
+
+  const form = useForm<QuizFormData>({
     resolver: zodResolver(quizSchema),
+    // QuizEntity is a superset of QuizData (it adds e.g. id/managerId/createdAt/updatedAt)
+    // so it can be used directly as the form's default values
     defaultValues: existingQuiz ?? { questions: [defaultQuestion] },
   })
 
@@ -46,15 +55,24 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     name: 'questions',
   })
 
-  const onSubmit = useCallback((data: QuizData) => {
-    console.log('debugging quiz data', data)
-  }, [])
+  const onSubmit = useCallback(
+    async (data: QuizFormData) => {
+      if (existingQuiz) {
+        await updateQuiz({ id: existingQuiz.id, data })
+      } else {
+        await createQuiz({ data })
+      }
+
+      router.push('/manage-quizzes')
+    },
+    [existingQuiz, createQuiz, updateQuiz, router],
+  )
 
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Stack direction="column" spacing={3}>
-          <Typography level="h3">Create New Quiz</Typography>
+          <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
 
           <Stack alignItems="flex-start" direction="column" spacing={0.5}>
             <FormSwitch name="isPublic" label="Public" />
@@ -67,7 +85,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
               <FormTextarea name="description" label="Description" minRows={4} maxRows={6} />
             </Stack>
 
-            <FormImage name="image" label="Image" bucketName="quizzes" />
+            <FormImage name="imageUrl" label="Image" bucketName="quizzes" />
           </div>
 
           {questions.map((question, index) => (
@@ -83,7 +101,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
           <div className={styles.footerActions}>
             <NewQuestionAction onCreate={(questionType) => addQuestion({ ...defaultQuestion, questionType })} />
             <Button variant="soft" startDecorator={<SaveIcon />} type="submit">
-              Create Quiz
+              {existingQuiz ? 'Update Quiz' : 'Create Quiz'}
             </Button>
           </div>
         </Stack>

@@ -12,7 +12,7 @@ export default function Home() {
 
       <Typography sx={{ mb: 3 }} textAlign="center">
         Explore different quizzes to test your skills or{' '}
-        <Link component={NextLink} href="/my-quizzes/create" underline="always">
+        <Link component={NextLink} href="/manage-quizzes/create" underline="always">
           create your own quiz
         </Link>
       </Typography>
