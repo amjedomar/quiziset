@@ -18,7 +18,7 @@ export class QuizController {
   @IsPublic()
   @ApiOperation({ summary: 'get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)' })
   @ApiResponsesList({ status: 200, type: [QuizEntity] }, 401)
-  getAll(@Query() query: GetAllQuizzesQueryDto, @AuthUser() user?: AuthUserData): Promise<QuizEntity[]> {
+  getAllQuizzes(@Query() query: GetAllQuizzesQueryDto, @AuthUser() user?: AuthUserData): Promise<QuizEntity[]> {
     return this.quizService.getAll(query, user?.userId)
   }
 
@@ -26,21 +26,21 @@ export class QuizController {
   @IsPublic()
   @ApiOperation({ summary: 'get a quiz by id' })
   @ApiResponsesList({ status: 200, type: QuizEntity }, 403, 404)
-  get(@Param('id', ParseIntPipe) id: number, @AuthUser() user?: AuthUserData): Promise<QuizEntity> {
+  getSingleQuiz(@Param('id', ParseIntPipe) id: number, @AuthUser() user?: AuthUserData): Promise<QuizEntity> {
     return this.quizService.get(id, user?.userId)
   }
 
   @Post()
   @ApiOperation({ summary: 'create a new quiz' })
   @ApiResponsesList({ status: 201, type: QuizEntity }, 401, 422)
-  create(@Body() dto: CreateQuizDto, @AuthUser() user: AuthUserData): Promise<QuizEntity> {
+  createQuiz(@Body() dto: CreateQuizDto, @AuthUser() user: AuthUserData): Promise<QuizEntity> {
     return this.quizService.create(dto, user.userId)
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'update a quiz' })
   @ApiResponsesList({ status: 200, type: QuizEntity }, 401, 403, 404, 422)
-  update(
+  updateQuiz(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateQuizDto,
     @AuthUser() user: AuthUserData,
@@ -51,7 +51,7 @@ export class QuizController {
   @Delete(':id')
   @ApiOperation({ summary: 'delete a quiz' })
   @ApiResponsesList({ status: 200, description: 'quiz deleted' }, 401, 403, 404)
-  delete(@Param('id', ParseIntPipe) id: number, @AuthUser() user: AuthUserData): Promise<void> {
+  deleteQuiz(@Param('id', ParseIntPipe) id: number, @AuthUser() user: AuthUserData): Promise<void> {
     return this.quizService.delete(id, user.userId)
   }
 }

@@ -45,3 +45,10 @@ generate the Prisma Client
 ```shell
 npx prisma generate
 ```
+
+# Info during development
+*Method name in Controller (Backend)*
+In backend controllers e.g. in "quiz.controller.ts" make sure that the method
+name includes the resource name (e.g. name the method "createQuiz" instead of "create").
+Why? because it passed as value for the "operationId" in "http://localhost:4004/api-docs-json" response.
+which is then in frontend Orval use it to auto generate react hooks.
