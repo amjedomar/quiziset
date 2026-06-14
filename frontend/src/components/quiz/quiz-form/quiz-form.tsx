@@ -13,6 +13,7 @@ import { QuizQuestionForm } from '@/components/quiz/question-form'
 import NewQuestionAction from '@/components/quiz/new-question-action/new-question-action'
 import { QuestionType } from '@/components/quiz/question-type-select'
 import { quizSchema, QuizData } from '@/components/quiz/quiz-form/quiz-schema'
+import { FormSwitch } from '@/ui/form-fields/form-switch'
 
 const defaultQuestion = {
   title: '',
@@ -45,8 +46,6 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     name: 'questions',
   })
 
-  console.log('debugging questions', questions)
-
   const onSubmit = useCallback((data: QuizData) => {
     console.log('debugging quiz data', data)
   }, [])
@@ -56,6 +55,11 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Stack direction="column" spacing={3}>
           <Typography level="h3">Create New Quiz</Typography>
+
+          <Stack alignItems="flex-start" direction="column" spacing={0.5}>
+            <FormSwitch name="isPublic" label="Public" />
+            <FormSwitch name="isAnalyticsEnabled" label="Analytics" />
+          </Stack>
 
           <div className={styles.overviewSection}>
             <Stack direction="column" spacing={3}>

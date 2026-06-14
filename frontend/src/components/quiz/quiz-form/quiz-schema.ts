@@ -40,7 +40,9 @@ export const quizSchema = z.object({
   title: z.string().nonempty('Please enter a title'),
   description: z.string().nonempty('Please enter a description'),
   image: z.string().nonempty('Please upload an image'),
-  questions: z.array(questionSchema).min(1, 'Please add at least one question'),
+  isPublic: z.boolean(),
+  isAnalyticsEnabled: z.boolean(),
+  questions: z.array(questionSchema),
 })
 
 export type QuizData = z.infer<typeof quizSchema>
