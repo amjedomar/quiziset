@@ -4,13 +4,33 @@ generator client {
   moduleFormat = "cjs"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "mysql"
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(64)
-  email    String @unique @db.VarChar(255)
-  password String @db.VarChar(1024)
+  id             Int    @id @default(autoincrement())
+  name           String @db.VarChar(64)
+  email          String @unique @db.VarChar(255)
+  password       String @db.VarChar(1024)
+  managedQuizzes Quiz[]
+}
+
+model Quiz {
+  id                 Int      @id @default(autoincrement())
+  title              String   @db.VarChar(255)
+  description        String   @db.Text
+  imageUrl           String   @db.VarChar(1024)
+  isPublic           Boolean  @default(false)
+  isAnalyticsEnabled Boolean  @default(false)
+  /// [QuizQuestions]
+  questions          Json
+  managerId          Int
+  manager            User     @relation(fields: [managerId], references: [id])
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 }

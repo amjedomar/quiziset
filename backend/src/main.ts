@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from '@/app.module'
-import { UnprocessableEntityException, ValidationPipe } from '@nestjs/common'
+import { ValidationPipe } from '@nestjs/common'
 
 const PORT = 4004
 const { FRONTEND_URL } = process.env
@@ -20,6 +20,10 @@ async function bootstrap(): Promise<void> {
     .setDescription('The RESTful APIs Docs for the Quiziset app')
     .setVersion('1.0')
     .addBearerAuth()
+    .addGlobalResponse({
+      status: 500,
+      description: 'Internal Server Error',
+    })
     .build()
 
   const document = SwaggerModule.createDocument(app, options, {
@@ -30,15 +34,7 @@ async function bootstrap(): Promise<void> {
   // Validation
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: (errors) => {
-        const formatted: Record<string, string[]> = {}
-
-        errors.forEach((error) => {
-          formatted[error.property] = Object.values(error.constraints ?? {})
-        })
-
-        return new UnprocessableEntityException({ errors: formatted })
-      },
+      errorHttpStatusCode: 422,
     }),
   )
 
