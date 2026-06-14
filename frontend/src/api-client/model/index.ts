@@ -6,8 +6,18 @@
  * OpenAPI spec version: 1.0
  */
 
+export * from './answer-dto'
+export * from './answer-entity'
 export * from './auth-token'
+export * from './create-quiz-dto'
+export * from './get-all-params'
 export * from './login-dto'
+export * from './question-dto-question-type'
+export * from './question-dto'
+export * from './question-entity-question-type'
+export * from './question-entity'
+export * from './quiz-entity'
 export * from './signup-dto'
+export * from './update-quiz-dto'
 export * from './upload-body-dto'
 export * from './upload-response'

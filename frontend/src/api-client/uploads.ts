@@ -33,10 +33,15 @@ export type uploadResponse422 = {
   status: 422
 }
 
+export type uploadResponse500 = {
+  data: void
+  status: 500
+}
+
 export type uploadResponseSuccess = uploadResponse201 & {
   headers: Headers
 }
-export type uploadResponseError = uploadResponse422 & {
+export type uploadResponseError = (uploadResponse422 | uploadResponse500) & {
   headers: Headers
 }
 
@@ -142,10 +147,15 @@ export type getFileResponse404 = {
   status: 404
 }
 
+export type getFileResponse500 = {
+  data: void
+  status: 500
+}
+
 export type getFileResponseSuccess = getFileResponse200 & {
   headers: Headers
 }
-export type getFileResponseError = getFileResponse404 & {
+export type getFileResponseError = (getFileResponse404 | getFileResponse500) & {
   headers: Headers
 }
 

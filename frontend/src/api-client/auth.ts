@@ -25,10 +25,15 @@ export type signupResponse422 = {
   status: 422
 }
 
+export type signupResponse500 = {
+  data: void
+  status: 500
+}
+
 export type signupResponseSuccess = signupResponse201 & {
   headers: Headers
 }
-export type signupResponseError = (signupResponse400 | signupResponse422) & {
+export type signupResponseError = (signupResponse400 | signupResponse422 | signupResponse500) & {
   headers: Headers
 }
 
@@ -105,10 +110,15 @@ export type loginResponse401 = {
   status: 401
 }
 
+export type loginResponse500 = {
+  data: void
+  status: 500
+}
+
 export type loginResponseSuccess = loginResponse200 & {
   headers: Headers
 }
-export type loginResponseError = loginResponse401 & {
+export type loginResponseError = (loginResponse401 | loginResponse500) & {
   headers: Headers
 }
 
