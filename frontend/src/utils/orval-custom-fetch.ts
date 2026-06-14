@@ -23,9 +23,6 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
   return c.text() as Promise<T>
 }
 
-// 2xx success status codes (used to exclude "error types" from the return type)
-type SuccessStatus = 200 | 201 | 204
-
 /**
  * The code of this function is inspired by
  * https://github.com/orval-labs/orval/blob/master/samples/next-app-with-fetch/custom-fetch.ts
@@ -47,34 +44,7 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
     headers: requestHeaders,
   })
 
-  if (!response.ok) {
-    /**
-     * Throw error responses (so it is handled separately in the "catch" block)
-     *
-     * IMPORTANT!!: This is the reason why
-     * below (at the end of this function) we extract success responses only
-     */
-    throw response
-  }
-
   const data = await getBody<T>(response)
 
-  /**
-   * Orval's builtin fetch has an option "forceSuccessResponse"
-   * see https://orval.dev/docs/reference/configuration/output#forcesuccessresponse
-   *
-   * However, unfortunately this option doesn't work when when we
-   * provide our custom fetch function (passed to "mutator" in "orval.config.ts")
-   *
-   * Below is a workaround that results in the same behavior as "forceSuccessResponse" :)
-   *
-   * Using Extract<T, { status: SuccessStatus }> we can filter only success responses
-   *
-   * This is reasonable because this function throws on "!response.ok"
-   * it never returns an error response --> This "Extract" makes TypeScript aware of that
-   */
-  return { status: response.status, data, headers: response.headers } as unknown as Extract<
-    T,
-    { status: SuccessStatus }
-  >
+  return { status: response.status, data, headers: response.headers } as T
 }

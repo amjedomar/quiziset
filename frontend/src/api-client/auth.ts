@@ -8,7 +8,7 @@
 import { useMutation } from '@tanstack/react-query'
 import type { MutationFunction, QueryClient, UseMutationOptions, UseMutationResult } from '@tanstack/react-query'
 
-import type { AuthToken, LoginDto, SignupDto } from './model'
+import type { AuthToken, ErrorResponse, LoginDto, SignupDto } from './model'
 
 import { customFetch } from '../utils/orval-custom-fetch'
 
@@ -20,17 +20,17 @@ export type signupResponse201 = {
 }
 
 export type signupResponse400 = {
-  data: void
+  data: ErrorResponse
   status: 400
 }
 
 export type signupResponse422 = {
-  data: void
+  data: ErrorResponse
   status: 422
 }
 
 export type signupResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -50,7 +50,7 @@ export const getSignupUrl = () => {
 /**
  * @summary Registers a new user
  */
-export const signup = async (signupDto: SignupDto, options?: RequestInit) => {
+export const signup = async (signupDto: SignupDto, options?: RequestInit): Promise<signupResponse> => {
   return customFetch<signupResponse>(getSignupUrl(), {
     ...options,
     method: 'POST',
@@ -59,7 +59,7 @@ export const signup = async (signupDto: SignupDto, options?: RequestInit) => {
   })
 }
 
-export const getSignupMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getSignupMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext>
   request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext> => {
@@ -81,12 +81,12 @@ export const getSignupMutationOptions = <TError = void, TContext = unknown>(opti
 
 export type SignupMutationResult = NonNullable<Awaited<ReturnType<typeof signup>>>
 export type SignupMutationBody = SignupDto
-export type SignupMutationError = void
+export type SignupMutationError = ErrorResponse
 
 /**
  * @summary Registers a new user
  */
-export const useSignup = <TError = void, TContext = unknown>(
+export const useSignup = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof signup>>, TError, { data: SignupDto }, TContext>
     request?: SecondParameter<typeof customFetch>
@@ -100,20 +100,20 @@ export type loginResponse200 = {
   status: 200
 }
 
-export type loginResponse401 = {
-  data: void
-  status: 401
+export type loginResponse400 = {
+  data: ErrorResponse
+  status: 400
 }
 
 export type loginResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
 export type loginResponseSuccess = loginResponse200 & {
   headers: Headers
 }
-export type loginResponseError = (loginResponse401 | loginResponse500) & {
+export type loginResponseError = (loginResponse400 | loginResponse500) & {
   headers: Headers
 }
 
@@ -126,7 +126,7 @@ export const getLoginUrl = () => {
 /**
  * @summary Logins User
  */
-export const login = async (loginDto: LoginDto, options?: RequestInit) => {
+export const login = async (loginDto: LoginDto, options?: RequestInit): Promise<loginResponse> => {
   return customFetch<loginResponse>(getLoginUrl(), {
     ...options,
     method: 'POST',
@@ -135,7 +135,7 @@ export const login = async (loginDto: LoginDto, options?: RequestInit) => {
   })
 }
 
-export const getLoginMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getLoginMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext>
   request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext> => {
@@ -157,12 +157,12 @@ export const getLoginMutationOptions = <TError = void, TContext = unknown>(optio
 
 export type LoginMutationResult = NonNullable<Awaited<ReturnType<typeof login>>>
 export type LoginMutationBody = LoginDto
-export type LoginMutationError = void
+export type LoginMutationError = ErrorResponse
 
 /**
  * @summary Logins User
  */
-export const useLogin = <TError = void, TContext = unknown>(
+export const useLogin = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext>
     request?: SecondParameter<typeof customFetch>

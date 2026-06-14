@@ -1,8 +1,9 @@
 import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { DocumentBuilder, SwaggerModule, getSchemaPath } from '@nestjs/swagger'
 import { AppModule } from '@/app.module'
 import { ValidationPipe } from '@nestjs/common'
+import { ErrorResponse } from '@/decorators/api-responses-list'
 
 const PORT = 4004
 const { FRONTEND_URL } = process.env
@@ -23,6 +24,12 @@ async function bootstrap(): Promise<void> {
     .addGlobalResponse({
       status: 500,
       description: 'Internal Server Error',
+      /**
+       * addGlobalResponse doesn't recognize "type" class @ApiResponse property decorators
+       * instead use "schema" (and set path only)
+       * btw "ErrorResponse" is already registered (since other controllers are using this type)
+       */
+      schema: { $ref: getSchemaPath(ErrorResponse) },
     })
     .build()
 

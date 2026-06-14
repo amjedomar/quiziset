@@ -21,7 +21,7 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { UploadBodyDto, UploadResponse } from './model'
+import type { ErrorResponse, UploadBodyDto, UploadResponse } from './model'
 
 import { customFetch } from '../utils/orval-custom-fetch'
 
@@ -33,12 +33,12 @@ export type uploadResponse201 = {
 }
 
 export type uploadResponse422 = {
-  data: void
+  data: ErrorResponse
   status: 422
 }
 
 export type uploadResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -62,7 +62,7 @@ export const upload = async (
   bucketName: 'quizzes' | 'profiles',
   uploadBodyDto: UploadBodyDto,
   options?: RequestInit,
-) => {
+): Promise<uploadResponse> => {
   const formData = new FormData()
   formData.append(`file`, uploadBodyDto.file)
 
@@ -73,7 +73,7 @@ export const upload = async (
   })
 }
 
-export const getUploadMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getUploadMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof upload>>,
     TError,
@@ -108,12 +108,12 @@ export const getUploadMutationOptions = <TError = void, TContext = unknown>(opti
 
 export type UploadMutationResult = NonNullable<Awaited<ReturnType<typeof upload>>>
 export type UploadMutationBody = UploadBodyDto
-export type UploadMutationError = void
+export type UploadMutationError = ErrorResponse
 
 /**
  * @summary upload a file
  */
-export const useUpload = <TError = void, TContext = unknown>(
+export const useUpload = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof upload>>,
@@ -143,7 +143,7 @@ export type getFileResponse404 = {
 }
 
 export type getFileResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -163,7 +163,11 @@ export const getGetFileUrl = (bucketName: 'quizzes' | 'profiles', fileName: stri
 /**
  * @summary returns file (e.g. image)
  */
-export const getFile = async (bucketName: 'quizzes' | 'profiles', fileName: string, options?: RequestInit) => {
+export const getFile = async (
+  bucketName: 'quizzes' | 'profiles',
+  fileName: string,
+  options?: RequestInit,
+): Promise<getFileResponse> => {
   return customFetch<getFileResponse>(getGetFileUrl(bucketName, fileName), {
     ...options,
     method: 'GET',
@@ -174,7 +178,7 @@ export const getGetFileQueryKey = (bucketName: 'quizzes' | 'profiles', fileName:
   return [`/uploads/${bucketName}/${fileName}`] as const
 }
 
-export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
+export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -197,9 +201,9 @@ export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile
 }
 
 export type GetFileQueryResult = NonNullable<Awaited<ReturnType<typeof getFile>>>
-export type GetFileQueryError = void
+export type GetFileQueryError = void | ErrorResponse
 
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options: {
@@ -212,7 +216,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -225,7 +229,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -238,7 +242,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
  * @summary returns file (e.g. image)
  */
 
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {

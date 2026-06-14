@@ -5,6 +5,8 @@ import { GetUploadParamsDto, UploadParamsDto } from '@/modules/uploads/dto/uploa
 import { UploadBodyDto } from '@/modules/uploads/dto/upload-body.dto'
 import { UploadsService } from '@/modules/uploads/uploads.service'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
+import { IsPublic } from '@/decorators/is-public.decorator'
+import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('uploads')
 export class UploadsController {
@@ -18,8 +20,7 @@ export class UploadsController {
   @ApiOperation({ summary: 'upload a file' })
   @ApiConsumes('multipart/form-data') // this will render input file upload in Swagger Docs
   @ApiBody({ type: UploadBodyDto }) // define ApiBody explicity (since we use @UploadedFile instead of @Body)
-  @ApiResponse({ status: 201, type: UploadResponse })
-  @ApiResponse({ status: 422, description: 'invalid file extension' })
+  @ApiResponsesList({ status: 201, type: UploadResponse }, { status: 422, description: 'invalid file extension' })
   async upload(
     @Param() { bucketName }: UploadParamsDto,
     @UploadedFile() file: Express.Multer.File,
@@ -31,8 +32,9 @@ export class UploadsController {
    * Get file endpoint
    */
   @Get('/:bucketName/:fileName')
+  @IsPublic()
   @ApiOperation({ summary: 'returns file (e.g. image)' })
-  @ApiResponse({
+  @ApiResponsesList({
     status: 200,
     description: 'file stream', // file streams are memory-friendly as explained in "uploads.service.ts"
   })

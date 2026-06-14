@@ -21,7 +21,7 @@ import type {
   UseQueryResult,
 } from '@tanstack/react-query'
 
-import type { CreateQuizDto, GetAllQuizzesParams, QuizEntity, UpdateQuizDto } from './model'
+import type { CreateQuizDto, ErrorResponse, GetAllQuizzesParams, QuizEntity, UpdateQuizDto } from './model'
 
 import { customFetch } from '../utils/orval-custom-fetch'
 
@@ -33,12 +33,12 @@ export type getAllQuizzesResponse200 = {
 }
 
 export type getAllQuizzesResponse401 = {
-  data: void
+  data: ErrorResponse
   status: 401
 }
 
 export type getAllQuizzesResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -68,7 +68,10 @@ export const getGetAllQuizzesUrl = (params?: GetAllQuizzesParams) => {
 /**
  * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
  */
-export const getAllQuizzes = async (params?: GetAllQuizzesParams, options?: RequestInit) => {
+export const getAllQuizzes = async (
+  params?: GetAllQuizzesParams,
+  options?: RequestInit,
+): Promise<getAllQuizzesResponse> => {
   return customFetch<getAllQuizzesResponse>(getGetAllQuizzesUrl(params), {
     ...options,
     method: 'GET',
@@ -79,7 +82,7 @@ export const getGetAllQuizzesQueryKey = (params?: GetAllQuizzesParams) => {
   return [`/quizzes`, ...(params ? [params] : [])] as const
 }
 
-export const getGetAllQuizzesQueryOptions = <TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
+export const getGetAllQuizzesQueryOptions = <TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
@@ -101,9 +104,9 @@ export const getGetAllQuizzesQueryOptions = <TData = Awaited<ReturnType<typeof g
 }
 
 export type GetAllQuizzesQueryResult = NonNullable<Awaited<ReturnType<typeof getAllQuizzes>>>
-export type GetAllQuizzesQueryError = void
+export type GetAllQuizzesQueryError = ErrorResponse
 
-export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
+export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
   params: undefined | GetAllQuizzesParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>> &
@@ -119,7 +122,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
+export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>> &
@@ -135,7 +138,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
+export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
@@ -147,7 +150,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
  * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
  */
 
-export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = void>(
+export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
   params?: GetAllQuizzesParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
@@ -170,17 +173,17 @@ export type createQuizResponse201 = {
 }
 
 export type createQuizResponse401 = {
-  data: void
+  data: ErrorResponse
   status: 401
 }
 
 export type createQuizResponse422 = {
-  data: void
+  data: ErrorResponse
   status: 422
 }
 
 export type createQuizResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -200,7 +203,7 @@ export const getCreateQuizUrl = () => {
 /**
  * @summary create a new quiz
  */
-export const createQuiz = async (createQuizDto: CreateQuizDto, options?: RequestInit) => {
+export const createQuiz = async (createQuizDto: CreateQuizDto, options?: RequestInit): Promise<createQuizResponse> => {
   return customFetch<createQuizResponse>(getCreateQuizUrl(), {
     ...options,
     method: 'POST',
@@ -209,7 +212,7 @@ export const createQuiz = async (createQuizDto: CreateQuizDto, options?: Request
   })
 }
 
-export const getCreateQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getCreateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
   request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
@@ -231,12 +234,12 @@ export const getCreateQuizMutationOptions = <TError = void, TContext = unknown>(
 
 export type CreateQuizMutationResult = NonNullable<Awaited<ReturnType<typeof createQuiz>>>
 export type CreateQuizMutationBody = CreateQuizDto
-export type CreateQuizMutationError = void
+export type CreateQuizMutationError = ErrorResponse
 
 /**
  * @summary create a new quiz
  */
-export const useCreateQuiz = <TError = void, TContext = unknown>(
+export const useCreateQuiz = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
     request?: SecondParameter<typeof customFetch>
@@ -251,17 +254,17 @@ export type getSingleQuizResponse200 = {
 }
 
 export type getSingleQuizResponse403 = {
-  data: void
+  data: ErrorResponse
   status: 403
 }
 
 export type getSingleQuizResponse404 = {
-  data: void
+  data: ErrorResponse
   status: 404
 }
 
 export type getSingleQuizResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -285,7 +288,7 @@ export const getGetSingleQuizUrl = (id: number) => {
 /**
  * @summary get a quiz by id
  */
-export const getSingleQuiz = async (id: number, options?: RequestInit) => {
+export const getSingleQuiz = async (id: number, options?: RequestInit): Promise<getSingleQuizResponse> => {
   return customFetch<getSingleQuizResponse>(getGetSingleQuizUrl(id), {
     ...options,
     method: 'GET',
@@ -296,7 +299,7 @@ export const getGetSingleQuizQueryKey = (id: number) => {
   return [`/quizzes/${id}`] as const
 }
 
-export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
+export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
@@ -318,9 +321,9 @@ export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof g
 }
 
 export type GetSingleQuizQueryResult = NonNullable<Awaited<ReturnType<typeof getSingleQuiz>>>
-export type GetSingleQuizQueryError = void
+export type GetSingleQuizQueryError = ErrorResponse
 
-export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
+export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>> &
@@ -336,7 +339,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
+export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>> &
@@ -352,7 +355,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
+export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
@@ -364,7 +367,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
  * @summary get a quiz by id
  */
 
-export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = void>(
+export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
@@ -387,27 +390,27 @@ export type updateQuizResponse200 = {
 }
 
 export type updateQuizResponse401 = {
-  data: void
+  data: ErrorResponse
   status: 401
 }
 
 export type updateQuizResponse403 = {
-  data: void
+  data: ErrorResponse
   status: 403
 }
 
 export type updateQuizResponse404 = {
-  data: void
+  data: ErrorResponse
   status: 404
 }
 
 export type updateQuizResponse422 = {
-  data: void
+  data: ErrorResponse
   status: 422
 }
 
 export type updateQuizResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -433,7 +436,11 @@ export const getUpdateQuizUrl = (id: number) => {
 /**
  * @summary update a quiz
  */
-export const updateQuiz = async (id: number, updateQuizDto: UpdateQuizDto, options?: RequestInit) => {
+export const updateQuiz = async (
+  id: number,
+  updateQuizDto: UpdateQuizDto,
+  options?: RequestInit,
+): Promise<updateQuizResponse> => {
   return customFetch<updateQuizResponse>(getUpdateQuizUrl(id), {
     ...options,
     method: 'PATCH',
@@ -442,7 +449,7 @@ export const updateQuiz = async (id: number, updateQuizDto: UpdateQuizDto, optio
   })
 }
 
-export const getUpdateQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getUpdateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
     Awaited<ReturnType<typeof updateQuiz>>,
     TError,
@@ -476,12 +483,12 @@ export const getUpdateQuizMutationOptions = <TError = void, TContext = unknown>(
 
 export type UpdateQuizMutationResult = NonNullable<Awaited<ReturnType<typeof updateQuiz>>>
 export type UpdateQuizMutationBody = UpdateQuizDto
-export type UpdateQuizMutationError = void
+export type UpdateQuizMutationError = ErrorResponse
 
 /**
  * @summary update a quiz
  */
-export const useUpdateQuiz = <TError = void, TContext = unknown>(
+export const useUpdateQuiz = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof updateQuiz>>,
@@ -501,22 +508,22 @@ export type deleteQuizResponse200 = {
 }
 
 export type deleteQuizResponse401 = {
-  data: void
+  data: ErrorResponse
   status: 401
 }
 
 export type deleteQuizResponse403 = {
-  data: void
+  data: ErrorResponse
   status: 403
 }
 
 export type deleteQuizResponse404 = {
-  data: void
+  data: ErrorResponse
   status: 404
 }
 
 export type deleteQuizResponse500 = {
-  data: void
+  data: ErrorResponse
   status: 500
 }
 
@@ -541,14 +548,14 @@ export const getDeleteQuizUrl = (id: number) => {
 /**
  * @summary delete a quiz
  */
-export const deleteQuiz = async (id: number, options?: RequestInit) => {
+export const deleteQuiz = async (id: number, options?: RequestInit): Promise<deleteQuizResponse> => {
   return customFetch<deleteQuizResponse>(getDeleteQuizUrl(id), {
     ...options,
     method: 'DELETE',
   })
 }
 
-export const getDeleteQuizMutationOptions = <TError = void, TContext = unknown>(options?: {
+export const getDeleteQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
   request?: SecondParameter<typeof customFetch>
 }): UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {
@@ -570,12 +577,12 @@ export const getDeleteQuizMutationOptions = <TError = void, TContext = unknown>(
 
 export type DeleteQuizMutationResult = NonNullable<Awaited<ReturnType<typeof deleteQuiz>>>
 
-export type DeleteQuizMutationError = void
+export type DeleteQuizMutationError = ErrorResponse
 
 /**
  * @summary delete a quiz
  */
-export const useDeleteQuiz = <TError = void, TContext = unknown>(
+export const useDeleteQuiz = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
     request?: SecondParameter<typeof customFetch>

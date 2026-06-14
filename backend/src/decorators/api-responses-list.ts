@@ -1,6 +1,6 @@
 // api-responses-list.decorator.ts
 import { applyDecorators } from '@nestjs/common'
-import { ApiBearerAuth, ApiResponse, ApiResponseNoStatusOptions } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiProperty, ApiResponse, ApiResponseMetadata } from '@nestjs/swagger'
 
 const DEFAULT_RESPONSE_DESCRIPTIONS: Record<number, string> = {
   200: 'OK',
@@ -10,7 +10,7 @@ const DEFAULT_RESPONSE_DESCRIPTIONS: Record<number, string> = {
   401: 'Unauthorized',
   403: 'Forbidden',
   404: 'Not Found',
-  422: 'Unprocessable Entity (Validation Failed)',
+  422: 'Unprocessable Entity',
 
   500: 'Internal Server Error',
 }
@@ -19,7 +19,12 @@ type ApiResponsesListItem =
   | number
   | ({
       status: number
-    } & ApiResponseNoStatusOptions)
+    } & ApiResponseMetadata)
+
+export class ErrorResponse {
+  @ApiProperty() message: string
+  @ApiProperty() statusCode: number
+}
 
 /**
  * use this decorator to list multiple response in clean way:
@@ -40,7 +45,15 @@ export function ApiResponsesList(...responses: ApiResponsesListItem[]): MethodDe
             description: response.description ?? DEFAULT_RESPONSE_DESCRIPTIONS[response.status],
           }
 
-    return ApiResponse(options)
+    const isErrorResponse = options.status >= 400 && options.status <= 599
+
+    if (isErrorResponse && !options.type) {
+      options.type = ErrorResponse
+    }
+
+    return ApiResponse({
+      ...options,
+    })
   })
 
   const isAuthInvolved = responses.some((response) => {

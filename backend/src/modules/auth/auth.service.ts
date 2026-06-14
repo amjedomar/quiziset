@@ -1,4 +1,4 @@
-import { BadRequestException, InternalServerErrorException, Injectable, UnauthorizedException } from '@nestjs/common'
+import { BadRequestException, InternalServerErrorException, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PrismaErrorCode, PrismaService } from '@/prisma.service'
 import { AuthToken } from '@/modules/auth/entities/auth-access.entity'
@@ -60,13 +60,13 @@ export class AuthService {
     })
 
     if (!user) {
-      throw new UnauthorizedException(AuthErrors.LOGIN_FAILED)
+      throw new BadRequestException(AuthErrors.LOGIN_FAILED)
     }
 
     const isPasswordMatch = await argon2.verify(user.password, loginDto.password)
 
     if (!isPasswordMatch) {
-      throw new UnauthorizedException(AuthErrors.LOGIN_FAILED)
+      throw new BadRequestException(AuthErrors.LOGIN_FAILED)
     }
 
     const accessToken = await this.generateAccessToken(user.id)

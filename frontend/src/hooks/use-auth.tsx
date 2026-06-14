@@ -2,6 +2,7 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 import jsCookie from 'js-cookie'
 import { useLogin } from '@/api-client/auth'
 import { LoginDto } from '@/api-client/model'
+import { isErrorResponse } from '@/utils/is-error-response'
 
 const USER_TOKEN_COOKIE = 'quiziset-user-token'
 const MONTH_IN_MS = 1000 * 60 * 60 * 24 * 30
@@ -54,11 +55,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // Methods
   const login = useCallback(
     async (payload: LoginDto) => {
-      const {
-        data: { accessToken },
-      } = await mutateLogin({ data: payload })
+      const { data } = await mutateLogin({ data: payload })
 
-      jsCookie.set(USER_TOKEN_COOKIE, accessToken, { expires: Date.now() + MONTH_IN_MS })
+      if (!isErrorResponse(data)) {
+        jsCookie.set(USER_TOKEN_COOKIE, data.accessToken, { expires: Date.now() + MONTH_IN_MS })
+      }
     },
     [mutateLogin],
   )

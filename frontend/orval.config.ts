@@ -10,16 +10,6 @@ if (!API_OPENAPI_JSON_URL) {
 export default defineConfig({
   quiziset: {
     input: API_OPENAPI_JSON_URL,
-    hooks: {
-      /**
-       * For more info regarding the purpose of this hook
-       * 
-       * --> check the code comments I wrote in:
-       * - fix-generated-types.js
-       * - orval-custom-fetch.ts
-       */
-      afterAllFilesWrite: 'node scripts/fix-generated-types.js',
-    },
     output: {
       target: './src/api-client/quiziset.ts',
       mode: 'tags',

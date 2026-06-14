@@ -6,6 +6,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import clsx from 'clsx'
 import { useUpload } from '@/api-client/uploads'
 import { CircularProgress, IconButton } from '@mui/joy'
+import { isErrorResponse } from '@/utils/is-error-response'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -39,7 +40,10 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
           const file = e.target.files?.[0]
           if (!file) return
           const result = await uploadFile({ bucketName, data: { file } })
-          onChange(`${API_BASE_URL}${result.data.url}`)
+
+          if (!isErrorResponse(result.data)) {
+            onChange(`${API_BASE_URL}${result.data.url}`)
+          }
         }
 
         const handleDelete = () => {
