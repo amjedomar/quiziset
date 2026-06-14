@@ -35,6 +35,7 @@ async function bootstrap(): Promise<void> {
   app.useGlobalPipes(
     new ValidationPipe({
       errorHttpStatusCode: 422,
+      transform: true, // required so @Transform decorators works
     }),
   )
 

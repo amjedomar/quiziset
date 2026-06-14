@@ -12,7 +12,7 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
 } from 'class-validator'
-import { Type } from 'class-transformer'
+import { Type, Transform } from 'class-transformer'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
 export enum QuestionType {
@@ -41,24 +41,14 @@ class AnswersMatchQuestionTypeConstraint implements ValidatorConstraintInterface
     answers.forEach((answer, answerIndex) => {
       const answerPath = `answers.${answerIndex}`
 
-      if (questionType === QuestionType.Cards) {
-        if (!answer.imageUrl) {
-          pushError(`${answerPath}.imageUrl must be provided`)
-        }
-      } else {
-        if (answer.imageUrl) {
-          pushError(`${answerPath}.imageUrl should be omitted`)
-        }
+      // imageUrl is required for "question-cards"
+      if (questionType === QuestionType.Cards && !answer.imageUrl) {
+        pushError(`${answerPath}.imageUrl must be provided`)
       }
 
-      if (questionType === QuestionType.Reorder) {
-        if (typeof answer.isCorrect === 'boolean') {
-          pushError(`${answerPath}.isCorrect should be omitted`)
-        }
-      } else {
-        if (typeof answer.isCorrect !== 'boolean') {
-          pushError(`${answerPath}.isCorrect boolean value must be provided`)
-        }
+      // isCorrect is required for every questionType (except "question-reorder")
+      if (questionType !== QuestionType.Reorder && typeof answer.isCorrect !== 'boolean') {
+        pushError(`${answerPath}.isCorrect boolean value must be provided`)
       }
     })
 
@@ -78,6 +68,25 @@ class AnswersMatchQuestionTypeConstraint implements ValidatorConstraintInterface
   }
 }
 
+/**
+ * omit answer fields that don't belong to current questionType:
+ *  - imageUrl is kept only for "question-cards"
+ *  - isCorrect is kept for every questionType (except "question-reorder")
+ */
+function normalizeAnswers(questionType: QuestionType, answers: AnswerDto[]): AnswerDto[] {
+  if (!Array.isArray(answers)) {
+    // if answers isn't array (then validation will be handled by "@IsArray")
+    return answers
+  }
+
+  for (const answer of answers) {
+    if (questionType !== QuestionType.Cards) delete answer.imageUrl
+    if (questionType === QuestionType.Reorder) delete answer.isCorrect
+  }
+
+  return answers
+}
+
 export class AnswerDto {
   @IsString()
   @IsNotEmpty()
@@ -94,7 +103,7 @@ export class AnswerDto {
   @IsString()
   @IsOptional()
   @ApiPropertyOptional({
-    description: 'for "question-cards" it must be provided. otherwise, it must be omitted',
+    description: 'for "question-cards" it must be provided. otherwise, it will be ignored',
   })
   imageUrl?: string
 }
@@ -113,6 +122,7 @@ export class QuestionDto {
   @IsArray()
   @ValidateNested({ each: true })
   @ArrayMinSize(2)
+  @Transform(({ obj, value }: { obj: QuestionDto; value: AnswerDto[] }) => normalizeAnswers(obj.questionType, value))
   // @Type is required for the validation of objects inside array
   @Type(() => AnswerDto) // see https://stackoverflow.com/a/58366367/8148505
   @ApiProperty({
