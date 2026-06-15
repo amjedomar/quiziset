@@ -8,7 +8,13 @@ interface AppProviderProps {
   children: ReactNode
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: 0, // disable cache
+    },
+  },
+})
 
 export function AppProvider({ children }: AppProviderProps) {
   return (

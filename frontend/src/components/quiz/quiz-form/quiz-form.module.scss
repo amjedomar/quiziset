@@ -10,8 +10,10 @@
 
 .footerActions {
   display: flex;
-  align-items: self-start;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 48px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 50px;
+  align-items: center;
 }

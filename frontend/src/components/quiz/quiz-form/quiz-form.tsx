@@ -14,9 +14,10 @@ import NewQuestionAction from '@/components/quiz/new-question-action/new-questio
 import { QuestionType } from '@/components/quiz/question-type-select'
 import { quizSchema, QuizFormData } from '@/components/quiz/quiz-form/quiz-schema'
 import { FormSwitch } from '@/ui/form-fields/form-switch'
-import { useCreateQuiz, useUpdateQuiz } from '@/api-client/quiz'
+import { useCreateQuiz, useDeleteQuiz, useUpdateQuiz } from '@/api-client/quiz'
 import { useRouter } from 'next/navigation'
 import { QuizEntity } from '@/api-client/model'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const defaultQuestion = {
   title: '',
@@ -36,8 +37,9 @@ interface QuizFormProps {
 
 export function QuizForm({ existingQuiz }: QuizFormProps) {
   const router = useRouter()
-  const { mutateAsync: createQuiz } = useCreateQuiz()
-  const { mutateAsync: updateQuiz } = useUpdateQuiz()
+  const { mutateAsync: createQuiz, isPending: isCreating } = useCreateQuiz()
+  const { mutateAsync: updateQuiz, isPending: isUpdating } = useUpdateQuiz()
+  const { mutateAsync: deleteQuiz, isPending: isDeleting } = useDeleteQuiz()
 
   const form = useForm<QuizFormData>({
     resolver: zodResolver(quizSchema),
@@ -67,6 +69,14 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     },
     [existingQuiz, createQuiz, updateQuiz, router],
   )
+
+  const onDelete = useCallback(() => {
+    if (!existingQuiz) return // if form is in "create" mode then return
+
+    deleteQuiz({ id: existingQuiz.id })
+
+    router.push('/manage-quizzes')
+  }, [deleteQuiz, existingQuiz, router])
 
   return (
     <FormProvider {...form}>
@@ -98,13 +108,26 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             />
           ))}
 
-          <div className={styles.footerActions}>
-            <NewQuestionAction onCreate={(questionType) => addQuestion({ ...defaultQuestion, questionType })} />
-            <Button variant="soft" startDecorator={<SaveIcon />} type="submit">
-              {existingQuiz ? 'Update Quiz' : 'Create Quiz'}
-            </Button>
-          </div>
+          <NewQuestionAction onCreate={(questionType) => addQuestion({ ...defaultQuestion, questionType })} />
         </Stack>
+
+        <div className={styles.footerActions}>
+          <Button variant="soft" startDecorator={<SaveIcon />} type="submit" loading={isCreating || isUpdating}>
+            {existingQuiz ? 'Update Quiz' : 'Create Quiz'}
+          </Button>
+
+          {existingQuiz && (
+            <Button
+              variant="outlined"
+              color="danger"
+              startDecorator={<DeleteIcon />}
+              loading={isDeleting}
+              onClick={onDelete}
+            >
+              Delete
+            </Button>
+          )}
+        </div>
       </form>
     </FormProvider>
   )

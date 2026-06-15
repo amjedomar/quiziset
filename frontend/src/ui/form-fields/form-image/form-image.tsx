@@ -58,7 +58,6 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
         if (imageUrl) {
           content = (
             <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imageUrl} alt="" className={styles.image} />
 
               <IconButton

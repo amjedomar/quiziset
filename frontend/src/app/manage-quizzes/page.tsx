@@ -1,6 +1,10 @@
 import { Container } from '@mui/joy'
+import { ManagedQuizzesList } from '@/components/quiz/managed-quizzes-list'
 
 export default function ManageQuizzesPage() {
-  // TODO: Implement
-  return <Container maxWidth="lg">Here you can see list of all your quizzes</Container>
+  return (
+    <Container maxWidth="lg">
+      <ManagedQuizzesList />
+    </Container>
+  )
 }

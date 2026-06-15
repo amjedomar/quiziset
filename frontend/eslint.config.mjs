@@ -42,6 +42,8 @@ const eslintConfig = defineConfig([
           case: 'kebabCase',
         },
       ],
+      
+      '@next/next/no-img-element': 'off'
     },
   },
   {
