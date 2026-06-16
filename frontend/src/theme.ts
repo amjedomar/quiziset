@@ -5,7 +5,7 @@ export const theme = extendTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 960,
+      md: 900,
       lg: 1200,
       xl: 1536,
     },
@@ -15,10 +15,11 @@ export const theme = extendTheme({
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
           ...(ownerState.size === 'md' && {
-            '--Button-paddingBlock': '8px',
+            // '--Button-paddingBlock': '8px',
+              paddingInline: '14px',
             [theme.breakpoints.down('md')]: {
-              '--Button-paddingBlock': '10px',
-              paddingInline: '20px',
+              '--Button-paddingBlock': '8px',
+              paddingInline: '16px',
             },
           }),
           ...(ownerState.size === 'lg' && {

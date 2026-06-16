@@ -1,9 +1,13 @@
 $navbarHeight: 60px;
 $navbarTop: 16px;
-$bottomSpace: 48px;
+$bottomSpace: 32px;
 
-.spacer {
-  height: $navbarHeight + $bottomSpace;
+.primarySpacer {
+  height: $navbarHeight;
+}
+
+.secondarySpacer {
+  height: $bottomSpace;
 }
 
 .navbar {

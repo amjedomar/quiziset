@@ -10,6 +10,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
 import { ReactNode, useCallback, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
   { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
@@ -58,7 +59,8 @@ function NavLinkButton({ href, label, icon, variant, fullWidth, onNavigate, size
   )
 }
 
-export default function Navbar() {
+export function Navbar() {
+  const pathname = usePathname()
   const { isLoggedIn } = useAuth()
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -66,9 +68,13 @@ export default function Navbar() {
     setDrawerOpen(false)
   }, [])
 
+  const isHomePage = pathname === '/'
+
   return (
     <>
-      <div className={styles.spacer}></div>
+      <div className={styles.primarySpacer} />
+
+      {!isHomePage && <div className={styles.secondarySpacer} />}
 
       <Box className={styles.navbar} sx={{ boxShadow: 'sm' }}>
         <Container className={styles.navbarInner} maxWidth="xl">

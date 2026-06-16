@@ -18,7 +18,7 @@ export function ManagedQuizzesList() {
   const quizzes = data?.data
 
   return (
-    <Stack spacing={3} sx={{ py: 4 }}>
+    <Stack spacing={3}>
       <div className={styles.header}>
         <Typography level="h2">Manage Quizzes</Typography>
 
