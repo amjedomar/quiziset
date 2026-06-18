@@ -6,9 +6,9 @@ import { useGetSingleQuiz } from '@/api-client/quiz'
 import { QuizForm } from '@/components/quiz/quiz-form'
 import { isErrorResponse } from '@/utils/is-error-response'
 
-export default function UpdateQuizPage() {
-  const { id } = useParams<{ id: string }>()
-  const { data, isLoading } = useGetSingleQuiz(Number(id))
+export default function QuizUpdatePage() {
+  const { quizId } = useParams<{ quizId: string }>()
+  const { data, isLoading } = useGetSingleQuiz(Number(quizId))
 
   if (isErrorResponse(data?.data)) {
     return <p>Error {data.data.message}</p>

@@ -9,3 +9,11 @@ export function isErrorResponse(value: unknown): value is ErrorResponse {
     (value.statusCode >= 400 || value.statusCode <= 599)
   )
 }
+
+export function isErrorOrNoResponse(value: unknown): value is ErrorResponse | undefined {
+  if (typeof value === 'undefined') {
+    return true
+  }
+
+  return isErrorResponse(value)
+}

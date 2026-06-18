@@ -16,7 +16,7 @@ export const theme = extendTheme({
         root: ({ ownerState, theme }) => ({
           ...(ownerState.size === 'md' && {
             // '--Button-paddingBlock': '8px',
-              paddingInline: '14px',
+            paddingInline: '14px',
             [theme.breakpoints.down('md')]: {
               '--Button-paddingBlock': '8px',
               paddingInline: '16px',

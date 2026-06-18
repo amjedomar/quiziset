@@ -1,11 +1,14 @@
 'use client'
 
-import { Box, Button, CircularProgress, Sheet, Stack, Typography } from '@mui/joy'
+import { Box, Button, Sheet, Stack, Typography } from '@mui/joy'
 import { useGetAllQuizzes } from '@/api-client/quiz'
 import { isErrorResponse } from '@/utils/is-error-response'
 import styles from './quizzes-list.module.scss'
 import QuizIcon from '@mui/icons-material/Quiz'
 import FavoriteIcon from '@mui/icons-material/FavoriteBorder'
+import Link from 'next/link'
+import { MouseEventHandler } from 'react'
+import { Loading } from '@/components/loading'
 
 export function QuizzesList() {
   const { data, isLoading } = useGetAllQuizzes()
@@ -16,12 +19,18 @@ export function QuizzesList() {
 
   const quizzes = data?.data
 
+  const handleFavoriteClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    // prevent link navigation when favorite button is clicked
+    e.stopPropagation()
+    e.preventDefault()
+
+    // TODO: implement favorite button logic
+  }
+
   return (
     <Stack spacing={3}>
       {isLoading ? (
-        <Stack alignItems="center" justifyContent="center">
-          <CircularProgress />
-        </Stack>
+        <Loading />
       ) : (
         <Box
           sx={{
@@ -36,7 +45,13 @@ export function QuizzesList() {
           }}
         >
           {quizzes?.map((quiz) => (
-            <Sheet key={quiz.id} variant="outlined" className={styles.quizCard}>
+            <Sheet
+              key={quiz.id}
+              component={Link}
+              variant="outlined"
+              className={styles.quizCard}
+              href={`/quizzes/${quiz.id}/view`}
+            >
               <img className={styles.image} src={quiz.imageUrl} alt="" />
 
               <div className={styles.details}>
@@ -51,7 +66,7 @@ export function QuizzesList() {
                   View
                 </Button>
 
-                <Button variant="outlined">
+                <Button variant="outlined" onClick={handleFavoriteClick}>
                   <FavoriteIcon />
                 </Button>
               </div>
