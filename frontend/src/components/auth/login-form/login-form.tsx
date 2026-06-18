@@ -1,35 +1,63 @@
 'use client'
-import { Button, FormControl, FormLabel, Input, Stack, Typography } from '@mui/joy'
-import { useForm } from 'react-hook-form'
+import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
+import NextLink from 'next/link'
+import { useRouter } from 'next/navigation'
+import { FormProvider, useForm } from 'react-hook-form'
 import { LoginDto } from '@/api-client/model'
 import { useAuth } from '@/hooks/use-auth'
+import { appendRedirectParam } from '@/utils/redirect'
+import { FormInput } from '@/ui/form-fields/form-input'
+import { isErrorResponse } from '@/utils/is-error-response'
 
-export function LoginForm() {
-  const { register, handleSubmit } = useForm<LoginDto>()
+interface LoginFormProps {
+  safeRedirectTo?: string // where to redirect the user after a successful login
+}
+
+export function LoginForm({ safeRedirectTo }: LoginFormProps) {
+  const form = useForm<LoginDto>()
 
   const { login, isLogging } = useAuth()
 
+  const router = useRouter()
+
+  const onSubmit = async (payload: LoginDto) => {
+    const response = await login(payload)
+
+    if (!isErrorResponse(response)) {
+      router.replace(safeRedirectTo ?? '/')
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit(login)}>
-      <Stack direction="column" spacing={2}>
-        <Typography level="h3" textAlign="center">
-          Login
-        </Typography>
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Stack direction="column" spacing={2}>
+          <Typography level="h3" textAlign="center">
+            Login
+          </Typography>
 
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input {...register('email')} placeholder="Email" type="email" />
-        </FormControl>
+          {safeRedirectTo && (
+            <Alert color="primary" variant="soft">
+              Please login then you will be redirected back to the last page you were trying to access
+            </Alert>
+          )}
 
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Input {...register('password')} placeholder="Password" type="password" />
-        </FormControl>
+          <FormInput name="email" label="Email" type="email" />
 
-        <Button type="submit" loading={isLogging}>
-          Login
-        </Button>
-      </Stack>
-    </form>
+          <FormInput name="password" label="Password" type="password" />
+
+          <Button type="submit" loading={isLogging}>
+            Login
+          </Button>
+
+          <Typography level="body-sm" textAlign="center">
+            Do not have an account?{' '}
+            <Link component={NextLink} href={appendRedirectParam('/signup', safeRedirectTo)}>
+              Sign up
+            </Link>
+          </Typography>
+        </Stack>
+      </form>
+    </FormProvider>
   )
 }

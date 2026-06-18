@@ -1,8 +1,8 @@
 import jsCookie from 'js-cookie'
+import { USER_TOKEN_COOKIE } from '@/constants/auth'
+import { appendRedirectParam } from '@/utils/redirect'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
-
-const USER_TOKEN_COOKIE = 'quiziset-user-token'
 
 const getHeaders = (headers?: HeadersInit): HeadersInit => {
   const token = jsCookie.get(USER_TOKEN_COOKIE)
@@ -23,6 +23,25 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
   return c.text() as Promise<T>
 }
 
+const handleUnauthorized = () => {
+  // if token cookie exists then remove it (since it is invalid)
+  jsCookie.remove(USER_TOKEN_COOKIE)
+
+  const { pathname, search } = window.location
+
+  // Avoid redirecting if we're already on the login or signup page
+  if (pathname === '/login' || pathname === '/signup') {
+    return
+  }
+
+  // Redirect to login page
+  const currentPageUrl = pathname + search
+
+  const loginUrl = appendRedirectParam('/login', currentPageUrl)
+
+  window.location.replace(loginUrl)
+}
+
 /**
  * The code of this function is inspired by
  * https://github.com/orval-labs/orval/blob/master/samples/next-app-with-fetch/custom-fetch.ts
@@ -30,10 +49,10 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
  * It is a custom fetch used by all Orval auto-generated hooks
  * (check "orval.config.ts" it is provided there in "mutator.path")
  *
- * what it does?
- *  - it includes authorization header (with user's token from cookie) on every request
- *  - it throws an error (when response statusCode is 4xx or 5xx)
- *    so it can be handled separately in the "catch" block
+ * What it does?
+ *  - It includes authorization header (with user's token from cookie) on every request
+ *  - On a 401 response it logs the user out and redirects to the /login page
+ *    (except if user is already on /login or /signup page)
  */
 export const customFetch = async <T>(url: string, options?: RequestInit) => {
   const requestUrl = API_BASE_URL + url
@@ -43,6 +62,10 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
     ...options,
     headers: requestHeaders,
   })
+
+  if (response.status === 401) {
+    handleUnauthorized()
+  }
 
   const data = await getBody<T>(response)
 
