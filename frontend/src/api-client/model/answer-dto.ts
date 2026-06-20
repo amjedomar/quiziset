@@ -10,6 +10,6 @@ export interface AnswerDto {
   text: string
   /** should be provided for all question (except question-reorder) */
   isCorrect?: boolean
-  /** for "question-cards" it must be provided. otherwise, it must be omitted */
+  /** for "question-cards" it must be provided. otherwise, it will be ignored */
   imageUrl?: string
 }

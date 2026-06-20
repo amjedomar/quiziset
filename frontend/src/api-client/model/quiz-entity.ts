@@ -11,6 +11,11 @@ export interface QuizEntity {
   id: number
   title: string
   description: string
+  /**
+   * quiz duration in minutes (null when there is no time limit)
+   * @nullable
+   */
+  timeDurationInMinutes: number | null
   imageUrl: string
   isPublic: boolean
   isAnalyticsEnabled: boolean

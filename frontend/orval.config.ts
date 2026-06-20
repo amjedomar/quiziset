@@ -21,7 +21,8 @@ export default defineConfig({
           path: './src/utils/orval-custom-fetch.ts',
           name: 'customFetch',
         },
-      }
+      },
+      clean: true
     },
   },
 })
