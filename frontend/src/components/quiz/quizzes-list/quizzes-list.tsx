@@ -50,7 +50,7 @@ export function QuizzesList() {
               component={Link}
               variant="outlined"
               className={styles.quizCard}
-              href={`/quizzes/${quiz.id}/view`}
+              href={`/quizzes/${quiz.id}/take`}
             >
               <img className={styles.image} src={quiz.imageUrl} alt="" />
 
@@ -63,7 +63,8 @@ export function QuizzesList() {
 
               <div className={styles.footer}>
                 <Button variant="solid" startDecorator={<QuizIcon />}>
-                  View
+                  {/* TODO: implement the "View" page. For now it points to Take page directly */}
+                  Take
                 </Button>
 
                 <Button variant="outlined" onClick={handleFavoriteClick}>

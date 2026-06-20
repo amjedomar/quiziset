@@ -12,6 +12,7 @@ import styles from './quiz-form.module.scss'
 import { QuizQuestionForm } from '@/components/quiz/question-form'
 import NewQuestionAction from '@/components/quiz/new-question-action/new-question-action'
 import { QuestionType } from '@/components/quiz/question-type-select'
+import { QuizTimeDurationSelect } from '@/components/quiz/quiz-time-duration-select'
 import { quizSchema, QuizFormData } from '@/components/quiz/quiz-form/quiz-schema'
 import { FormSwitch } from '@/ui/form-fields/form-switch'
 import { useCreateQuiz, useDeleteQuiz, useUpdateQuiz } from '@/api-client/quiz'
@@ -45,7 +46,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     resolver: zodResolver(quizSchema),
     // QuizEntity is a superset of QuizData (it adds e.g. id/managerId/createdAt/updatedAt)
     // so it can be used directly as the form's default values
-    defaultValues: existingQuiz ?? { questions: [defaultQuestion] },
+    defaultValues: existingQuiz ?? { timeDurationInMinutes: null, questions: [defaultQuestion] },
   })
 
   const {
@@ -93,6 +94,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             <Stack direction="column" spacing={3}>
               <FormInput name="title" label="Title" />
               <FormTextarea name="description" label="Description" minRows={4} maxRows={6} />
+              <QuizTimeDurationSelect name="timeDurationInMinutes" />
             </Stack>
 
             <FormImage name="imageUrl" label="Image" bucketName="quizzes" />

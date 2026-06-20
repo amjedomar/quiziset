@@ -40,6 +40,7 @@ const questionSchema = z
 export const quizSchema = z.object({
   title: z.string().nonempty('Please enter a title'),
   description: z.string().nonempty('Please enter a description'),
+  timeDurationInMinutes: z.number().nullable(), // null when there is no time limit
   imageUrl: z.string().nonempty('Please upload an image'),
   isPublic: z.boolean(),
   isAnalyticsEnabled: z.boolean(),

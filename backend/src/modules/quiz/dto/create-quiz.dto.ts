@@ -2,9 +2,11 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsOptional,
   IsString,
+  Min,
   ValidateNested,
   ArrayMinSize,
   Validate,
@@ -145,6 +147,15 @@ export class CreateQuizDto {
   @IsNotEmpty()
   @ApiProperty()
   description: string
+
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  @ApiPropertyOptional({
+    nullable: true,
+    description: 'quiz duration in minutes (null when there is no time limit)',
+  })
+  timeDurationInMinutes: number | null
 
   @IsString()
   @IsNotEmpty()

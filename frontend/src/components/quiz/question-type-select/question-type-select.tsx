@@ -1,9 +1,9 @@
-import { FormSelect, FormSelectOption } from '@/ui/form-fields/form-select'
+import { FormSelect } from '@/ui/form-fields/form-select'
 import QuestionCheckboxIcon from '@mui/icons-material/CheckBoxOutlined'
 import QuestionRadioIcon from '@mui/icons-material/RadioButtonChecked'
 import QuestionReorderIcon from '@mui/icons-material/Loop'
 import QuestionCardsIcon from '@mui/icons-material/PaymentsOutlined'
-import { SelectEnhanced, SelectEnhancedProps } from '@/ui/select-enhanced'
+import { SelectEnhanced, SelectEnhancedOption, SelectEnhancedProps } from '@/ui/select-enhanced'
 import { ValueOf } from '@/utils/typescript-utils'
 
 /**
@@ -19,7 +19,7 @@ export const QuestionType = {
 
 export type QuestionType = ValueOf<typeof QuestionType>
 
-type QuestionTypeOption = FormSelectOption & { value: QuestionType }
+type QuestionTypeOption = SelectEnhancedOption & { value: QuestionType }
 
 export const QUESTION_TYPES: QuestionTypeOption[] = [
   { label: 'Checkbox', value: QuestionType.Checkbox, decorator: <QuestionCheckboxIcon fontSize="inherit" /> },

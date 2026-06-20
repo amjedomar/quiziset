@@ -4,7 +4,7 @@ import { SelectValue } from '@mui/base/useSelect'
 
 export interface SelectEnhancedOption {
   label: string
-  value: string
+  value: string | number | null
   decorator?: ReactNode
 }
 
@@ -47,6 +47,18 @@ export function SelectEnhanced<Multiple extends boolean>({
     [options, decoratorStyle, hideSelectedOptionLabel],
   )
 
+  /**
+   * Unfortunately, there is a bug in mui joy
+   * in which the initial selected value isn't rendered during SSR
+   *
+   * see https://github.com/mui/base-ui/issues/37
+   * check the comment:
+   * "It's because useSelect uses the internal useCompound hook
+   * which relies on useEffect so it won't work with SSR"
+   *
+   * But this isn't a critical issue (since anyway selected option will be
+   * shown once hydration happens in browser side)
+   */
   return (
     <Select {...selectProps} renderValue={renderSelectedOption}>
       {options.map((option) => (

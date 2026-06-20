@@ -21,16 +21,17 @@ model User {
 }
 
 model Quiz {
-  id                 Int      @id @default(autoincrement())
-  title              String   @db.VarChar(255)
-  description        String   @db.Text
-  imageUrl           String   @db.VarChar(1024)
-  isPublic           Boolean  @default(false)
-  isAnalyticsEnabled Boolean  @default(false)
+  id                    Int      @id @default(autoincrement())
+  title                 String   @db.VarChar(255)
+  description           String   @db.Text
+  timeDurationInMinutes Int?
+  imageUrl              String   @db.VarChar(1024)
+  isPublic              Boolean  @default(false)
+  isAnalyticsEnabled    Boolean  @default(false)
   /// [QuizQuestions]
-  questions          Json
-  managerId          Int
-  manager            User     @relation(fields: [managerId], references: [id])
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  questions             Json
+  managerId             Int
+  manager               User     @relation(fields: [managerId], references: [id])
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 }

@@ -9,8 +9,9 @@ import BookmarkIcon from '@mui/icons-material/BookmarkBorderOutlined'
 import SearchIcon from '@mui/icons-material/Search'
 import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
-import { ReactNode, useCallback, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { ReactNode, Suspense, useCallback, useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { appendRedirectParam } from '@/utils/redirect'
 
 const NAV_LINKS = [
   { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
@@ -59,6 +60,33 @@ function NavLinkButton({ href, label, icon, variant, fullWidth, onNavigate, size
   )
 }
 
+function AuthButtons({ redirectTo }: { redirectTo?: string | null }) {
+  return (
+    <>
+      <Button variant="outlined" component={Link} href={appendRedirectParam('/login', redirectTo)}>
+        Login
+      </Button>
+
+      <Button variant="solid" component={Link} href={appendRedirectParam('/signup', redirectTo)}>
+        Sign Up
+      </Button>
+    </>
+  )
+}
+
+const WithSearchParam = ({
+  paramKey,
+  children,
+}: {
+  paramKey: string
+  children: (paramValue: string | null) => ReactNode
+}) => {
+  const searchParams = useSearchParams()
+  const paramValue = searchParams.get(paramKey)
+
+  return children(paramValue)
+}
+
 export function Navbar() {
   const pathname = usePathname()
   const { isLoggedIn } = useAuth()
@@ -67,6 +95,8 @@ export function Navbar() {
   const closeDrawer = useCallback(() => {
     setDrawerOpen(false)
   }, [])
+
+  const isAuthPage = pathname === '/login' || pathname === '/signup'
 
   const isHomePage = pathname === '/'
 
@@ -93,16 +123,14 @@ export function Navbar() {
           <Stack className={styles.desktopAuth} direction="row" spacing={1.5}>
             {isLoggedIn ? (
               <UserAvatar />
+            ) : isAuthPage ? (
+              <Suspense>
+                <WithSearchParam paramKey="redirect">
+                  {(redirectTo) => <AuthButtons redirectTo={redirectTo} />}
+                </WithSearchParam>
+              </Suspense>
             ) : (
-              <>
-                <Button variant="outlined" component={Link} href="/login">
-                  Login
-                </Button>
-
-                <Button variant="solid" component={Link} href="/signup">
-                  Sign Up
-                </Button>
-              </>
+              <AuthButtons />
             )}
           </Stack>
 

@@ -1,16 +1,10 @@
 import { FormFieldCore } from '@/ui/form-fields/form-field-core'
-import { ReactNode } from 'react'
 import { SelectEnhanced, SelectEnhancedProps } from '@/ui/select-enhanced'
 
-export interface FormSelectOption {
-  label: string
-  value: string
-  decorator?: ReactNode
-}
-
-interface FormSelectProps<Multiple extends boolean> extends SelectEnhancedProps<Multiple> {
+interface FormSelectProps<Multiple extends boolean> extends Omit<SelectEnhancedProps<Multiple>, 'defaultValue'> {
   name: string
   label?: string
+  defaultValue?: string | number | null
 }
 
 export function FormSelect<Multiple extends boolean>({
@@ -19,13 +13,14 @@ export function FormSelect<Multiple extends boolean>({
   placeholder,
   options,
   decoratorStyle,
+  defaultValue = '',
   ...selectProps
 }: FormSelectProps<Multiple>) {
   return (
     <FormFieldCore
       name={name}
       label={label}
-      defaultValue=""
+      defaultValue={defaultValue}
       renderField={({ field: { ref, onChange, ...fieldProps } }) => (
         <SelectEnhanced
           ref={ref}
