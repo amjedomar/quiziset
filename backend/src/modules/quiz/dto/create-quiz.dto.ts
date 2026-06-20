@@ -152,6 +152,7 @@ export class CreateQuizDto {
   @Min(1)
   @IsOptional()
   @ApiPropertyOptional({
+    type: Number,
     nullable: true,
     description: 'quiz duration in minutes (null when there is no time limit)',
   })

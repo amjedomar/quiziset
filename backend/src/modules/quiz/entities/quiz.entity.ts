@@ -23,7 +23,11 @@ export class QuizEntity {
   @ApiProperty() id: number
   @ApiProperty() title: string
   @ApiProperty() description: string
-  @ApiProperty({ nullable: true, description: 'quiz duration in minutes (null when there is no time limit)' })
+  @ApiProperty({
+    type: Number,
+    nullable: true,
+    description: 'quiz duration in minutes (null when there is no time limit)',
+  })
   timeDurationInMinutes: number | null
   @ApiProperty() imageUrl: string
   @ApiProperty() isPublic: boolean

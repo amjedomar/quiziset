@@ -1,15 +1,42 @@
-import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
 import { CreateQuizDto } from '@/modules/quiz/dto/create-quiz.dto'
 import { UpdateQuizDto } from '@/modules/quiz/dto/update-quiz.dto'
 import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.dto'
+import { StartQuizSessionDto } from '@/modules/quiz/dto/start-quiz-session.dto'
+import { SubmitQuizSessionAnswerDto } from '@/modules/quiz/dto/submit-quiz-session-answer.dto'
 import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
+import { QuizSessionStateEntity } from '@/modules/quiz/entities/quiz-session.entity'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
+import { QuizSession } from '@/generated/prisma/client'
+import {
+  buildSessionQuestions,
+  checkIsAnswerCorrect,
+  checkIsSessionExpired,
+  buildSessionState,
+} from '@/utils/quiz-session'
 
 const QuizErrors = {
   NOT_FOUND: 'quiz not found',
   FORBIDDEN: 'you are not the manager of this quiz',
   VIEW_FORBIDDEN: 'this quiz is private',
+}
+
+const QuizSessionErrors = {
+  ANALYTICS_SHARE_REQUIRED: 'sharing analytics is required to start a session for this quiz',
+  /**
+   * error "NO_ACTIVE_SESSION"
+   * - is thrown for "submitAnswer" only
+   * - however for "startSession" (it creates a new session if there isn't)
+   *   it doesn't throw this error
+   */
+  NO_ACTIVE_SESSION: 'no active quiz session found',
 }
 
 @Injectable()
@@ -82,5 +109,114 @@ export class QuizService {
     }
 
     await this.prisma.quiz.delete({ where: { id } })
+  }
+
+  /**
+   * starts a new quiz session OR resumes the user's active session (if there is)
+   *
+   * when there is no active session and the quiz has analytics enabled the user
+   * must explicitly agree to share analytics (via "isAnalyticsShared") otherwise a 400
+   * response error is thrown
+   */
+  async startSession(quizId: number, userId: number, dto: StartQuizSessionDto): Promise<QuizSessionStateEntity> {
+    // use "this.get" method because it already ensures that access it allowed
+    // i.e. it throws 404 if quiz doesn't exists OR 403 if the quiz is private and not owned
+    const quiz = await this.get(quizId, userId)
+
+    const activeSession = await this.prisma.quizSession.findFirst({
+      where: { quizId, userId, finishTime: null },
+    })
+
+    if (activeSession) {
+      if (checkIsSessionExpired(activeSession)) {
+        // finalize the expired session (but don't return it)
+        // instead later below a new session will be created
+        await this.finalizeSession(activeSession)
+      } else {
+        // otherwise resume the existing session
+        return buildSessionState(activeSession)
+      }
+    }
+
+    if (quiz.isAnalyticsEnabled && dto.isAnalyticsShared !== true) {
+      throw new BadRequestException(QuizSessionErrors.ANALYTICS_SHARE_REQUIRED)
+    }
+
+    const startTime = new Date()
+    const expireTime =
+      quiz.timeDurationInMinutes !== null
+        ? new Date(startTime.getTime() + quiz.timeDurationInMinutes * 60 * 1000)
+        : null
+
+    const questions = buildSessionQuestions(quiz.questions)
+
+    const createdSession = await this.prisma.quizSession.create({
+      data: {
+        quizId,
+        userId,
+        startTime,
+        expireTime,
+        questions,
+        questionsCount: questions.length,
+        isAnalyticsShared: dto.isAnalyticsShared ?? false,
+      },
+    })
+
+    return buildSessionState(createdSession)
+  }
+
+  /**
+   * This method grades the user's answer of the current question (only if time isn't up)
+   *
+   * Then either:
+   *   - returns the next question (in case the session is still on-going)
+   *   - or the result `successfulAnswersCount` once the quiz is finished
+   *    (i.e. the last question was answered or the session's time is up)
+   */
+  async submitAnswer(quizId: number, userId: number, dto: SubmitQuizSessionAnswerDto): Promise<QuizSessionStateEntity> {
+    const session = await this.prisma.quizSession.findFirst({
+      where: { quizId, userId, finishTime: null },
+    })
+
+    if (!session) {
+      throw new NotFoundException(QuizSessionErrors.NO_ACTIVE_SESSION)
+    }
+
+    // if the session's time is up -> finalize it (the submitted answer is ignored)
+    if (checkIsSessionExpired(session)) {
+      return this.finalizeSession(session)
+    }
+
+    const currentQuestion = session.questions[session.currentQuestionIndex]
+    const isCurrentAnswerCorrect = checkIsAnswerCorrect(currentQuestion, dto.answerIndexes)
+
+    const nextQuestionIndex = session.currentQuestionIndex + 1
+    const isLastQuestion = nextQuestionIndex >= session.questionsCount
+
+    const updatedSession = await this.prisma.quizSession.update({
+      where: { id: session.id },
+      data: {
+        successfulAnswersCount: session.successfulAnswersCount + (isCurrentAnswerCorrect ? 1 : 0),
+        ...(isLastQuestion ? { finishTime: new Date() } : { currentQuestionIndex: nextQuestionIndex }),
+      },
+    })
+
+    return buildSessionState(updatedSession)
+  }
+
+  /**
+   * marks the session as finished (sets "finishTime") and returns its (finished) state
+   */
+  private async finalizeSession(session: QuizSession): Promise<QuizSessionStateEntity> {
+    const finishedSession = await this.prisma.quizSession.update({
+      where: { id: session.id },
+      data: {
+        finishTime: session.expireTime
+          ? new Date(Math.min(new Date(session.expireTime).getTime(), Date.now()))
+          : new Date(),
+      },
+    })
+
+    return buildSessionState(finishedSession)
   }
 }

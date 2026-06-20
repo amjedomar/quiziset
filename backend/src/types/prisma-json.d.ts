@@ -1,14 +1,22 @@
 /**
- * custom types for prisma "Json" fields (consumed by "prisma-json-types-generator")
- *
- * the "/// [QuizQuestions]" comment on the "questions" field in schema.prisma
- * links it to "PrismaJson.QuizQuestions" below
- *
- * we reuse the exact type from QuizEntity (to avoid code duplication)
+ * custom types for schema.prisma "Json" fields
+ * (handled by "prisma-json-types-generator" npm package)
  */
 declare global {
   namespace PrismaJson {
+    /**
+     * the "/// [QuizQuestions]" comment in schema.prisma
+     * (on the "questions" field of the "Quiz" model)
+     * references this type
+     */
     type QuizQuestions = import('@/modules/quiz/entities/quiz.entity').QuizEntity['questions']
+
+    /**
+     * the "/// [QuizSessionQuestions]" comment in schema.prisma
+     * (on the "questions" field of the "QuizSession" model)
+     * references this type
+     */
+    type QuizSessionQuestions = import('@/modules/quiz/entities/quiz-session.entity').QuizSessionStoredQuestion[]
   }
 }
 

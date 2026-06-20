@@ -13,11 +13,12 @@ datasource db {
 }
 
 model User {
-  id             Int    @id @default(autoincrement())
-  name           String @db.VarChar(64)
-  email          String @unique @db.VarChar(255)
-  password       String @db.VarChar(1024)
+  id             Int           @id @default(autoincrement())
+  name           String        @db.VarChar(64)
+  email          String        @unique @db.VarChar(255)
+  password       String        @db.VarChar(1024)
   managedQuizzes Quiz[]
+  quizSessions   QuizSession[]
 }
 
 model Quiz {
@@ -34,4 +35,25 @@ model Quiz {
   manager               User     @relation(fields: [managerId], references: [id])
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+  sessions              QuizSession[]
+}
+
+model QuizSession {
+  id                     Int       @id @default(autoincrement())
+  startTime              DateTime  @default(now())
+  /// "expireTime" is null when the quiz has no time limit (i.e. when "timeDurationInMinutes" is null)
+  expireTime             DateTime?
+  /// "finishTime" is null until the quiz session is finished
+  finishTime             DateTime?
+  /// "questions" is a shuffled copy of the quiz questions (answers shuffled too)
+  /// [QuizSessionQuestions]
+  questions              Json
+  questionsCount         Int
+  successfulAnswersCount Int       @default(0)
+  currentQuestionIndex   Int       @default(0)
+  isAnalyticsShared      Boolean   @default(false)
+  quizId                 Int
+  quiz                   Quiz      @relation(fields: [quizId], references: [id])
+  userId                 Int
+  user                   User      @relation(fields: [userId], references: [id])
 }
