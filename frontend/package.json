@@ -11,7 +11,8 @@
     "generate:api-client": "orval && prettier --write src/api-client"
   },
   "dependencies": {
-    "@dnd-kit/react": "^0.4.0",
+    "@dnd-kit/helpers": "^0.5.0",
+    "@dnd-kit/react": "^0.5.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.4.0",

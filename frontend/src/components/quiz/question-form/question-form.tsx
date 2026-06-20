@@ -130,7 +130,11 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
       <>
         <div className={styles.answerInputWrapper}>
           {questionType === QuestionType.Cards && (
-            <FormImage name={`${questionFieldName}.answers.${answerIndex}.image`} boxSize="sm" bucketName="quizzes" />
+            <FormImage
+              name={`${questionFieldName}.answers.${answerIndex}.imageUrl`}
+              boxSize="sm"
+              bucketName="quizzes"
+            />
           )}
 
           <FormInput

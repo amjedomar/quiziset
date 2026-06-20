@@ -50,7 +50,7 @@ export function QuizzesList() {
               component={Link}
               variant="outlined"
               className={styles.quizCard}
-              href={`/quizzes/${quiz.id}/take`}
+              href={`/quizzes/${quiz.id}/session`}
             >
               <img className={styles.image} src={quiz.imageUrl} alt="" />
 

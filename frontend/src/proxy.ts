@@ -8,7 +8,7 @@ import { checkIfUserLikelyLoggedIn, matchesRoute } from '@/utils/nextjs-proxy-ut
  */
 const ROUTES = {
   // Routes that require user to be logged in
-  PROTECTED: ['/manage-quizzes', '/quizzes/:quizId/take'],
+  PROTECTED: ['/manage-quizzes', '/quizzes/:quizId/session'],
 
   // Routes that can be accessed only if user is logged out
   GUEST_ONLY: ['/login', '/signup'],
@@ -57,5 +57,5 @@ export function proxy(request: NextRequest) {
  * source: https://nextjs.org/docs/app/api-reference/file-conventions/proxy#matcher
  */
 export const config = {
-  matcher: ['/manage-quizzes/:path*', '/quizzes/:quizId/take', '/login', '/signup'],
+  matcher: ['/manage-quizzes/:path*', '/quizzes/:quizId/session', '/login', '/signup'],
 }
