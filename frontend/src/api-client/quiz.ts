@@ -176,6 +176,27 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   return { ...query, queryKey: queryOptions.queryKey }
 }
 
+/**
+ * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
+ */
+export const prefetchGetAllQuizzesQuery = async <
+  TData = Awaited<ReturnType<typeof getAllQuizzes>>,
+  TError = ErrorResponse,
+>(
+  queryClient: QueryClient,
+  params?: GetAllQuizzesParams,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllQuizzes>>, TError, TData>>
+    request?: SecondParameter<typeof customFetch>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetAllQuizzesQueryOptions(params, options)
+
+  await queryClient.prefetchQuery(queryOptions)
+
+  return queryClient
+}
+
 export type createQuizResponse201 = {
   data: QuizEntity
   status: 201
@@ -391,6 +412,27 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
   }
 
   return { ...query, queryKey: queryOptions.queryKey }
+}
+
+/**
+ * @summary get a quiz by id
+ */
+export const prefetchGetSingleQuizQuery = async <
+  TData = Awaited<ReturnType<typeof getSingleQuiz>>,
+  TError = ErrorResponse,
+>(
+  queryClient: QueryClient,
+  id: number,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
+    request?: SecondParameter<typeof customFetch>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetSingleQuizQueryOptions(id, options)
+
+  await queryClient.prefetchQuery(queryOptions)
+
+  return queryClient
 }
 
 export type updateQuizResponse200 = {

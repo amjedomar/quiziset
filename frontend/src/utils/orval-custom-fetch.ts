@@ -1,8 +1,7 @@
 import jsCookie from 'js-cookie'
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
 import { appendRedirectParam } from '@/utils/redirect'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+import { API_BASE_URL } from '@/constants/api-url'
 
 const getHeaders = (headers?: HeadersInit): HeadersInit => {
   const token = jsCookie.get(USER_TOKEN_COOKIE)
@@ -63,7 +62,12 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
     headers: requestHeaders,
   })
 
-  if (response.status === 401) {
+  /**
+   * "handleUnauthorized" relies on "window"
+   * and this fetch can also run on the server (i.e. during a server-side prefetch)
+   * so only run it in the browser
+   */
+  if (response.status === 401 && typeof window !== 'undefined') {
     handleUnauthorized()
   }
 

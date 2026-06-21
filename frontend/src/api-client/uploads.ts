@@ -259,3 +259,22 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
 
   return { ...query, queryKey: queryOptions.queryKey }
 }
+
+/**
+ * @summary returns file (e.g. image)
+ */
+export const prefetchGetFileQuery = async <TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+  queryClient: QueryClient,
+  bucketName: 'quizzes' | 'profiles',
+  fileName: string,
+  options?: {
+    query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getFile>>, TError, TData>>
+    request?: SecondParameter<typeof customFetch>
+  },
+): Promise<QueryClient> => {
+  const queryOptions = getGetFileQueryOptions(bucketName, fileName, options)
+
+  await queryClient.prefetchQuery(queryOptions)
+
+  return queryClient
+}

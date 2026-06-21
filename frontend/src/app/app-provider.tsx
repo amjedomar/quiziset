@@ -11,7 +11,11 @@ interface AppProviderProps {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      gcTime: 0, // disable cache
+      // Unfortunately we can't use "gcTime" with pre-fetching queries in SSR
+      // because they cause hydration issues
+      // TODO: I have to make sure queries are invalidated after update/create
+      // because of what I mentioned above (caching was re-enabled)
+      // gcTime: 0, // disable cache
     },
   },
 })

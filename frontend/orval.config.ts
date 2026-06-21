@@ -1,15 +1,14 @@
+import { API_BASE_URL } from '@/constants/api-url'
 import 'dotenv/config'
 import { defineConfig } from 'orval'
 
-const { API_OPENAPI_JSON_URL } = process.env
-
-if (!API_OPENAPI_JSON_URL) {
-  throw new Error('please specify API_OPENAPI_JSON_URL in .env file');
+if (!API_BASE_URL) {
+  throw new Error('please specify NEXT_PUBLIC_API_BASE_URL in .env file')
 }
 
 export default defineConfig({
   quiziset: {
-    input: API_OPENAPI_JSON_URL,
+    input: `${API_BASE_URL}/api-docs-json`,
     output: {
       target: './src/api-client/quiziset.ts',
       mode: 'tags',
@@ -21,8 +20,11 @@ export default defineConfig({
           path: './src/utils/orval-custom-fetch.ts',
           name: 'customFetch',
         },
+        query: {
+          usePrefetch: true,
+        },
       },
-      clean: true
+      clean: true,
     },
   },
 })
