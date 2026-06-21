@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@/constants/api-url'
 import 'dotenv/config'
+import { API_BASE_URL } from './src/constants/api-url'
 import { defineConfig } from 'orval'
 
 if (!API_BASE_URL) {
@@ -22,6 +22,12 @@ export default defineConfig({
         },
         query: {
           usePrefetch: true,
+          mutationInvalidates: [
+            {
+              onMutations: ['createQuiz', 'updateQuiz', 'deleteQuiz'],
+              invalidates: ['getAllQuizzes', 'getSingleQuiz'],
+            },
+          ],
         },
       },
       clean: true,

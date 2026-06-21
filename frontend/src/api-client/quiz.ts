@@ -5,12 +5,13 @@
  * The RESTful APIs Docs for the Quiziset app
  * OpenAPI spec version: 1.0
  */
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
   MutationFunction,
+  MutationFunctionContext,
   QueryClient,
   QueryFunction,
   QueryKey,
@@ -242,10 +243,14 @@ export const createQuiz = async (createQuizDto: CreateQuizDto, options?: Request
   })
 }
 
-export const getCreateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
-  request?: SecondParameter<typeof customFetch>
-}): UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
+export const getCreateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(
+  queryClient: QueryClient,
+  options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
+    skipInvalidation?: boolean
+    request?: SecondParameter<typeof customFetch>
+  },
+): UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
   const mutationKey = ['createQuiz']
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
@@ -259,7 +264,22 @@ export const getCreateQuizMutationOptions = <TError = ErrorResponse, TContext = 
     return createQuiz(data, requestOptions)
   }
 
-  return { mutationFn, ...mutationOptions }
+  const onSuccess = (
+    data: Awaited<ReturnType<typeof createQuiz>>,
+    variables: { data: CreateQuizDto },
+    onMutateResult: TContext,
+    context: MutationFunctionContext,
+  ) => {
+    if (!options?.skipInvalidation) {
+      queryClient.invalidateQueries({ queryKey: getGetAllQuizzesQueryKey() })
+      queryClient.invalidateQueries({
+        predicate: (query) => typeof query.queryKey[0] === 'string' && query.queryKey[0].startsWith('/quizzes/'),
+      })
+    }
+    mutationOptions?.onSuccess?.(data, variables, onMutateResult, context)
+  }
+
+  return { ...mutationOptions, mutationFn, onSuccess }
 }
 
 export type CreateQuizMutationResult = NonNullable<Awaited<ReturnType<typeof createQuiz>>>
@@ -272,11 +292,13 @@ export type CreateQuizMutationError = ErrorResponse
 export const useCreateQuiz = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext>
+    skipInvalidation?: boolean
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof createQuiz>>, TError, { data: CreateQuizDto }, TContext> => {
-  return useMutation(getCreateQuizMutationOptions(options), queryClient)
+  const backupQueryClient = useQueryClient()
+  return useMutation(getCreateQuizMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }
 export type getSingleQuizResponse200 = {
   data: QuizEntity
@@ -500,15 +522,19 @@ export const updateQuiz = async (
   })
 }
 
-export const getUpdateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof updateQuiz>>,
-    TError,
-    { id: number; data: UpdateQuizDto },
-    TContext
-  >
-  request?: SecondParameter<typeof customFetch>
-}): UseMutationOptions<
+export const getUpdateQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(
+  queryClient: QueryClient,
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof updateQuiz>>,
+      TError,
+      { id: number; data: UpdateQuizDto },
+      TContext
+    >
+    skipInvalidation?: boolean
+    request?: SecondParameter<typeof customFetch>
+  },
+): UseMutationOptions<
   Awaited<ReturnType<typeof updateQuiz>>,
   TError,
   { id: number; data: UpdateQuizDto },
@@ -529,7 +555,22 @@ export const getUpdateQuizMutationOptions = <TError = ErrorResponse, TContext = 
     return updateQuiz(id, data, requestOptions)
   }
 
-  return { mutationFn, ...mutationOptions }
+  const onSuccess = (
+    data: Awaited<ReturnType<typeof updateQuiz>>,
+    variables: { id: number; data: UpdateQuizDto },
+    onMutateResult: TContext,
+    context: MutationFunctionContext,
+  ) => {
+    if (!options?.skipInvalidation) {
+      queryClient.invalidateQueries({ queryKey: getGetAllQuizzesQueryKey() })
+      queryClient.invalidateQueries({
+        predicate: (query) => typeof query.queryKey[0] === 'string' && query.queryKey[0].startsWith('/quizzes/'),
+      })
+    }
+    mutationOptions?.onSuccess?.(data, variables, onMutateResult, context)
+  }
+
+  return { ...mutationOptions, mutationFn, onSuccess }
 }
 
 export type UpdateQuizMutationResult = NonNullable<Awaited<ReturnType<typeof updateQuiz>>>
@@ -547,11 +588,13 @@ export const useUpdateQuiz = <TError = ErrorResponse, TContext = unknown>(
       { id: number; data: UpdateQuizDto },
       TContext
     >
+    skipInvalidation?: boolean
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof updateQuiz>>, TError, { id: number; data: UpdateQuizDto }, TContext> => {
-  return useMutation(getUpdateQuizMutationOptions(options), queryClient)
+  const backupQueryClient = useQueryClient()
+  return useMutation(getUpdateQuizMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }
 export type deleteQuizResponse200 = {
   data: void
@@ -606,10 +649,14 @@ export const deleteQuiz = async (id: number, options?: RequestInit): Promise<del
   })
 }
 
-export const getDeleteQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
-  request?: SecondParameter<typeof customFetch>
-}): UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {
+export const getDeleteQuizMutationOptions = <TError = ErrorResponse, TContext = unknown>(
+  queryClient: QueryClient,
+  options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
+    skipInvalidation?: boolean
+    request?: SecondParameter<typeof customFetch>
+  },
+): UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {
   const mutationKey = ['deleteQuiz']
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
@@ -623,7 +670,22 @@ export const getDeleteQuizMutationOptions = <TError = ErrorResponse, TContext = 
     return deleteQuiz(id, requestOptions)
   }
 
-  return { mutationFn, ...mutationOptions }
+  const onSuccess = (
+    data: Awaited<ReturnType<typeof deleteQuiz>>,
+    variables: { id: number },
+    onMutateResult: TContext,
+    context: MutationFunctionContext,
+  ) => {
+    if (!options?.skipInvalidation) {
+      queryClient.invalidateQueries({ queryKey: getGetAllQuizzesQueryKey() })
+      queryClient.invalidateQueries({
+        predicate: (query) => typeof query.queryKey[0] === 'string' && query.queryKey[0].startsWith('/quizzes/'),
+      })
+    }
+    mutationOptions?.onSuccess?.(data, variables, onMutateResult, context)
+  }
+
+  return { ...mutationOptions, mutationFn, onSuccess }
 }
 
 export type DeleteQuizMutationResult = NonNullable<Awaited<ReturnType<typeof deleteQuiz>>>
@@ -636,11 +698,13 @@ export type DeleteQuizMutationError = ErrorResponse
 export const useDeleteQuiz = <TError = ErrorResponse, TContext = unknown>(
   options?: {
     mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext>
+    skipInvalidation?: boolean
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof deleteQuiz>>, TError, { id: number }, TContext> => {
-  return useMutation(getDeleteQuizMutationOptions(options), queryClient)
+  const backupQueryClient = useQueryClient()
+  return useMutation(getDeleteQuizMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }
 export type startQuizSessionResponse200 = {
   data: QuizSessionStateEntity
