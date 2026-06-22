@@ -3,12 +3,31 @@ import { USER_TOKEN_COOKIE } from '@/constants/auth'
 import { appendRedirectParam } from '@/utils/redirect'
 import { API_BASE_URL } from '@/constants/api-url'
 
-const getHeaders = (headers?: HeadersInit): HeadersInit => {
-  const token = jsCookie.get(USER_TOKEN_COOKIE)
+/**
+ * reads the user's auth token cookie
+ *  - in the browser: via "js-cookie"
+ *  - during SSR: via "next/headers"
+ */
+const getUserToken = async (): Promise<string | undefined> => {
+  if (typeof window === 'undefined') {
+    // "next/headers" is server-only so it is imported dynamically
+    // (a static import would crash in client)
+    const { cookies } = await import('next/headers')
+    const cookieStore = await cookies()
+
+    return cookieStore.get(USER_TOKEN_COOKIE)?.value
+  }
+
+  return jsCookie.get(USER_TOKEN_COOKIE)
+}
+
+const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
+  const token = await getUserToken()
 
   return {
     ...headers,
-    Authorization: `Bearer ${token}`,
+    // only attach the header when a token exists (avoids sending "Bearer undefined")
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   }
 }
 
@@ -55,7 +74,7 @@ const handleUnauthorized = () => {
  */
 export const customFetch = async <T>(url: string, options?: RequestInit) => {
   const requestUrl = API_BASE_URL + url
-  const requestHeaders = getHeaders(options?.headers)
+  const requestHeaders = await getHeaders(options?.headers)
 
   const response = await fetch(requestUrl, {
     ...options,
@@ -63,9 +82,7 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
   })
 
   /**
-   * "handleUnauthorized" relies on "window"
-   * and this fetch can also run on the server (i.e. during a server-side prefetch)
-   * so only run it in the browser
+   * run "handleUnauthorized" when status is 401 (in browser only)
    */
   if (response.status === 401 && typeof window !== 'undefined') {
     handleUnauthorized()

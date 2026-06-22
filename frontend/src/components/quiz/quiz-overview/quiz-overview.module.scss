@@ -1,0 +1,55 @@
+.header {
+  margin-top: 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+  display: flex;
+  gap: 16px;
+
+  @media ($max-screen-sm) {
+    flex-direction: column;
+  }
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  gap: 8px;
+}
+
+.title {
+  font-size: 30px;
+
+  @media ($max-screen-sm) {
+    font-size: 24px;
+  }
+}
+
+.ctaButton {
+  flex-shrink: 0;
+
+  @media ($max-screen-sm) {
+    align-self: stretch;
+  }
+}
+
+.descriptionSection {
+  margin-top: 24px;
+}
+
+.descriptionText {
+  margin-top: 8px;
+  white-space: pre-line; // parse link breaks i.e. /n
+}
+
+.image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+
+  @media ($max-screen-sm) {
+    height: 200px;
+  }
+}

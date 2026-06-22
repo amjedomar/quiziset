@@ -110,7 +110,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
       <AnalyticsConsentModal
         isAccepting={isStarting}
         onAccept={() => start(true)}
-        onQuit={() => router.push(`/quizzes/${quizId}/view`)}
+        onQuit={() => router.push(`/quizzes/${quizId}/overview`)}
       />
     )
   }

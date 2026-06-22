@@ -1,34 +1,22 @@
-'use client'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { prefetchGetSingleQuizQuery } from '@/api-client/quiz'
+import { makeQueryClient } from '@/utils/query-client'
+import QuizOverview from '@/components/quiz/quiz-overview/quiz-overview'
 
-import { Button, Container } from '@mui/joy'
-import { useParams } from 'next/navigation'
-import { useGetSingleQuiz } from '@/api-client/quiz'
-import { isErrorOrNoResponse } from '@/utils/is-error-response'
-import { ErrorResponseView } from '@/components/error-response-view'
-import { Loading } from '@/components/loading'
-import NextLink from 'next/link'
-import StartIcon from '@mui/icons-material/PlayCircleFilledWhite'
+interface QuizOverviewPageProps {
+  params: Promise<{ quizId: string }>
+}
 
-export default function QuizOverviewPage() {
-  const { quizId } = useParams<{ quizId: string }>()
-  const { data, isLoading } = useGetSingleQuiz(Number(quizId), { fields: 'OVERVIEW' })
+export default async function QuizOverviewPage({ params }: QuizOverviewPageProps) {
+  const { quizId } = await params
 
-  const quiz = data?.data
+  const queryClient = makeQueryClient()
 
-  if (isLoading) {
-    return <Loading />
-  }
-
-  if (isErrorOrNoResponse(quiz)) {
-    return <ErrorResponseView error={quiz} />
-  }
+  await prefetchGetSingleQuizQuery(queryClient, Number(quizId), { fields: 'OVERVIEW' })
 
   return (
-    <Container maxWidth="lg">
-      Quiz Title: {quiz.title}
-      <Button component={NextLink} href={`/quizzes/${quiz.id}/session`} startDecorator={<StartIcon />} size="lg">
-        Start
-      </Button>
-    </Container>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <QuizOverview quizId={Number(quizId)} />
+    </HydrationBoundary>
   )
 }

@@ -21,7 +21,7 @@ export function QuizResult({ state, quizId }: QuizResultProps) {
           correct answers
         </Typography>
 
-        <Button component={NextLink} href={`/quizzes/${quizId}/view`} sx={{ mt: 2 }}>
+        <Button component={NextLink} href={`/quizzes/${quizId}/overview`} sx={{ mt: 2 }}>
           Back to Quiz
         </Button>
       </Stack>

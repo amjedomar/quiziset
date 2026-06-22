@@ -56,7 +56,7 @@ export function QuizzesList() {
 
               <div className={styles.details}>
                 <Typography level="title-lg">{quiz.title}</Typography>
-                <Typography level="body-sm" textColor="text.tertiary">
+                <Typography level="body-sm" textColor="text.tertiary" className={styles.quizDescription}>
                   {quiz.description}
                 </Typography>
               </div>
