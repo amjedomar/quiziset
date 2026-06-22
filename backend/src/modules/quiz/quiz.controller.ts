@@ -16,6 +16,7 @@ import { QuizService } from '@/modules/quiz/quiz.service'
 import { CreateQuizDto } from '@/modules/quiz/dto/create-quiz.dto'
 import { UpdateQuizDto } from '@/modules/quiz/dto/update-quiz.dto'
 import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.dto'
+import { GetSingleQuizQueryDto } from '@/modules/quiz/dto/get-single-quiz-query.dto'
 import { StartQuizSessionDto } from '@/modules/quiz/dto/start-quiz-session.dto'
 import { SubmitQuizSessionAnswerDto } from '@/modules/quiz/dto/submit-quiz-session-answer.dto'
 import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
@@ -41,8 +42,12 @@ export class QuizController {
   @IsPublic()
   @ApiOperation({ summary: 'get a quiz by id' })
   @ApiResponsesList({ status: 200, type: QuizEntity }, 403, 404)
-  getSingleQuiz(@Param('id', ParseIntPipe) id: number, @AuthUser() user?: AuthUserData): Promise<QuizEntity> {
-    return this.quizService.get(id, user?.userId)
+  getSingleQuiz(
+    @Param('id', ParseIntPipe) id: number,
+    @Query() query: GetSingleQuizQueryDto,
+    @AuthUser() user?: AuthUserData,
+  ): Promise<QuizEntity> {
+    return this.quizService.get(id, query, user?.userId)
   }
 
   @Post()

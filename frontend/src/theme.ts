@@ -22,10 +22,10 @@ export const theme = extendTheme({
               paddingInline: '16px',
             },
           }),
-          ...(ownerState.size === 'lg' && {
-            fontSize: '14px',
-            '--Icon-fontSize': '20px',
-          }),
+          // ...(ownerState.size === 'lg' && {
+          //   fontSize: '14px',
+          //   '--Icon-fontSize': '20px',
+          // }),
         }),
       },
     },

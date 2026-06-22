@@ -19,7 +19,14 @@ export interface QuizEntity {
   imageUrl: string
   isPublic: boolean
   isAnalyticsEnabled: boolean
-  questions: QuestionEntity[]
+  /** indicates how many times the quiz was finished by all quiz takers. (info: if same user finish same quiz multiple times then every finish is counted) */
+  totalFinishes: number
+  /** returned only when querying a single quiz (with ?fields=DETAILS) AND if the current user is the quiz manager */
+  questions?: QuestionEntity[]
+  /** returned only when querying a single quiz (with ?fields=OVERVIEW) */
+  wasTakenByCurrentUserAtLeastOnce?: boolean
+  /** returned only when querying a single quiz (with ?fields=OVERVIEW) */
+  doesCurrentUserHaveActiveSession?: boolean
   managerId: number
   createdAt: string
   updatedAt: string

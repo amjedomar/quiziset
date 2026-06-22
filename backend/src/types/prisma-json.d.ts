@@ -9,7 +9,7 @@ declare global {
      * (on the "questions" field of the "Quiz" model)
      * references this type
      */
-    type QuizQuestions = import('@/modules/quiz/entities/quiz.entity').QuizEntity['questions']
+    type QuizQuestions = NonNullable<import('@/modules/quiz/entities/quiz.entity').QuizEntity['questions']>
 
     /**
      * the "/// [QuizSessionQuestions]" comment in schema.prisma

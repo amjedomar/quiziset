@@ -5,7 +5,7 @@ import {
   QuizSessionStateEntity,
   QuizSessionStoredQuestion,
 } from '@/modules/quiz/entities/quiz-session.entity'
-import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
+import type { Quiz } from '@/generated/prisma/client'
 import { shuffle } from '@/utils/shuffle'
 
 /**
@@ -25,7 +25,7 @@ export function checkIsSessionExpired(session: QuizSession): boolean {
  * if you wanna know why we need to copy quiz questions (check the code comment
  * I wrote for "QuizSessionStoredQuestion" type in "quiz-session.entity.ts" file)
  */
-export function buildSessionQuestions(questions: QuizEntity['questions']): QuizSessionStoredQuestion[] {
+export function buildSessionQuestions(questions: Quiz['questions']): QuizSessionStoredQuestion[] {
   return shuffle(questions).map((question) => {
     const isReorder = question.questionType === QuestionType.Reorder
 

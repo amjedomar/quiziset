@@ -26,6 +26,7 @@ import type {
   CreateQuizDto,
   ErrorResponse,
   GetAllQuizzesParams,
+  GetSingleQuizParams,
   QuizEntity,
   QuizSessionStateEntity,
   StartQuizSessionDto,
@@ -333,26 +334,41 @@ export type getSingleQuizResponseError = (
 
 export type getSingleQuizResponse = getSingleQuizResponseSuccess | getSingleQuizResponseError
 
-export const getGetSingleQuizUrl = (id: number) => {
-  return `/quizzes/${id}`
+export const getGetSingleQuizUrl = (id: number, params?: GetSingleQuizParams) => {
+  const normalizedParams = new URLSearchParams()
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  })
+
+  const stringifiedParams = normalizedParams.toString()
+
+  return stringifiedParams.length > 0 ? `/quizzes/${id}?${stringifiedParams}` : `/quizzes/${id}`
 }
 
 /**
  * @summary get a quiz by id
  */
-export const getSingleQuiz = async (id: number, options?: RequestInit): Promise<getSingleQuizResponse> => {
-  return customFetch<getSingleQuizResponse>(getGetSingleQuizUrl(id), {
+export const getSingleQuiz = async (
+  id: number,
+  params?: GetSingleQuizParams,
+  options?: RequestInit,
+): Promise<getSingleQuizResponse> => {
+  return customFetch<getSingleQuizResponse>(getGetSingleQuizUrl(id, params), {
     ...options,
     method: 'GET',
   })
 }
 
-export const getGetSingleQuizQueryKey = (id: number) => {
-  return [`/quizzes/${id}`] as const
+export const getGetSingleQuizQueryKey = (id: number, params?: GetSingleQuizParams) => {
+  return [`/quizzes/${id}`, ...(params ? [params] : [])] as const
 }
 
 export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
+  params?: GetSingleQuizParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
     request?: SecondParameter<typeof customFetch>
@@ -360,10 +376,10 @@ export const getGetSingleQuizQueryOptions = <TData = Awaited<ReturnType<typeof g
 ) => {
   const { query: queryOptions, request: requestOptions } = options ?? {}
 
-  const queryKey = queryOptions?.queryKey ?? getGetSingleQuizQueryKey(id)
+  const queryKey = queryOptions?.queryKey ?? getGetSingleQuizQueryKey(id, params)
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getSingleQuiz>>> = ({ signal }) =>
-    getSingleQuiz(id, { signal, ...requestOptions })
+    getSingleQuiz(id, params, { signal, ...requestOptions })
 
   return { queryKey, queryFn, enabled: !!id, ...queryOptions } as UseQueryOptions<
     Awaited<ReturnType<typeof getSingleQuiz>>,
@@ -377,6 +393,7 @@ export type GetSingleQuizQueryError = ErrorResponse
 
 export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
+  params: undefined | GetSingleQuizParams,
   options: {
     query: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>> &
       Pick<
@@ -393,6 +410,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
+  params?: GetSingleQuizParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>> &
       Pick<
@@ -409,6 +427,7 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
+  params?: GetSingleQuizParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
     request?: SecondParameter<typeof customFetch>
@@ -421,13 +440,14 @@ export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz
 
 export function useGetSingleQuiz<TData = Awaited<ReturnType<typeof getSingleQuiz>>, TError = ErrorResponse>(
   id: number,
+  params?: GetSingleQuizParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getGetSingleQuizQueryOptions(id, options)
+  const queryOptions = getGetSingleQuizQueryOptions(id, params, options)
 
   const query = useQuery(queryOptions, queryClient) as UseQueryResult<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>
@@ -445,12 +465,13 @@ export const prefetchGetSingleQuizQuery = async <
 >(
   queryClient: QueryClient,
   id: number,
+  params?: GetSingleQuizParams,
   options?: {
     query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof getSingleQuiz>>, TError, TData>>
     request?: SecondParameter<typeof customFetch>
   },
 ): Promise<QueryClient> => {
-  const queryOptions = getGetSingleQuizQueryOptions(id, options)
+  const queryOptions = getGetSingleQuizQueryOptions(id, params, options)
 
   await queryClient.prefetchQuery(queryOptions)
 

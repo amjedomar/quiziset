@@ -43,6 +43,8 @@ async function bootstrap(): Promise<void> {
     new ValidationPipe({
       errorHttpStatusCode: 422,
       transform: true, // required so @Transform decorators works
+      whitelist: true, // omits properties that aren't defined in the DTO
+      forbidNonWhitelisted: true, // rejects request instead of silently omitting (requires whitelist: true)
     }),
   )
 

@@ -21,19 +21,54 @@ class QuestionEntity {
 
 export class QuizEntity {
   @ApiProperty() id: number
+
   @ApiProperty() title: string
+
   @ApiProperty() description: string
+
   @ApiProperty({
     type: Number,
     nullable: true,
     description: 'quiz duration in minutes (null when there is no time limit)',
   })
   timeDurationInMinutes: number | null
+
   @ApiProperty() imageUrl: string
+
   @ApiProperty() isPublic: boolean
+
   @ApiProperty() isAnalyticsEnabled: boolean
-  @ApiProperty({ type: [QuestionEntity] }) questions: QuestionEntity[]
+
+  @ApiProperty({
+    type: Number,
+    description:
+      'indicates how many times the quiz was finished by all quiz takers. ' +
+      '(info: if same user finish same quiz multiple times then every finish is counted)',
+  })
+  totalFinishes: number
+
+  @ApiPropertyOptional({
+    type: [QuestionEntity],
+    description:
+      'returned only when querying a single quiz (with ?fields=DETAILS) AND if the current user is the quiz manager',
+  })
+  questions?: QuestionEntity[]
+
+  @ApiPropertyOptional({
+    type: Boolean,
+    description: 'returned only when querying a single quiz (with ?fields=OVERVIEW)',
+  })
+  wasTakenByCurrentUserAtLeastOnce?: boolean
+
+  @ApiPropertyOptional({
+    type: Boolean,
+    description: 'returned only when querying a single quiz (with ?fields=OVERVIEW)',
+  })
+  doesCurrentUserHaveActiveSession?: boolean
+
   @ApiProperty() managerId: number
+
   @ApiProperty() createdAt: Date
+
   @ApiProperty() updatedAt: Date
 }

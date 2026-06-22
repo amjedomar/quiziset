@@ -8,7 +8,7 @@ import { isErrorResponse } from '@/utils/is-error-response'
 
 export default function QuizUpdatePage() {
   const { quizId } = useParams<{ quizId: string }>()
-  const { data, isLoading } = useGetSingleQuiz(Number(quizId))
+  const { data, isLoading } = useGetSingleQuiz(Number(quizId), { fields: 'DETAILS' })
 
   if (isErrorResponse(data?.data)) {
     return <p>Error {data.data.message}</p>

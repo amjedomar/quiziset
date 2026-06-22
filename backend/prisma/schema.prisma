@@ -29,6 +29,7 @@ model Quiz {
   imageUrl              String   @db.VarChar(1024)
   isPublic              Boolean  @default(false)
   isAnalyticsEnabled    Boolean  @default(false)
+  totalFinishes         Int      @default(0)
   /// [QuizQuestions]
   questions             Json
   managerId             Int

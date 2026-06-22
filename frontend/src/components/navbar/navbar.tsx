@@ -4,8 +4,8 @@ import { Avatar, Box, Button, ButtonProps, Container, Divider, Drawer, IconButto
 import styles from '@/components/navbar/navbar.module.scss'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/use-auth'
-import AddIcon from '@mui/icons-material/Add'
-import BookmarkIcon from '@mui/icons-material/BookmarkBorderOutlined'
+// import AddIcon from '@mui/icons-material/Add'
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder'
 import SearchIcon from '@mui/icons-material/Search'
 import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -16,8 +16,8 @@ import { appendRedirectParam } from '@/utils/redirect'
 const NAV_LINKS = [
   { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
   { href: '/manage-quizzes', label: 'Manage Quizzes', icon: <BallotOutlinedIcon />, variant: 'plain' as const },
-  { href: '/bookmarks', label: 'Bookmarks', icon: <BookmarkIcon />, variant: 'plain' as const },
-  { href: '/manage-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
+  { href: '/bookmarks', label: 'Favorites', icon: <FavoriteIcon />, variant: 'plain' as const },
+  // { href: '/manage-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
 ]
 
 function UserAvatar() {
@@ -25,6 +25,8 @@ function UserAvatar() {
     <Avatar
       sx={(theme) => ({
         border: `1px solid ${theme.vars.palette.primary[200]}`,
+        width: 36,
+        height: 36,
       })}
     >
       AO

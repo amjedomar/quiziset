@@ -9,6 +9,7 @@ import { PrismaService } from '@/prisma.service'
 import { CreateQuizDto } from '@/modules/quiz/dto/create-quiz.dto'
 import { UpdateQuizDto } from '@/modules/quiz/dto/update-quiz.dto'
 import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.dto'
+import { GetSingleQuizQueryDto, QuizFields } from '@/modules/quiz/dto/get-single-quiz-query.dto'
 import { StartQuizSessionDto } from '@/modules/quiz/dto/start-quiz-session.dto'
 import { SubmitQuizSessionAnswerDto } from '@/modules/quiz/dto/submit-quiz-session-answer.dto'
 import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
@@ -44,18 +45,63 @@ export class QuizService {
   constructor(private prisma: PrismaService) {}
 
   async getAll(query: GetAllQuizzesQueryDto, userId?: number): Promise<QuizEntity[]> {
+    const omit = {
+      questions: true as const, // questions are always omitted when querying list of quizzes
+    }
+
     if (query.managedByMe) {
       if (!userId) {
         throw new UnauthorizedException('since managedByMe query is true -> "authorization" header must be provided')
       }
 
-      return this.prisma.quiz.findMany({ where: { managerId: userId } })
+      return this.prisma.quiz.findMany({ where: { managerId: userId }, omit })
     }
 
-    return this.prisma.quiz.findMany({ where: { isPublic: true } })
+    return this.prisma.quiz.findMany({ where: { isPublic: true }, omit })
   }
 
-  async get(id: number, userId?: number): Promise<QuizEntity> {
+  async get(id: number, query: GetSingleQuizQueryDto, userId?: number): Promise<QuizEntity> {
+    const quiz = await this.findQuiz(id, userId)
+    const { questions, ...quizBase } = quiz
+
+    const result: QuizEntity = quizBase
+
+    if (query.fields === QuizFields.DETAILS && userId === quiz.managerId) {
+      result.questions = questions
+    }
+
+    if (query.fields === QuizFields.OVERVIEW) {
+      if (userId) {
+        const sessionBaseFilter = {
+          quizId: id,
+          userId,
+        }
+
+        const sessionSelect = {
+          // just select a single field because only thing that matter
+          // is whether the target session row exists or not
+          id: true,
+        }
+
+        result.wasTakenByCurrentUserAtLeastOnce = !!(await this.prisma.quizSession.findFirst({
+          where: { ...sessionBaseFilter, finishTime: { not: null } },
+          select: sessionSelect,
+        }))
+
+        result.doesCurrentUserHaveActiveSession = !!(await this.prisma.quizSession.findFirst({
+          where: { ...sessionBaseFilter, finishTime: null },
+          select: sessionSelect,
+        }))
+      } else {
+        result.wasTakenByCurrentUserAtLeastOnce = false
+        result.doesCurrentUserHaveActiveSession = false
+      }
+    }
+
+    return result
+  }
+
+  private async findQuiz(id: number, userId?: number) {
     const quiz = await this.prisma.quiz.findUnique({ where: { id } })
 
     if (!quiz) {
@@ -89,6 +135,19 @@ export class QuizService {
       throw new ForbiddenException(QuizErrors.FORBIDDEN)
     }
 
+    /**
+     * if DTO contains `totalFinishes` request will be automatically rejected
+     * (since in app.useGlobalPipes ValidationPipe we forbidNonWhitelisted)
+     *
+     * but here we are just being extra careful (just so if in future
+     * the global ValidationPipe config was changed accidentally) then
+     * we already made sure that "totalFinishes" are removed
+     * and can't be manipulated
+     */
+    if ('totalFinishes' in dto) {
+      delete dto.totalFinishes
+    }
+
     return this.prisma.quiz.update({
       where: {
         id,
@@ -119,9 +178,9 @@ export class QuizService {
    * response error is thrown
    */
   async startSession(quizId: number, userId: number, dto: StartQuizSessionDto): Promise<QuizSessionStateEntity> {
-    // use "this.get" method because it already ensures that access it allowed
+    // use "this.findQuiz" method because it already ensures that access it allowed
     // i.e. it throws 404 if quiz doesn't exists OR 403 if the quiz is private and not owned
-    const quiz = await this.get(quizId, userId)
+    const quiz = await this.findQuiz(quizId, userId)
 
     const activeSession = await this.prisma.quizSession.findFirst({
       where: { quizId, userId, finishTime: null },
@@ -191,13 +250,17 @@ export class QuizService {
     const isCurrentAnswerCorrect = checkIsAnswerCorrect(currentQuestion, dto.answerIndexes)
 
     const nextQuestionIndex = session.currentQuestionIndex + 1
-    const isLastQuestion = nextQuestionIndex >= session.questionsCount
+    const isLastQuestionAnswered = nextQuestionIndex >= session.questionsCount
+
+    if (isLastQuestionAnswered) {
+      return this.finalizeSession(session, { isLastQuestionAnswerSuccessful: isCurrentAnswerCorrect })
+    }
 
     const updatedSession = await this.prisma.quizSession.update({
       where: { id: session.id },
       data: {
         successfulAnswersCount: session.successfulAnswersCount + (isCurrentAnswerCorrect ? 1 : 0),
-        ...(isLastQuestion ? { finishTime: new Date() } : { currentQuestionIndex: nextQuestionIndex }),
+        currentQuestionIndex: nextQuestionIndex,
       },
     })
 
@@ -207,15 +270,27 @@ export class QuizService {
   /**
    * marks the session as finished (sets "finishTime") and returns its (finished) state
    */
-  private async finalizeSession(session: QuizSession): Promise<QuizSessionStateEntity> {
-    const finishedSession = await this.prisma.quizSession.update({
-      where: { id: session.id },
-      data: {
-        finishTime: session.expireTime
-          ? new Date(Math.min(new Date(session.expireTime).getTime(), Date.now()))
-          : new Date(),
-      },
-    })
+  private async finalizeSession(
+    session: QuizSession,
+    { isLastQuestionAnswerSuccessful }: { isLastQuestionAnswerSuccessful?: boolean } = {},
+  ): Promise<QuizSessionStateEntity> {
+    const finishTime = session.expireTime
+      ? new Date(Math.min(new Date(session.expireTime).getTime(), Date.now()))
+      : new Date()
+
+    const [finishedSession] = await this.prisma.$transaction([
+      this.prisma.quizSession.update({
+        where: { id: session.id },
+        data: {
+          finishTime,
+          ...(isLastQuestionAnswerSuccessful ? { successfulAnswersCount: session.successfulAnswersCount + 1 } : {}),
+        },
+      }),
+      this.prisma.quiz.update({
+        where: { id: session.quizId },
+        data: { totalFinishes: { increment: 1 } },
+      }),
+    ])
 
     return buildSessionState(finishedSession)
   }
