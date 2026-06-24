@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { prefetchGetSingleQuizQuery } from '@/api-client/quiz'
+import { prefetchGetQuizReviewsQuery } from '@/api-client/review'
 import { makeQueryClient } from '@/utils/query-client'
 import QuizOverview from '@/components/quiz/quiz-overview/quiz-overview'
 
@@ -12,7 +13,10 @@ export default async function QuizOverviewPage({ params }: QuizOverviewPageProps
 
   const queryClient = makeQueryClient()
 
-  await prefetchGetSingleQuizQuery(queryClient, Number(quizId), { fields: 'OVERVIEW' })
+  await Promise.all([
+    prefetchGetSingleQuizQuery(queryClient, Number(quizId), { fields: 'OVERVIEW' }),
+    prefetchGetQuizReviewsQuery(queryClient, Number(quizId)),
+  ])
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

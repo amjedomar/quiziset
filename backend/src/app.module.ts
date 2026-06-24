@@ -2,6 +2,7 @@ import { MiddlewareConsumer, Module } from '@nestjs/common'
 import { AuthModule } from '@/modules/auth/auth.module'
 import { UploadsModule } from '@/modules/uploads/uploads.module'
 import { QuizModule } from '@/modules/quiz/quiz.module'
+import { ReviewModule } from '@/modules/review/review.module'
 import { AppController } from '@/app.controller'
 import { AuthMiddleware } from '@/middlewares/auth.middleware'
 import { JwtModule } from '@nestjs/jwt'
@@ -19,6 +20,7 @@ import { AuthGuard } from '@/guards/auth.guard'
     AuthModule,
     UploadsModule,
     QuizModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [

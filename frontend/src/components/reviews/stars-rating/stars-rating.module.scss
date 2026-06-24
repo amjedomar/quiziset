@@ -1,0 +1,41 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  line-height: 0;
+  align-self: self-start;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  line-height: 0;
+}
+
+.star {
+  color: #d9dde3; // empty star (grey)
+}
+
+.starFilled {
+  color: #ffb300; // filled star
+}
+
+.star--lg {
+  font-size: 32px;
+
+  @media ($max-screen-sm) {
+    font-size: 36px;
+  }
+}
+
+.star--md {
+  font-size: 22px;
+}
+
+.star--sm {
+  font-size: 18px;
+}

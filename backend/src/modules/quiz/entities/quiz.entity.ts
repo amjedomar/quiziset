@@ -41,6 +41,12 @@ export class QuizEntity {
 
   @ApiProperty({
     type: Number,
+    description: 'average of all quiz review ratings (0 when there are no reviews yet)',
+  })
+  averageRating: number
+
+  @ApiProperty({
+    type: Number,
     description:
       'indicates how many times the quiz was finished by all quiz takers. ' +
       '(info: if same user finish same quiz multiple times then every finish is counted)',

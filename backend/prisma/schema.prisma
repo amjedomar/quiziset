@@ -19,6 +19,7 @@ model User {
   password       String        @db.VarChar(1024)
   managedQuizzes Quiz[]
   quizSessions   QuizSession[]
+  reviews        Review[]
 }
 
 model Quiz {
@@ -30,6 +31,9 @@ model Quiz {
   isPublic              Boolean  @default(false)
   isAnalyticsEnabled    Boolean  @default(false)
   totalFinishes         Int      @default(0)
+  /// average rating (kept in sync with the data of the "review" table)
+  /// it is stored here so the quizzes list can display/sort by rating quickly
+  averageRating         Float    @default(0)
   /// [QuizQuestions]
   questions             Json
   managerId             Int
@@ -37,6 +41,22 @@ model Quiz {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
   sessions              QuizSession[]
+  reviews               Review[]
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  rating    Int // 1 to 5 whole stars (validated in the DTO)
+  comment   String?  @db.VarChar(255)
+  quizId    Int
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// a user can leave at most one review per quiz
+  @@unique([quizId, userId])
 }
 
 model QuizSession {

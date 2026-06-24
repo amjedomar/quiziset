@@ -1,0 +1,17 @@
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.summaryScore {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.myReviewBox {
+  padding: 16px;
+  border-radius: 10px;
+}

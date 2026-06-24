@@ -1,7 +1,6 @@
 import 'dotenv/config'
 import { API_BASE_URL } from './src/constants/api-url'
 import { defineConfig } from 'orval'
-
 if (!API_BASE_URL) {
   throw new Error('please specify NEXT_PUBLIC_API_BASE_URL in .env file')
 }
@@ -26,6 +25,13 @@ export default defineConfig({
             {
               onMutations: ['createQuiz', 'updateQuiz', 'deleteQuiz'],
               invalidates: ['getAllQuizzes', 'getSingleQuiz'],
+            },
+            {
+              onMutations: ['createReview', 'updateReview', 'deleteReview'],
+              invalidates: [
+                'getQuizReviews',
+                'getSingleQuiz' // a review change also affects the quiz's averageRating
+              ],
             },
           ],
         },

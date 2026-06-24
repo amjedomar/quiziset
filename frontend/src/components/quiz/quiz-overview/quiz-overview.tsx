@@ -1,10 +1,11 @@
 'use client'
 
-import { Box, Breadcrumbs, Button, Chip, Container, Link, Typography } from '@mui/joy'
+import { Box, Breadcrumbs, Button, Chip, Container, Divider, Link, Typography } from '@mui/joy'
 import { useGetSingleQuiz } from '@/api-client/quiz'
 import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { Loading } from '@/components/loading'
+import { ReviewsSection } from '@/components/reviews/reviews-section'
 import NextLink from 'next/link'
 import StartIcon from '@mui/icons-material/PlayCircleFilledWhite'
 import TimerIcon from '@mui/icons-material/Timer'
@@ -101,6 +102,10 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
           {description}
         </Typography>
       </Box>
+
+      <Divider sx={{ my: 4 }} />
+
+      <ReviewsSection quizId={quizId} canReview={Boolean(wasTakenByCurrentUserAtLeastOnce)} />
     </Container>
   )
 }

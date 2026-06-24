@@ -19,7 +19,7 @@ export interface QuizEntity {
   imageUrl: string
   isPublic: boolean
   isAnalyticsEnabled: boolean
-  /** average of all review ratings (0 when there are no reviews yet) */
+  /** average of all quiz review ratings (0 when there are no reviews yet) */
   averageRating: number
   /** indicates how many times the quiz was finished by all quiz takers. (info: if same user finish same quiz multiple times then every finish is counted) */
   totalFinishes: number

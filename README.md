@@ -12,7 +12,7 @@ npm install
 node ./scripts/setup-development-dotenv.js # will auto-generate .env file (for development environment)
 npx prisma generate
 npx prisma migrate dev
-npm run start:dev
+npm run dev
 ```
 
 To start frontend run:
