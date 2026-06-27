@@ -5,6 +5,7 @@
  * The RESTful APIs Docs for the Quiziset app
  * OpenAPI spec version: 1.0
  */
+import type { PublicUserEntity } from './public-user-entity'
 import type { QuestionEntity } from './question-entity'
 
 export interface QuizEntity {
@@ -29,9 +30,11 @@ export interface QuizEntity {
   wasTakenByCurrentUserAtLeastOnce?: boolean
   /** returned only when querying a single quiz (with ?fields=OVERVIEW) */
   doesCurrentUserHaveActiveSession?: boolean
-  /** whether the current (authenticated) user has marked this quiz as favorite (btw it is always false for anonymous users) please keep in mind that this attr is returned for GET requests only (but not for create/update quiz request) */
+  /** whether the current (authenticated) user has marked this quiz as favorite (btw it is always false for anonymous users) please keep in mind that this attr is returned for GET requests only (but not for create/update quiz requests) */
   isFavorite?: boolean
   managerId: number
+  /** the quiz creator (returned for GET requests only but not for create/update quiz requests) */
+  manager?: PublicUserEntity
   createdAt: string
   updatedAt: string
 }

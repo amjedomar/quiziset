@@ -296,3 +296,110 @@ export const prefetchGetFileQuery = async <TData = Awaited<ReturnType<typeof get
 
   return queryClient
 }
+
+export type deleteFileResponse200 = {
+  data: void
+  status: 200
+}
+
+export type deleteFileResponse401 = {
+  data: ErrorResponse
+  status: 401
+}
+
+export type deleteFileResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type deleteFileResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type deleteFileResponseSuccess = deleteFileResponse200 & {
+  headers: Headers
+}
+export type deleteFileResponseError = (deleteFileResponse401 | deleteFileResponse422 | deleteFileResponse500) & {
+  headers: Headers
+}
+
+export type deleteFileResponse = deleteFileResponseSuccess | deleteFileResponseError
+
+export const getDeleteFileUrl = (bucketName: 'quizzes' | 'profiles', fileName: string) => {
+  return `/uploads/${bucketName}/${fileName}`
+}
+
+/**
+ * @summary delete an uploaded file
+ */
+export const deleteFile = async (
+  bucketName: 'quizzes' | 'profiles',
+  fileName: string,
+  options?: RequestInit,
+): Promise<deleteFileResponse> => {
+  return customFetch<deleteFileResponse>(getDeleteFileUrl(bucketName, fileName), {
+    ...options,
+    method: 'DELETE',
+  })
+}
+
+export const getDeleteFileMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof deleteFile>>,
+    TError,
+    { bucketName: 'quizzes' | 'profiles'; fileName: string },
+    TContext
+  >
+  request?: SecondParameter<typeof customFetch>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof deleteFile>>,
+  TError,
+  { bucketName: 'quizzes' | 'profiles'; fileName: string },
+  TContext
+> => {
+  const mutationKey = ['deleteFile']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof deleteFile>>,
+    { bucketName: 'quizzes' | 'profiles'; fileName: string }
+  > = (props) => {
+    const { bucketName, fileName } = props ?? {}
+
+    return deleteFile(bucketName, fileName, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type DeleteFileMutationResult = NonNullable<Awaited<ReturnType<typeof deleteFile>>>
+
+export type DeleteFileMutationError = ErrorResponse
+
+/**
+ * @summary delete an uploaded file
+ */
+export const useDeleteFile = <TError = ErrorResponse, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof deleteFile>>,
+      TError,
+      { bucketName: 'quizzes' | 'profiles'; fileName: string },
+      TContext
+    >
+    request?: SecondParameter<typeof customFetch>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof deleteFile>>,
+  TError,
+  { bucketName: 'quizzes' | 'profiles'; fileName: string },
+  TContext
+> => {
+  return useMutation(getDeleteFileMutationOptions(options), queryClient)
+}

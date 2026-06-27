@@ -5,6 +5,7 @@
  * The RESTful APIs Docs for the Quiziset app
  * OpenAPI spec version: 1.0
  */
+import type { PublicUserEntity } from './public-user-entity'
 
 export interface ReviewEntity {
   id: number
@@ -16,8 +17,8 @@ export interface ReviewEntity {
   rating: number
   /** @nullable */
   comment: string | null
-  /** display name of the review author */
-  authorName: string
+  /** the review author */
+  author: PublicUserEntity
   /** true when this review belongs to the current (authenticated) user */
   isMine: boolean
   createdAt: string

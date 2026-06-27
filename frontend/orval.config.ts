@@ -37,6 +37,11 @@ export default defineConfig({
             {
               onMutations: ['addFavorite', 'removeFavorite'],
               invalidates: ['getAllQuizzes', 'getSingleQuiz'],
+            },
+            {
+              // refresh the current user profile (e.g. navbar avatar) after a profile change
+              onMutations: ['updateMe'],
+              invalidates: ['getMe'],
             }
           ],
         },
