@@ -1,0 +1,36 @@
+.editor {
+  position: relative;
+  width: 96px;
+  margin: 0 auto;
+  align-self: center;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  font-size: 1.5rem;
+}
+
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+.uploadButton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+}
+
+.deleteButton {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+}

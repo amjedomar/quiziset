@@ -15,6 +15,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
+import { UserAvatar } from '@/components/user-avatar'
 import styles from './quiz-overview.module.scss'
 
 interface QuizOverviewProps {
@@ -43,6 +44,7 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
     wasTakenByCurrentUserAtLeastOnce,
     doesCurrentUserHaveActiveSession,
     isFavorite,
+    manager,
   } = quiz
 
   return (
@@ -81,13 +83,13 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
 
             {wasTakenByCurrentUserAtLeastOnce && (
               <Chip variant="soft" color="success" startDecorator={<CheckCircleIcon />}>
-                Finished Before
+                Taken
               </Chip>
             )}
           </div>
         </div>
 
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+        <Box className={styles.actions}>
           <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
 
           <Button
@@ -103,7 +105,18 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
       </div>
 
       <Box className={styles.descriptionSection}>
-        <Typography level="title-md">About this quiz</Typography>
+        <Typography level="title-md" sx={{ mb: 1.5 }}>
+          About this quiz
+        </Typography>
+
+        {manager && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <UserAvatar name={manager.name} imageUrl={manager.imageUrl} size="sm" />
+            <Typography level="body-sm" textColor="text.secondary">
+              Created by {manager.name}
+            </Typography>
+          </Box>
+        )}
 
         <Typography level="body-md" textColor="text.secondary" className={styles.descriptionText}>
           {description}

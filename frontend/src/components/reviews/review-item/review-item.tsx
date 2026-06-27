@@ -1,10 +1,11 @@
 'use client'
 
-import { Avatar, Box, Chip, IconButton, Tooltip, Typography } from '@mui/joy'
+import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/joy'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { ReviewEntity } from '@/api-client/model'
 import { StarsRating } from '@/components/reviews/stars-rating'
+import { UserAvatar } from '@/components/user-avatar'
 import styles from './review-item.module.scss'
 
 interface ReviewItemProps {
@@ -17,7 +18,7 @@ interface ReviewItemProps {
 }
 
 export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemProps) {
-  const { authorName, rating, comment, isMine, updatedAt } = review
+  const { author, rating, comment, isMine, updatedAt } = review
 
   const formattedDate = new Date(updatedAt).toISOString().slice(0, 10)
 
@@ -26,8 +27,8 @@ export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemP
       <div className={styles.header}>
         <div>
           <div className={styles.authorRow}>
-            <Avatar size="sm">{authorName.charAt(0).toUpperCase()}</Avatar>
-            <Typography level="title-sm">{authorName}</Typography>
+            <UserAvatar name={author.name} imageUrl={author.imageUrl} size="sm" />
+            <Typography level="title-sm">{author.name}</Typography>
             {isMine && (
               <Chip size="sm" variant="soft" color="primary">
                 You

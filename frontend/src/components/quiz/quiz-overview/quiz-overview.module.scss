@@ -10,6 +10,17 @@
   }
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  @media ($max-screen-sm) {
+    width: 100%;
+  }
+}
+
 .chipsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +40,7 @@
   flex-shrink: 0;
 
   @media ($max-screen-sm) {
-    align-self: stretch;
+    flex: 1;
   }
 }
 

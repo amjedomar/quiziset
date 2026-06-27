@@ -1,93 +1,16 @@
 'use client'
-
-import { Avatar, Box, Button, ButtonProps, Container, Divider, Drawer, IconButton, Stack } from '@mui/joy'
+import { Box, Container, IconButton, Stack } from '@mui/joy'
 import styles from '@/components/navbar/navbar.module.scss'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/use-auth'
-// import AddIcon from '@mui/icons-material/Add'
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder'
-import SearchIcon from '@mui/icons-material/Search'
-import BallotOutlinedIcon from '@mui/icons-material/BallotOutlined'
+import { ProfileDesktopMenu } from '@/components/navbar/profile-desktop-menu'
+import { AuthButtons } from '@/components/navbar/auth-buttons'
+import { NavLinkButton } from '@/components/navbar/nav-link-button'
+import { NavbarMobileDrawer } from '@/components/navbar/navbar-mobile-drawer'
+import { NAV_LINKS } from '@/components/navbar/nav-links'
 import MenuIcon from '@mui/icons-material/Menu'
-import { ReactNode, Suspense, useCallback, useState } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { appendRedirectParam } from '@/utils/redirect'
-
-const NAV_LINKS = [
-  { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
-  { href: '/manage-quizzes', label: 'Manage Quizzes', icon: <BallotOutlinedIcon />, variant: 'plain' as const },
-  { href: '/favorites', label: 'Favorites', icon: <FavoriteIcon />, variant: 'plain' as const },
-  // { href: '/manage-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
-]
-
-function UserAvatar() {
-  return (
-    <Avatar
-      sx={(theme) => ({
-        border: `1px solid ${theme.vars.palette.primary[200]}`,
-        width: 36,
-        height: 36,
-      })}
-    >
-      AO
-    </Avatar>
-  )
-}
-
-interface NavLinkButtonProps {
-  href: string
-  label: string
-  icon: ReactNode
-  variant: 'plain' | 'soft'
-  size?: ButtonProps['size']
-  fullWidth?: boolean
-  onNavigate?: () => void
-}
-
-function NavLinkButton({ href, label, icon, variant, fullWidth, onNavigate, size }: NavLinkButtonProps) {
-  return (
-    <Button
-      component={Link}
-      color="neutral"
-      variant={variant}
-      href={href}
-      startDecorator={icon}
-      fullWidth={fullWidth}
-      onClick={onNavigate}
-      size={size}
-      sx={{ justifyContent: 'start' }}
-    >
-      {label}
-    </Button>
-  )
-}
-
-function AuthButtons({ redirectTo }: { redirectTo?: string | null }) {
-  return (
-    <>
-      <Button variant="outlined" component={Link} href={appendRedirectParam('/login', redirectTo)}>
-        Login
-      </Button>
-
-      <Button variant="solid" component={Link} href={appendRedirectParam('/signup', redirectTo)}>
-        Sign Up
-      </Button>
-    </>
-  )
-}
-
-const WithSearchParam = ({
-  paramKey,
-  children,
-}: {
-  paramKey: string
-  children: (paramValue: string | null) => ReactNode
-}) => {
-  const searchParams = useSearchParams()
-  const paramValue = searchParams.get(paramKey)
-
-  return children(paramValue)
-}
+import { useCallback, useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function Navbar() {
   const pathname = usePathname()
@@ -97,8 +20,6 @@ export function Navbar() {
   const closeDrawer = useCallback(() => {
     setDrawerOpen(false)
   }, [])
-
-  const isAuthPage = pathname === '/login' || pathname === '/signup'
 
   const isHomePage = pathname === '/'
 
@@ -123,17 +44,7 @@ export function Navbar() {
           </div>
 
           <Stack className={styles.desktopAuth} direction="row" spacing={1.5}>
-            {isLoggedIn ? (
-              <UserAvatar />
-            ) : isAuthPage ? (
-              <Suspense>
-                <WithSearchParam paramKey="redirect">
-                  {(redirectTo) => <AuthButtons redirectTo={redirectTo} />}
-                </WithSearchParam>
-              </Suspense>
-            ) : (
-              <AuthButtons />
-            )}
+            {isLoggedIn ? <ProfileDesktopMenu /> : <AuthButtons />}
           </Stack>
 
           <IconButton
@@ -147,33 +58,7 @@ export function Navbar() {
         </Container>
       </Box>
 
-      <Drawer anchor="right" open={drawerOpen} onClose={closeDrawer} size="sm">
-        <Stack sx={{ p: 2 }} spacing={1.5}>
-          {isLoggedIn ? (
-            <Stack alignItems="center">
-              <UserAvatar />
-            </Stack>
-          ) : (
-            <>
-              <Button fullWidth variant="outlined" component={Link} href="/login" onClick={closeDrawer}>
-                Login
-              </Button>
-
-              <Button fullWidth variant="solid" component={Link} href="/signup" onClick={closeDrawer}>
-                Sign Up
-              </Button>
-            </>
-          )}
-        </Stack>
-
-        {!isLoggedIn && <Divider />}
-
-        <Stack sx={{ p: 2, flex: 1 }} spacing={1}>
-          {NAV_LINKS.map((link) => (
-            <NavLinkButton key={link.href} {...link} fullWidth size="lg" onNavigate={closeDrawer} />
-          ))}
-        </Stack>
-      </Drawer>
+      <NavbarMobileDrawer open={drawerOpen} onClose={closeDrawer} />
     </>
   )
 }

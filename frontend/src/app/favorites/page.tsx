@@ -1,5 +1,5 @@
 import { Container, Stack, Typography } from '@mui/joy'
-import { QuizzesList } from '@/components/quiz/quizzes-list'
+import { FavoriteQuizzesList } from '@/components/quiz/favorite-quizzes-list'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,7 +9,7 @@ export default function FavoritesPage() {
       <Stack spacing={3}>
         <Typography level="h2">Favorites</Typography>
 
-        <QuizzesList params={{ favoritedByMe: true }} />
+        <FavoriteQuizzesList />
       </Stack>
     </Container>
   )

@@ -7,15 +7,17 @@ import { isErrorResponse } from '@/utils/is-error-response'
 import styles from './quizzes-list.module.scss'
 import QuizIcon from '@mui/icons-material/Quiz'
 import Link from 'next/link'
+import { ReactNode } from 'react'
 import { Loading } from '@/components/loading'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 
 interface QuizzesListProps {
   params?: GetAllQuizzesParams
+  emptyInfo?: ReactNode
 }
 
-export function QuizzesList({ params }: QuizzesListProps) {
+export function QuizzesList({ params, emptyInfo }: QuizzesListProps) {
   const { data, isLoading } = useGetAllQuizzes(params)
 
   const responseBody = data?.data
@@ -31,7 +33,7 @@ export function QuizzesList({ params }: QuizzesListProps) {
       {isLoading ? (
         <Loading />
       ) : quizzes && quizzes.length === 0 ? (
-        <Typography textColor="text.tertiary">No quizzes found</Typography>
+        (emptyInfo ?? <Typography textColor="text.tertiary">No quizzes found</Typography>)
       ) : (
         <Box
           sx={{

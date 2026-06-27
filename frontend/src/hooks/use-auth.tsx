@@ -1,7 +1,10 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import jsCookie from 'js-cookie'
+import { useRouter } from 'next/navigation'
+import { useQueryClient } from '@tanstack/react-query'
 import { useLogin, useSignup } from '@/api-client/auth'
-import { AuthToken, ErrorResponse, LoginDto, SignupDto } from '@/api-client/model'
+import { useGetMe } from '@/api-client/user'
+import { AuthToken, ErrorResponse, LoginDto, SignupDto, UserEntity } from '@/api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
 
@@ -9,13 +12,17 @@ const MONTH_IN_MS = 1000 * 60 * 60 * 24 * 30
 
 interface AuthContextValue {
   // state
-  isLoggedIn: boolean | null // null means that "isLoggedIn" not checked yet
+  isLoggedIn: boolean
+  isCheckingLogin: boolean
   isLogging: boolean
   isSigningUp: boolean
+  currentUser: UserEntity | null
+  isLoadingCurrentUser: boolean
 
   // methods
   login: (payload: LoginDto) => Promise<AuthToken | ErrorResponse>
   signup: (payload: SignupDto) => Promise<AuthToken | ErrorResponse>
+  logout: () => void
 }
 
 interface AuthProviderProps {
@@ -25,16 +32,33 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
+  const router = useRouter()
+  const queryClient = useQueryClient()
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isCheckingLogin, setIsCheckingLogin] = useState(true)
 
   const { mutateAsync: mutateLogin, isPending: isLogging } = useLogin()
   const { mutateAsync: mutateSignup, isPending: isSigningUp } = useSignup()
+
+  // fetch the current user profile (only while logged in so anonymous users never trigger the 401-redirect
+  // which is handled in "orval-custom-fetch.ts")
+  const { data: currentUserResponse, isLoading: isLoadingCurrentUser } = useGetMe({ query: { enabled: isLoggedIn } })
+
+  const currentUser =
+    currentUserResponse && !isErrorResponse(currentUserResponse.data) ? currentUserResponse.data : null
 
   // Initial Check during page load
   useEffect(() => {
     const token = jsCookie.get(USER_TOKEN_COOKIE)
 
+    // if token cookie exists then we assume user is loggedIn
+    // then in the "useGetMe" request if token is invalid or expired
+    // backend will respond with 401 error and "orval-custom-fetch.ts"
+    // will handle this error and remove the token cookie and logout user
+
     setIsLoggedIn(!!token)
+    setIsCheckingLogin(false)
   }, [])
 
   // handleAuthSuccess (called after login or signup succeeded)
@@ -70,16 +94,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
     [mutateSignup, handleAuthSuccess],
   )
 
+  const logout = useCallback(() => {
+    jsCookie.remove(USER_TOKEN_COOKIE)
+    setIsLoggedIn(false)
+    /**
+     * clear all cached data (since some might be related to
+     * the authenticated user e.g. the current user profile & favorites)
+     * see https://tanstack.com/query/v4/docs/reference/QueryClient#queryclient-clear
+     */
+    queryClient.clear()
+    router.push('/')
+  }, [queryClient, router])
+
   // Context Value
   const contextValue = useMemo(
     () => ({
       isLoggedIn,
+      isCheckingLogin,
       isLogging,
       isSigningUp,
+      currentUser,
+      isLoadingCurrentUser,
       login,
       signup,
+      logout,
     }),
-    [isLoggedIn, isLogging, isSigningUp, login, signup],
+    [isLoggedIn, isCheckingLogin, isLogging, isSigningUp, currentUser, isLoadingCurrentUser, login, signup, logout],
   )
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
