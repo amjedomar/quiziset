@@ -16,6 +16,7 @@ import {
 } from 'class-validator'
 import { Type, Transform } from 'class-transformer'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { IsLocalImagePath } from '@/decorators/is-local-image-path.decorator'
 
 export enum QuestionType {
   Checkbox = 'question-checkbox',
@@ -103,8 +104,10 @@ export class AnswerDto {
   isCorrect?: boolean
 
   @IsString()
+  @IsLocalImagePath()
   @IsOptional()
   @ApiPropertyOptional({
+    example: '/uploads/quizzes/answer.png',
     description: 'for "question-cards" it must be provided. otherwise, it will be ignored',
   })
   imageUrl?: string
@@ -160,6 +163,7 @@ export class CreateQuizDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsLocalImagePath()
   @ApiProperty({ example: '/uploads/quizzes/cover-image.png' })
   imageUrl: string
 

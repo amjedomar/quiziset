@@ -29,6 +29,8 @@ export interface QuizEntity {
   wasTakenByCurrentUserAtLeastOnce?: boolean
   /** returned only when querying a single quiz (with ?fields=OVERVIEW) */
   doesCurrentUserHaveActiveSession?: boolean
+  /** whether the current (authenticated) user has marked this quiz as favorite (btw it is always false for anonymous users) please keep in mind that this attr is returned for GET requests only (but not for create/update quiz request) */
+  isFavorite?: boolean
   managerId: number
   createdAt: string
   updatedAt: string

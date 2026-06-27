@@ -2,35 +2,36 @@
 
 import { Box, Button, Sheet, Stack, Typography } from '@mui/joy'
 import { useGetAllQuizzes } from '@/api-client/quiz'
+import { GetAllQuizzesParams } from '@/api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import styles from './quizzes-list.module.scss'
 import QuizIcon from '@mui/icons-material/Quiz'
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder'
 import Link from 'next/link'
-import { MouseEventHandler } from 'react'
 import { Loading } from '@/components/loading'
+import { BackendImage } from '@/ui/backend-image'
+import { FavoriteButton } from '@/components/quiz/favorite-button'
 
-export function QuizzesList() {
-  const { data, isLoading } = useGetAllQuizzes()
+interface QuizzesListProps {
+  params?: GetAllQuizzesParams
+}
 
-  if (isErrorResponse(data?.data)) {
-    return <p>Error {data.data.message}</p>
+export function QuizzesList({ params }: QuizzesListProps) {
+  const { data, isLoading } = useGetAllQuizzes(params)
+
+  const responseBody = data?.data
+
+  if (isErrorResponse(responseBody)) {
+    return <p>Error {responseBody.message}</p>
   }
 
-  const quizzes = data?.data
-
-  const handleFavoriteClick: MouseEventHandler<HTMLButtonElement> = (e) => {
-    // prevent link navigation when favorite button is clicked
-    e.stopPropagation()
-    e.preventDefault()
-
-    // TODO: implement favorite button logic
-  }
+  const quizzes = responseBody?.data
 
   return (
     <Stack spacing={3}>
       {isLoading ? (
         <Loading />
+      ) : quizzes && quizzes.length === 0 ? (
+        <Typography textColor="text.tertiary">No quizzes found</Typography>
       ) : (
         <Box
           sx={{
@@ -52,7 +53,7 @@ export function QuizzesList() {
               className={styles.quizCard}
               href={`/quizzes/${quiz.id}/overview`}
             >
-              <img className={styles.image} src={quiz.imageUrl} alt="" />
+              <BackendImage className={styles.image} src={quiz.imageUrl} alt="" />
 
               <div className={styles.details}>
                 <Typography level="title-lg">{quiz.title}</Typography>
@@ -66,9 +67,7 @@ export function QuizzesList() {
                   View
                 </Button>
 
-                <Button variant="outlined" onClick={handleFavoriteClick}>
-                  <FavoriteIcon />
-                </Button>
+                <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
               </div>
             </Sheet>
           ))}

@@ -3,6 +3,8 @@ import { Button, CircularProgress, Sheet, Stack, Typography } from '@mui/joy'
 import Link from 'next/link'
 import { useGetAllQuizzes } from '@/api-client/quiz'
 import { isErrorResponse } from '@/utils/is-error-response'
+import { BackendImage } from '@/ui/backend-image'
+import { FavoriteButton } from '@/components/quiz/favorite-button'
 import styles from './managed-quizzes-list.module.scss'
 import UpdateIcon from '@mui/icons-material/Edit'
 import AnalyticsIcon from '@mui/icons-material/Insights'
@@ -11,11 +13,13 @@ import CreateIcon from '@mui/icons-material/Add'
 export function ManagedQuizzesList() {
   const { data, isLoading } = useGetAllQuizzes({ managedByMe: true })
 
-  if (isErrorResponse(data?.data)) {
-    return <p>Error {data.data.message}</p>
+  const responseBody = data?.data
+
+  if (isErrorResponse(responseBody)) {
+    return <p>Error {responseBody.message}</p>
   }
 
-  const quizzes = data?.data
+  const quizzes = responseBody?.data
 
   return (
     <Stack spacing={3}>
@@ -35,11 +39,11 @@ export function ManagedQuizzesList() {
         <Stack spacing={2}>
           {quizzes?.map((quiz) => (
             <Sheet key={quiz.id} variant="outlined" className={styles.quizItem}>
-              <img className={styles.image} src={quiz.imageUrl} alt="" />
+              <BackendImage className={styles.image} src={quiz.imageUrl} alt="" />
 
               <div className={styles.details}>
                 <Typography level="title-lg">{quiz.title}</Typography>
-                <Typography level="body-sm" textColor="text.tertiary">
+                <Typography level="body-sm" textColor="text.tertiary" className={styles.quizDescription}>
                   {quiz.description}
                 </Typography>
 
@@ -56,6 +60,8 @@ export function ManagedQuizzesList() {
                   <Button variant="outlined" disabled={!quiz.isAnalyticsEnabled} startDecorator={<AnalyticsIcon />}>
                     Analytics
                   </Button>
+
+                  <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
                 </div>
               </div>
             </Sheet>

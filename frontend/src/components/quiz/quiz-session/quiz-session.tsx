@@ -3,7 +3,7 @@
 import { Button, Stack, Typography } from '@mui/joy'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useStartQuizSession, useSubmitQuizSessionAnswer } from '@/api-client/quiz'
+import { useStartQuizSession, useSubmitQuizSessionAnswer } from '@/api-client/quiz-session'
 import { ErrorResponse, QuizSessionStateEntity, QuestionEntityQuestionType } from '@/api-client/model'
 import { Loading } from '@/components/loading'
 import { ErrorResponseView } from '@/components/error-response-view'
@@ -84,7 +84,12 @@ export function QuizSession({ quizId }: QuizSessionProps) {
 
   const handleSubmit = useCallback(
     async (indexes: number[]) => {
-      const { status, data } = await submitAnswer({ quizId, data: { answerIndexes: indexes } })
+      if (!sessionState) return
+
+      const { status, data } = await submitAnswer({
+        quizId,
+        data: { questionIndex: sessionState.currentQuestionIndex, answerIndexes: indexes },
+      })
 
       if (status === 200) {
         updateSessionData(data)
@@ -92,7 +97,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
         setError(data)
       }
     },
-    [quizId, submitAnswer, updateSessionData],
+    [quizId, submitAnswer, updateSessionData, sessionState],
   )
 
   const handleExpire = useCallback(() => {

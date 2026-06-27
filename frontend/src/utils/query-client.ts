@@ -6,13 +6,20 @@ import { environmentManager, QueryClient } from '@tanstack/react-query'
  * will be created for each request)
  *
  * However, for "app-provider.tsx" (we must use "getAppQueryClient" instead)
- *
- * btw currently `new QueryClient()` doesn't have any custom options
- * (but in future if needed we can define custom options here
- * and they will apply across the application)
  */
 export function makeQueryClient() {
-  return new QueryClient()
+  // see https://github.com/TanStack/query/issues/2179#issuecomment-2043018904
+  // set "networkMode" to "always" so it throws an error when user is offline
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        networkMode: 'always',
+      },
+      mutations: {
+        networkMode: 'always',
+      },
+    },
+  })
 }
 
 let browserAppQueryClient: QueryClient | undefined

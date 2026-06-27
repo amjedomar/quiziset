@@ -3,7 +3,7 @@ import { PrismaService } from '@/prisma.service'
 import { CreateReviewDto } from '@/modules/review/dto/create-review.dto'
 import { UpdateReviewDto } from '@/modules/review/dto/update-review.dto'
 import { ReviewEntity } from '@/modules/review/entities/review.entity'
-import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
+import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
 import { Prisma } from '@/generated/prisma/client'
 
 const ReviewErrors = {

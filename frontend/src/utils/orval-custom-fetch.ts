@@ -1,7 +1,7 @@
 import jsCookie from 'js-cookie'
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
 import { appendRedirectParam } from '@/utils/redirect'
-import { API_BASE_URL } from '@/constants/api-url'
+import { API_BASE_URL_ADAPTED } from '@/constants/api-url'
 
 /**
  * reads the user's auth token cookie
@@ -73,7 +73,7 @@ const handleUnauthorized = () => {
  *    (except if user is already on /login or /signup page)
  */
 export const customFetch = async <T>(url: string, options?: RequestInit) => {
-  const requestUrl = API_BASE_URL + url
+  const requestUrl = API_BASE_URL_ADAPTED + url
   const requestHeaders = await getHeaders(options?.headers)
 
   const response = await fetch(requestUrl, {

@@ -1,67 +1,68 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common'
+import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
 import { CreateQuizDto } from '@/modules/quiz/dto/create-quiz.dto'
 import { UpdateQuizDto } from '@/modules/quiz/dto/update-quiz.dto'
 import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.dto'
 import { GetSingleQuizQueryDto, QuizFields } from '@/modules/quiz/dto/get-single-quiz-query.dto'
-import { StartQuizSessionDto } from '@/modules/quiz/dto/start-quiz-session.dto'
-import { SubmitQuizSessionAnswerDto } from '@/modules/quiz/dto/submit-quiz-session-answer.dto'
 import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
-import { QuizSessionStateEntity } from '@/modules/quiz/entities/quiz-session.entity'
-import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
-import { QuizSession } from '@/generated/prisma/client'
-import {
-  buildSessionQuestions,
-  checkIsAnswerCorrect,
-  checkIsSessionExpired,
-  buildSessionState,
-} from '@/utils/quiz-session'
-
-const QuizErrors = {
-  NOT_FOUND: 'quiz not found',
-  FORBIDDEN: 'you are not the manager of this quiz',
-  VIEW_FORBIDDEN: 'this quiz is private',
-}
-
-const QuizSessionErrors = {
-  ANALYTICS_SHARE_REQUIRED: 'sharing analytics is required to start a session for this quiz',
-  /**
-   * error "NO_ACTIVE_SESSION"
-   * - is thrown for "submitAnswer" only
-   * - however for "startSession" (it creates a new session if there isn't)
-   *   it doesn't throw this error
-   */
-  NO_ACTIVE_SESSION: 'no active quiz session found',
-}
+import { PaginatedQuizzesEntity } from '@/modules/quiz/entities/paginated-quizzes.entity'
+import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
+import { QuizErrors } from '@/modules/quiz/quiz.errors'
+import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
+import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access.util'
+import { buildQuizListQuery, QUIZZES_PAGE_SIZE } from '@/utils/quiz/build-quiz-list-query.util'
+import { Prisma } from '@/generated/prisma/client'
 
 @Injectable()
 export class QuizService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private sessionService: QuizSessionService,
+  ) {}
 
-  async getAll(query: GetAllQuizzesQueryDto, userId?: number): Promise<QuizEntity[]> {
+  async getAll(query: GetAllQuizzesQueryDto, userId?: number): Promise<PaginatedQuizzesEntity> {
+    // first finalize all expired sessions so "totalFinishes" is up to date
+    await this.sessionService.finalizeAllExpiredSessions()
+
     const omit = {
       questions: true as const, // questions are always omitted when querying list of quizzes
     }
 
-    if (query.managedByMe) {
-      if (!userId) {
-        throw new UnauthorizedException('since managedByMe query is true -> "authorization" header must be provided')
-      }
+    const baseWhere = this.buildBaseWhere(query, userId)
+    const { searchWhere, orderBy, skip, take } = buildQuizListQuery(query)
+    const where: Prisma.QuizWhereInput = { ...baseWhere, ...searchWhere }
 
-      return this.prisma.quiz.findMany({ where: { managerId: userId }, omit })
+    const [quizzes, totalMatches] = await this.prisma.$transaction([
+      this.prisma.quiz.findMany({ where, orderBy, skip, take, omit }),
+      this.prisma.quiz.count({ where }),
+    ])
+
+    const data = await this.attachIsFavoriteToQuizzesArray(quizzes, userId)
+
+    const page = query.page ?? 1
+    const totalPages = Math.ceil(totalMatches / QUIZZES_PAGE_SIZE)
+
+    return {
+      data,
+      page,
+      pageSize: QUIZZES_PAGE_SIZE,
+      totalMatches,
+      totalPages,
+      hasNextPage: page < totalPages,
     }
-
-    return this.prisma.quiz.findMany({ where: { isPublic: true }, omit })
   }
 
   async get(id: number, query: GetSingleQuizQueryDto, userId?: number): Promise<QuizEntity> {
-    const quiz = await this.findQuiz(id, userId)
+    /**
+     * first finalize all expired sessions so
+     *  - totalFinishes
+     *  - wasTakenByCurrentUserAtLeastOnce
+     *  - doesCurrentUserHaveActiveSession
+     * have values that are up to date
+     */
+    await this.sessionService.finalizeAllExpiredSessions()
+
+    const quiz = await findAccessibleQuizOrThrow(this.prisma, id, userId)
     const { questions, ...quizBase } = quiz
 
     const result: QuizEntity = quizBase
@@ -98,21 +99,9 @@ export class QuizService {
       }
     }
 
+    result.isFavorite = await this.isFavoriteSingle(id, userId)
+
     return result
-  }
-
-  private async findQuiz(id: number, userId?: number) {
-    const quiz = await this.prisma.quiz.findUnique({ where: { id } })
-
-    if (!quiz) {
-      throw new NotFoundException(QuizErrors.NOT_FOUND)
-    }
-
-    if (!quiz.isPublic && quiz.managerId !== userId) {
-      throw new ForbiddenException(QuizErrors.VIEW_FORBIDDEN)
-    }
-
-    return quiz
   }
 
   async create(dto: CreateQuizDto, managerId: number): Promise<QuizEntity> {
@@ -170,128 +159,73 @@ export class QuizService {
     await this.prisma.quiz.delete({ where: { id } })
   }
 
+  // --- helper methods ---
+
   /**
-   * starts a new quiz session OR resumes the user's active session (if there is)
+   * builds the base "where" that determines which quizzes should be listed
    *
-   * when there is no active session and the quiz has analytics enabled the user
-   * must explicitly agree to share analytics (via "isAnalyticsShared") otherwise a 400
-   * response error is thrown
+   * (please keep in mind that the search filter is added by "buildQuizListQuery" instead
+   * and not here)
+   *
+   * this only build the basic where only
    */
-  async startSession(quizId: number, userId: number, dto: StartQuizSessionDto): Promise<QuizSessionStateEntity> {
-    // use "this.findQuiz" method because it already ensures that access it allowed
-    // i.e. it throws 404 if quiz doesn't exists OR 403 if the quiz is private and not owned
-    const quiz = await this.findQuiz(quizId, userId)
+  private buildBaseWhere(query: GetAllQuizzesQueryDto, userId?: number): Prisma.QuizWhereInput {
+    const filters: Prisma.QuizWhereInput[] = []
 
-    const activeSession = await this.prisma.quizSession.findFirst({
-      where: { quizId, userId, finishTime: null },
-    })
-
-    if (activeSession) {
-      if (checkIsSessionExpired(activeSession)) {
-        // finalize the expired session (but don't return it)
-        // instead later below a new session will be created
-        await this.finalizeSession(activeSession)
-      } else {
-        // otherwise resume the existing session
-        return buildSessionState(activeSession)
+    if (query.favoritedByMe) {
+      if (!userId) {
+        throw new UnauthorizedException('since favoritedByMe query is true -> "authorization" header must be provided')
       }
+      filters.push({ favorites: { some: { userId } } })
     }
 
-    if (quiz.isAnalyticsEnabled && dto.isAnalyticsShared !== true) {
-      throw new BadRequestException(QuizSessionErrors.ANALYTICS_SHARE_REQUIRED)
+    if (query.managedByMe) {
+      if (!userId) {
+        throw new UnauthorizedException('since managedByMe query is true -> "authorization" header must be provided')
+      }
+      filters.push({ managerId: userId })
     }
 
-    const startTime = new Date()
-    const expireTime =
-      quiz.timeDurationInMinutes !== null
-        ? new Date(startTime.getTime() + quiz.timeDurationInMinutes * 60 * 1000)
-        : null
+    if (filters.length > 0) {
+      return { AND: filters }
+    }
 
-    const questions = buildSessionQuestions(quiz.questions)
-
-    const createdSession = await this.prisma.quizSession.create({
-      data: {
-        quizId,
-        userId,
-        startTime,
-        expireTime,
-        questions,
-        questionsCount: questions.length,
-        isAnalyticsShared: dto.isAnalyticsShared ?? false,
-      },
-    })
-
-    return buildSessionState(createdSession)
+    return { isPublic: true }
   }
 
   /**
-   * This method grades the user's answer of the current question (only if time isn't up)
+   * sets "isFavorite" on each quiz (whether the current user has marked it as favorite)
+   * for anonymous users it is always false
    *
-   * Then either:
-   *   - returns the next question (in case the session is still on-going)
-   *   - or the result `successfulAnswersCount` once the quiz is finished
-   *    (i.e. the last question was answered or the session's time is up)
+   * note: adding/removing favorites logic is coded in the separate "quiz-favorite" module
+   * but reading the favorite data is part of the quiz responses so it is coded here
    */
-  async submitAnswer(quizId: number, userId: number, dto: SubmitQuizSessionAnswerDto): Promise<QuizSessionStateEntity> {
-    const session = await this.prisma.quizSession.findFirst({
-      where: { quizId, userId, finishTime: null },
+  private async attachIsFavoriteToQuizzesArray(quizzes: QuizEntity[], userId?: number): Promise<QuizEntity[]> {
+    if (!userId || quizzes.length === 0) {
+      return quizzes.map((quiz) => ({ ...quiz, isFavorite: false }))
+    }
+
+    const favorites = await this.prisma.favorite.findMany({
+      where: { userId, quizId: { in: quizzes.map((quiz) => quiz.id) } },
+      select: { quizId: true },
     })
 
-    if (!session) {
-      throw new NotFoundException(QuizSessionErrors.NO_ACTIVE_SESSION)
-    }
+    const favoritedQuizIds = new Set(favorites.map((favorite) => favorite.quizId))
 
-    // if the session's time is up -> finalize it (the submitted answer is ignored)
-    if (checkIsSessionExpired(session)) {
-      return this.finalizeSession(session)
-    }
-
-    const currentQuestion = session.questions[session.currentQuestionIndex]
-    const isCurrentAnswerCorrect = checkIsAnswerCorrect(currentQuestion, dto.answerIndexes)
-
-    const nextQuestionIndex = session.currentQuestionIndex + 1
-    const isLastQuestionAnswered = nextQuestionIndex >= session.questionsCount
-
-    if (isLastQuestionAnswered) {
-      return this.finalizeSession(session, { isLastQuestionAnswerSuccessful: isCurrentAnswerCorrect })
-    }
-
-    const updatedSession = await this.prisma.quizSession.update({
-      where: { id: session.id },
-      data: {
-        successfulAnswersCount: session.successfulAnswersCount + (isCurrentAnswerCorrect ? 1 : 0),
-        currentQuestionIndex: nextQuestionIndex,
-      },
-    })
-
-    return buildSessionState(updatedSession)
+    return quizzes.map((quiz) => ({ ...quiz, isFavorite: favoritedQuizIds.has(quiz.id) }))
   }
 
   /**
-   * marks the session as finished (sets "finishTime") and returns its (finished) state
+   * whether the current user has marked the given quiz as favorite (false for anonymous users)
    */
-  private async finalizeSession(
-    session: QuizSession,
-    { isLastQuestionAnswerSuccessful }: { isLastQuestionAnswerSuccessful?: boolean } = {},
-  ): Promise<QuizSessionStateEntity> {
-    const finishTime = session.expireTime
-      ? new Date(Math.min(new Date(session.expireTime).getTime(), Date.now()))
-      : new Date()
+  private async isFavoriteSingle(quizId: number, userId?: number): Promise<boolean> {
+    if (!userId) {
+      return false
+    }
 
-    const [finishedSession] = await this.prisma.$transaction([
-      this.prisma.quizSession.update({
-        where: { id: session.id },
-        data: {
-          finishTime,
-          ...(isLastQuestionAnswerSuccessful ? { successfulAnswersCount: session.successfulAnswersCount + 1 } : {}),
-        },
-      }),
-      this.prisma.quiz.update({
-        where: { id: session.quizId },
-        data: { totalFinishes: { increment: 1 } },
-      }),
-    ])
-
-    return buildSessionState(finishedSession)
+    return !!(await this.prisma.favorite.findUnique({
+      where: { quizId_userId: { quizId, userId } },
+      select: { quizId: true },
+    }))
   }
 }

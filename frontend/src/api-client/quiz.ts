@@ -27,10 +27,8 @@ import type {
   ErrorResponse,
   GetAllQuizzesParams,
   GetSingleQuizParams,
+  PaginatedQuizzesEntity,
   QuizEntity,
-  QuizSessionStateEntity,
-  StartQuizSessionDto,
-  SubmitQuizSessionAnswerDto,
   UpdateQuizDto,
 } from './model'
 
@@ -54,7 +52,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
 }
 
 export type getAllQuizzesResponse200 = {
-  data: QuizEntity[]
+  data: PaginatedQuizzesEntity
   status: 200
 }
 
@@ -92,7 +90,7 @@ export const getGetAllQuizzesUrl = (params?: GetAllQuizzesParams) => {
 }
 
 /**
- * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
+ * @summary get a paginated list of quizzes (public or managed/favorited by the current user) with optional search and sorting
  */
 export const getAllQuizzes = async (
   params?: GetAllQuizzesParams,
@@ -173,7 +171,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
+ * @summary get a paginated list of quizzes (public or managed/favorited by the current user) with optional search and sorting
  */
 
 export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes>>, TError = ErrorResponse>(
@@ -194,7 +192,7 @@ export function useGetAllQuizzes<TData = Awaited<ReturnType<typeof getAllQuizzes
 }
 
 /**
- * @summary get all public quizzes, or own quizzes when managedByMe=true (latter case requires auth)
+ * @summary get a paginated list of quizzes (public or managed/favorited by the current user) with optional search and sorting
  */
 export const prefetchGetAllQuizzesQuery = async <
   TData = Awaited<ReturnType<typeof getAllQuizzes>>,
@@ -742,247 +740,208 @@ export const useDeleteQuiz = <TError = ErrorResponse, TContext = unknown>(
   const backupQueryClient = useQueryClient()
   return useMutation(getDeleteQuizMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }
-export type startQuizSessionResponse200 = {
-  data: QuizSessionStateEntity
-  status: 200
+export type addFavoriteResponse204 = {
+  data: void
+  status: 204
 }
 
-export type startQuizSessionResponse400 = {
-  data: ErrorResponse
-  status: 400
-}
-
-export type startQuizSessionResponse401 = {
+export type addFavoriteResponse401 = {
   data: ErrorResponse
   status: 401
 }
 
-export type startQuizSessionResponse403 = {
+export type addFavoriteResponse403 = {
   data: ErrorResponse
   status: 403
 }
 
-export type startQuizSessionResponse404 = {
+export type addFavoriteResponse404 = {
   data: ErrorResponse
   status: 404
 }
 
-export type startQuizSessionResponse500 = {
+export type addFavoriteResponse500 = {
   data: ErrorResponse
   status: 500
 }
 
-export type startQuizSessionResponseSuccess = startQuizSessionResponse200 & {
+export type addFavoriteResponseSuccess = addFavoriteResponse204 & {
   headers: Headers
 }
-export type startQuizSessionResponseError = (
-  | startQuizSessionResponse400
-  | startQuizSessionResponse401
-  | startQuizSessionResponse403
-  | startQuizSessionResponse404
-  | startQuizSessionResponse500
+export type addFavoriteResponseError = (
+  | addFavoriteResponse401
+  | addFavoriteResponse403
+  | addFavoriteResponse404
+  | addFavoriteResponse500
 ) & {
   headers: Headers
 }
 
-export type startQuizSessionResponse = startQuizSessionResponseSuccess | startQuizSessionResponseError
+export type addFavoriteResponse = addFavoriteResponseSuccess | addFavoriteResponseError
 
-export const getStartQuizSessionUrl = (quizId: number) => {
-  return `/quizzes/${quizId}/sessions`
+export const getAddFavoriteUrl = (quizId: number) => {
+  return `/quizzes/${quizId}/favorite`
 }
 
 /**
- * @summary start a new quiz session (or resume the active one) returns the current question
+ * @summary add the quiz to the current user favorites
  */
-export const startQuizSession = async (
-  quizId: number,
-  startQuizSessionDto: StartQuizSessionDto,
-  options?: RequestInit,
-): Promise<startQuizSessionResponse> => {
-  return customFetch<startQuizSessionResponse>(getStartQuizSessionUrl(quizId), {
+export const addFavorite = async (quizId: number, options?: RequestInit): Promise<addFavoriteResponse> => {
+  return customFetch<addFavoriteResponse>(getAddFavoriteUrl(quizId), {
     ...options,
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(startQuizSessionDto),
   })
 }
 
-export const getStartQuizSessionMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof startQuizSession>>,
-    TError,
-    { quizId: number; data: StartQuizSessionDto },
-    TContext
-  >
-  request?: SecondParameter<typeof customFetch>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof startQuizSession>>,
-  TError,
-  { quizId: number; data: StartQuizSessionDto },
-  TContext
-> => {
-  const mutationKey = ['startQuizSession']
+export const getAddFavoriteMutationOptions = <TError = ErrorResponse, TContext = unknown>(
+  queryClient: QueryClient,
+  options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof addFavorite>>, TError, { quizId: number }, TContext>
+    skipInvalidation?: boolean
+    request?: SecondParameter<typeof customFetch>
+  },
+): UseMutationOptions<Awaited<ReturnType<typeof addFavorite>>, TError, { quizId: number }, TContext> => {
+  const mutationKey = ['addFavorite']
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof startQuizSession>>,
-    { quizId: number; data: StartQuizSessionDto }
-  > = (props) => {
-    const { quizId, data } = props ?? {}
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof addFavorite>>, { quizId: number }> = (props) => {
+    const { quizId } = props ?? {}
 
-    return startQuizSession(quizId, data, requestOptions)
+    return addFavorite(quizId, requestOptions)
   }
 
-  return { mutationFn, ...mutationOptions }
+  const onSuccess = (
+    data: Awaited<ReturnType<typeof addFavorite>>,
+    variables: { quizId: number },
+    onMutateResult: TContext,
+    context: MutationFunctionContext,
+  ) => {
+    if (!options?.skipInvalidation) {
+      queryClient.invalidateQueries({ queryKey: getGetAllQuizzesQueryKey() })
+      queryClient.invalidateQueries({
+        predicate: (query) => typeof query.queryKey[0] === 'string' && query.queryKey[0].startsWith('/quizzes/'),
+      })
+    }
+    mutationOptions?.onSuccess?.(data, variables, onMutateResult, context)
+  }
+
+  return { ...mutationOptions, mutationFn, onSuccess }
 }
 
-export type StartQuizSessionMutationResult = NonNullable<Awaited<ReturnType<typeof startQuizSession>>>
-export type StartQuizSessionMutationBody = StartQuizSessionDto
-export type StartQuizSessionMutationError = ErrorResponse
+export type AddFavoriteMutationResult = NonNullable<Awaited<ReturnType<typeof addFavorite>>>
+
+export type AddFavoriteMutationError = ErrorResponse
 
 /**
- * @summary start a new quiz session (or resume the active one) returns the current question
+ * @summary add the quiz to the current user favorites
  */
-export const useStartQuizSession = <TError = ErrorResponse, TContext = unknown>(
+export const useAddFavorite = <TError = ErrorResponse, TContext = unknown>(
   options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof startQuizSession>>,
-      TError,
-      { quizId: number; data: StartQuizSessionDto },
-      TContext
-    >
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof addFavorite>>, TError, { quizId: number }, TContext>
+    skipInvalidation?: boolean
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
-): UseMutationResult<
-  Awaited<ReturnType<typeof startQuizSession>>,
-  TError,
-  { quizId: number; data: StartQuizSessionDto },
-  TContext
-> => {
-  return useMutation(getStartQuizSessionMutationOptions(options), queryClient)
+): UseMutationResult<Awaited<ReturnType<typeof addFavorite>>, TError, { quizId: number }, TContext> => {
+  const backupQueryClient = useQueryClient()
+  return useMutation(getAddFavoriteMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }
-export type submitQuizSessionAnswerResponse200 = {
-  data: QuizSessionStateEntity
-  status: 200
+export type removeFavoriteResponse204 = {
+  data: void
+  status: 204
 }
 
-export type submitQuizSessionAnswerResponse401 = {
+export type removeFavoriteResponse401 = {
   data: ErrorResponse
   status: 401
 }
 
-export type submitQuizSessionAnswerResponse404 = {
-  data: ErrorResponse
-  status: 404
-}
-
-export type submitQuizSessionAnswerResponse422 = {
-  data: ErrorResponse
-  status: 422
-}
-
-export type submitQuizSessionAnswerResponse500 = {
+export type removeFavoriteResponse500 = {
   data: ErrorResponse
   status: 500
 }
 
-export type submitQuizSessionAnswerResponseSuccess = submitQuizSessionAnswerResponse200 & {
+export type removeFavoriteResponseSuccess = removeFavoriteResponse204 & {
   headers: Headers
 }
-export type submitQuizSessionAnswerResponseError = (
-  | submitQuizSessionAnswerResponse401
-  | submitQuizSessionAnswerResponse404
-  | submitQuizSessionAnswerResponse422
-  | submitQuizSessionAnswerResponse500
-) & {
+export type removeFavoriteResponseError = (removeFavoriteResponse401 | removeFavoriteResponse500) & {
   headers: Headers
 }
 
-export type submitQuizSessionAnswerResponse =
-  | submitQuizSessionAnswerResponseSuccess
-  | submitQuizSessionAnswerResponseError
+export type removeFavoriteResponse = removeFavoriteResponseSuccess | removeFavoriteResponseError
 
-export const getSubmitQuizSessionAnswerUrl = (quizId: number) => {
-  return `/quizzes/${quizId}/sessions/answer`
+export const getRemoveFavoriteUrl = (quizId: number) => {
+  return `/quizzes/${quizId}/favorite`
 }
 
 /**
- * @summary submit the user's answer for the current question and returns the next question (or the result once finished)
+ * @summary remove the quiz from the current user favorites
  */
-export const submitQuizSessionAnswer = async (
-  quizId: number,
-  submitQuizSessionAnswerDto: SubmitQuizSessionAnswerDto,
-  options?: RequestInit,
-): Promise<submitQuizSessionAnswerResponse> => {
-  return customFetch<submitQuizSessionAnswerResponse>(getSubmitQuizSessionAnswerUrl(quizId), {
+export const removeFavorite = async (quizId: number, options?: RequestInit): Promise<removeFavoriteResponse> => {
+  return customFetch<removeFavoriteResponse>(getRemoveFavoriteUrl(quizId), {
     ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(submitQuizSessionAnswerDto),
+    method: 'DELETE',
   })
 }
 
-export const getSubmitQuizSessionAnswerMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof submitQuizSessionAnswer>>,
-    TError,
-    { quizId: number; data: SubmitQuizSessionAnswerDto },
-    TContext
-  >
-  request?: SecondParameter<typeof customFetch>
-}): UseMutationOptions<
-  Awaited<ReturnType<typeof submitQuizSessionAnswer>>,
-  TError,
-  { quizId: number; data: SubmitQuizSessionAnswerDto },
-  TContext
-> => {
-  const mutationKey = ['submitQuizSessionAnswer']
+export const getRemoveFavoriteMutationOptions = <TError = ErrorResponse, TContext = unknown>(
+  queryClient: QueryClient,
+  options?: {
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof removeFavorite>>, TError, { quizId: number }, TContext>
+    skipInvalidation?: boolean
+    request?: SecondParameter<typeof customFetch>
+  },
+): UseMutationOptions<Awaited<ReturnType<typeof removeFavorite>>, TError, { quizId: number }, TContext> => {
+  const mutationKey = ['removeFavorite']
   const { mutation: mutationOptions, request: requestOptions } = options
     ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
       ? options
       : { ...options, mutation: { ...options.mutation, mutationKey } }
     : { mutation: { mutationKey }, request: undefined }
 
-  const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof submitQuizSessionAnswer>>,
-    { quizId: number; data: SubmitQuizSessionAnswerDto }
-  > = (props) => {
-    const { quizId, data } = props ?? {}
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof removeFavorite>>, { quizId: number }> = (props) => {
+    const { quizId } = props ?? {}
 
-    return submitQuizSessionAnswer(quizId, data, requestOptions)
+    return removeFavorite(quizId, requestOptions)
   }
 
-  return { mutationFn, ...mutationOptions }
+  const onSuccess = (
+    data: Awaited<ReturnType<typeof removeFavorite>>,
+    variables: { quizId: number },
+    onMutateResult: TContext,
+    context: MutationFunctionContext,
+  ) => {
+    if (!options?.skipInvalidation) {
+      queryClient.invalidateQueries({ queryKey: getGetAllQuizzesQueryKey() })
+      queryClient.invalidateQueries({
+        predicate: (query) => typeof query.queryKey[0] === 'string' && query.queryKey[0].startsWith('/quizzes/'),
+      })
+    }
+    mutationOptions?.onSuccess?.(data, variables, onMutateResult, context)
+  }
+
+  return { ...mutationOptions, mutationFn, onSuccess }
 }
 
-export type SubmitQuizSessionAnswerMutationResult = NonNullable<Awaited<ReturnType<typeof submitQuizSessionAnswer>>>
-export type SubmitQuizSessionAnswerMutationBody = SubmitQuizSessionAnswerDto
-export type SubmitQuizSessionAnswerMutationError = ErrorResponse
+export type RemoveFavoriteMutationResult = NonNullable<Awaited<ReturnType<typeof removeFavorite>>>
+
+export type RemoveFavoriteMutationError = ErrorResponse
 
 /**
- * @summary submit the user's answer for the current question and returns the next question (or the result once finished)
+ * @summary remove the quiz from the current user favorites
  */
-export const useSubmitQuizSessionAnswer = <TError = ErrorResponse, TContext = unknown>(
+export const useRemoveFavorite = <TError = ErrorResponse, TContext = unknown>(
   options?: {
-    mutation?: UseMutationOptions<
-      Awaited<ReturnType<typeof submitQuizSessionAnswer>>,
-      TError,
-      { quizId: number; data: SubmitQuizSessionAnswerDto },
-      TContext
-    >
+    mutation?: UseMutationOptions<Awaited<ReturnType<typeof removeFavorite>>, TError, { quizId: number }, TContext>
+    skipInvalidation?: boolean
     request?: SecondParameter<typeof customFetch>
   },
   queryClient?: QueryClient,
-): UseMutationResult<
-  Awaited<ReturnType<typeof submitQuizSessionAnswer>>,
-  TError,
-  { quizId: number; data: SubmitQuizSessionAnswerDto },
-  TContext
-> => {
-  return useMutation(getSubmitQuizSessionAnswerMutationOptions(options), queryClient)
+): UseMutationResult<Awaited<ReturnType<typeof removeFavorite>>, TError, { quizId: number }, TContext> => {
+  const backupQueryClient = useQueryClient()
+  return useMutation(getRemoveFavoriteMutationOptions(queryClient ?? backupQueryClient, options), queryClient)
 }

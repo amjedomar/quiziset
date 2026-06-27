@@ -16,7 +16,7 @@ import { appendRedirectParam } from '@/utils/redirect'
 const NAV_LINKS = [
   { href: '/', label: 'Explore', icon: <SearchIcon />, variant: 'plain' as const },
   { href: '/manage-quizzes', label: 'Manage Quizzes', icon: <BallotOutlinedIcon />, variant: 'plain' as const },
-  { href: '/bookmarks', label: 'Favorites', icon: <FavoriteIcon />, variant: 'plain' as const },
+  { href: '/favorites', label: 'Favorites', icon: <FavoriteIcon />, variant: 'plain' as const },
   // { href: '/manage-quizzes/create', label: 'Create Quiz', icon: <AddIcon />, variant: 'soft' as const },
 ]
 
@@ -141,7 +141,6 @@ export function Navbar() {
             variant="plain"
             color="neutral"
             onClick={() => setDrawerOpen(true)}
-            aria-label="Open navigation menu"
           >
             <MenuIcon />
           </IconButton>

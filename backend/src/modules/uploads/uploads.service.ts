@@ -4,7 +4,7 @@ import { mkdir, writeFile } from 'fs/promises'
 import { extname, join } from 'path'
 import { randomUUID } from 'crypto'
 import { BucketName } from '@/modules/uploads/dto/upload-params.dto'
-import { checkFileExists } from '@/utils/check-file-exists'
+import { checkFileExists } from '@/utils/check-file-exists.util'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
 
 const UPLOADS_DIR = join(process.cwd(), 'uploads')

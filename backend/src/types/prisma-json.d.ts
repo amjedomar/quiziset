@@ -16,7 +16,8 @@ declare global {
      * (on the "questions" field of the "QuizSession" model)
      * references this type
      */
-    type QuizSessionQuestions = import('@/modules/quiz/entities/quiz-session.entity').QuizSessionStoredQuestion[]
+    type QuizSessionQuestions =
+      import('@/modules/quiz-session/entities/quiz-session.entity').QuizSessionStoredQuestion[]
   }
 }
 

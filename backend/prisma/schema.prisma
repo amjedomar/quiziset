@@ -20,6 +20,7 @@ model User {
   managedQuizzes Quiz[]
   quizSessions   QuizSession[]
   reviews        Review[]
+  favorites      Favorite[]
 }
 
 model Quiz {
@@ -42,6 +43,7 @@ model Quiz {
   updatedAt             DateTime @updatedAt
   sessions              QuizSession[]
   reviews               Review[]
+  favorites             Favorite[]
 }
 
 model Review {
@@ -56,6 +58,18 @@ model Review {
   updatedAt DateTime @updatedAt
 
   /// a user can leave at most one review per quiz
+  @@unique([quizId, userId])
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  quizId    Int
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  /// a user can favorite a quiz at most once
   @@unique([quizId, userId])
 }
 

@@ -7,8 +7,7 @@ import clsx from 'clsx'
 import { useUpload } from '@/api-client/uploads'
 import { CircularProgress, IconButton } from '@mui/joy'
 import { isErrorResponse } from '@/utils/is-error-response'
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+import { BackendImage } from '@/ui/backend-image'
 
 interface FormImageProps {
   name: string
@@ -42,7 +41,11 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
           const result = await uploadFile({ bucketName, data: { file } })
 
           if (!isErrorResponse(result.data)) {
-            onChange(`${API_BASE_URL}${result.data.url}`)
+            /**
+             * store the relative path only (without domain)
+             * the domain is prepended at display time via <BackendImage>
+             */
+            onChange(result.data.url)
           }
         }
 
@@ -58,7 +61,7 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
         if (imageUrl) {
           content = (
             <>
-              <img src={imageUrl} alt="" className={styles.image} />
+              <BackendImage src={imageUrl} alt="" className={styles.image} />
 
               <IconButton
                 color="danger"

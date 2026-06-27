@@ -2,6 +2,7 @@ import { AspectRatio, Box, Card, CardContent, CardOverflow, Stack, Typography } 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import { QuestionRendererProps } from '@/components/quiz/quiz-session/quiz-question'
+import { BackendImage } from '@/ui/backend-image'
 
 /**
  * "question-cards" is answered by selecting the cards the user thinks are correct
@@ -37,7 +38,9 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
             sx={{ cursor: 'pointer', borderWidth: 1, borderStyle: 'solid' }}
           >
             <CardOverflow>
-              <AspectRatio ratio="1">{answer.imageUrl && <img src={answer.imageUrl} alt={answer.text} />}</AspectRatio>
+              <AspectRatio ratio="1">
+                {answer.imageUrl && <BackendImage src={answer.imageUrl} alt={answer.text} />}
+              </AspectRatio>
             </CardOverflow>
 
             <CardContent>

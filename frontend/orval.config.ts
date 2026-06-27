@@ -1,13 +1,14 @@
 import 'dotenv/config'
-import { API_BASE_URL } from './src/constants/api-url'
+import { API_BASE_URL_ADAPTED } from './src/constants/api-url'
 import { defineConfig } from 'orval'
-if (!API_BASE_URL) {
+
+if (!API_BASE_URL_ADAPTED) {
   throw new Error('please specify NEXT_PUBLIC_API_BASE_URL in .env file')
 }
 
 export default defineConfig({
   quiziset: {
-    input: `${API_BASE_URL}/api-docs-json`,
+    input: `${API_BASE_URL_ADAPTED}/api-docs-json`,
     output: {
       target: './src/api-client/quiziset.ts',
       mode: 'tags',
@@ -33,6 +34,10 @@ export default defineConfig({
                 'getSingleQuiz' // a review change also affects the quiz's averageRating
               ],
             },
+            {
+              onMutations: ['addFavorite', 'removeFavorite'],
+              invalidates: ['getAllQuizzes', 'getSingleQuiz'],
+            }
           ],
         },
       },

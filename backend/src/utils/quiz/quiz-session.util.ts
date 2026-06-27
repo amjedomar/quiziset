@@ -4,9 +4,9 @@ import {
   QuizSessionQuestionEntity,
   QuizSessionStateEntity,
   QuizSessionStoredQuestion,
-} from '@/modules/quiz/entities/quiz-session.entity'
+} from '@/modules/quiz-session/entities/quiz-session.entity'
 import type { Quiz } from '@/generated/prisma/client'
-import { shuffle } from '@/utils/shuffle'
+import { shuffle } from '@/utils/shuffle.util'
 
 /**
  * a session is expired when it has a time limit ("expireTime") that has already passed

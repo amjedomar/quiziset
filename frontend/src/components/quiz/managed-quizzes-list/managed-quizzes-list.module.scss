@@ -35,6 +35,10 @@
   min-width: 0;
   flex-direction: column;
   gap: 4px;
+
+  @media ($max-screen-sm) {
+    width: 100%;
+  }
 }
 
 .image {
@@ -48,4 +52,12 @@
     width: 100%;
     height: 150px;
   }
+}
+
+.quizDescription {
+  // source https://stackoverflow.com/a/1101702/8148505
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }

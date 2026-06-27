@@ -5,10 +5,33 @@
  * The RESTful APIs Docs for the Quiziset app
  * OpenAPI spec version: 1.0
  */
+import type { GetAllQuizzesSortBy } from './get-all-quizzes-sort-by'
+import type { GetAllQuizzesSortOrder } from './get-all-quizzes-sort-order'
 
 export type GetAllQuizzesParams = {
   /**
    * when true returns only quizzes managed by the current user
    */
   managedByMe?: boolean
+  /**
+   * when true returns only quizzes marked as favorite by the current user
+   */
+  favoritedByMe?: boolean
+  /**
+   * filter quizzes by title (case-insensitive)
+   */
+  search?: string
+  /**
+   * field to sort by (defaults by "date" when omitted)
+   */
+  sortBy?: GetAllQuizzesSortBy
+  /**
+   * sort direction (default is desc)
+   */
+  sortOrder?: GetAllQuizzesSortOrder
+  /**
+   * page number (1-based Returns 20 items per page)
+   * @minimum 1
+   */
+  page?: number
 }

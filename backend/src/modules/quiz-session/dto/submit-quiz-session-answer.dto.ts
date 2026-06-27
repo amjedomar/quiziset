@@ -14,4 +14,15 @@ export class SubmitQuizSessionAnswerDto {
       'For the other question types it is the set of selected answers (order is ignored)',
   })
   answerIndexes: number[]
+
+  @IsInt()
+  @Min(0)
+  @ApiProperty({
+    example: 0,
+    description:
+      'the question index this answer is for. ' +
+      'if it does not match the current question index (e.g. quiz is open in another tab ' +
+      'that already moved on) the answer is ignored and the current state is returned',
+  })
+  questionIndex: number
 }

@@ -13,6 +13,8 @@ import TimerOffIcon from '@mui/icons-material/TimerOff'
 import GroupsIcon from '@mui/icons-material/Groups'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import AnalyticsIcon from '@mui/icons-material/Analytics'
+import { BackendImage } from '@/ui/backend-image'
+import { FavoriteButton } from '@/components/quiz/favorite-button'
 import styles from './quiz-overview.module.scss'
 
 interface QuizOverviewProps {
@@ -40,6 +42,7 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
     totalFinishes,
     wasTakenByCurrentUserAtLeastOnce,
     doesCurrentUserHaveActiveSession,
+    isFavorite,
   } = quiz
 
   return (
@@ -51,7 +54,7 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
         <Typography>{title}</Typography>
       </Breadcrumbs>
 
-      <img className={styles.image} src={imageUrl} alt={title} />
+      <BackendImage className={styles.image} src={imageUrl} alt={title} />
 
       <div className={styles.header}>
         <div>
@@ -84,15 +87,19 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
           </div>
         </div>
 
-        <Button
-          component={NextLink}
-          href={`/quizzes/${quizId}/session`}
-          startDecorator={<StartIcon />}
-          size="lg"
-          className={styles.ctaButton}
-        >
-          {doesCurrentUserHaveActiveSession ? 'Resume Quiz' : 'Start Quiz'}
-        </Button>
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+          <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
+
+          <Button
+            component={NextLink}
+            href={`/quizzes/${quizId}/session`}
+            startDecorator={<StartIcon />}
+            size="lg"
+            className={styles.ctaButton}
+          >
+            {doesCurrentUserHaveActiveSession ? 'Resume Quiz' : 'Start Quiz'}
+          </Button>
+        </Box>
       </div>
 
       <Box className={styles.descriptionSection}>
