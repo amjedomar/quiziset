@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { PublicUserEntity } from '@/modules/user/entities/public-user.entity'
 
 export class ReviewEntity {
   @ApiProperty() id: number
@@ -8,8 +9,8 @@ export class ReviewEntity {
 
   @ApiProperty({ type: String, nullable: true }) comment: string | null
 
-  @ApiProperty({ description: 'display name of the review author' })
-  authorName: string
+  @ApiProperty({ type: PublicUserEntity, description: 'the review author' })
+  author: PublicUserEntity
 
   @ApiProperty({ description: 'true when this review belongs to the current (authenticated) user' })
   isMine: boolean

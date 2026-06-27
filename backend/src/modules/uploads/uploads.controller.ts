@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBody, ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger'
 import { GetUploadParamsDto, UploadParamsDto } from '@/modules/uploads/dto/upload-params.dto'
@@ -41,5 +41,26 @@ export class UploadsController {
   @ApiResponse({ status: 404, description: 'file not found' })
   getFile(@Param() { bucketName, fileName }: GetUploadParamsDto) {
     return this.uploadsService.getFile(bucketName, fileName)
+  }
+
+  /**
+   * Delete file endpoint
+   *
+   * used by the frontend to immediately remove newly-uploaded image
+   *
+   * please note that in case of quiz (if the image is currently used
+   * by the quiz then frontend SHOULDN'T delete it using this method
+   * instead BE will take care of the removal during the update request)
+   *
+   * same for user avatar update (it is already taken care of in the user.service.ts file)
+   *
+   * Thus, this method should only be used to delete newly-uploaded images
+   * that aren't part of existing quiz data in database
+   */
+  @Delete('/:bucketName/:fileName')
+  @ApiOperation({ summary: 'delete an uploaded file' })
+  @ApiResponsesList({ status: 200, description: 'file deleted (or does not exist)' }, 401, 422)
+  async deleteFile(@Param() { bucketName, fileName }: GetUploadParamsDto): Promise<void> {
+    await this.uploadsService.deleteFile(bucketName, fileName)
   }
 }

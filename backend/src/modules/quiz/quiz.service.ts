@@ -9,9 +9,11 @@ import { PaginatedQuizzesEntity } from '@/modules/quiz/entities/paginated-quizze
 import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
 import { QuizErrors } from '@/modules/quiz/quiz.errors'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
+import { deleteAllQuizImageFiles, deleteReplacedQuizImageFiles } from '@/utils/uploads/uploaded-image-files.util'
 import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access.util'
 import { buildQuizListQuery, QUIZZES_PAGE_SIZE } from '@/utils/quiz/build-quiz-list-query.util'
 import { Prisma } from '@/generated/prisma/client'
+import { PUBLIC_USER_INCLUDE } from '@/modules/user/entities/public-user.entity'
 
 @Injectable()
 export class QuizService {
@@ -33,7 +35,16 @@ export class QuizService {
     const where: Prisma.QuizWhereInput = { ...baseWhere, ...searchWhere }
 
     const [quizzes, totalMatches] = await this.prisma.$transaction([
-      this.prisma.quiz.findMany({ where, orderBy, skip, take, omit }),
+      this.prisma.quiz.findMany({
+        where,
+        orderBy,
+        skip,
+        take,
+        omit,
+        include: {
+          manager: { select: PUBLIC_USER_INCLUDE },
+        },
+      }),
       this.prisma.quiz.count({ where }),
     ])
 
@@ -137,12 +148,17 @@ export class QuizService {
       delete dto.totalFinishes
     }
 
-    return this.prisma.quiz.update({
+    const result = await this.prisma.quiz.update({
       where: {
         id,
       },
       data: omitUndefinedAttrs(dto),
     })
+
+    // delete old images files that have been replaced
+    await deleteReplacedQuizImageFiles(quiz, dto)
+
+    return result
   }
 
   async delete(id: number, userId: number): Promise<void> {
@@ -157,6 +173,9 @@ export class QuizService {
     }
 
     await this.prisma.quiz.delete({ where: { id } })
+
+    // delete the quiz images files
+    await deleteAllQuizImageFiles(quiz)
   }
 
   // --- helper methods ---

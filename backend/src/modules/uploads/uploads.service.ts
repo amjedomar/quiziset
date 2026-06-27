@@ -5,6 +5,7 @@ import { extname, join } from 'path'
 import { randomUUID } from 'crypto'
 import { BucketName } from '@/modules/uploads/dto/upload-params.dto'
 import { checkFileExists } from '@/utils/check-file-exists.util'
+import { deleteUploadedFile } from '@/utils/uploads/uploaded-image-files.util'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
 
 const UPLOADS_DIR = join(process.cwd(), 'uploads')
@@ -67,5 +68,9 @@ export class UploadsService {
      * Returning file as stream is memory-friendly way (instead of loading it all at once into memory)
      */
     return new StreamableFile(createReadStream(filePath), { type })
+  }
+
+  async deleteFile(bucketName: BucketName, fileName: string): Promise<void> {
+    await deleteUploadedFile(bucketName, fileName)
   }
 }

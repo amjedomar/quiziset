@@ -5,6 +5,7 @@ import { UpdateReviewDto } from '@/modules/review/dto/update-review.dto'
 import { ReviewEntity } from '@/modules/review/entities/review.entity'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
 import { Prisma } from '@/generated/prisma/client'
+import { PUBLIC_USER_INCLUDE } from '@/modules/user/entities/public-user.entity'
 
 const ReviewErrors = {
   QUIZ_NOT_FOUND: 'quiz not found',
@@ -15,9 +16,9 @@ const ReviewErrors = {
   NOT_REVIEW_OWNER: 'you can only modify your own review',
 }
 
-// a review joined with the user table (we only select user's name)
+// a review joined with the user table (the public author data)
 const reviewInclude = {
-  user: { select: { name: true } },
+  user: { select: PUBLIC_USER_INCLUDE },
 } satisfies Prisma.ReviewInclude
 
 type ReviewWithAuthor = Prisma.ReviewGetPayload<{ include: typeof reviewInclude }>
@@ -187,7 +188,11 @@ export class ReviewService {
       id: review.id,
       rating: review.rating,
       comment: review.comment,
-      authorName: review.user.name,
+      author: {
+        id: review.user.id,
+        name: review.user.name,
+        imageUrl: review.user.imageUrl,
+      },
       isMine: currentUserId !== undefined && review.userId === currentUserId,
       createdAt: review.createdAt,
       updatedAt: review.updatedAt,

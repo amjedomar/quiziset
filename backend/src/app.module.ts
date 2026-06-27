@@ -5,6 +5,7 @@ import { QuizModule } from '@/modules/quiz/quiz.module'
 import { QuizSessionModule } from '@/modules/quiz-session/quiz-session.module'
 import { QuizFavoriteModule } from '@/modules/quiz-favorite/quiz-favorite.module'
 import { ReviewModule } from '@/modules/review/review.module'
+import { UserModule } from '@/modules/user/user.module'
 import { AppController } from '@/app.controller'
 import { AuthMiddleware } from '@/middlewares/auth.middleware'
 import { JwtModule } from '@nestjs/jwt'
@@ -25,6 +26,7 @@ import { AuthGuard } from '@/guards/auth.guard'
     QuizSessionModule,
     QuizFavoriteModule,
     ReviewModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

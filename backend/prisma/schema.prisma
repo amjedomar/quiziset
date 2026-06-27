@@ -17,6 +17,8 @@ model User {
   name           String        @db.VarChar(64)
   email          String        @unique @db.VarChar(255)
   password       String        @db.VarChar(1024)
+  /// relative path of the profile image (null when the user has no profile image)
+  imageUrl       String?       @db.VarChar(1024)
   managedQuizzes Quiz[]
   quizSessions   QuizSession[]
   reviews        Review[]

@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 import { QuestionType } from '@/modules/quiz/dto/create-quiz.dto'
+import { PublicUserEntity } from '@/modules/user/entities/public-user.entity'
 
 class AnswerEntity {
   @ApiProperty() text: string
@@ -81,6 +82,12 @@ export class QuizEntity {
   isFavorite?: boolean
 
   @ApiProperty() managerId: number
+
+  @ApiPropertyOptional({
+    type: PublicUserEntity,
+    description: 'the quiz creator (returned for GET requests only but not for create/update quiz requests)',
+  })
+  manager?: PublicUserEntity
 
   @ApiProperty() createdAt: Date
 
