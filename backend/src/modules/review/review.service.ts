@@ -6,6 +6,7 @@ import { ReviewEntity } from '@/modules/review/entities/review.entity'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
 import { Prisma } from '@/generated/prisma/client'
 import { PUBLIC_USER_INCLUDE } from '@/modules/user/entities/public-user.entity'
+import { round1 } from '@/utils/math.util'
 
 const ReviewErrors = {
   QUIZ_NOT_FOUND: 'quiz not found',
@@ -167,7 +168,7 @@ export class ReviewService {
     })
 
     const average = aggregate._avg.rating ?? 0
-    const roundedAverage = Math.round(average * 10) / 10
+    const roundedAverage = round1(average)
 
     await tx.quiz.update({
       where: { id: quizId },

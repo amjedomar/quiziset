@@ -36,7 +36,7 @@ export default tseslint.config(
         {
           patterns: [
             {
-              group: ['../*', './*'],
+              group: ['../*'],
               message: 'Use @/ imports instead of relative imports',
             },
           ],

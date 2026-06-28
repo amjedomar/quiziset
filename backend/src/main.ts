@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import { NestFactory } from '@nestjs/core'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule, getSchemaPath } from '@nestjs/swagger'
+import { join } from 'path'
 import { AppModule } from '@/app.module'
 import { ValidationPipe } from '@nestjs/common'
 import { ErrorResponse } from '@/decorators/api-responses-list'
@@ -9,11 +11,14 @@ const PORT = 4004
 const { FRONTEND_URL } = process.env
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: {
       origin: FRONTEND_URL,
     },
   })
+
+  // serve the "public" directory (which contains sample images) under the /public url
+  app.useStaticAssets(join(process.cwd(), 'src', 'public'), { prefix: '/public' })
 
   // Swagger Configuration
   const options = new DocumentBuilder()

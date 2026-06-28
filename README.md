@@ -46,6 +46,11 @@ generate the Prisma Client
 npx prisma generate
 ```
 
+run seed
+```shell
+npx prisma db seed
+```
+
 # Info during development
 *Method name in Controller (Backend)*
 In backend controllers e.g. in "quiz.controller.ts" make sure that the method
