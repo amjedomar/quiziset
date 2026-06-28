@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.searchRow {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    @media ($max-screen-sm) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.searchInput {
+    flex-grow: 1;
+}
+
+.emptyInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

@@ -1,80 +1,91 @@
 'use client'
 
-import { Box, Button, Sheet, Stack, Typography } from '@mui/joy'
-import { useGetAllQuizzes } from '@/api-client/quiz'
-import { GetAllQuizzesParams } from '@/api-client/model'
-import { isErrorResponse } from '@/utils/is-error-response'
-import styles from './quizzes-list.module.scss'
-import QuizIcon from '@mui/icons-material/Quiz'
-import Link from 'next/link'
-import { ReactNode } from 'react'
-import { Loading } from '@/components/loading'
-import { BackendImage } from '@/ui/backend-image'
-import { FavoriteButton } from '@/components/quiz/favorite-button'
+import { Stack } from '@mui/joy'
+import { GetAllQuizzesParams, QuizEntity } from '@/api-client/model'
+import { ReactNode, useEffect, useState } from 'react'
+import { Pagination } from '@/ui/pagination'
+import { SelectEnhanced } from '@/ui/select-enhanced'
+import { useQuizzesQuery } from '@/hooks/use-quizzes-query'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
+import { QUIZ_SORT_OPTIONS, SortValue, getQuizSortData, getSortValueFromParams } from '@/constants/quizzes-list-sort'
+
+interface QuizSortComponentProps {
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+}
+
+interface HeaderRenderArgs {
+  SortComponent: (props: QuizSortComponentProps) => ReactNode
+  totalMatches: number
+  onSearch: (value: string) => void
+}
+
+interface QuizzesRenderArgs {
+  quizzes?: QuizEntity[]
+  isLoading: boolean
+}
 
 interface QuizzesListProps {
   params?: GetAllQuizzesParams
-  emptyInfo?: ReactNode
+  renderHeader: (args: HeaderRenderArgs) => ReactNode
+  renderQuizzes: (args: QuizzesRenderArgs) => ReactNode
 }
 
-export function QuizzesList({ params, emptyInfo }: QuizzesListProps) {
-  const { data, isLoading } = useGetAllQuizzes(params)
+export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesListProps) {
+  const [search, setSearch] = useState('')
 
-  const responseBody = data?.data
+  const [sortValue, setSortValue] = useState<SortValue>(() => getSortValueFromParams(params) ?? 'newest')
+  const [page, setPage] = useState(() => params?.page ?? 1)
 
-  if (isErrorResponse(responseBody)) {
-    return <p>Error {responseBody.message}</p>
+  const debouncedSearch = useDebouncedValue(search, 350)
+
+  useEffect(() => {
+    setPage(1) // searching resets to the first page
+  }, [debouncedSearch])
+
+  const selectedSort = getQuizSortData(sortValue)
+
+  const effectiveParams: GetAllQuizzesParams = {
+    managedByMe: params?.managedByMe,
+    favoritedByMe: params?.favoritedByMe,
+    page,
+    sortBy: selectedSort.sortBy,
+    sortOrder: selectedSort.sortOrder,
+    ...(debouncedSearch ? { search: debouncedSearch } : {}),
   }
 
-  const quizzes = responseBody?.data
+  const { quizzes, totalMatches, totalPages, isLoading, error } = useQuizzesQuery(effectiveParams)
+
+  function handleSortChange(value: string | null) {
+    if (value) {
+      setSortValue(value as SortValue)
+      setPage(1) // changing the sort also resets to the first page
+    }
+  }
+
+  const SortComponent = (props: QuizSortComponentProps) => (
+    <SelectEnhanced
+      value={sortValue}
+      multiple={false}
+      onChange={(_event, value) => handleSortChange(value)}
+      options={QUIZ_SORT_OPTIONS.map((option) => ({ value: option.value, label: option.label }))}
+      {...props}
+    />
+  )
+
+  if (error) {
+    return <p>Error {error.message}</p>
+  }
 
   return (
-    <Stack spacing={3}>
-      {isLoading ? (
-        <Loading />
-      ) : quizzes && quizzes.length === 0 ? (
-        (emptyInfo ?? <Typography textColor="text.tertiary">No quizzes found</Typography>)
-      ) : (
-        <Box
-          sx={{
-            display: 'grid',
-            gap: 2,
-            gridTemplateColumns: {
-              xs: 'repeat(1, minmax(0, 1fr))',
-              sm: 'repeat(2, minmax(0, 1fr))',
-              md: 'repeat(3, minmax(0, 1fr))',
-              lg: 'repeat(4, minmax(0, 1fr))',
-            },
-          }}
-        >
-          {quizzes?.map((quiz) => (
-            <Sheet
-              key={quiz.id}
-              component={Link}
-              variant="outlined"
-              className={styles.quizCard}
-              href={`/quizzes/${quiz.id}/overview`}
-            >
-              <BackendImage className={styles.image} src={quiz.imageUrl} alt="" />
+    <>
+      {renderHeader({ SortComponent, totalMatches, onSearch: setSearch })}
 
-              <div className={styles.details}>
-                <Typography level="title-lg">{quiz.title}</Typography>
-                <Typography level="body-sm" textColor="text.tertiary" className={styles.quizDescription}>
-                  {quiz.description}
-                </Typography>
-              </div>
+      <Stack spacing={3}>
+        {renderQuizzes({ quizzes, isLoading })}
 
-              <div className={styles.footer}>
-                <Button variant="solid" startDecorator={<QuizIcon />}>
-                  View
-                </Button>
-
-                <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
-              </div>
-            </Sheet>
-          ))}
-        </Box>
-      )}
-    </Stack>
+        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+      </Stack>
+    </>
   )
 }

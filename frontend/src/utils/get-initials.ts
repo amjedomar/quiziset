@@ -1,15 +1,12 @@
 export function getInitials(name: string): string {
-  const words = name.trim().split(/\s+/).filter(Boolean)
+  const words = name.trim().split(/\s+/)
 
-  if (words.length === 0) {
-    return ''
+  const first = words.at(0)?.at(0)?.toUpperCase() ?? ''
+  const last = words.at(-1)?.at(0)?.toUpperCase() ?? ''
+
+  if (words.length === 1) {
+    return first
   }
 
-  const first = words.at(0)?.at(0)
-  const last = words.at(-1)?.at(0)
-
-  return [first, last]
-    .filter((value) => typeof value === 'string')
-    .join('')
-    .toUpperCase()
+  return first + last
 }

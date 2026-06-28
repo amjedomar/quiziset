@@ -1,7 +1,41 @@
 .hero {
-    padding: 50px 16px 35px;
-    // background-color: $color-primary-50;
-    color: #fff;
-    position: relative;
-    // margin-bottom: 35px;
+  padding: 16px 0 32px;
+  color: #fff;
+  position: relative;
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  margin-bottom: 24px;
+}
+
+.searchRow {
+  display: flex;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+
+
+  @media ($max-screen-md) {
+    max-width: initial;
+  }
+
+  @media ($max-screen-sm) {
+    flex-direction: column;
+  }
+}
+
+.searchInput {
+  flex-grow: 1;
+}
+
+.sortSelect {
+  min-width: 180px;
+}
+
+.totalMatches {
+  margin-bottom: 12px;
 }

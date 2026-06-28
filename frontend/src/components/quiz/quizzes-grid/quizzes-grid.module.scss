@@ -3,9 +3,7 @@
   flex-direction: column;
   overflow: hidden;
   border-radius: 6px;
-  padding: 0;
   padding: 12px;
-  border-radius: 6px;
   text-decoration: none;
 }
 
@@ -26,6 +24,18 @@
   flex-grow: 1;
 }
 
+.meta {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.ratingIcon {
+  color: #f5a623;
+}
+
 .footer {
   margin-top: 16px;
   display: flex;
@@ -38,7 +48,7 @@
   /*
     use line-clamp to limit lines (even though it isn't standard but it
     works in most browsers)
-    
+
     credits: https://stackoverflow.com/a/13924997/8148505
   */
   overflow: hidden;

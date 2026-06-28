@@ -10,10 +10,8 @@ import { NavbarMobileDrawer } from '@/components/navbar/navbar-mobile-drawer'
 import { NAV_LINKS } from '@/components/navbar/nav-links'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useCallback, useState } from 'react'
-import { usePathname } from 'next/navigation'
 
 export function Navbar() {
-  const pathname = usePathname()
   const { isLoggedIn } = useAuth()
   const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -21,13 +19,11 @@ export function Navbar() {
     setDrawerOpen(false)
   }, [])
 
-  const isHomePage = pathname === '/'
-
   return (
     <>
       <div className={styles.primarySpacer} />
 
-      {!isHomePage && <div className={styles.secondarySpacer} />}
+      <div className={styles.secondarySpacer} />
 
       <Box className={styles.navbar} sx={{ boxShadow: 'sm' }}>
         <Container className={styles.navbarInner} maxWidth="xl">

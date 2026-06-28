@@ -1,7 +1,7 @@
 import { Prisma } from '@/generated/prisma/client'
 import { GetAllQuizzesQueryDto, QuizSortBy, SortOrder } from '@/modules/quiz/dto/get-all-quizzes-query.dto'
 
-export const QUIZZES_PAGE_SIZE = 20
+export const QUIZZES_PAGE_SIZE = 12
 
 const SORT_FIELD_BY_OPTION: Record<QuizSortBy, keyof Prisma.QuizOrderByWithRelationInput> = {
   [QuizSortBy.Date]: 'createdAt',
