@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Breadcrumbs, Button, Chip, Container, Divider, Link, Typography } from '@mui/joy'
+import { Breadcrumbs, Button, Chip, Container, Divider, Link, Typography } from '@mui/joy'
 import { useGetSingleQuiz } from '@/api-client/quiz'
 import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
@@ -48,84 +48,88 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
   } = quiz
 
   return (
-    <Container maxWidth="md">
-      <Breadcrumbs sx={{ px: 0 }}>
+    <Container maxWidth="lg">
+      <Breadcrumbs className={styles.breadcrumbs}>
         <Link component={NextLink} href="/" color="neutral">
           Explore
         </Link>
         <Typography>{title}</Typography>
       </Breadcrumbs>
 
-      <BackendImage className={styles.image} src={imageUrl} alt={title} />
+      <div className={styles.paper}>
+        <BackendImage className={styles.image} src={imageUrl} alt={title} />
 
-      <div className={styles.header}>
-        <div>
-          <Typography level="h1" className={styles.title}>
-            {title}
-          </Typography>
+        <div className={styles.body}>
+          <div className={styles.header}>
+            <div>
+              <Typography level="h1" className={styles.title}>
+                {title}
+              </Typography>
 
-          <div className={styles.chipsContainer}>
-            <Chip
-              variant="soft"
-              color="neutral"
-              startDecorator={timeDurationInMinutes ? <TimerIcon /> : <TimerOffIcon />}
-            >
-              {timeDurationInMinutes ? `${timeDurationInMinutes} min` : 'No time limit'}
-            </Chip>
+              <div className={styles.chipsContainer}>
+                <Chip
+                  variant="soft"
+                  color="neutral"
+                  startDecorator={timeDurationInMinutes ? <TimerIcon /> : <TimerOffIcon />}
+                >
+                  {timeDurationInMinutes ? `${timeDurationInMinutes} min` : 'No time limit'}
+                </Chip>
 
-            <Chip variant="soft" color="neutral" startDecorator={<AnalyticsIcon />}>
-              Collects Analytics
-            </Chip>
+                <Chip variant="soft" color="neutral" startDecorator={<AnalyticsIcon />}>
+                  Collects Analytics
+                </Chip>
 
-            <Chip variant="soft" color="neutral" startDecorator={<GroupsIcon />}>
-              {totalFinishes} {totalFinishes === 1 ? 'finish' : 'finishes'}
-            </Chip>
+                <Chip variant="soft" color="neutral" startDecorator={<GroupsIcon />}>
+                  {totalFinishes} {totalFinishes === 1 ? 'finish' : 'finishes'}
+                </Chip>
 
-            {wasTakenByCurrentUserAtLeastOnce && (
-              <Chip variant="soft" color="success" startDecorator={<CheckCircleIcon />}>
-                Taken
-              </Chip>
-            )}
+                {wasTakenByCurrentUserAtLeastOnce && (
+                  <Chip variant="soft" color="success" startDecorator={<CheckCircleIcon />}>
+                    Taken
+                  </Chip>
+                )}
+              </div>
+            </div>
+
+            <div className={styles.actions}>
+              <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
+
+              <Button
+                component={NextLink}
+                href={`/quizzes/${quizId}/session`}
+                startDecorator={<StartIcon />}
+                size="lg"
+                className={styles.ctaButton}
+              >
+                {doesCurrentUserHaveActiveSession ? 'Resume Quiz' : 'Start Quiz'}
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <Box className={styles.actions}>
-          <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
-
-          <Button
-            component={NextLink}
-            href={`/quizzes/${quizId}/session`}
-            startDecorator={<StartIcon />}
-            size="lg"
-            className={styles.ctaButton}
-          >
-            {doesCurrentUserHaveActiveSession ? 'Resume Quiz' : 'Start Quiz'}
-          </Button>
-        </Box>
-      </div>
-
-      <Box className={styles.descriptionSection}>
-        <Typography level="title-md" sx={{ mb: 1.5 }}>
-          About this quiz
-        </Typography>
-
-        {manager && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-            <UserAvatar name={manager.name} imageUrl={manager.imageUrl} size="sm" />
-            <Typography level="body-sm" textColor="text.secondary">
-              Created by {manager.name}
+          <div className={styles.descriptionSection}>
+            <Typography level="title-md" className={styles.aboutHeading}>
+              About this quiz
             </Typography>
-          </Box>
-        )}
 
-        <Typography level="body-md" textColor="text.secondary" className={styles.descriptionText}>
-          {description}
-        </Typography>
-      </Box>
+            {manager && (
+              <div className={styles.managerRow}>
+                <UserAvatar name={manager.name} imageUrl={manager.imageUrl} size="sm" />
+                <Typography level="body-sm" textColor="text.secondary">
+                  Created by {manager.name}
+                </Typography>
+              </div>
+            )}
 
-      <Divider sx={{ my: 4 }} />
+            <Typography level="body-md" textColor="text.secondary" className={styles.descriptionText}>
+              {description}
+            </Typography>
+          </div>
 
-      <ReviewsSection quizId={quizId} canReview={Boolean(wasTakenByCurrentUserAtLeastOnce)} />
+          <Divider className={styles.divider} />
+
+          <ReviewsSection quizId={quizId} canReview={Boolean(wasTakenByCurrentUserAtLeastOnce)} />
+        </div>
+      </div>
     </Container>
   )
 }

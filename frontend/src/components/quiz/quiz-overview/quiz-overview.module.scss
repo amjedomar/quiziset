@@ -1,5 +1,43 @@
+.paper {
+  margin-bottom: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.98);
+  overflow: hidden;
+
+  @media ($max-screen-sm) {
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+
+  @media ($max-screen-sm) {
+    border-radius: 6px;
+  }
+}
+
+.body {
+  padding: 24px 32px 32px;
+
+  @media ($max-screen-sm) {
+    padding: 16px 0 0;
+  }
+}
+
+.breadcrumbs {
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 4px;
+}
+
 .header {
-  margin-top: 24px;
   align-items: flex-start;
   justify-content: space-between;
   display: flex;
@@ -30,6 +68,8 @@
 
 .title {
   font-size: 30px;
+  line-height: 1;
+  margin-bottom: 10px;
 
   @media ($max-screen-sm) {
     font-size: 24px;
@@ -44,23 +84,27 @@
   }
 }
 
+.aboutHeading {
+  margin-bottom: 12px;
+}
+
+.managerRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 .descriptionSection {
   margin-top: 24px;
 }
 
 .descriptionText {
   margin-top: 8px;
-  white-space: pre-line; // parse link breaks i.e. /n
+  white-space: pre-line; // parse line breaks i.e. \n
 }
 
-.image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 12px;
-  display: block;
-
-  @media ($max-screen-sm) {
-    height: 200px;
-  }
+.divider {
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
