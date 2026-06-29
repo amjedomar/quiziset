@@ -12,6 +12,4 @@ export class PaginatedQuizzesEntity {
   totalMatches: number
 
   @ApiProperty({ description: 'total number of pages' }) totalPages: number
-
-  @ApiProperty({ description: 'whether there is a page after the current one' }) hasNextPage: boolean
 }

@@ -4,6 +4,10 @@ export const QuizErrors = {
   VIEW_FORBIDDEN: 'this quiz is private',
 }
 
+export const QuizAnalyticsErrors = {
+  ANALYTICS_DISABLED: 'please enable analytics sharing on update quiz page',
+}
+
 export const QuizSessionErrors = {
   ANALYTICS_SHARE_REQUIRED: 'sharing analytics is required to start a session for this quiz',
   /**

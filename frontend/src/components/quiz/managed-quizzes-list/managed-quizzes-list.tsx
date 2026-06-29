@@ -98,7 +98,13 @@ export function ManagedQuizzesList() {
                       Update
                     </Button>
 
-                    <Button variant="outlined" disabled={!quiz.isAnalyticsEnabled} startDecorator={<AnalyticsIcon />}>
+                    <Button
+                      component={Link}
+                      href={`/manage-quizzes/${quiz.id}/analytics`}
+                      variant="outlined"
+                      disabled={!quiz.isAnalyticsEnabled}
+                      startDecorator={<AnalyticsIcon />}
+                    >
                       Analytics
                     </Button>
 

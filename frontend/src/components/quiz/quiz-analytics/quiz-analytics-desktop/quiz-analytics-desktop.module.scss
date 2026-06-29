@@ -1,0 +1,18 @@
+.tableWrapper {
+  border-radius: 8px;
+  overflow-x: auto;
+
+  @media ($max-screen-md) {
+    display: none;
+  }
+}
+
+.table {
+  th {
+    white-space: nowrap;
+  }
+}
+
+.dateColumn {
+  width: 190px;
+}

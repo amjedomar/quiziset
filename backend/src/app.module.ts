@@ -4,6 +4,7 @@ import { UploadsModule } from '@/modules/uploads/uploads.module'
 import { QuizModule } from '@/modules/quiz/quiz.module'
 import { QuizSessionModule } from '@/modules/quiz-session/quiz-session.module'
 import { QuizFavoriteModule } from '@/modules/quiz-favorite/quiz-favorite.module'
+import { QuizAnalyticsModule } from '@/modules/quiz-analytics/quiz-analytics.module'
 import { ReviewModule } from '@/modules/review/review.module'
 import { UserModule } from '@/modules/user/user.module'
 import { AppController } from '@/app.controller'
@@ -25,6 +26,7 @@ import { AuthGuard } from '@/guards/auth.guard'
     QuizModule,
     QuizSessionModule,
     QuizFavoriteModule,
+    QuizAnalyticsModule,
     ReviewModule,
     UserModule,
   ],

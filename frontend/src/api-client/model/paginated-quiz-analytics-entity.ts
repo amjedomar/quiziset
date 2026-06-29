@@ -5,15 +5,15 @@
  * The RESTful APIs Docs for the Quiziset app
  * OpenAPI spec version: 1.0
  */
-import type { QuizEntity } from './quiz-entity'
+import type { QuizAnalyticsSessionEntity } from './quiz-analytics-session-entity'
 
-export interface PaginatedQuizzesEntity {
-  data: QuizEntity[]
+export interface PaginatedQuizAnalyticsEntity {
+  data: QuizAnalyticsSessionEntity[]
   /** current page (1-based) */
   page: number
   /** number of items per page */
   pageSize: number
-  /** total number of quizzes matching the query (across all pages) */
+  /** total number of sessions matching the query (across all pages) */
   totalMatches: number
   /** total number of pages */
   totalPages: number

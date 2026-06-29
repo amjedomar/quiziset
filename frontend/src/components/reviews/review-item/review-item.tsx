@@ -7,6 +7,7 @@ import { ReviewEntity } from '@/api-client/model'
 import { StarsRating } from '@/components/reviews/stars-rating'
 import { UserAvatar } from '@/components/user-avatar'
 import styles from './review-item.module.scss'
+import { formatDate } from '@/utils/dates'
 
 interface ReviewItemProps {
   review: ReviewEntity
@@ -19,8 +20,6 @@ interface ReviewItemProps {
 
 export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemProps) {
   const { author, rating, comment, isMine, updatedAt } = review
-
-  const formattedDate = new Date(updatedAt).toISOString().slice(0, 10)
 
   return (
     <Box className={styles.item}>
@@ -39,7 +38,7 @@ export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemP
           <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
             <StarsRating value={rating} readOnly size="sm" />
             <Typography level="body-xs" textColor="text.tertiary">
-              {formattedDate}
+              {formatDate(updatedAt)}
             </Typography>
           </Box>
         </div>

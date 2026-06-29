@@ -59,7 +59,6 @@ export class QuizService {
       pageSize: QUIZZES_PAGE_SIZE,
       totalMatches,
       totalPages,
-      hasNextPage: page < totalPages,
     }
   }
 
