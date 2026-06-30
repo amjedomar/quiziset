@@ -45,4 +45,19 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-enum-comparison': 'off'
     },
   },
+  {
+    // disable "unsafe any" type-checking rules in unit tests (i.e. *.spec.ts files)
+    // because the mocks intentionally do not define every value's exact type
+    files: ['**/*.spec.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      // allow omitting fields via rest spread operator (notice "ignoreRestSiblings" below)
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    },
+  },
 )

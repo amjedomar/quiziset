@@ -1,0 +1,71 @@
+name: Node.js CI
+
+on: ['push']
+
+
+# check the following sources for info regarding Github CI yaml file configurations
+# - https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs
+# - https://github.com/actions/checkout
+# - https://github.com/actions/setup-node
+# - https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/set-default-values-for-jobs
+
+# runs eslint + build (to verify TypeScript types) + runs unit tests
+jobs:
+  backend:
+    name: backend (lint + build + unit tests)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+
+      - name: install dependencies
+        run: npm ci
+
+      # the prisma client is gitignored so it has to be generated before lint/build/test
+      # (generate works offline i.e. it does not need a database connection)
+      - name: generate prisma client
+        run: npx prisma generate
+
+      - name: lint
+        run: npm run lint
+
+      - name: build (type check)
+        run: npm run build
+
+      - name: unit tests
+        run: npm test
+
+  frontend:
+    name: frontend (lint + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: lint
+        run: npm run lint
+
+      - name: build (type check)
+        run: npm run build
+        env:
+          # a placeholder value (the build does not call the api it only needs this env variable defined)
+          NEXT_PUBLIC_API_BASE_URL: http://localhost:4004
