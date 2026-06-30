@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Button, Sheet, Typography } from '@mui/joy'
-import { QuizEntity } from '@/api-client/model'
+import { QuizEntity } from '@/generated-api-client/model'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Loading } from '@/components/loading'

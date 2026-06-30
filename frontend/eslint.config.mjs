@@ -47,7 +47,7 @@ const eslintConfig = defineConfig([
     },
   },
   {
-    files: ['src/api-client/**/*'],
+    files: ['src/generated-api-client/**/*'],
     rules: {
       'no-restricted-imports': 'off',
     },

@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/api-client/model'
+import { ErrorResponse } from '@/generated-api-client/model'
 import { NotFound } from '@/components/not-found'
 import styles from './error-response-view.module.scss'
 

@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { Alert, Box, Button, FormControl, FormLabel, Stack, Textarea, Typography } from '@mui/joy'
-import { useCreateReview, useUpdateReview } from '@/api-client/review'
-import { ReviewEntity } from '@/api-client/model'
+import { useCreateReview, useUpdateReview } from '@/generated-api-client/review'
+import { ReviewEntity } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { StarsRating } from '@/components/reviews/stars-rating'
 

@@ -2,9 +2,9 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 import jsCookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
-import { useLogin, useSignup } from '@/api-client/auth'
-import { useGetMe } from '@/api-client/user'
-import { AuthToken, ErrorResponse, LoginDto, SignupDto, UserEntity } from '@/api-client/model'
+import { useLogin, useSignup } from '@/generated-api-client/auth'
+import { useGetMe } from '@/generated-api-client/user'
+import { AuthToken, ErrorResponse, LoginDto, SignupDto, UserEntity } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
 

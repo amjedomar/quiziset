@@ -15,9 +15,9 @@ import { QuestionType } from '@/components/quiz/question-type-select'
 import { QuizTimeDurationSelect } from '@/components/quiz/quiz-time-duration-select'
 import { quizSchema, QuizFormData } from '@/components/quiz/quiz-form/quiz-schema'
 import { FormSwitch } from '@/ui/form-fields/form-switch'
-import { useCreateQuiz, useDeleteQuiz, useUpdateQuiz } from '@/api-client/quiz'
+import { useCreateQuiz, useDeleteQuiz, useUpdateQuiz } from '@/generated-api-client/quiz'
 import { useRouter } from 'next/navigation'
-import { QuizEntity } from '@/api-client/model'
+import { QuizEntity } from '@/generated-api-client/model'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 const defaultQuestion = {

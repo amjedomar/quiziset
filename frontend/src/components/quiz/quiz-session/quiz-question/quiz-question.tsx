@@ -1,4 +1,8 @@
-import { QuizSessionAnswerEntity, QuizSessionQuestionEntity, QuestionEntityQuestionType } from '@/api-client/model'
+import {
+  QuizSessionAnswerEntity,
+  QuizSessionQuestionEntity,
+  QuestionEntityQuestionType,
+} from '@/generated-api-client/model'
 import { CheckboxQuestion } from '@/components/quiz/quiz-session/quiz-question/checkbox-question'
 import { RadioQuestion } from '@/components/quiz/quiz-session/quiz-question/radio-question'
 import { CardsQuestion } from '@/components/quiz/quiz-session/quiz-question/cards-question'

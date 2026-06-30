@@ -3,7 +3,7 @@
 import { Fragment, useState } from 'react'
 import { Box, Button, Divider, Sheet, Tooltip, Typography } from '@mui/joy'
 import RateReviewIcon from '@mui/icons-material/RateReview'
-import { useDeleteReview, useGetQuizReviews } from '@/api-client/review'
+import { useDeleteReview, useGetQuizReviews } from '@/generated-api-client/review'
 import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { Loading } from '@/components/loading'

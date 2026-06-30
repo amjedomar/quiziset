@@ -1,4 +1,4 @@
-import { QuizAnalyticsSessionEntity } from '@/api-client/model'
+import { QuizAnalyticsSessionEntity } from '@/generated-api-client/model'
 
 /**
  * e.g. of the returned value "3 / 5 (60%)"

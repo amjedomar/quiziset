@@ -1,6 +1,6 @@
 import { keepPreviousData } from '@tanstack/react-query'
-import { useGetAllQuizzes } from '@/api-client/quiz'
-import { ErrorResponse, GetAllQuizzesParams, QuizEntity } from '@/api-client/model'
+import { useGetAllQuizzes } from '@/generated-api-client/quiz'
+import { ErrorResponse, GetAllQuizzesParams, QuizEntity } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 
 interface QuizzesQueryResult {

@@ -1,9 +1,9 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
-import { prefetchGetAllQuizzesQuery } from '@/api-client/quiz'
+import { prefetchGetAllQuizzesQuery } from '@/generated-api-client/quiz'
 import Homepage from '@/components/homepage/homepage'
 import { getQuizSortData } from '@/constants/quizzes-list-sort'
 import { makeQueryClient } from '@/utils/query-client'
-import { GetAllQuizzesParams } from '@/api-client/model'
+import { GetAllQuizzesParams } from '@/generated-api-client/model'
 import { Container } from '@mui/joy'
 
 export const dynamic = 'force-dynamic'

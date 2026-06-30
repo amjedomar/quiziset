@@ -1,7 +1,7 @@
 'use client'
 
 import { Stack } from '@mui/joy'
-import { GetAllQuizzesParams, QuizEntity } from '@/api-client/model'
+import { GetAllQuizzesParams, QuizEntity } from '@/generated-api-client/model'
 import { ReactNode, useEffect, useState } from 'react'
 import { Pagination } from '@/ui/pagination'
 import { SelectEnhanced } from '@/ui/select-enhanced'

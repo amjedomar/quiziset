@@ -10,9 +10,9 @@ export default defineConfig({
   quiziset: {
     input: `${API_BASE_URL_ADAPTED}/api-docs-json`,
     output: {
-      target: './src/api-client/quiziset.ts',
+      target: './src/generated-api-client/quiziset.ts',
       mode: 'tags',
-      schemas: './src/api-client/model',
+      schemas: './src/generated-api-client/model',
       client: 'react-query',
       namingConvention: 'kebab-case',
       override: {

@@ -2,7 +2,7 @@
 import { Typography, Link, Input } from '@mui/joy'
 import NextLink from 'next/link'
 import SearchIcon from '@mui/icons-material/Search'
-import { GetAllQuizzesParams } from '@/api-client/model'
+import { GetAllQuizzesParams } from '@/generated-api-client/model'
 import { QuizzesList } from '@/components/quiz/quizzes-list'
 import { QuizzesGrid } from '@/components/quiz/quizzes-grid'
 import styles from './homepage.module.scss'

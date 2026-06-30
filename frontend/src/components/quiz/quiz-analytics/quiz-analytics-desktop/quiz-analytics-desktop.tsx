@@ -1,5 +1,5 @@
 import { Sheet, Table } from '@mui/joy'
-import { QuizAnalyticsSessionEntity } from '@/api-client/model'
+import { QuizAnalyticsSessionEntity } from '@/generated-api-client/model'
 import { formatDateTime, formatTimeDuration } from '@/utils/dates'
 import { formatQuizSessionScore } from '@/utils/quiz-session'
 import { SessionStatusChip } from '@/components/quiz/quiz-analytics/session-status-chip'

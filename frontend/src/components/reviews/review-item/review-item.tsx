@@ -3,7 +3,7 @@
 import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/joy'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { ReviewEntity } from '@/api-client/model'
+import { ReviewEntity } from '@/generated-api-client/model'
 import { StarsRating } from '@/components/reviews/stars-rating'
 import { UserAvatar } from '@/components/user-avatar'
 import styles from './review-item.module.scss'

@@ -2,7 +2,7 @@
 
 import { CircularProgress, Container, Stack } from '@mui/joy'
 import { useParams } from 'next/navigation'
-import { useGetSingleQuiz } from '@/api-client/quiz'
+import { useGetSingleQuiz } from '@/generated-api-client/quiz'
 import { QuizForm } from '@/components/quiz/quiz-form'
 import { isErrorResponse } from '@/utils/is-error-response'
 

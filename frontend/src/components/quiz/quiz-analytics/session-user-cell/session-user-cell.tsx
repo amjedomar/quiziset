@@ -1,4 +1,4 @@
-import { PublicUserEntity } from '@/api-client/model'
+import { PublicUserEntity } from '@/generated-api-client/model'
 import { UserAvatar } from '@/components/user-avatar'
 import styles from './session-user-cell.module.scss'
 

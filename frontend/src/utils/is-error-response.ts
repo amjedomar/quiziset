@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@/api-client/model'
+import { ErrorResponse } from '@/generated-api-client/model'
 
 export function isErrorResponse(value: unknown): value is ErrorResponse {
   return (

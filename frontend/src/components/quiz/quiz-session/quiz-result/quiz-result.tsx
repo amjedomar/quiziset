@@ -1,6 +1,6 @@
 import { Button, Card, Stack, Typography } from '@mui/joy'
 import NextLink from 'next/link'
-import { QuizSessionStateEntity } from '@/api-client/model'
+import { QuizSessionStateEntity } from '@/generated-api-client/model'
 
 interface QuizResultProps {
   state: QuizSessionStateEntity

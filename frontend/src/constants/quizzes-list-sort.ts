@@ -1,4 +1,4 @@
-import { GetAllQuizzesParams, GetAllQuizzesSortBy, GetAllQuizzesSortOrder } from '@/api-client/model'
+import { GetAllQuizzesParams, GetAllQuizzesSortBy, GetAllQuizzesSortOrder } from '@/generated-api-client/model'
 
 export type SortValue =
   | 'most-popular'
