@@ -12,7 +12,6 @@ on: ['push']
 # runs eslint + build (to verify TypeScript types) + runs unit tests
 jobs:
   backend:
-    name: backend (lint + build + unit tests)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -44,7 +43,6 @@ jobs:
         run: npm test
 
   frontend:
-    name: frontend (lint + build)
     runs-on: ubuntu-latest
     defaults:
       run:

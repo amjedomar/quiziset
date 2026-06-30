@@ -25,7 +25,7 @@ describe('AuthController', () => {
   it('delegates login to the auth service and returns its result', async () => {
     const dto = { email: 'john@example.com', password: 'secret123' }
     const token = { accessToken: 'jwt-token' }
-    
+
     authService.login.mockResolvedValue(token)
 
     const result = await controller.login(dto)
