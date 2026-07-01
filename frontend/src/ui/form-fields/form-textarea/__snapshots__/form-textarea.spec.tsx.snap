@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormTextarea renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+  >
+    <label
+      class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+      for="_r_0_"
+      id="_r_0_-label"
+    >
+      Description
+    </label>
+    <div
+      class="MuiTextarea-root MuiTextarea-variantOutlined MuiTextarea-colorNeutral MuiTextarea-sizeMd MuiTextarea-formControl css-1cquhrj-JoyTextarea-root"
+    >
+      <textarea
+        class="MuiTextarea-textarea css-sws92j-JoyTextarea-textarea"
+        id="_r_0_"
+        name="description"
+        placeholder="Description"
+        rows="1"
+        style="height: 0px; overflow: hidden;"
+      />
+      <textarea
+        aria-hidden="true"
+        class="MuiTextarea-textarea css-sws92j-JoyTextarea-textarea"
+        readonly=""
+        style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding-top: 0px; padding-bottom: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

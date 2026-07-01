@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`BackendImage renders correctly 1`] = `
+<DocumentFragment>
+  <img
+    alt="avatar"
+    src="http://mock-backend/uploads/avatar.png"
+  />
+</DocumentFragment>
+`;

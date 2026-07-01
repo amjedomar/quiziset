@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Sortable renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="test-class"
+    style="opacity: 1;"
+  >
+    item content
+  </div>
+</DocumentFragment>
+`;

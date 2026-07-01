@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormFieldCore renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+  >
+    <label
+      class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+      for="_r_0_"
+      id="_r_0_-label"
+    >
+      Title
+    </label>
+    <input />
+  </div>
+</DocumentFragment>
+`;

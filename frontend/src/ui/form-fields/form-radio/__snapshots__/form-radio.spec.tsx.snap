@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormRadio renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+  >
+    <label
+      class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+      for="_r_0_"
+      id="_r_0_-label"
+    >
+      Option A
+    </label>
+    <span
+      class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+    >
+      <span
+        class="MuiRadio-radio css-ji34he-JoyRadio-radio"
+      >
+        <span
+          class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
+        />
+        <span
+          class="MuiRadio-action css-phjqy5-JoyRadio-action"
+        >
+          <input
+            aria-checked="false"
+            class="MuiRadio-input css-l3zqaq-JoyRadio-input"
+            id="_r_0_"
+            name="answer"
+            type="radio"
+            value="undefined"
+          />
+        </span>
+      </span>
+    </span>
+  </div>
+</DocumentFragment>
+`;

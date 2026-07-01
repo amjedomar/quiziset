@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormSwitch renders correctly 1`] = `
+<DocumentFragment>
+  <label
+    class="MuiTypography-root MuiTypography-body-md label css-dd8p4m-JoyTypography-root"
+  >
+    <span
+      class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+    >
+      <div
+        class="MuiSwitch-root MuiSwitch-variantSolid MuiSwitch-colorNeutral MuiSwitch-sizeMd css-1ch0weh-JoySwitch-root"
+        name="enabled"
+      >
+        <span
+          class="MuiSwitch-track css-1kynshp-JoySwitch-track"
+        >
+          <span
+            class="MuiSwitch-thumb css-d5sxl0-JoySwitch-thumb"
+          />
+        </span>
+        <div
+          class="MuiSwitch-action css-8hil84-JoySwitch-action"
+        >
+          <input
+            aria-checked="false"
+            class="MuiSwitch-input css-iegj0b-JoySwitch-input"
+            role="switch"
+            type="checkbox"
+          />
+        </div>
+      </div>
+    </span>
+    Enabled
+  </label>
+</DocumentFragment>
+`;
