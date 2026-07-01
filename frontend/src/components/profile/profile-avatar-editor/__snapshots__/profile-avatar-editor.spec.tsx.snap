@@ -11,7 +11,7 @@ exports[`ProfileAvatarEditor correctly renders 1`] = `
       <img
         alt="Amjed Omar"
         class="MuiAvatar-img css-9ae35a-JoyAvatar-img"
-        src="http://localhost:4004/uploads/avatar.png"
+        src="http://mock-backend/uploads/avatar.png"
       />
     </div>
     <label

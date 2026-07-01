@@ -2,6 +2,10 @@ import { act, fireEvent, render } from '@testing-library/react'
 import { UserEntity } from '@/generated-api-client/model'
 import { ProfileAvatarEditor } from './profile-avatar-editor'
 
+jest.mock('@/constants/api-url', () => ({
+  NEXT_PUBLIC_API_BASE_URL: 'http://mock-backend',
+}))
+
 const uploadFile = jest.fn()
 jest.mock('@/generated-api-client/uploads', () => ({
   useUpload: () => ({ mutateAsync: uploadFile, isPending: false }),
