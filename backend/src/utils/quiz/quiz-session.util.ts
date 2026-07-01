@@ -48,6 +48,16 @@ export function buildSessionQuestions(questions: Quiz['questions']): QuizSession
   })
 }
 
+export function getCorrectAnswerIndexes(question: QuizSessionStoredQuestion): number[] {
+  if (question.questionType === QuestionType.Reorder) {
+    return question.answers.map((_, order) => question.answers.findIndex((answer) => answer.correctOrder === order))
+  }
+
+  return question.answers
+    .map((answer, answerIndex) => (answer.isCorrect ? answerIndex : undefined))
+    .filter((val) => typeof val !== 'undefined')
+}
+
 /**
  * checks the user's answer for the given question
  */
@@ -102,7 +112,7 @@ export function checkIsAnswerCorrect(question: QuizSessionStoredQuestion, answer
  *
  * Thus, the result of this function can be safely returned to the frontend
  */
-function toExposedQuestion(question: QuizSessionStoredQuestion): QuizSessionQuestionEntity {
+export function toExposedQuestion(question: QuizSessionStoredQuestion): QuizSessionQuestionEntity {
   return {
     title: question.title,
     questionType: question.questionType,

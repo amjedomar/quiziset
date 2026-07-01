@@ -1,7 +1,6 @@
 // @ts-check
 import eslint from '@eslint/js'
-import eslintPluginPrettierRecommended
-  from 'eslint-plugin-prettier/recommended'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
@@ -42,7 +41,13 @@ export default tseslint.config(
           ],
         },
       ],
-      '@typescript-eslint/no-unsafe-enum-comparison': 'off'
+      '@typescript-eslint/no-unsafe-enum-comparison': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          ignoreRestSiblings: true, // allow omitting fields via rest spread operator
+        },
+      ],
     },
   },
   {
@@ -56,8 +61,6 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-      // allow omitting fields via rest spread operator (notice "ignoreRestSiblings" below)
-      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     },
   },
 )

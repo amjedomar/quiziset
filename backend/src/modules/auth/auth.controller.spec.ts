@@ -11,7 +11,7 @@ describe('AuthController', () => {
   })
 
   it('delegates signup to the auth service and returns its result', async () => {
-    const dto = { name: 'john doe', email: 'john@example.com', password: 'secret123' }
+    const dto = { name: 'Amjed Omar', email: 'amjed@example.com', password: 'secret123' }
     const token = { accessToken: 'jwt-token' }
 
     authService.signup.mockResolvedValue(token)
@@ -23,7 +23,7 @@ describe('AuthController', () => {
   })
 
   it('delegates login to the auth service and returns its result', async () => {
-    const dto = { email: 'john@example.com', password: 'secret123' }
+    const dto = { email: 'amjed@example.com', password: 'secret123' }
     const token = { accessToken: 'jwt-token' }
 
     authService.login.mockResolvedValue(token)
