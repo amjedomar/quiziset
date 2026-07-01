@@ -35,6 +35,7 @@ export function FormInput({
             input: {
               ...slotProps?.input,
               ref: mergeRefs(ref, inputRef),
+              'data-testid': `input-${name}`,
             },
           }}
         />

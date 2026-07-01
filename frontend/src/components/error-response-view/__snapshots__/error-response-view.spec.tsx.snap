@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ErrorResponseView correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="message"
+  >
+    Error: Something broke
+  </div>
+</DocumentFragment>
+`;

@@ -89,6 +89,7 @@ export function ProfileAvatarEditor({ user }: ProfileAvatarEditorProps) {
       {user.imageUrl && (
         <Tooltip title="Remove image">
           <IconButton
+            data-testid="remove-image-button"
             size="sm"
             variant="soft"
             color="danger"

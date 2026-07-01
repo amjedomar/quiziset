@@ -34,7 +34,7 @@ export function Navbar() {
 
             <Stack className={styles.desktopNav} direction="row" spacing={0.75}>
               {NAV_LINKS.map((link) => (
-                <NavLinkButton key={link.href} {...link} />
+                <NavLinkButton key={link.href} {...link} testIdPrefix="desktop" />
               ))}
             </Stack>
           </div>

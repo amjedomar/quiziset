@@ -26,6 +26,7 @@ exports[`LoginForm correctly renders 1`] = `
         >
           <input
             class="MuiInput-input css-1gw9vc6-JoyInput-input"
+            data-testid="input-email"
             id="_r_0_"
             name="email"
             placeholder="Email"
@@ -49,6 +50,7 @@ exports[`LoginForm correctly renders 1`] = `
         >
           <input
             class="MuiInput-input css-1gw9vc6-JoyInput-input"
+            data-testid="input-password"
             id="_r_1_"
             name="password"
             placeholder="Password"
@@ -59,6 +61,7 @@ exports[`LoginForm correctly renders 1`] = `
       </div>
       <button
         class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+        data-testid="login-submit-button"
         type="submit"
       >
         Login

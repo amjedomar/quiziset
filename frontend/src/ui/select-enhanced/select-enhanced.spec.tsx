@@ -16,6 +16,7 @@ describe('SelectEnhanced', () => {
         { label: 'Option A', value: 'a' },
         { label: 'Option B', value: 'b' },
       ]}
+      testId="select"
     />
   )
 
@@ -29,9 +30,9 @@ describe('SelectEnhanced', () => {
   })
 
   it('calls onChange with the value of the clicked option', () => {
-    const { getByRole, getByText } = render(selectEl)
+    const { getByTestId, getByText } = render(selectEl)
 
-    fireEvent.mouseDown(getByRole('combobox'))
+    fireEvent.mouseDown(getByTestId('select'))
     fireEvent.click(getByText('Option B'))
 
     expect(onChange).toHaveBeenCalledWith(expect.anything(), 'b')

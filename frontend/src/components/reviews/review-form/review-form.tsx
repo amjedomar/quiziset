@@ -61,7 +61,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
             placeholder="Write your review about this quiz..."
             value={comment}
             onChange={(event) => setComment(event.target.value)}
-            slotProps={{ textarea: { maxLength: 255 } }}
+            slotProps={{ textarea: { maxLength: 255, 'data-testid': 'review-comment-textarea' } }}
           />
         </FormControl>
 
@@ -72,7 +72,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
         )}
 
         <Stack direction="row" spacing={1}>
-          <Button onClick={handleSubmit} loading={isPending} disabled={rating === 0}>
+          <Button data-testid="submit-review-button" onClick={handleSubmit} loading={isPending} disabled={rating === 0}>
             {isEditing ? 'Update review' : 'Submit review'}
           </Button>
           <Button variant="plain" color="neutral" onClick={onCancel} disabled={isPending}>

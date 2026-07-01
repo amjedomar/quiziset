@@ -19,7 +19,7 @@ export function FormCheckbox({ name, label, disableErrorState, slotProps, ...che
           {...fieldProps}
           checked={!!value}
           onChange={(event) => onChange(event.target.checked)}
-          slotProps={{ ...slotProps, input: { ...slotProps?.input, ref } }}
+          slotProps={{ ...slotProps, input: { ...slotProps?.input, ref, 'data-testid': `checkbox-${name}` } }}
         />
       )}
       disableErrorState={disableErrorState}

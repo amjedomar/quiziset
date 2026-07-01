@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Loading correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <span
+      class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-variantSoft MuiCircularProgress-sizeMd css-cz5ews-JoyCircularProgress-root"
+      role="progressbar"
+      style="--CircularProgress-percent: 25;"
+    >
+      <svg
+        class="MuiCircularProgress-svg css-qw6zo9-JoyCircularProgress-svg"
+      >
+        <circle
+          class="MuiCircularProgress-track css-zitgxn-JoyCircularProgress-track"
+        />
+        <circle
+          class="MuiCircularProgress-progress css-v8oslq-JoyCircularProgress-progress"
+        />
+      </svg>
+    </span>
+  </div>
+</DocumentFragment>
+`;

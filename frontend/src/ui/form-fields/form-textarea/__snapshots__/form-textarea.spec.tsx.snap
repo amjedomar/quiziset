@@ -17,6 +17,7 @@ exports[`FormTextarea renders correctly 1`] = `
     >
       <textarea
         class="MuiTextarea-textarea css-sws92j-JoyTextarea-textarea"
+        data-testid="textarea-description"
         id="_r_0_"
         name="description"
         placeholder="Description"

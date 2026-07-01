@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AuthButtons correctly renders 1`] = `
+<DocumentFragment>
+  <a
+    class="MuiButton-root MuiButton-variantOutlined MuiButton-colorPrimary MuiButton-sizeMd css-1enwr29-JoyButton-root"
+    data-testid="login-link"
+    href="/login"
+  >
+    Login
+  </a>
+  <a
+    class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+    data-testid="signup-link"
+    href="/signup"
+  >
+    Sign Up
+  </a>
+</DocumentFragment>
+`;

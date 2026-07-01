@@ -66,7 +66,7 @@ export function ProfileForm() {
 
             <FormInput name="email" label="Email" type="email" />
 
-            <Button type="submit" startDecorator={<SaveIcon />} loading={isUpdating}>
+            <Button data-testid="save-profile-button" type="submit" startDecorator={<SaveIcon />} loading={isUpdating}>
               Save
             </Button>
           </Stack>

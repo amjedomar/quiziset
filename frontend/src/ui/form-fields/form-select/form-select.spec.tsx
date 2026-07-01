@@ -23,7 +23,7 @@ describe('FormSelect', () => {
   it('updates the form value when an option is selected', () => {
     const { formMethods } = renderWithFormContext(formSelect)
 
-    fireEvent.mouseDown(screen.getByRole('combobox'))
+    fireEvent.mouseDown(screen.getByTestId('select-color'))
     fireEvent.click(screen.getByText('Red'))
 
     expect(formMethods.getValues('color')).toBe('red')

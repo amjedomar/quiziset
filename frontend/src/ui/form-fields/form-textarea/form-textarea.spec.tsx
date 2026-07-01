@@ -10,9 +10,9 @@ describe('FormTextarea', () => {
   })
 
   it('updates the form value when typed into', () => {
-    const { getByRole, formMethods } = renderWithFormContext(<FormTextarea name="description" label="Description" />)
+    const { getByTestId, formMethods } = renderWithFormContext(<FormTextarea name="description" label="Description" />)
 
-    fireEvent.change(getByRole('textbox'), { target: { value: 'A description' } })
+    fireEvent.change(getByTestId('textarea-description'), { target: { value: 'A description' } })
 
     expect(formMethods.getValues('description')).toBe('A description')
   })

@@ -24,6 +24,7 @@ exports[`FormCheckbox renders correctly 1`] = `
           <input
             aria-checked="false"
             class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+            data-testid="checkbox-agree"
             id="_r_0_"
             name="agree"
             type="checkbox"

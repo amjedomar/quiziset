@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`UserAvatar correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeMd css-ktlz66-JoyAvatar-root"
+  >
+    <img
+      alt="Amjed Omar"
+      class="MuiAvatar-img css-9ae35a-JoyAvatar-img"
+      src="http://localhost:4004/uploads/avatar.png"
+    />
+  </div>
+</DocumentFragment>
+`;

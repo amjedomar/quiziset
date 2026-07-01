@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileAvatarEditor correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="editor MuiBox-root css-0"
+  >
+    <div
+      class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeMd avatar css-ktlz66-JoyAvatar-root"
+    >
+      <img
+        alt="Amjed Omar"
+        class="MuiAvatar-img css-9ae35a-JoyAvatar-img"
+        src="http://localhost:4004/uploads/avatar.png"
+      />
+    </div>
+    <label
+      aria-label="Change image"
+      class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm uploadButton css-j89a8f-JoyIconButton-root"
+      role="button"
+      tabindex="0"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+        data-testid="PhotoCameraIcon"
+        focusable="false"
+        style="font-size: 16px;"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="3.2"
+        />
+        <path
+          d="M9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5"
+        />
+      </svg>
+      <input
+        accept=".jpg, .jpeg, .png"
+        style="display: none;"
+        type="file"
+      />
+    </label>
+    <button
+      aria-label="Remove image"
+      class="MuiIconButton-root MuiIconButton-variantSoft MuiIconButton-colorDanger MuiIconButton-sizeSm deleteButton css-1btxtfy-JoyIconButton-root"
+      data-testid="remove-image-button"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+        data-testid="DeleteIcon"
+        focusable="false"
+        style="font-size: 16px;"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;

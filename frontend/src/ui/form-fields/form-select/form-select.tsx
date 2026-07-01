@@ -30,6 +30,7 @@ export function FormSelect<Multiple extends boolean>({
           options={options}
           decoratorStyle={decoratorStyle}
           placeholder={placeholder ?? label}
+          testId={`select-${name}`}
         />
       )}
     />

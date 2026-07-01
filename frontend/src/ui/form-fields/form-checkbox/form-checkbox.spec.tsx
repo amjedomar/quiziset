@@ -10,9 +10,9 @@ describe('FormCheckbox', () => {
   })
 
   it('updates the form value when clicked', () => {
-    const { getByRole, formMethods } = renderWithFormContext(<FormCheckbox name="agree" label="I agree" />)
+    const { getByTestId, formMethods } = renderWithFormContext(<FormCheckbox name="agree" label="I agree" />)
 
-    fireEvent.click(getByRole('checkbox'))
+    fireEvent.click(getByTestId('checkbox-agree'))
 
     expect(formMethods.getValues('agree')).toBe(true)
   })

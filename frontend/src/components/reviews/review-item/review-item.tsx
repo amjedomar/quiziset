@@ -46,12 +46,19 @@ export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemP
         {isMine && (
           <div className={styles.actions}>
             <Tooltip title="Edit">
-              <IconButton size="sm" variant="plain" color="neutral" onClick={onEdit}>
+              <IconButton data-testid="edit-review-button" size="sm" variant="plain" color="neutral" onClick={onEdit}>
                 <EditIcon />
               </IconButton>
             </Tooltip>
             <Tooltip title="Delete">
-              <IconButton size="sm" variant="plain" color="danger" loading={isDeleting} onClick={onDelete}>
+              <IconButton
+                data-testid="delete-review-button"
+                size="sm"
+                variant="plain"
+                color="danger"
+                loading={isDeleting}
+                onClick={onDelete}
+              >
                 <DeleteIcon />
               </IconButton>
             </Tooltip>

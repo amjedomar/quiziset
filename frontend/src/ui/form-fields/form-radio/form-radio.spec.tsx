@@ -12,9 +12,9 @@ describe('FormRadio', () => {
   it('calls onChange when clicked', () => {
     const onChange = jest.fn()
 
-    const { getByRole } = renderWithFormContext(<FormRadio name="answer" label="Option A" onChange={onChange} />)
+    const { getByTestId } = renderWithFormContext(<FormRadio name="answer" label="Option A" onChange={onChange} />)
 
-    fireEvent.click(getByRole('radio'))
+    fireEvent.click(getByTestId('radio-answer'))
 
     expect(onChange).toHaveBeenCalled()
   })

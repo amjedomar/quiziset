@@ -10,9 +10,9 @@ describe('FormInput', () => {
   })
 
   it('updates the form value when user types in it', () => {
-    const { getByRole, formMethods } = renderWithFormContext(<FormInput name="title" label="Title" />)
+    const { getByTestId, formMethods } = renderWithFormContext(<FormInput name="title" label="Title" />)
 
-    fireEvent.change(getByRole('textbox'), { target: { value: 'My quiz' } })
+    fireEvent.change(getByTestId('input-title'), { target: { value: 'My quiz' } })
 
     expect(formMethods.getValues('title')).toBe('My quiz')
   })

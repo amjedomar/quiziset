@@ -97,6 +97,7 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
               <BackendImage src={imageUrl} alt="" className={styles.image} />
 
               <IconButton
+                data-testid={`${name}-delete-button`}
                 color="danger"
                 variant="soft"
                 size="sm"

@@ -25,6 +25,7 @@ exports[`FormSwitch renders correctly 1`] = `
           <input
             aria-checked="false"
             class="MuiSwitch-input css-iegj0b-JoySwitch-input"
+            data-testid="switch-enabled"
             role="switch"
             type="checkbox"
           />

@@ -10,6 +10,7 @@ exports[`SelectEnhanced renders correctly 1`] = `
         aria-controls="_r_0_"
         aria-expanded="false"
         class="MuiSelect-button css-1hr8yhh-JoySelect-button"
+        data-testid="select"
         role="combobox"
         type="button"
       />

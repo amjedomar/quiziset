@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileForm correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-rvseet-JoyStack-root"
+  >
+    <h3
+      class="MuiTypography-root MuiTypography-h3 css-1hp3mo-JoyTypography-root"
+    >
+      Your Profile
+    </h3>
+    <div
+      class="editor MuiBox-root css-0"
+    >
+      <div
+        class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeMd avatar css-ktlz66-JoyAvatar-root"
+      >
+        AO
+      </div>
+      <label
+        aria-label="Upload image"
+        class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm uploadButton css-j89a8f-JoyIconButton-root"
+        role="button"
+        tabindex="0"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+          data-testid="PhotoCameraIcon"
+          focusable="false"
+          style="font-size: 16px;"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="3.2"
+          />
+          <path
+            d="M9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5"
+          />
+        </svg>
+        <input
+          accept=".jpg, .jpeg, .png"
+          style="display: none;"
+          type="file"
+        />
+      </label>
+    </div>
+    <form>
+      <div
+        class="MuiStack-root css-10jjy1j-JoyStack-root"
+      >
+        <div
+          class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+            for="_r_1_"
+            id="_r_1_-label"
+          >
+            Name
+          </label>
+          <div
+            class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+          >
+            <input
+              class="MuiInput-input css-1gw9vc6-JoyInput-input"
+              data-testid="input-name"
+              id="_r_1_"
+              name="name"
+              placeholder="Name"
+              type="text"
+              value="Amjed Omar"
+            />
+          </div>
+        </div>
+        <div
+          class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+        >
+          <label
+            class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+            for="_r_2_"
+            id="_r_2_-label"
+          >
+            Email
+          </label>
+          <div
+            class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+          >
+            <input
+              class="MuiInput-input css-1gw9vc6-JoyInput-input"
+              data-testid="input-email"
+              id="_r_2_"
+              name="email"
+              placeholder="Email"
+              type="email"
+              value="amjed@example.com"
+            />
+          </div>
+        </div>
+        <button
+          class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+          data-testid="save-profile-button"
+          type="submit"
+        >
+          <span
+            class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+              data-testid="SaveIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3m3-10H5V5h10z"
+              />
+            </svg>
+          </span>
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ProfileDesktopMenu correctly renders 1`] = `
+<body>
+  <div>
+    <button
+      aria-controls="_r_0_"
+      aria-expanded="false"
+      aria-haspopup="menu"
+      class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorNeutral MuiIconButton-sizeMd MuiMenuButton-root MuiMenuButton-variantOutlined MuiMenuButton-colorNeutral MuiMenuButton-sizeMd css-bz58ia-JoyIconButton-root"
+      data-testid="profile-menu-button"
+      tabindex="0"
+      type="button"
+    >
+      <div
+        class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeMd css-1h6xj9p-JoyAvatar-root"
+      >
+        AO
+      </div>
+    </button>
+  </div>
+</body>
+`;

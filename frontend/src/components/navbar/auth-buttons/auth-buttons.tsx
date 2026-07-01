@@ -50,11 +50,21 @@ const WithSearchParam = ({
 function AuthLinks({ redirectTo }: { redirectTo?: string | null }) {
   return (
     <>
-      <Button variant="outlined" component={Link} href={appendRedirectParam('/login', redirectTo)}>
+      <Button
+        data-testid="login-link"
+        variant="outlined"
+        component={Link}
+        href={appendRedirectParam('/login', redirectTo)}
+      >
         Login
       </Button>
 
-      <Button variant="solid" component={Link} href={appendRedirectParam('/signup', redirectTo)}>
+      <Button
+        data-testid="signup-link"
+        variant="solid"
+        component={Link}
+        href={appendRedirectParam('/signup', redirectTo)}
+      >
         Sign Up
       </Button>
     </>

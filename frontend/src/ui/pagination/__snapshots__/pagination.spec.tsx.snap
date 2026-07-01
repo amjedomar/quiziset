@@ -7,6 +7,7 @@ exports[`Pagination renders correctly 1`] = `
   >
     <button
       class="MuiIconButton-root Mui-disabled MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      data-testid="pagination-prev"
       disabled=""
       type="button"
     >
@@ -24,24 +25,28 @@ exports[`Pagination renders correctly 1`] = `
     </button>
     <button
       class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm css-j89a8f-JoyIconButton-root"
+      data-testid="pagination-page-1"
       type="button"
     >
       1
     </button>
     <button
       class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      data-testid="pagination-page-2"
       type="button"
     >
       2
     </button>
     <button
       class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      data-testid="pagination-page-3"
       type="button"
     >
       3
     </button>
     <button
       class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      data-testid="pagination-next"
       type="button"
     >
       <svg

@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ReviewItem correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="item MuiBox-root css-0"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        <div
+          class="authorRow"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeSm css-1xhawub-JoyAvatar-root"
+          >
+            AO
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-title-sm css-1q6xxoq-JoyTypography-root"
+          >
+            Amjed Omar
+          </p>
+          <div
+            class="MuiChip-root MuiChip-colorPrimary MuiChip-sizeSm MuiChip-variantSoft css-bhvll4-JoyChip-root"
+          >
+            <span
+              class="MuiChip-label MuiChip-labelSm css-14g1v9j-JoyChip-label"
+              id="_r_0_"
+            >
+              You
+            </span>
+          </div>
+        </div>
+        <div
+          class="MuiBox-root css-nc1w90"
+        >
+          <span
+            class="container"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium starFilled star--sm css-1umw9bq-MuiSvgIcon-root"
+              data-testid="StarRoundedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+              />
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium starFilled star--sm css-1umw9bq-MuiSvgIcon-root"
+              data-testid="StarRoundedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+              />
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium starFilled star--sm css-1umw9bq-MuiSvgIcon-root"
+              data-testid="StarRoundedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+              />
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium starFilled star--sm css-1umw9bq-MuiSvgIcon-root"
+              data-testid="StarRoundedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+              />
+            </svg>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium star star--sm css-1umw9bq-MuiSvgIcon-root"
+              data-testid="StarBorderRoundedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m19.65 9.04-4.84-.42-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73 3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTypography-root MuiTypography-body-xs css-1l7r7n4-JoyTypography-root"
+          >
+            2026-01-01
+          </span>
+        </div>
+      </div>
+      <div
+        class="actions"
+      >
+        <button
+          aria-label="Edit"
+          class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorNeutral MuiIconButton-sizeSm css-1gxpmah-JoyIconButton-root"
+          data-testid="edit-review-button"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="EditIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+            />
+          </svg>
+        </button>
+        <button
+          aria-label="Delete"
+          class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+          data-testid="delete-review-button"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="DeleteIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <p
+      class="MuiTypography-root MuiTypography-body-md comment css-r6bdgn-JoyTypography-root"
+    >
+      Great quiz!
+    </p>
+  </div>
+</DocumentFragment>
+`;

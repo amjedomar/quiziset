@@ -46,7 +46,7 @@ export function LoginForm({ safeRedirectTo }: LoginFormProps) {
 
           <FormInput name="password" label="Password" type="password" />
 
-          <Button type="submit" loading={isLogging}>
+          <Button data-testid="login-submit-button" type="submit" loading={isLogging}>
             Login
           </Button>
 

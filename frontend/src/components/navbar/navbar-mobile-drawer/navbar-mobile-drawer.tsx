@@ -35,11 +35,25 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
         </Stack>
       ) : (
         <Stack sx={{ p: 2 }} spacing={1.5}>
-          <Button fullWidth variant="outlined" component={Link} href="/login" onClick={onClose}>
+          <Button
+            data-testid="mobile-login-link"
+            fullWidth
+            variant="outlined"
+            component={Link}
+            href="/login"
+            onClick={onClose}
+          >
             Login
           </Button>
 
-          <Button fullWidth variant="solid" component={Link} href="/signup" onClick={onClose}>
+          <Button
+            data-testid="mobile-signup-link"
+            fullWidth
+            variant="solid"
+            component={Link}
+            href="/signup"
+            onClick={onClose}
+          >
             Sign Up
           </Button>
         </Stack>
@@ -49,7 +63,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
 
       <Stack sx={{ p: 2 }} spacing={1}>
         {NAV_LINKS.map((link) => (
-          <NavLinkButton key={link.href} {...link} fullWidth size="lg" onNavigate={onClose} />
+          <NavLinkButton key={link.href} {...link} fullWidth size="lg" onNavigate={onClose} testIdPrefix="mobile" />
         ))}
       </Stack>
 
@@ -66,9 +80,11 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
               fullWidth
               size="lg"
               onNavigate={onClose}
+              testIdPrefix="mobile"
             />
 
             <Button
+              data-testid="mobile-logout-button"
               color="danger"
               variant="plain"
               fullWidth

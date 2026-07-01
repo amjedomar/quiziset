@@ -15,7 +15,7 @@ describe('FormImage', () => {
   })
 
   it('shows the current image and clears the form value when deleted', async () => {
-    const { container, getByRole, formMethods } = renderWithFormContext(
+    const { container, getByTestId, formMethods } = renderWithFormContext(
       <FormImage name="image" bucketName="quizzes" />,
       {
         image: '/uploads/photo.png',
@@ -25,7 +25,7 @@ describe('FormImage', () => {
     expect(container.querySelector('img')).toHaveAttribute('src', expect.stringContaining('/uploads/photo.png'))
 
     await waitFor(() => {
-      fireEvent.click(getByRole('button'))
+      fireEvent.click(getByTestId('image-delete-button'))
     })
 
     expect(formMethods.getValues('image')).toBe('')

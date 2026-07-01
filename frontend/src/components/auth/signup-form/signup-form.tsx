@@ -48,7 +48,7 @@ export function SignupForm({ safeRedirectTo }: SignupFormProps) {
 
           <FormInput name="password" label="Password" type="password" />
 
-          <Button type="submit" loading={isSigningUp}>
+          <Button data-testid="signup-submit-button" type="submit" loading={isSigningUp}>
             Sign Up
           </Button>
 

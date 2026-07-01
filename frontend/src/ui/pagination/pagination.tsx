@@ -19,6 +19,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
   return (
     <nav className={styles.pagination}>
       <IconButton
+        data-testid="pagination-prev"
         variant="outlined"
         color="neutral"
         size="sm"
@@ -31,6 +32,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
       {pageNumbers.map((pageNumber) => (
         <IconButton
           key={pageNumber}
+          data-testid={`pagination-page-${pageNumber}`}
           variant={pageNumber === page ? 'solid' : 'outlined'}
           color={pageNumber === page ? 'primary' : 'neutral'}
           size="sm"
@@ -41,6 +43,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
       ))}
 
       <IconButton
+        data-testid="pagination-next"
         variant="outlined"
         color="neutral"
         size="sm"

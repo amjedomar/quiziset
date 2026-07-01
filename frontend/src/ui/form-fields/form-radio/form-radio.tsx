@@ -14,7 +14,7 @@ interface FormRadioProps extends Omit<RadioProps, 'checked' | 'onChange'> {
   disableErrorState?: boolean
 }
 
-export function FormRadio({ name, label, disableErrorState, onChange, ...radioProps }: FormRadioProps) {
+export function FormRadio({ name, label, disableErrorState, onChange, slotProps, ...radioProps }: FormRadioProps) {
   return (
     <FormFieldCore
       name={name}
@@ -22,7 +22,13 @@ export function FormRadio({ name, label, disableErrorState, onChange, ...radioPr
       defaultValue={false}
       disableErrorState={disableErrorState}
       renderField={({ field: { value, ...fieldProps } }) => (
-        <Radio {...radioProps} {...fieldProps} onChange={onChange} checked={!!value} />
+        <Radio
+          {...radioProps}
+          {...fieldProps}
+          onChange={onChange}
+          checked={!!value}
+          slotProps={{ ...slotProps, input: { ...slotProps?.input, 'data-testid': `radio-${name}` } }}
+        />
       )}
     />
   )

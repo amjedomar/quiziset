@@ -12,6 +12,7 @@ export interface SelectEnhancedProps<Multiple extends boolean> extends SelectPro
   options: SelectEnhancedOption[]
   decoratorStyle?: CSSProperties
   hideSelectedOptionLabel?: boolean
+  testId?: string
 }
 
 /**
@@ -23,6 +24,8 @@ export function SelectEnhanced<Multiple extends boolean>({
   options,
   decoratorStyle,
   hideSelectedOptionLabel,
+  testId,
+  slotProps,
   ...selectProps
 }: SelectEnhancedProps<Multiple>) {
   const renderSelectedOption = useCallback(
@@ -60,7 +63,11 @@ export function SelectEnhanced<Multiple extends boolean>({
    * shown once hydration happens in browser side)
    */
   return (
-    <Select {...selectProps} renderValue={renderSelectedOption}>
+    <Select
+      {...selectProps}
+      renderValue={renderSelectedOption}
+      slotProps={{ ...slotProps, button: { ...slotProps?.button, 'data-testid': testId } }}
+    >
       {options.map((option) => (
         <Option key={option.value} value={option.value}>
           {option.decorator && <ListItemDecorator style={decoratorStyle}>{option.decorator}</ListItemDecorator>}

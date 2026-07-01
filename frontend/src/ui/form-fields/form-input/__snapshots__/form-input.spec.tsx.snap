@@ -17,6 +17,7 @@ exports[`FormInput renders correctly 1`] = `
     >
       <input
         class="MuiInput-input css-1gw9vc6-JoyInput-input"
+        data-testid="input-title"
         id="_r_0_"
         name="title"
         placeholder="Title"

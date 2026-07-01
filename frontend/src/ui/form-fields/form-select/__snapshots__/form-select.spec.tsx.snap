@@ -20,6 +20,7 @@ exports[`FormSelect renders correctly 1`] = `
         aria-expanded="false"
         aria-labelledby="_r_0_-label"
         class="MuiSelect-button css-me27eb-JoySelect-button"
+        data-testid="select-color"
         id="_r_0_"
         name="color"
         role="combobox"

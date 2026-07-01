@@ -10,9 +10,9 @@ describe('FormSwitch', () => {
   })
 
   it('updates the form value when toggled', () => {
-    const { getByRole, formMethods } = renderWithFormContext(<FormSwitch name="enabled" label="Enabled" />)
+    const { getByTestId, formMethods } = renderWithFormContext(<FormSwitch name="enabled" label="Enabled" />)
 
-    fireEvent.click(getByRole('switch'))
+    fireEvent.click(getByTestId('switch-enabled'))
 
     expect(formMethods.getValues('enabled')).toBe(true)
   })

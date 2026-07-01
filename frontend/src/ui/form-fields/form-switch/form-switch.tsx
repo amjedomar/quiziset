@@ -7,7 +7,7 @@ interface FormSwitchProps extends Omit<SwitchProps, 'checked' | 'onChange'> {
   label?: string
 }
 
-export function FormSwitch({ name, label, ...radioProps }: FormSwitchProps) {
+export function FormSwitch({ name, label, slotProps, ...radioProps }: FormSwitchProps) {
   const { control } = useFormContext()
 
   return (
@@ -16,7 +16,14 @@ export function FormSwitch({ name, label, ...radioProps }: FormSwitchProps) {
       control={control}
       defaultValue={false}
       render={({ field: { value, ...fieldProps } }) => {
-        const switchField = <Switch {...radioProps} {...fieldProps} checked={!!value} />
+        const switchField = (
+          <Switch
+            {...radioProps}
+            {...fieldProps}
+            checked={!!value}
+            slotProps={{ ...slotProps, input: { ...slotProps?.input, 'data-testid': `switch-${name}` } }}
+          />
+        )
 
         return label ? (
           <Typography className={styles.label} component="label" startDecorator={switchField}>

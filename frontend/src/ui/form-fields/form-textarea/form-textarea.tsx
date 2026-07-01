@@ -19,7 +19,7 @@ export function FormTextarea({ name, label, placeholder, slotProps, ...inputProp
           placeholder={placeholder ?? label}
           slotProps={{
             ...slotProps,
-            textarea: { ...slotProps?.textarea, ref },
+            textarea: { ...slotProps?.textarea, ref, 'data-testid': `textarea-${name}` },
           }}
         />
       )}

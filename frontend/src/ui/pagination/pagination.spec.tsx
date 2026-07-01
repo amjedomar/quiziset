@@ -32,20 +32,16 @@ describe('Pagination', () => {
   })
 
   it('disables the previous button on the first page', () => {
-    const { getAllByRole } = render(<Pagination page={1} totalPages={3} onPageChange={jest.fn()} />)
+    const { getByTestId } = render(<Pagination page={1} totalPages={3} onPageChange={jest.fn()} />)
 
-    const buttons = getAllByRole('button')
-
-    expect(buttons[0]).toBeDisabled()
-    expect(buttons.at(-1)).not.toBeDisabled()
+    expect(getByTestId('pagination-prev')).toBeDisabled()
+    expect(getByTestId('pagination-next')).not.toBeDisabled()
   })
 
   it('disables the next button on the last page', () => {
-    const { getAllByRole } = render(<Pagination page={3} totalPages={3} onPageChange={jest.fn()} />)
+    const { getByTestId } = render(<Pagination page={3} totalPages={3} onPageChange={jest.fn()} />)
 
-    const buttons = getAllByRole('button')
-
-    expect(buttons[0]).not.toBeDisabled()
-    expect(buttons.at(-1)).toBeDisabled()
+    expect(getByTestId('pagination-prev')).not.toBeDisabled()
+    expect(getByTestId('pagination-next')).toBeDisabled()
   })
 })

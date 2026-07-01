@@ -24,11 +24,11 @@ describe('LoginForm', () => {
   it('logs in with the entered credentials and redirects on success', async () => {
     login.mockResolvedValue({ accessToken: 'token' })
 
-    const { getByLabelText, getByRole } = render(<LoginForm />)
+    const { getByLabelText, getByTestId } = render(<LoginForm />)
 
     fireEvent.change(getByLabelText('Email'), { target: { value: 'amjed@example.com' } })
     fireEvent.change(getByLabelText('Password'), { target: { value: 'secret' } })
-    fireEvent.click(getByRole('button', { name: 'Login' }))
+    fireEvent.click(getByTestId('login-submit-button'))
 
     await waitFor(() => {
       expect(login).toHaveBeenCalledWith({ email: 'amjed@example.com', password: 'secret' })

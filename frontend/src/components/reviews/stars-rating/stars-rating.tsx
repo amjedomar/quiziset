@@ -35,6 +35,7 @@ export function StarsRating({ value, onChange, readOnly = false, size }: StarsRa
         return (
           <button
             key={starValue}
+            data-testid={`rating-star-${starValue}`}
             className={styles.starButton}
             onMouseEnter={() => setHoverValue(starValue)}
             onClick={() => onChange?.(starValue)}

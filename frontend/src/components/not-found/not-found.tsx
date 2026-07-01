@@ -6,7 +6,7 @@ export function NotFound() {
   return (
     <Container sx={{ textAlign: 'center' }}>
       <h2>Page was not found</h2>
-      <Link component={NextLink} href="/" underline="always">
+      <Link data-testid="explore-link" component={NextLink} href="/" underline="always">
         Return to Explore Page
       </Link>
     </Container>

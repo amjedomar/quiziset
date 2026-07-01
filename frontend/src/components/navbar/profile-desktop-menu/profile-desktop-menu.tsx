@@ -24,7 +24,14 @@ export function ProfileDesktopMenu() {
     <Dropdown>
       <MenuButton
         slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', color: 'neutral', sx: { p: 0, borderRadius: '50%' } } }}
+        slotProps={{
+          root: {
+            'data-testid': 'profile-menu-button',
+            variant: 'plain',
+            color: 'neutral',
+            sx: { p: 0, borderRadius: '50%' },
+          },
+        }}
       >
         <UserAvatar
           name={currentUser?.name ?? ''}
