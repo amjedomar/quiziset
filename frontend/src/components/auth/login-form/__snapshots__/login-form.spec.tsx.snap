@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`LoginForm correctly renders 1`] = `
+<DocumentFragment>
+  <form>
+    <div
+      class="MuiStack-root css-10jjy1j-JoyStack-root"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1hp3mo-JoyTypography-root"
+      >
+        Login
+      </h3>
+      <div
+        class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+          for="_r_0_"
+          id="_r_0_-label"
+        >
+          Email
+        </label>
+        <div
+          class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+        >
+          <input
+            class="MuiInput-input css-1gw9vc6-JoyInput-input"
+            id="_r_0_"
+            name="email"
+            placeholder="Email"
+            type="email"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+      >
+        <label
+          class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
+          for="_r_1_"
+          id="_r_1_-label"
+        >
+          Password
+        </label>
+        <div
+          class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+        >
+          <input
+            class="MuiInput-input css-1gw9vc6-JoyInput-input"
+            id="_r_1_"
+            name="password"
+            placeholder="Password"
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <button
+        class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+        type="submit"
+      >
+        Login
+      </button>
+      <p
+        class="MuiTypography-root MuiTypography-body-sm css-1q9twqx-JoyTypography-root"
+      >
+        Do not have an account? 
+        <a
+          class="MuiLink-root MuiLink-colorPrimary MuiLink-inherit MuiLink-underlineHover css-26f5d3-JoyLink-root"
+          href="/signup"
+        >
+          Sign up
+        </a>
+      </p>
+    </div>
+  </form>
+</DocumentFragment>
+`;
