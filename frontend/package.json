@@ -9,7 +9,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0 --fix",
-    "generate:api-client": "orval && prettier --write src/api-client"
+    "generate:api-client": "orval && prettier --write src/api-client",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@dnd-kit/helpers": "^0.5.0",
@@ -32,6 +34,10 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/jest": "^30.0.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -40,6 +46,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "eslint-plugin-unicorn": "^64.0.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "orval": "^8.18.0",
     "sass": "^1.99.0",
     "typescript": "^5"

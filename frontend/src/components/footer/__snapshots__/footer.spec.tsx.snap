@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Footer renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    style="padding: 32px 0px;"
+  />
+</DocumentFragment>
+`;
