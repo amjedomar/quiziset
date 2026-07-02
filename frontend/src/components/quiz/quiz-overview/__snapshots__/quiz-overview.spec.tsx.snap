@@ -44,7 +44,7 @@ exports[`QuizOverview correctly renders 1`] = `
       <img
         alt="JS Basics"
         class="image"
-        src="http://localhost:4004/uploads/quizzes/cover.png"
+        src="http://mock-backend/uploads/quizzes/cover.png"
       />
       <div
         class="body"

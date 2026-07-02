@@ -22,7 +22,7 @@ exports[`CardsQuestion correctly renders 1`] = `
             <img
               alt="Answer A"
               data-first-child=""
-              src="http://localhost:4004/uploads/quizzes/answer-a.png"
+              src="http://mock-backend/uploads/quizzes/answer-a.png"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ exports[`CardsQuestion correctly renders 1`] = `
             <img
               alt="Answer B"
               data-first-child=""
-              src="http://localhost:4004/uploads/quizzes/answer-b.png"
+              src="http://mock-backend/uploads/quizzes/answer-b.png"
             />
           </div>
         </div>

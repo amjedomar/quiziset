@@ -1,6 +1,9 @@
 import type { Config } from 'jest'
 import nextJest from 'next/jest.js'
 
+// set timezone to be always be UTC (so the tests of components that contains date/time passes correctly across machine/CI
+process.env.TZ = 'UTC'
+
 const createJestConfig = nextJest({ dir: './' })
 
 // see https://nextjs.org/docs/app/guides/testing/jest

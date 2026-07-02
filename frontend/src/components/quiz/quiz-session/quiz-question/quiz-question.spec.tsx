@@ -2,6 +2,10 @@ import { render } from '@testing-library/react'
 import { makeQuizSessionQuestion } from '@/test-utils/mocks'
 import { QuizQuestion } from './quiz-question'
 
+jest.mock('@/constants/api-url', () => ({
+  NEXT_PUBLIC_API_BASE_URL: 'http://mock-backend',
+}))
+
 jest.mock('@dnd-kit/react', () => ({
   DragDropProvider: ({ children }: { children: React.ReactNode }) => children,
 }))

@@ -2,6 +2,10 @@ import { fireEvent, render } from '@testing-library/react'
 import { makeQuizSessionQuestion } from '@/test-utils/mocks'
 import { CardsQuestion } from './cards-question'
 
+jest.mock('@/constants/api-url', () => ({
+  NEXT_PUBLIC_API_BASE_URL: 'http://mock-backend',
+}))
+
 const { answers } = makeQuizSessionQuestion('question-cards')
 
 describe('CardsQuestion', () => {

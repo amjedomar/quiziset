@@ -135,12 +135,12 @@ exports[`QuizAnalytics correctly renders 1`] = `
             <td
               class="dateColumn"
             >
-              2026-01-01 12:00
+              2026-01-01 10:00
             </td>
             <td
               class="dateColumn"
             >
-              2026-01-01 12:30
+              2026-01-01 10:30
             </td>
             <td>
               <div
@@ -222,7 +222,7 @@ exports[`QuizAnalytics correctly renders 1`] = `
               Started
             </dt>
             <dd>
-              2026-01-01 12:00
+              2026-01-01 10:00
             </dd>
           </div>
           <div
@@ -232,7 +232,7 @@ exports[`QuizAnalytics correctly renders 1`] = `
               Finished
             </dt>
             <dd>
-              2026-01-01 12:30
+              2026-01-01 10:30
             </dd>
           </div>
         </dl>
