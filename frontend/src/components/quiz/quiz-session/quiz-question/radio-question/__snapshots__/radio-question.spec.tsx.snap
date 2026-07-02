@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`RadioQuestion correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiRadioGroup-root MuiRadioGroup-vertical MuiRadioGroup-variantPlain MuiRadioGroup-colorNeutral MuiRadioGroup-sizeMd css-1a6h798-JoyRadioGroup-root"
+    role="radiogroup"
+  >
+    <div
+      class="MuiStack-root css-1s5gupf-JoyStack-root"
+      data-first-child=""
+      data-last-child=""
+      data-parent="RadioGroup"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+        >
+          <span
+            class="MuiRadio-radio css-ji34he-JoyRadio-radio"
+          >
+            <span
+              class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
+            />
+            <span
+              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiRadio-input css-l3zqaq-JoyRadio-input"
+                id="_r_1_"
+                name="_r_0_"
+                type="radio"
+                value="0"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiRadio-label css-59j0dg-JoyRadio-label"
+            for="_r_1_"
+          >
+            Answer A
+          </label>
+        </span>
+      </div>
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+        >
+          <span
+            class="MuiRadio-radio css-ji34he-JoyRadio-radio"
+          >
+            <span
+              class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
+            />
+            <span
+              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiRadio-input css-l3zqaq-JoyRadio-input"
+                id="_r_2_"
+                name="_r_0_"
+                type="radio"
+                value="1"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiRadio-label css-59j0dg-JoyRadio-label"
+            for="_r_2_"
+          >
+            Answer B
+          </label>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

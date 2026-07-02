@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SessionUserCell correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="userCell"
+  >
+    <div
+      class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeSm css-1xhawub-JoyAvatar-root"
+    >
+      AO
+    </div>
+    <span
+      class="userName"
+    >
+      Amjed Omar
+    </span>
+  </div>
+</DocumentFragment>
+`;

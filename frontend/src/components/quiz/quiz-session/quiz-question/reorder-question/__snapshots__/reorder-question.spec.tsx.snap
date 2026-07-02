@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ReorderQuestion correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1s5gupf-JoyStack-root"
+  >
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-0"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          1st
+        </p>
+      </div>
+    </div>
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          2nd
+        </p>
+      </div>
+    </div>
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-2"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          3rd
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

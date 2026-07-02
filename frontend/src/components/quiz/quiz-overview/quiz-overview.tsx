@@ -62,7 +62,7 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
         <div className={styles.body}>
           <div className={styles.header}>
             <div>
-              <Typography level="h1" className={styles.title}>
+              <Typography data-testid="quiz-title" level="h1" className={styles.title}>
                 {title}
               </Typography>
 
@@ -95,6 +95,7 @@ export default function QuizOverview({ quizId }: QuizOverviewProps) {
               <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
 
               <Button
+                data-testid="start-quiz-link"
                 component={NextLink}
                 href={`/quizzes/${quizId}/session`}
                 startDecorator={<StartIcon />}

@@ -49,6 +49,7 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
             <Typography level="title-md">Analytics is disabled</Typography>
             <Typography level="body-sm">{body.message}</Typography>
             <Button
+              data-testid="update-quiz-link"
               component={NextLink}
               href={`/manage-quizzes/${quizId}/update`}
               variant="solid"

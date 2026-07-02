@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { UserEntity } from '@/generated-api-client/model'
 import { ProfileAvatarEditor } from './profile-avatar-editor'
 
@@ -44,12 +44,12 @@ describe('ProfileAvatarEditor', () => {
 
     updateMe.mockResolvedValue({ data: { id: 1, name: 'Amjed Omar', email: 'amjed@example.com', imageUrl: null } })
 
-    await act(async () => {
-      fireEvent.click(getByTestId('remove-image-button'))
-    })
+    fireEvent.click(getByTestId('remove-image-button'))
 
-    expect(updateMe).toHaveBeenCalledWith({ data: { imageUrl: null } })
-    expect(showSuccess).toHaveBeenCalledWith('Profile image removed')
+    await waitFor(() => {
+      expect(updateMe).toHaveBeenCalledWith({ data: { imageUrl: null } })
+      expect(showSuccess).toHaveBeenCalledWith('Profile image removed')
+    })
   })
 
   it('uploads the selected file and saves it as the new image', async () => {
@@ -63,12 +63,12 @@ describe('ProfileAvatarEditor', () => {
     const file = new File(['content'], 'new-avatar.png', { type: 'image/png' })
     const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement
 
-    await act(async () => {
-      fireEvent.change(fileInput, { target: { files: [file] } })
-    })
+    fireEvent.change(fileInput, { target: { files: [file] } })
 
-    expect(uploadFile).toHaveBeenCalledWith({ bucketName: 'profiles', data: { file } })
-    expect(updateMe).toHaveBeenCalledWith({ data: { imageUrl: '/uploads/profiles/new-avatar.png' } })
-    expect(showSuccess).toHaveBeenCalledWith('Profile image updated')
+    await waitFor(() => {
+      expect(uploadFile).toHaveBeenCalledWith({ bucketName: 'profiles', data: { file } })
+      expect(updateMe).toHaveBeenCalledWith({ data: { imageUrl: '/uploads/profiles/new-avatar.png' } })
+      expect(showSuccess).toHaveBeenCalledWith('Profile image updated')
+    })
   })
 })

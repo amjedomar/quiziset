@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CheckboxQuestion correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1s5gupf-JoyStack-root"
+  >
+    <div
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+    >
+      <span
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+      >
+        <span
+          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+        >
+          <span
+            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+          >
+            <input
+              aria-checked="false"
+              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+              id="_r_0_"
+              type="checkbox"
+            />
+          </span>
+        </span>
+        <label
+          class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+          for="_r_0_"
+        >
+          Answer A
+        </label>
+      </span>
+    </div>
+    <div
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+    >
+      <span
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+      >
+        <span
+          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+        >
+          <span
+            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+          >
+            <input
+              aria-checked="false"
+              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+              id="_r_1_"
+              type="checkbox"
+            />
+          </span>
+        </span>
+        <label
+          class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+          for="_r_1_"
+        >
+          Answer B
+        </label>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

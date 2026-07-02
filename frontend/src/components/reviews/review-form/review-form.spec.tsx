@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { ReviewForm } from './review-form'
 
 const createReview = jest.fn()
@@ -26,11 +26,11 @@ describe('ReviewForm', () => {
       target: { value: 'Great quiz!' },
     })
 
-    await act(async () => {
-      fireEvent.click(getByTestId('submit-review-button'))
-    })
+    fireEvent.click(getByTestId('submit-review-button'))
 
-    expect(createReview).toHaveBeenCalledWith({ quizId: 1, data: { rating: 4, comment: 'Great quiz!' } })
-    expect(onDone).toHaveBeenCalled()
+    await waitFor(() => {
+      expect(createReview).toHaveBeenCalledWith({ quizId: 1, data: { rating: 4, comment: 'Great quiz!' } })
+      expect(onDone).toHaveBeenCalled()
+    })
   })
 })

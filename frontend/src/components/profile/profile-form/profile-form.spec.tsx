@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { ProfileForm } from './profile-form'
 
 const currentUser = { id: 1, name: 'Amjed Omar', email: 'amjed@example.com', imageUrl: null }
@@ -35,11 +35,11 @@ describe('ProfileForm', () => {
     fireEvent.change(getByLabelText('Name'), { target: { value: 'New Name' } })
     fireEvent.change(getByLabelText('Email'), { target: { value: 'new-email@example.com' } })
 
-    await act(async () => {
-      fireEvent.click(getByTestId('save-profile-button'))
-    })
+    fireEvent.click(getByTestId('save-profile-button'))
 
-    expect(updateMe).toHaveBeenCalledWith({ data: { name: 'New Name', email: 'new-email@example.com' } })
-    expect(showSuccess).toHaveBeenCalledWith('Profile updated')
+    await waitFor(() => {
+      expect(updateMe).toHaveBeenCalledWith({ data: { name: 'New Name', email: 'new-email@example.com' } })
+      expect(showSuccess).toHaveBeenCalledWith('Profile updated')
+    })
   })
 })

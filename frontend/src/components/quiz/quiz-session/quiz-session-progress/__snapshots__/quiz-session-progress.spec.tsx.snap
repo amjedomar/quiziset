@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizSessionProgress correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-yyryo3-JoyStack-root"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"
+    >
+      Question 2 of 4
+    </p>
+    <div
+      aria-valuenow="25"
+      class="MuiLinearProgress-root MuiLinearProgress-determinate MuiLinearProgress-colorPrimary MuiLinearProgress-variantSoft MuiLinearProgress-sizeMd css-9542yt-JoyLinearProgress-root"
+      role="progressbar"
+      style="--LinearProgress-percent: 25;"
+    />
+  </div>
+</DocumentFragment>
+`;

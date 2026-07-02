@@ -23,7 +23,13 @@ export function ManagedQuizzesList() {
           <div className={styles.header}>
             <Typography level="h2">Manage Quizzes</Typography>
 
-            <Button component={Link} href={`/manage-quizzes/create`} variant="solid" startDecorator={<CreateIcon />}>
+            <Button
+              data-testid="create-quiz-link"
+              component={Link}
+              href={`/manage-quizzes/create`}
+              variant="solid"
+              startDecorator={<CreateIcon />}
+            >
               Create Quiz
             </Button>
           </div>
@@ -90,6 +96,7 @@ export function ManagedQuizzesList() {
 
                   <div className={styles.actions}>
                     <Button
+                      data-testid={`update-quiz-${quiz.id}-link`}
                       component={Link}
                       href={`/manage-quizzes/${quiz.id}/update`}
                       variant="soft"
@@ -99,6 +106,7 @@ export function ManagedQuizzesList() {
                     </Button>
 
                     <Button
+                      data-testid={`quiz-${quiz.id}-analytics-link`}
                       component={Link}
                       href={`/manage-quizzes/${quiz.id}/analytics`}
                       variant="outlined"

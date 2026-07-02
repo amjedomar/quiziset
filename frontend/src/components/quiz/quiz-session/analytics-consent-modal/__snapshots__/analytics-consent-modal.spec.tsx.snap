@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AnalyticsConsentModal correctly renders 1`] = `
+<body
+  style="padding-right: 1024px; overflow: hidden;"
+>
+  <div
+    aria-hidden="true"
+  />
+  <div
+    class="MuiModal-root css-12qgyx-JoyModal-root"
+    role="presentation"
+  >
+    <div
+      aria-hidden="true"
+      class="MuiModal-backdrop css-pg81nb-JoyModal-backdrop"
+      open=""
+    />
+    <div
+      data-testid="sentinelStart"
+      tabindex="0"
+    />
+    <div
+      aria-describedby="_r_1_"
+      aria-labelledby="_r_0_"
+      aria-modal="true"
+      class="MuiModalDialog-root MuiModalDialog-variantOutlined MuiModalDialog-colorNeutral MuiModalDialog-sizeMd MuiModalDialog-layoutCenter css-18trnhg-JoyModalDialog-root"
+      role="dialog"
+      tabindex="-1"
+    >
+      <h2
+        class="MuiDialogTitle-root MuiDialogTitle-title-lg css-107zp01-JoyDialogTitle-root"
+        data-first-child=""
+        id="_r_0_"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+          data-testid="AnalyticsIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M9 17H7v-5h2zm4 0h-2v-3h2zm0-5h-2v-2h2zm4 5h-2V7h2z"
+          />
+        </svg>
+        Share analytics?
+      </h2>
+      <hr
+        class="MuiDivider-root MuiDivider-horizontal MuiDivider-insetContext css-12qan0g-JoyDivider-root"
+      />
+      <div
+        class="MuiDialogContent-root css-1q5lfsy-JoyDialogContent-root"
+        id="_r_1_"
+      >
+        <p
+          style="margin: 0px 0px 12px;"
+        >
+          This quiz will share the following data 
+          <b>
+            with the quiz creator
+          </b>
+          :
+        </p>
+        <ul
+          style="margin: 0px;"
+        >
+          <li>
+            Your name & profile link on Quiziset
+          </li>
+          <li>
+            Your score of this quiz
+          </li>
+          <li>
+            The start time & duration you took to finish this quiz
+          </li>
+        </ul>
+        <p
+          style="margin: 12px 0px 0px;"
+        >
+          You need to accept sharing analytics in order to start this quiz
+        </p>
+      </div>
+      <div
+        class="MuiDialogActions-root css-1slb7ce-JoyDialogActions-root"
+        data-last-child=""
+      >
+        <button
+          class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+          data-testid="accept-analytics-button"
+          type="button"
+        >
+          Accept
+        </button>
+        <button
+          class="MuiButton-root MuiButton-variantPlain MuiButton-colorNeutral MuiButton-sizeMd css-13o5921-JoyButton-root"
+          data-testid="quit-quiz-button"
+          type="button"
+        >
+          Quit
+        </button>
+      </div>
+    </div>
+    <div
+      data-testid="sentinelEnd"
+      tabindex="0"
+    />
+  </div>
+</body>
+`;

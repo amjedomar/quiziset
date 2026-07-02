@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizAnalyticsDesktop correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral tableWrapper css-ylro10-JoySheet-root"
+  >
+    <table
+      class="MuiTable-root MuiTable-stickyHeader MuiTable-hoverRow MuiTable-borderAxisXBetween MuiTable-variantPlain MuiTable-colorNeutral MuiTable-sizeMd table css-xd6d2e-JoyTable-root"
+    >
+      <thead>
+        <tr>
+          <th>
+            User
+          </th>
+          <th>
+            Score
+          </th>
+          <th>
+            Duration
+          </th>
+          <th
+            class="dateColumn"
+          >
+            Started
+          </th>
+          <th
+            class="dateColumn"
+          >
+            Finished
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div
+              class="userCell"
+            >
+              <div
+                class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeSm css-1xhawub-JoyAvatar-root"
+              >
+                AO
+              </div>
+              <span
+                class="userName"
+              >
+                Amjed Omar
+              </span>
+            </div>
+          </td>
+          <td>
+            3 / 5 (60%)
+          </td>
+          <td>
+            30m 0s
+          </td>
+          <td
+            class="dateColumn"
+          >
+            2026-01-01 12:00
+          </td>
+          <td
+            class="dateColumn"
+          >
+            2026-01-01 12:30
+          </td>
+          <td>
+            <div
+              class="MuiChip-root MuiChip-colorSuccess MuiChip-sizeSm MuiChip-variantSoft css-ksiv8u-JoyChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelSm css-14g1v9j-JoyChip-label"
+                id="_r_0_"
+              >
+                Finished
+              </span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;

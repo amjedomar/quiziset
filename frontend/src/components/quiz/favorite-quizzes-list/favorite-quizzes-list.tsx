@@ -39,7 +39,7 @@ export function FavoriteQuizzesList() {
               <Typography textColor="text.tertiary">No favorites yet</Typography>
               <Typography textColor="text.tertiary">
                 Explore quizzes in the{' '}
-                <Link component={NextLink} href="/" color="primary" underline="always">
+                <Link data-testid="explore-page-link" component={NextLink} href="/" color="primary" underline="always">
                   Explore page
                 </Link>{' '}
                 and you can mark favorites there

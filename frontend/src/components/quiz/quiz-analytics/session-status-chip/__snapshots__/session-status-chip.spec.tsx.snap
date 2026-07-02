@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SessionStatusChip correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiChip-root MuiChip-colorWarning MuiChip-sizeSm MuiChip-variantSoft css-axqoa3-JoyChip-root"
+  >
+    <span
+      class="MuiChip-label MuiChip-labelSm css-14g1v9j-JoyChip-label"
+      id="_r_0_"
+    >
+      Ongoing
+    </span>
+  </div>
+</DocumentFragment>
+`;

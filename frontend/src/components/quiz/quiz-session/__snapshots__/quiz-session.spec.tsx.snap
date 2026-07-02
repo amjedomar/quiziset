@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizSession correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-hynh5r-JoyStack-root"
+  >
+    <div
+      class="MuiStack-root css-yyryo3-JoyStack-root"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"
+      >
+        Question 1 of 5
+      </p>
+      <div
+        aria-valuenow="0"
+        class="MuiLinearProgress-root MuiLinearProgress-determinate MuiLinearProgress-colorPrimary MuiLinearProgress-variantSoft MuiLinearProgress-sizeMd css-9542yt-JoyLinearProgress-root"
+        role="progressbar"
+        style="--LinearProgress-percent: 0;"
+      />
+    </div>
+    <h4
+      class="MuiTypography-root MuiTypography-h4 css-1rp8cwq-JoyTypography-root"
+      data-testid="quiz-question-title"
+    >
+      What is the highest mountain in the world?
+    </h4>
+    <div
+      class="MuiStack-root css-1s5gupf-JoyStack-root"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        >
+          <span
+            class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+          >
+            <span
+              class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+                id="_r_0_"
+                type="checkbox"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+            for="_r_0_"
+          >
+            Answer A
+          </label>
+        </span>
+      </div>
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        >
+          <span
+            class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+          >
+            <span
+              class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+                id="_r_1_"
+                type="checkbox"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+            for="_r_1_"
+          >
+            Answer B
+          </label>
+        </span>
+      </div>
+    </div>
+    <button
+      class="MuiButton-root Mui-disabled MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg css-bbkc5t-JoyButton-root"
+      disabled=""
+      type="button"
+    >
+      Next Question
+    </button>
+  </div>
+</DocumentFragment>
+`;

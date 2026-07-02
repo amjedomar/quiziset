@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizResult correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiCard-root MuiCard-vertical MuiCard-variantSoft MuiCard-colorNeutral MuiCard-sizeMd css-pr54qw-JoyCard-root"
+  >
+    <div
+      class="MuiStack-root css-hoail5-JoyStack-root"
+      data-first-child=""
+      data-last-child=""
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1yf9pfh-JoyTypography-root"
+      >
+        Quiz completed!
+      </h3>
+      <h1
+        class="MuiTypography-root MuiTypography-h1 css-77oa9r-JoyTypography-root"
+      >
+        3 / 5
+      </h1>
+      <p
+        class="MuiTypography-root MuiTypography-body-md css-clolfy-JoyTypography-root"
+      >
+        correct answers
+      </p>
+      <a
+        class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-bnkj2u-JoyButton-root"
+        data-testid="back-to-quiz-overview-link"
+        href="/quizzes/1/overview"
+      >
+        Back to Quiz Overview
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;

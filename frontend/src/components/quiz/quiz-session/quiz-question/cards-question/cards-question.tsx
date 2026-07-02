@@ -31,6 +31,7 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
         return (
           <Card
             key={index}
+            data-testid={`question-cards-answer-${index}`}
             variant={isSelected ? 'solid' : 'outlined'}
             color={isSelected ? 'primary' : 'neutral'}
             onClick={() => toggle(index)}

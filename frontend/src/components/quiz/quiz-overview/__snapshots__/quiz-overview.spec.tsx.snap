@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizOverview correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg css-pv8j0-JoyContainer-root"
+  >
+    <nav
+      class="MuiBreadcrumbs-root MuiBreadcrumbs-sizeMd breadcrumbs css-ld9wxb-JoyBreadcrumbs-root"
+    >
+      <ol
+        class="MuiBreadcrumbs-ol css-1el1t46-JoyBreadcrumbs-ol"
+      >
+        <li
+          class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
+        >
+          <a
+            class="MuiLink-root MuiLink-colorNeutral MuiLink-inherit MuiLink-underlineHover css-129quq9-JoyLink-root"
+            href="/"
+          >
+            Explore
+          </a>
+        </li>
+        <li
+          aria-hidden="true"
+          class="MuiBreadcrumbs-separator css-13c1213-JoyBreadcrumbs-separator"
+        >
+          /
+        </li>
+        <li
+          class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
+        >
+          <span
+            class="MuiTypography-root MuiTypography-inherit css-1vbiijx-JoyTypography-root"
+          >
+            JS Basics
+          </span>
+        </li>
+      </ol>
+    </nav>
+    <div
+      class="paper"
+    >
+      <img
+        alt="JS Basics"
+        class="image"
+        src="http://localhost:4004/uploads/quizzes/cover.png"
+      />
+      <div
+        class="body"
+      >
+        <div
+          class="header"
+        >
+          <div>
+            <h1
+              class="MuiTypography-root MuiTypography-h1 title css-wiz2yh-JoyTypography-root"
+              data-testid="quiz-title"
+            >
+              JS Basics
+            </h1>
+            <div
+              class="chipsContainer"
+            >
+              <div
+                class="MuiChip-root MuiChip-colorNeutral MuiChip-sizeMd MuiChip-variantSoft css-ww29n0-JoyChip-root"
+              >
+                <span
+                  class="MuiChip-label MuiChip-labelMd css-14g1v9j-JoyChip-label"
+                  id="_r_0_"
+                >
+                  30 min
+                </span>
+                <span
+                  class="MuiChip-startDecorator css-17xyl9j-JoyChip-startDecorator"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                    data-testid="TimerIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M9 1h6v2H9zm10.03 6.39 1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61M13 14h-2V8h2z"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div
+                class="MuiChip-root MuiChip-colorNeutral MuiChip-sizeMd MuiChip-variantSoft css-ww29n0-JoyChip-root"
+              >
+                <span
+                  class="MuiChip-label MuiChip-labelMd css-14g1v9j-JoyChip-label"
+                  id="_r_1_"
+                >
+                  Collects Analytics
+                </span>
+                <span
+                  class="MuiChip-startDecorator css-17xyl9j-JoyChip-startDecorator"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                    data-testid="AnalyticsIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M9 17H7v-5h2zm4 0h-2v-3h2zm0-5h-2v-2h2zm4 5h-2V7h2z"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <div
+                class="MuiChip-root MuiChip-colorNeutral MuiChip-sizeMd MuiChip-variantSoft css-ww29n0-JoyChip-root"
+              >
+                <span
+                  class="MuiChip-label MuiChip-labelMd css-14g1v9j-JoyChip-label"
+                  id="_r_2_"
+                >
+                  3 finishes
+                </span>
+                <span
+                  class="MuiChip-startDecorator css-17xyl9j-JoyChip-startDecorator"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                    data-testid="GroupsIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="actions"
+          >
+            <a
+              class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeLg ctaButton css-83wrsc-JoyButton-root"
+              data-testid="start-quiz-link"
+              href="/quizzes/1/session"
+            >
+              <span
+                class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="PlayCircleFilledWhiteIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm-4 29V15l12 9-12 9z"
+                    transform="scale(0.5, 0.5)"
+                  />
+                </svg>
+              </span>
+              Start Quiz
+            </a>
+          </div>
+        </div>
+        <div
+          class="descriptionSection"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-title-md aboutHeading css-11c5ebo-JoyTypography-root"
+          >
+            About this quiz
+          </p>
+          <div
+            class="managerRow"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeSm css-1xhawub-JoyAvatar-root"
+            >
+              AO
+            </div>
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-viov36-JoyTypography-root"
+            >
+              Created by Amjed Omar
+            </p>
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body-md descriptionText css-r6bdgn-JoyTypography-root"
+          >
+            A quiz about javascript
+          </p>
+        </div>
+        <hr
+          class="MuiDivider-root MuiDivider-horizontal divider css-1gr8z01-JoyDivider-root"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

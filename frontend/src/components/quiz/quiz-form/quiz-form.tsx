@@ -114,7 +114,13 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
         </Stack>
 
         <div className={styles.footerActions}>
-          <Button variant="soft" startDecorator={<SaveIcon />} type="submit" loading={isCreating || isUpdating}>
+          <Button
+            data-testid="quiz-form-submit-button"
+            variant="soft"
+            startDecorator={<SaveIcon />}
+            type="submit"
+            loading={isCreating || isUpdating}
+          >
             {existingQuiz ? 'Update Quiz' : 'Create Quiz'}
           </Button>
 

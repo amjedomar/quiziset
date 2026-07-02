@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizAnalyticsMobile correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="cards"
+  >
+    <div
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral card css-ylro10-JoySheet-root"
+    >
+      <div
+        class="cardHeader"
+      >
+        <div
+          class="userCell"
+        >
+          <div
+            class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeSm css-1xhawub-JoyAvatar-root"
+          >
+            AO
+          </div>
+          <span
+            class="userName"
+          >
+            Amjed Omar
+          </span>
+        </div>
+        <div
+          class="MuiChip-root MuiChip-colorSuccess MuiChip-sizeSm MuiChip-variantSoft css-ksiv8u-JoyChip-root"
+        >
+          <span
+            class="MuiChip-label MuiChip-labelSm css-14g1v9j-JoyChip-label"
+            id="_r_0_"
+          >
+            Finished
+          </span>
+        </div>
+      </div>
+      <dl
+        class="cardRows"
+      >
+        <div
+          class="cardRow"
+        >
+          <dt>
+            Score
+          </dt>
+          <dd>
+            3 / 5 (60%)
+          </dd>
+        </div>
+        <div
+          class="cardRow"
+        >
+          <dt>
+            Duration
+          </dt>
+          <dd>
+            30m 0s
+          </dd>
+        </div>
+        <div
+          class="cardRow"
+        >
+          <dt>
+            Started
+          </dt>
+          <dd>
+            2026-01-01 12:00
+          </dd>
+        </div>
+        <div
+          class="cardRow"
+        >
+          <dt>
+            Finished
+          </dt>
+          <dd>
+            2026-01-01 12:30
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</DocumentFragment>
+`;

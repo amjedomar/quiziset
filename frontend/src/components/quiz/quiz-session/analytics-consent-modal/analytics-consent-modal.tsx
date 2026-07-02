@@ -28,10 +28,16 @@ export function AnalyticsConsentModal({ isAccepting, onAccept, onQuit }: Analyti
           <p style={{ margin: '12px 0 0' }}>You need to accept sharing analytics in order to start this quiz</p>
         </DialogContent>
         <DialogActions>
-          <Button loading={isAccepting} onClick={onAccept}>
+          <Button data-testid="accept-analytics-button" loading={isAccepting} onClick={onAccept}>
             Accept
           </Button>
-          <Button variant="plain" color="neutral" disabled={isAccepting} onClick={onQuit}>
+          <Button
+            data-testid="quit-quiz-button"
+            variant="plain"
+            color="neutral"
+            disabled={isAccepting}
+            onClick={onQuit}
+          >
             Quit
           </Button>
         </DialogActions>

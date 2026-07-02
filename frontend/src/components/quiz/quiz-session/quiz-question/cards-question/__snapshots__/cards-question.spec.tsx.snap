@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CardsQuestion correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-17g4p10"
+  >
+    <div
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      data-testid="question-cards-answer-0"
+    >
+      <div
+        class="MuiCardOverflow-root MuiCardOverflow-variantPlain MuiCardOverflow-colorNeutral css-1osnv6r-JoyCardOverflow-root"
+        data-first-child=""
+      >
+        <div
+          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+        >
+          <div
+            class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
+          >
+            <img
+              alt="Answer A"
+              data-first-child=""
+              src="http://localhost:4004/uploads/quizzes/answer-a.png"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardContent-root css-1wk5k0m-JoyCardContent-root"
+        data-last-child=""
+      >
+        <div
+          class="MuiStack-root css-op0f7u-JoyStack-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="RadioButtonUncheckedIcon"
+            focusable="false"
+            style="margin-top: 5px;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body-md css-1as5i7i-JoyTypography-root"
+          >
+            Answer A
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      data-testid="question-cards-answer-1"
+    >
+      <div
+        class="MuiCardOverflow-root MuiCardOverflow-variantPlain MuiCardOverflow-colorNeutral css-1osnv6r-JoyCardOverflow-root"
+        data-first-child=""
+      >
+        <div
+          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+        >
+          <div
+            class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
+          >
+            <img
+              alt="Answer B"
+              data-first-child=""
+              src="http://localhost:4004/uploads/quizzes/answer-b.png"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardContent-root css-1wk5k0m-JoyCardContent-root"
+        data-last-child=""
+      >
+        <div
+          class="MuiStack-root css-op0f7u-JoyStack-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="RadioButtonUncheckedIcon"
+            focusable="false"
+            style="margin-top: 5px;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body-md css-1as5i7i-JoyTypography-root"
+          >
+            Answer B
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

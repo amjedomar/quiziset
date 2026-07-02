@@ -60,6 +60,7 @@ export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: Fav
       enterTouchDelay={0} // source: https://stackoverflow.com/a/70270694/8148505
     >
       <IconButton
+        data-testid="favorite-button"
         variant="outlined"
         color={isFavorite ? 'danger' : 'neutral'}
         size={size}

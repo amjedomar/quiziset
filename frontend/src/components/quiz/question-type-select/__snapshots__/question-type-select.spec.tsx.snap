@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuestionTypeSelect correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+  >
+    <div
+      class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
+      style="width: 150px;"
+    >
+      <button
+        aria-controls="_r_1_"
+        aria-expanded="false"
+        aria-labelledby="_r_0_-label"
+        class="MuiSelect-button css-me27eb-JoySelect-button"
+        data-testid="select-questionType"
+        id="_r_0_"
+        name="questionType"
+        role="combobox"
+        type="button"
+      />
+      <span
+        class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-1r2bn3-JoySvgIcon-root"
+          data-testid="UnfoldIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="m12 5.83 2.46 2.46c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L12.7 3.7a.9959.9959 0 0 0-1.41 0L8.12 6.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 5.83zm0 12.34-2.46-2.46a.9959.9959 0 0 0-1.41 0c-.39.39-.39 1.02 0 1.41l3.17 3.18c.39.39 1.02.39 1.41 0l3.17-3.17c.39-.39.39-1.02 0-1.41a.9959.9959 0 0 0-1.41 0L12 18.17z"
+          />
+        </svg>
+      </span>
+      <input
+        aria-hidden="true"
+        name="questionType"
+        style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
+        tabindex="-1"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizQuestion correctly renders a question-cards question 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-17g4p10"
+  >
+    <div
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      data-testid="question-cards-answer-0"
+    >
+      <div
+        class="MuiCardOverflow-root MuiCardOverflow-variantPlain MuiCardOverflow-colorNeutral css-1osnv6r-JoyCardOverflow-root"
+        data-first-child=""
+      >
+        <div
+          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+        >
+          <div
+            class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
+          >
+            <img
+              alt="Answer A"
+              data-first-child=""
+              src="http://localhost:4004/uploads/quizzes/answer-a.png"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardContent-root css-1wk5k0m-JoyCardContent-root"
+        data-last-child=""
+      >
+        <div
+          class="MuiStack-root css-op0f7u-JoyStack-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="RadioButtonUncheckedIcon"
+            focusable="false"
+            style="margin-top: 5px;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body-md css-1as5i7i-JoyTypography-root"
+          >
+            Answer A
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      data-testid="question-cards-answer-1"
+    >
+      <div
+        class="MuiCardOverflow-root MuiCardOverflow-variantPlain MuiCardOverflow-colorNeutral css-1osnv6r-JoyCardOverflow-root"
+        data-first-child=""
+      >
+        <div
+          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+        >
+          <div
+            class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
+          >
+            <img
+              alt="Answer B"
+              data-first-child=""
+              src="http://localhost:4004/uploads/quizzes/answer-b.png"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiCardContent-root css-1wk5k0m-JoyCardContent-root"
+        data-last-child=""
+      >
+        <div
+          class="MuiStack-root css-op0f7u-JoyStack-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="RadioButtonUncheckedIcon"
+            focusable="false"
+            style="margin-top: 5px;"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+            />
+          </svg>
+          <p
+            class="MuiTypography-root MuiTypography-body-md css-1as5i7i-JoyTypography-root"
+          >
+            Answer B
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuizQuestion correctly renders a question-checkbox question 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1s5gupf-JoyStack-root"
+  >
+    <div
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+    >
+      <span
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+      >
+        <span
+          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+        >
+          <span
+            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+          >
+            <input
+              aria-checked="false"
+              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+              id="_r_0_"
+              type="checkbox"
+            />
+          </span>
+        </span>
+        <label
+          class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+          for="_r_0_"
+        >
+          Answer A
+        </label>
+      </span>
+    </div>
+    <div
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+    >
+      <span
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+      >
+        <span
+          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+        >
+          <span
+            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+          >
+            <input
+              aria-checked="false"
+              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+              id="_r_1_"
+              type="checkbox"
+            />
+          </span>
+        </span>
+        <label
+          class="MuiCheckbox-label css-mkcgc3-JoyCheckbox-label"
+          for="_r_1_"
+        >
+          Answer B
+        </label>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuizQuestion correctly renders a question-radio question 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiRadioGroup-root MuiRadioGroup-vertical MuiRadioGroup-variantPlain MuiRadioGroup-colorNeutral MuiRadioGroup-sizeMd css-1a6h798-JoyRadioGroup-root"
+    role="radiogroup"
+  >
+    <div
+      class="MuiStack-root css-1s5gupf-JoyStack-root"
+      data-first-child=""
+      data-last-child=""
+      data-parent="RadioGroup"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+        >
+          <span
+            class="MuiRadio-radio css-ji34he-JoyRadio-radio"
+          >
+            <span
+              class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
+            />
+            <span
+              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiRadio-input css-l3zqaq-JoyRadio-input"
+                id="_r_3_"
+                name="_r_2_"
+                type="radio"
+                value="0"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiRadio-label css-59j0dg-JoyRadio-label"
+            for="_r_3_"
+          >
+            Answer A
+          </label>
+        </span>
+      </div>
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      >
+        <span
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+        >
+          <span
+            class="MuiRadio-radio css-ji34he-JoyRadio-radio"
+          >
+            <span
+              class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
+            />
+            <span
+              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+            >
+              <input
+                aria-checked="false"
+                class="MuiRadio-input css-l3zqaq-JoyRadio-input"
+                id="_r_4_"
+                name="_r_2_"
+                type="radio"
+                value="1"
+              />
+            </span>
+          </span>
+          <label
+            class="MuiRadio-label css-59j0dg-JoyRadio-label"
+            for="_r_4_"
+          >
+            Answer B
+          </label>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`QuizQuestion correctly renders a question-reorder question 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiStack-root css-1s5gupf-JoyStack-root"
+  >
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-0"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          1st
+        </p>
+      </div>
+    </div>
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          2nd
+        </p>
+      </div>
+    </div>
+    <div
+      style="opacity: 1;"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral row css-ylro10-JoySheet-root"
+        data-testid="question-reorder-answer-2"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+          data-testid="DragIndicatorIcon"
+          focusable="false"
+          style="opacity: 0.5;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2m-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"
+          />
+        </svg>
+        <p
+          class="MuiTypography-root MuiTypography-body-md css-ff7dcq-JoyTypography-root"
+        >
+          3rd
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

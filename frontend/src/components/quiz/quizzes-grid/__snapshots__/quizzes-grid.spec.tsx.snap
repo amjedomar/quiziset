@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`QuizzesGrid correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-1xteaj9"
+  >
+    <a
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral quizCard css-ylro10-JoySheet-root"
+      href="/quizzes/1/overview"
+    >
+      <img
+        alt=""
+        class="image"
+        src="http://localhost:4004/uploads/quizzes/cover.png"
+      />
+      <div
+        class="details"
+      >
+        <div>
+          <p
+            class="MuiTypography-root MuiTypography-title-lg css-ar9ysw-JoyTypography-root"
+          >
+            JS Basics
+          </p>
+          <div
+            class="meta"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-1tuep6v-JoyTypography-root"
+            >
+              <span
+                class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall ratingIcon css-120dh41-MuiSvgIcon-root"
+                  data-testid="StarRoundedIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+                  />
+                </svg>
+              </span>
+              4.5
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-1m0azy9-JoyTypography-root"
+            >
+              <span
+                class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                  data-testid="GroupsIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3"
+                  />
+                </svg>
+              </span>
+              3 finishes
+            </p>
+          </div>
+        </div>
+        <p
+          class="MuiTypography-root MuiTypography-body-sm quizDescription css-1mpyth4-JoyTypography-root"
+        >
+          A quiz about javascript
+        </p>
+      </div>
+      <div
+        class="footer"
+      >
+        <button
+          class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+          type="button"
+        >
+          <span
+            class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+              data-testid="QuizIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4z"
+              />
+              <path
+                d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2m-5.99 13c-.59 0-1.05-.47-1.05-1.05 0-.59.47-1.04 1.05-1.04.59 0 1.04.45 1.04 1.04-.01.58-.45 1.05-1.04 1.05m2.5-6.17c-.63.93-1.23 1.21-1.56 1.81-.13.24-.18.4-.18 1.18h-1.52c0-.41-.06-1.08.26-1.65.41-.73 1.18-1.16 1.63-1.8.48-.68.21-1.94-1.14-1.94-.88 0-1.32.67-1.5 1.23l-1.37-.57C11.51 5.96 12.52 5 13.99 5c1.23 0 2.08.56 2.51 1.26.37.61.58 1.73.01 2.57"
+              />
+            </svg>
+          </span>
+          View
+        </button>
+      </div>
+    </a>
+  </div>
+</DocumentFragment>
+`;

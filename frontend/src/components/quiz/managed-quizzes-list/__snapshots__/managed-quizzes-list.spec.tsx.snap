@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`ManagedQuizzesList correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="headerSection"
+  >
+    <div
+      class="header"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h2 css-x5jxhy-JoyTypography-root"
+      >
+        Manage Quizzes
+      </h2>
+      <a
+        class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+        data-testid="create-quiz-link"
+        href="/manage-quizzes/create"
+      >
+        <span
+          class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="AddIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"
+            />
+          </svg>
+        </span>
+        Create Quiz
+      </a>
+    </div>
+    <div
+      class="searchRow"
+    >
+      <div
+        class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd searchInput css-kf85qm-JoyInput-root"
+      >
+        <div
+          class="MuiInput-startDecorator css-nnbxuc-JoyInput-startDecorator"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="SearchIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"
+            />
+          </svg>
+        </div>
+        <input
+          class="MuiInput-input css-1pqn8v6-JoyInput-input"
+          placeholder="Search your quizzes"
+        />
+      </div>
+      <div
+        class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
+      >
+        <button
+          aria-controls="_r_0_"
+          aria-expanded="false"
+          class="MuiSelect-button css-1hr8yhh-JoySelect-button"
+          role="combobox"
+          type="button"
+        />
+        <span
+          class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-sizeMd css-1r2bn3-JoySvgIcon-root"
+            data-testid="UnfoldIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m12 5.83 2.46 2.46c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L12.7 3.7a.9959.9959 0 0 0-1.41 0L8.12 6.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 5.83zm0 12.34-2.46-2.46a.9959.9959 0 0 0-1.41 0c-.39.39-.39 1.02 0 1.41l3.17 3.18c.39.39 1.02.39 1.41 0l3.17-3.17c.39-.39.39-1.02 0-1.41a.9959.9959 0 0 0-1.41 0L12 18.17z"
+            />
+          </svg>
+        </span>
+        <input
+          aria-hidden="true"
+          style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
+          tabindex="-1"
+          value="newest"
+        />
+      </div>
+    </div>
+    <p
+      class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"
+    >
+      1 total match
+    </p>
+  </div>
+  <div
+    class="MuiStack-root css-194i09z-JoyStack-root"
+  >
+    <div
+      class="quizList"
+    >
+      <div
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral quizItem css-ylro10-JoySheet-root"
+      >
+        <img
+          alt=""
+          class="image"
+          src="http://localhost:4004/uploads/quizzes/cover.png"
+        />
+        <div
+          class="details"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-title-lg css-ar9ysw-JoyTypography-root"
+          >
+            JS Basics
+          </p>
+          <div
+            class="meta"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-1tuep6v-JoyTypography-root"
+            >
+              <span
+                class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall ratingIcon css-120dh41-MuiSvgIcon-root"
+                  data-testid="StarRoundedIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m12 17.27 4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72 3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"
+                  />
+                </svg>
+              </span>
+              4.5
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-1m0azy9-JoyTypography-root"
+            >
+              <span
+                class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                  data-testid="GroupsIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91M4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29M20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3"
+                  />
+                </svg>
+              </span>
+              3 finishes
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body-sm css-1m0azy9-JoyTypography-root"
+            >
+              <span
+                class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                  data-testid="LockOpenIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2m0 12H6V10h12z"
+                  />
+                </svg>
+              </span>
+              Public
+            </p>
+          </div>
+          <p
+            class="MuiTypography-root MuiTypography-body-sm quizDescription css-1mpyth4-JoyTypography-root"
+          >
+            A quiz about javascript
+          </p>
+          <div
+            class="actions"
+          >
+            <a
+              class="MuiButton-root MuiButton-variantSoft MuiButton-colorPrimary MuiButton-sizeMd css-aqrsm8-JoyButton-root"
+              data-testid="update-quiz-1-link"
+              href="/manage-quizzes/1/update"
+            >
+              <span
+                class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="EditIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+                  />
+                </svg>
+              </span>
+              Update
+            </a>
+            <a
+              aria-disabled="true"
+              class="MuiButton-root Mui-disabled MuiButton-variantOutlined MuiButton-colorPrimary MuiButton-sizeMd css-1enwr29-JoyButton-root"
+              data-testid="quiz-1-analytics-link"
+              href="/manage-quizzes/1/analytics"
+              tabindex="-1"
+            >
+              <span
+                class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="InsightsIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.55-4.56c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.48 2.51-1.93 0-1.1-.9-2-2-2"
+                  />
+                  <path
+                    d="m15 9 .94-2.07L18 6l-2.06-.93L15 3l-.92 2.07L12 6l2.08.93zM3.5 11 4 9l2-.5L4 8l-.5-2L3 8l-2 .5L3 9z"
+                  />
+                </svg>
+              </span>
+              Analytics
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

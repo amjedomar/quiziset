@@ -145,7 +145,9 @@ export function QuizSession({ quizId }: QuizSessionProps) {
 
       {expireTime && <QuizSessionTimer expireTime={expireTime} onExpire={handleExpire} />}
 
-      <Typography level="h4">{currentQuestion.title}</Typography>
+      <Typography level="h4" data-testid="quiz-question-title">
+        {currentQuestion.title}
+      </Typography>
 
       <QuizQuestion question={currentQuestion} value={answerIndexes} onChange={setAnswerIndexes} />
 

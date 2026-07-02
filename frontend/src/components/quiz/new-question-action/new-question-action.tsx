@@ -20,6 +20,7 @@ export default function NewQuestionAction({ onCreate }: NewQuestionActionProps) 
         Question
       </Button>
       <QuestionTypeSelect
+        testId="new-question-type-select"
         style={{ borderBottomLeftRadius: 0, borderTopLeftRadius: 0 }}
         value={questionType}
         onChange={setQuestionType}

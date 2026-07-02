@@ -16,7 +16,7 @@ export function ReorderQuestion({ answers, value, onChange }: QuestionRendererPr
       <Stack spacing={1}>
         {value.map((answerIndex, position) => (
           <Sortable key={answerIndex} id={String(answerIndex)} index={position}>
-            <Sheet variant="outlined" className={styles.row}>
+            <Sheet data-testid={`question-reorder-answer-${answerIndex}`} variant="outlined" className={styles.row}>
               <DragIndicatorIcon fontSize="small" style={{ opacity: 0.5 }} />
               <Typography>{answers[answerIndex].text}</Typography>
             </Sheet>
