@@ -22,7 +22,7 @@ interface QuizOverviewProps {
   quizId: number
 }
 
-export default function QuizOverview({ quizId }: QuizOverviewProps) {
+export function QuizOverview({ quizId }: QuizOverviewProps) {
   const { data, isLoading } = useGetSingleQuiz(quizId, { fields: 'OVERVIEW' })
 
   const quiz = data?.data

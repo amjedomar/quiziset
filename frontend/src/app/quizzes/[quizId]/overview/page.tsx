@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { prefetchGetSingleQuizQuery } from '@/generated-api-client/quiz'
 import { prefetchGetQuizReviewsQuery } from '@/generated-api-client/review'
 import { makeQueryClient } from '@/utils/query-client'
-import QuizOverview from '@/components/quiz/quiz-overview/quiz-overview'
+import { QuizOverview } from '@/components/quiz/quiz-overview'
 
 interface QuizOverviewPageProps {
   params: Promise<{ quizId: string }>

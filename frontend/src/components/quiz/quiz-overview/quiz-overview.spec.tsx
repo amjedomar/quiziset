@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { makeQuiz } from '@/test-utils/mocks'
-import QuizOverview from './quiz-overview'
+import { QuizOverview } from './quiz-overview'
 
 jest.mock('@/constants/api-url', () => ({
   NEXT_PUBLIC_API_BASE_URL: 'http://mock-backend',

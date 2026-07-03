@@ -18,7 +18,7 @@ export default function QuizUpdatePage() {
     <Container maxWidth="lg">
       {isLoading ? (
         <Stack alignItems="center" justifyContent="center">
-          <CircularProgress />
+          <CircularProgress data-testid="loading-indicator" />
         </Stack>
       ) : data ? (
         <QuizForm existingQuiz={data.data} />

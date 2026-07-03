@@ -11,7 +11,7 @@ interface HomepageProps {
   initialParams: GetAllQuizzesParams
 }
 
-export default function Homepage({ initialParams }: HomepageProps) {
+export function Homepage({ initialParams }: HomepageProps) {
   return (
     <QuizzesList
       params={initialParams}
@@ -24,7 +24,12 @@ export default function Homepage({ initialParams }: HomepageProps) {
 
             <Typography className={styles.subtitle} textAlign="center">
               Explore different quizzes to test your skills or{' '}
-              <Link component={NextLink} href="/manage-quizzes/create" underline="always">
+              <Link
+                data-testid="create-quiz-link"
+                component={NextLink}
+                href="/manage-quizzes/create"
+                underline="always"
+              >
                 create your own quiz
               </Link>
             </Typography>
@@ -43,7 +48,7 @@ export default function Homepage({ initialParams }: HomepageProps) {
             </div>
           </div>
 
-          <Typography className={styles.totalMatches} textColor="text.tertiary">
+          <Typography data-testid="total-matches" className={styles.totalMatches} textColor="text.tertiary">
             {totalMatches} total {totalMatches === 1 ? 'match' : 'matches'}
           </Typography>
         </>

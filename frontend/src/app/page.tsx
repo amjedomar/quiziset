@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { prefetchGetAllQuizzesQuery } from '@/generated-api-client/quiz'
-import Homepage from '@/components/homepage/homepage'
+import { Homepage } from '@/components/homepage'
 import { getQuizSortData } from '@/constants/quizzes-list-sort'
 import { makeQueryClient } from '@/utils/query-client'
 import { GetAllQuizzesParams } from '@/generated-api-client/model'
