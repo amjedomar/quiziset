@@ -61,6 +61,14 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-return': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      /**
+       * decorator/guard specs pass "SomeClass.prototype.method"
+       * directly to Reflect.getMetadata for metadata inspection only
+       * 
+       * the methods are never called so they do not need .bind()
+       * hence lets disable this rule
+       */
+      '@typescript-eslint/unbound-method': 'off',
     },
   },
 )
