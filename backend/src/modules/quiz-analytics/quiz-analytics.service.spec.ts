@@ -8,7 +8,7 @@ import {
   QUIZ_ID,
   REQ_USER,
   QUIZ_SESSION_ID,
-} from '@/test-utils/fixtures'
+} from '@/test-utils/mocks'
 
 describe('QuizAnalyticsService', () => {
   let prisma: any

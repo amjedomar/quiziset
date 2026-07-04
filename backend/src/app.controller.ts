@@ -1,6 +1,6 @@
 import { Controller, Get, Redirect } from '@nestjs/common'
 import { ApiExcludeController } from '@nestjs/swagger'
-import { IsPublic } from '@/decorators/is-public.decorator'
+import { IsPublic } from '@/decorators/is-public'
 
 @Controller()
 @ApiExcludeController()

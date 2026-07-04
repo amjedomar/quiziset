@@ -16,7 +16,7 @@ import {
 } from 'class-validator'
 import { Type, Transform } from 'class-transformer'
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { IsLocalImagePath } from '@/decorators/is-local-image-path.decorator'
+import { IsLocalImagePath } from '@/decorators/is-local-image-path'
 
 export enum QuestionType {
   Checkbox = 'question-checkbox',

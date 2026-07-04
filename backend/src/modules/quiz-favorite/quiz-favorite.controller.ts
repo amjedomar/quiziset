@@ -1,8 +1,8 @@
 import { Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { QuizFavoriteService } from '@/modules/quiz-favorite/quiz-favorite.service'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 /**

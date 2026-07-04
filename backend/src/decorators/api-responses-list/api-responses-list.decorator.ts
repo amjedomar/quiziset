@@ -1,4 +1,3 @@
-// api-responses-list.decorator.ts
 import { applyDecorators } from '@nestjs/common'
 import { ApiBearerAuth, ApiProperty, ApiResponse, ApiResponseMetadata } from '@nestjs/swagger'
 

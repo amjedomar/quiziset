@@ -3,8 +3,8 @@ import { ApiOperation } from '@nestjs/swagger'
 import { UserService } from '@/modules/user/user.service'
 import { UpdateUserDto } from '@/modules/user/dto/update-user.dto'
 import { UserEntity } from '@/modules/user/entities/user.entity'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('users')

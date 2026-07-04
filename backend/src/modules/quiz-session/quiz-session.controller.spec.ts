@@ -1,5 +1,5 @@
 import { QuizSessionController } from '@/modules/quiz-session/quiz-session.controller'
-import { QUIZ_ID, QUIZ_SESSION_ID, REQ_USER } from '@/test-utils/fixtures'
+import { QUIZ_ID, QUIZ_SESSION_ID, REQ_USER } from '@/test-utils/mocks'
 
 // the service is mocked so we only test that the controller delegates correctly
 describe('QuizSessionController', () => {

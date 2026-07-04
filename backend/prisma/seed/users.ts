@@ -1,7 +1,7 @@
 import argon2 from 'argon2'
 import type { PrismaClient } from '@/generated/prisma/client'
 import { TEST_USER_PASSWORD, TEST_USERS } from './config'
-import { getSampleAvatarPath } from '@/utils/sample-images.util'
+import { getSampleAvatarPath } from '@/utils/sample-images'
 
 export async function seedUsers(prisma: PrismaClient) {
   // every test user has the same password so hash it once and use it for all test users

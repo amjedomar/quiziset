@@ -1,5 +1,5 @@
 import { UserController } from '@/modules/user/user.controller'
-import { makeUserEntity, REQ_USER } from '@/test-utils/fixtures'
+import { makeUserEntity, REQ_USER } from '@/test-utils/mocks'
 
 // the service is mocked so we only test that the controller delegates correctly
 describe('UserController', () => {

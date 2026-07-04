@@ -1,5 +1,5 @@
 import { QuizAnalyticsController } from '@/modules/quiz-analytics/quiz-analytics.controller'
-import { QUIZ_ID, REQ_USER } from '@/test-utils/fixtures'
+import { QUIZ_ID, REQ_USER } from '@/test-utils/mocks'
 
 // the service is mocked so we only test that the controller delegates correctly
 describe('QuizAnalyticsController', () => {

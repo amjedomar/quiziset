@@ -1,5 +1,5 @@
 import { QuizService } from '@/modules/quiz/quiz.service'
-import { makeQuizRecord, QUIZ_ID, REQ_USER } from '@/test-utils/fixtures'
+import { makeQuizRecord, QUIZ_ID, REQ_USER } from '@/test-utils/mocks'
 
 describe('QuizService', () => {
   let prisma: any

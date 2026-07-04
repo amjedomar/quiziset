@@ -5,13 +5,13 @@ import { SubmitQuizSessionAnswerDto } from '@/modules/quiz-session/dto/submit-qu
 import { QuizSessionStateEntity } from '@/modules/quiz-session/entities/quiz-session.entity'
 import { QuizSessionErrors } from '@/modules/quiz/quiz.errors'
 import { QuizSession } from '@/generated/prisma/client'
-import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access.util'
+import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access'
 import {
   buildSessionQuestions,
   checkIsAnswerCorrect,
   checkIsSessionExpired,
   buildSessionState,
-} from '@/utils/quiz/quiz-session.util'
+} from '@/utils/quiz/quiz-session'
 
 @Injectable()
 export class QuizSessionService {

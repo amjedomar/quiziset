@@ -1,4 +1,4 @@
-import { AuthUserData } from '@/decorators/auth-user.decorator'
+import { AuthUserData } from '@/decorators/auth-user'
 
 declare global {
   namespace Express {

@@ -4,7 +4,7 @@ import { SignupDto } from '@/modules/auth/dto/signup.dto'
 import { AuthToken } from '@/modules/auth/entities/auth-access.entity'
 import { AuthErrors, AuthService } from '@/modules/auth/auth.service'
 import { LoginDto } from '@/modules/auth/dto/login.dto'
-import { IsPublic } from '@/decorators/is-public.decorator'
+import { IsPublic } from '@/decorators/is-public'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('auth')

@@ -8,11 +8,11 @@ import { QuizAnalyticsModule } from '@/modules/quiz-analytics/quiz-analytics.mod
 import { ReviewModule } from '@/modules/review/review.module'
 import { UserModule } from '@/modules/user/user.module'
 import { AppController } from '@/app.controller'
-import { AuthMiddleware } from '@/middlewares/auth.middleware'
+import { AuthMiddleware } from '@/middlewares/auth'
 import { JwtModule } from '@nestjs/jwt'
 import { PrismaService } from '@/prisma.service'
 import { APP_GUARD } from '@nestjs/core'
-import { AuthGuard } from '@/guards/auth.guard'
+import { AuthGuard } from '@/guards/auth'
 
 @Module({
   imports: [

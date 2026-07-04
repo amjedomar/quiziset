@@ -4,9 +4,9 @@ import { ReviewService } from '@/modules/review/review.service'
 import { CreateReviewDto } from '@/modules/review/dto/create-review.dto'
 import { UpdateReviewDto } from '@/modules/review/dto/update-review.dto'
 import { ReviewEntity } from '@/modules/review/entities/review.entity'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
-import { IsPublic } from '@/decorators/is-public.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
+import { IsPublic } from '@/decorators/is-public'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('quizzes/:quizId/reviews')

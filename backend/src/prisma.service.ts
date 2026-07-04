@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaClient } from '@/generated/prisma/client'
-import { createPrismaAdapter } from '@/utils/prisma-adapter.util'
+import { createPrismaAdapter } from '@/utils/prisma-adapter'
 
 /**
  * Check docs https://www.prisma.io/docs/orm/reference/error-reference

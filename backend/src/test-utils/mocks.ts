@@ -1,17 +1,9 @@
 /**
  * This file contains shared mocks that are used by different test units
- *
- * btw the term "fixtures" (which is the name of this file) is commonly used in unit testing for mocks
- * see https://stackoverflow.com/questions/12071344/what-are-fixtures-in-programming/14684400#14684400
- *
- * side note: in below code the difference between make...Record vs make...Entity
- *  - is that make...Record is the mock of the returned row from database
- *  - and the make...Entity is the returned results from Nest.js service
- *    (i.e. the http response) after data has been processed
  */
 import { Quiz } from '@/generated/prisma/client'
 import { QuestionType } from '@/modules/quiz/dto/create-quiz.dto'
-import { buildSessionQuestions } from '@/utils/quiz/quiz-session.util'
+import { buildSessionQuestions } from '@/utils/quiz/quiz-session'
 
 export const CREATED_AT = new Date('2026-01-01T10:00:00.000Z')
 export const UPDATED_AT = new Date('2026-01-02T10:00:00.000Z')

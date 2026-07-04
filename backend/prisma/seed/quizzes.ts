@@ -10,11 +10,11 @@ import {
   TIME_LIMIT_OPTIONS,
 } from './config'
 
-import { addDays, addMinutes } from '@/utils/date.util'
-import { round1 } from '@/utils/math.util'
-import { toTitleCase } from '@/utils/string.util'
-import { getQuizSampleImagePath } from '@/utils/sample-images.util'
-import { buildSessionQuestions } from '@/utils/quiz/quiz-session.util'
+import { addDays, addMinutes } from '@/utils/date'
+import { round1 } from '@/utils/math'
+import { toTitleCase } from '@/utils/string'
+import { getQuizSampleImagePath } from '@/utils/sample-images'
+import { buildSessionQuestions } from '@/utils/quiz/quiz-session'
 
 /**
  * seeds quiz together with its finished sessions and its reviews

@@ -3,10 +3,10 @@ import { PrismaService } from '@/prisma.service'
 import { CreateReviewDto } from '@/modules/review/dto/create-review.dto'
 import { UpdateReviewDto } from '@/modules/review/dto/update-review.dto'
 import { ReviewEntity } from '@/modules/review/entities/review.entity'
-import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
+import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
 import { Prisma } from '@/generated/prisma/client'
 import { PUBLIC_USER_INCLUDE } from '@/modules/user/entities/public-user.entity'
-import { round1 } from '@/utils/math.util'
+import { round1 } from '@/utils/math'
 
 const ReviewErrors = {
   QUIZ_NOT_FOUND: 'quiz not found',

@@ -7,9 +7,9 @@ import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.
 import { GetSingleQuizQueryDto } from '@/modules/quiz/dto/get-single-quiz-query.dto'
 import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
 import { PaginatedQuizzesEntity } from '@/modules/quiz/entities/paginated-quizzes.entity'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
-import { IsPublic } from '@/decorators/is-public.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
+import { IsPublic } from '@/decorators/is-public'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('quizzes')

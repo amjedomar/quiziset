@@ -1,4 +1,4 @@
-import { IS_PUBLIC_METADATA } from '@/decorators/is-public.decorator'
+import { IS_PUBLIC_METADATA } from '@/decorators/is-public'
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import type { Request } from 'express'

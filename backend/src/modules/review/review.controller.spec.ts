@@ -1,5 +1,5 @@
 import { ReviewController } from '@/modules/review/review.controller'
-import { makeReviewEntity, QUIZ_ID, REQ_USER, REVIEW_ID } from '@/test-utils/fixtures'
+import { makeReviewEntity, QUIZ_ID, REQ_USER, REVIEW_ID } from '@/test-utils/mocks'
 
 // the service is mocked so we only test that the controller delegates correctly
 describe('ReviewController', () => {

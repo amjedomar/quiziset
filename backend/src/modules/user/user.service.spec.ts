@@ -1,5 +1,5 @@
 import { UserService } from '@/modules/user/user.service'
-import { makeUserRecord, makeUserEntity, USER_ID } from '@/test-utils/fixtures'
+import { makeUserRecord, makeUserEntity, USER_ID } from '@/test-utils/mocks'
 
 describe('UserService', () => {
   let prisma: any

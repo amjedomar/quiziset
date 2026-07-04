@@ -1,6 +1,6 @@
 import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
-import { makeQuizRecord, makeSessionRecord, QUIZ_ID, USER_ID, QUIZ_SESSION_ID } from '@/test-utils/fixtures'
-import { getCorrectAnswerIndexes, toExposedQuestion } from '@/utils/quiz/quiz-session.util'
+import { makeQuizRecord, makeSessionRecord, QUIZ_ID, USER_ID, QUIZ_SESSION_ID } from '@/test-utils/mocks'
+import { getCorrectAnswerIndexes, toExposedQuestion } from '@/utils/quiz/quiz-session'
 
 describe('QuizSessionService', () => {
   let prisma: any

@@ -1,5 +1,5 @@
 import { QuestionType } from '@/modules/quiz/dto/create-quiz.dto'
-import { getQuizSampleImagePath } from '@/utils/sample-images.util'
+import { getQuizSampleImagePath } from '@/utils/sample-images'
 
 // to simplify things the 7 created test users will have the same password
 export const TEST_USER_PASSWORD = 'quiziset789'

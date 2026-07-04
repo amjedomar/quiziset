@@ -4,8 +4,8 @@ import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
 import { StartQuizSessionDto } from '@/modules/quiz-session/dto/start-quiz-session.dto'
 import { SubmitQuizSessionAnswerDto } from '@/modules/quiz-session/dto/submit-quiz-session-answer.dto'
 import { QuizSessionStateEntity } from '@/modules/quiz-session/entities/quiz-session.entity'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('quizzes/:quizId/sessions')

@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger'
 import { IsEmail, IsOptional, IsString, Length } from 'class-validator'
-import { IsLocalImagePath } from '@/decorators/is-local-image-path.decorator'
+import { IsLocalImagePath } from '@/decorators/is-local-image-path'
 
 export class UpdateUserDto {
   @IsOptional()

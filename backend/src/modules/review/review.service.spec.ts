@@ -1,5 +1,5 @@
 import { ReviewService } from '@/modules/review/review.service'
-import { makeReviewRecord, makeReviewEntity, QUIZ_ID, USER_ID, REVIEW_ID, QUIZ_SESSION_ID } from '@/test-utils/fixtures'
+import { makeReviewRecord, makeReviewEntity, QUIZ_ID, USER_ID, REVIEW_ID, QUIZ_SESSION_ID } from '@/test-utils/mocks'
 
 describe('ReviewService', () => {
   let prisma: any

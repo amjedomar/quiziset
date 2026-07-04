@@ -1,5 +1,5 @@
 import { QuizFavoriteService } from '@/modules/quiz-favorite/quiz-favorite.service'
-import { makeQuizRecord, QUIZ_ID, USER_ID } from '@/test-utils/fixtures'
+import { makeQuizRecord, QUIZ_ID, USER_ID } from '@/test-utils/mocks'
 
 describe('QuizFavoriteService', () => {
   let prisma: any

@@ -1,7 +1,8 @@
 import { UnprocessableEntityException } from '@nestjs/common'
-import { unlink } from 'fs/promises'
+import { mkdir, unlink, writeFile } from 'fs/promises'
 import { join } from 'path'
-import { checkFileExists } from '@/utils/check-file-exists.util'
+import { randomUUID } from 'crypto'
+import { checkFileExists } from '@/utils/check-file-exists'
 
 const UPLOADS_DIR = join(process.cwd(), 'uploads')
 
@@ -10,6 +11,32 @@ const UPLOADS_DIR = join(process.cwd(), 'uploads')
  * is the image urls (of 'question-cards' type) only
  */
 type QuestionsWithAnswerImages = { answers?: { imageUrl?: string | null }[] }[]
+
+/**
+ * creates the bucket directory (if it doesn't already exist) then saves the file inside it
+ * returns the generated fileName (with a random name while keeping the original extension)
+ */
+export async function createUploadedFile(bucketName: string, buffer: Buffer, ext: string): Promise<string> {
+  const bucketDir = join(UPLOADS_DIR, bucketName)
+
+  if (!(await checkFileExists(bucketDir))) {
+    await mkdir(bucketDir)
+  }
+
+  const fileName = `${randomUUID()}${ext}`
+  await writeFile(join(bucketDir, fileName), buffer)
+
+  return fileName
+}
+
+/**
+ * returns the absolute path of an uploaded file or null if it doesn't exist
+ */
+export async function getUploadedFilePath(bucketName: string, fileName: string): Promise<string | null> {
+  const filePath = join(UPLOADS_DIR, bucketName, fileName)
+
+  return (await checkFileExists(filePath)) ? filePath : null
+}
 
 function isSafeFilename(filename: string) {
   // security-check: `filename` must be a plain name (path separators aren't allowed

@@ -5,7 +5,7 @@ import { GetUploadParamsDto, UploadParamsDto } from '@/modules/uploads/dto/uploa
 import { UploadBodyDto } from '@/modules/uploads/dto/upload-body.dto'
 import { UploadsService } from '@/modules/uploads/uploads.service'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
-import { IsPublic } from '@/decorators/is-public.decorator'
+import { IsPublic } from '@/decorators/is-public'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('uploads')

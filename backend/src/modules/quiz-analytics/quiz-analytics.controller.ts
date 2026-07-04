@@ -3,8 +3,8 @@ import { ApiOperation } from '@nestjs/swagger'
 import { QuizAnalyticsService } from '@/modules/quiz-analytics/quiz-analytics.service'
 import { GetQuizAnalyticsQueryDto } from '@/modules/quiz-analytics/dto/get-quiz-analytics-query.dto'
 import { PaginatedQuizAnalyticsEntity } from '@/modules/quiz-analytics/entities/paginated-quiz-analytics.entity'
-import { AuthUser } from '@/decorators/auth-user.decorator'
-import type { AuthUserData } from '@/decorators/auth-user.decorator'
+import { AuthUser } from '@/decorators/auth-user'
+import type { AuthUserData } from '@/decorators/auth-user'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('quizzes/:quizId/analytics')

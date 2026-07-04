@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@/prisma.service'
-import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access.util'
+import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access'
 
 @Injectable()
 export class QuizFavoriteService {

@@ -1,5 +1,5 @@
 import { AuthService } from '@/modules/auth/auth.service'
-import { USER_ID } from '@/test-utils/fixtures'
+import { USER_ID } from '@/test-utils/mocks'
 import argon2 from 'argon2'
 
 jest.mock('argon2', () => ({

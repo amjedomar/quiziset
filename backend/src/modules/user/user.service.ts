@@ -2,8 +2,8 @@ import { BadRequestException, Injectable, InternalServerErrorException, NotFound
 import { PrismaErrorCode, PrismaService } from '@/prisma.service'
 import { UpdateUserDto } from '@/modules/user/dto/update-user.dto'
 import { UserEntity } from '@/modules/user/entities/user.entity'
-import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs.util'
-import { deleteUploadedFileByUrl } from '@/utils/uploads/uploaded-image-files.util'
+import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
+import { deleteUploadedFileByUrl } from '@/utils/uploads-management'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client'
 
 export const UserErrors = {
