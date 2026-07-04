@@ -57,7 +57,21 @@ const handleUnauthorized = () => {
 
   const loginUrl = appendRedirectParam('/login', currentPageUrl)
 
-  window.location.replace(loginUrl)
+  /**
+   * skip the navigation in tests to avoid "Error: Not implemented: navigation (except hash changes)"
+   *
+   * because unfortunately Jsdom doesn't implement "window.location.replace"
+   * nor allow mocking it starting from jsdom v21 :(
+   *
+   * see https://github.com/jsdom/jsdom/issues/3492
+   *
+   * btw there are workarounds but they aren't clean (so lets just skip location.replace()
+   * call during unit tests)
+   *
+   */
+  if (process.env.NODE_ENV !== 'test') {
+    window.location.replace(loginUrl)
+  }
 }
 
 /**
