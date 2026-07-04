@@ -1,6 +1,6 @@
 import { BadRequestException, InternalServerErrorException, Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { PrismaErrorCode, PrismaService } from '@/prisma.service'
+import { PrismaErrorCode, PrismaService } from '@/prisma-service'
 import { AuthToken } from '@/modules/auth/entities/auth-access.entity'
 import { LoginDto } from '@/modules/auth/dto/login.dto'
 import { SignupDto } from '@/modules/auth/dto/signup.dto'

@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { CreateReviewDto } from '@/modules/review/dto/create-review.dto'
 import { UpdateReviewDto } from '@/modules/review/dto/update-review.dto'
 import { ReviewEntity } from '@/modules/review/entities/review.entity'

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { QuizSessionController } from '@/modules/quiz-session/quiz-session.controller'
 import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 
 @Module({
   controllers: [QuizSessionController],

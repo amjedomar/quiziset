@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { StartQuizSessionDto } from '@/modules/quiz-session/dto/start-quiz-session.dto'
 import { SubmitQuizSessionAnswerDto } from '@/modules/quiz-session/dto/submit-quiz-session-answer.dto'
 import { QuizSessionStateEntity } from '@/modules/quiz-session/entities/quiz-session.entity'

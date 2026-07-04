@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { CreateQuizDto } from '@/modules/quiz/dto/create-quiz.dto'
 import { UpdateQuizDto } from '@/modules/quiz/dto/update-quiz.dto'
 import { GetAllQuizzesQueryDto } from '@/modules/quiz/dto/get-all-quizzes-query.dto'

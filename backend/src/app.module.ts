@@ -10,7 +10,7 @@ import { UserModule } from '@/modules/user/user.module'
 import { AppController } from '@/app.controller'
 import { AuthMiddleware } from '@/middlewares/auth'
 import { JwtModule } from '@nestjs/jwt'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { APP_GUARD } from '@nestjs/core'
 import { AuthGuard } from '@/guards/auth'
 

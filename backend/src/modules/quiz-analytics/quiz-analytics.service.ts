@@ -1,5 +1,5 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
 import { PaginatedQuizAnalyticsEntity } from '@/modules/quiz-analytics/entities/paginated-quiz-analytics.entity'
 import {

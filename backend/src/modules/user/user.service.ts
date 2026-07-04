@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
-import { PrismaErrorCode, PrismaService } from '@/prisma.service'
+import { PrismaErrorCode, PrismaService } from '@/prisma-service'
 import { UpdateUserDto } from '@/modules/user/dto/update-user.dto'
 import { UserEntity } from '@/modules/user/entities/user.entity'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'

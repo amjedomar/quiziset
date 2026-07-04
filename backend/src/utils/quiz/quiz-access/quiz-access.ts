@@ -1,5 +1,5 @@
 import { ForbiddenException, NotFoundException } from '@nestjs/common'
-import { PrismaService } from '@/prisma.service'
+import { PrismaService } from '@/prisma-service'
 import { QuizErrors } from '@/modules/quiz/quiz.errors'
 import { PUBLIC_USER_INCLUDE } from '@/modules/user/entities/public-user.entity'
 
