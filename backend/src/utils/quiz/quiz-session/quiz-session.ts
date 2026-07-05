@@ -7,6 +7,7 @@ import {
 } from '@/modules/quiz-session/entities/quiz-session.entity'
 import type { Quiz } from '@/generated/prisma/client'
 import { shuffle } from '@/utils/shuffle'
+import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
 
 /**
  * a session is expired when it has a time limit ("expireTime") that has already passed
@@ -38,12 +39,14 @@ export function buildSessionQuestions(questions: Quiz['questions']): QuizSession
     return {
       title: question.title,
       questionType: question.questionType,
-      answers: shuffle(answersWithCorrectOrder).map((answer) => ({
-        text: answer.text,
-        imageUrl: answer.imageUrl,
-        isCorrect: isReorder ? undefined : answer.isCorrect,
-        correctOrder: isReorder ? answer.correctOrder : undefined,
-      })),
+      answers: shuffle(answersWithCorrectOrder).map((answer) =>
+        omitUndefinedAttrs({
+          text: answer.text,
+          imageUrl: answer.imageUrl,
+          isCorrect: isReorder ? undefined : answer.isCorrect,
+          correctOrder: isReorder ? answer.correctOrder : undefined,
+        }),
+      ),
     }
   })
 }
@@ -116,10 +119,12 @@ export function toExposedQuestion(question: QuizSessionStoredQuestion): QuizSess
   return {
     title: question.title,
     questionType: question.questionType,
-    answers: question.answers.map((answer) => ({
-      text: answer.text,
-      imageUrl: answer.imageUrl,
-    })),
+    answers: question.answers.map((answer) =>
+      omitUndefinedAttrs({
+        text: answer.text,
+        imageUrl: answer.imageUrl,
+      }),
+    ),
   }
 }
 
