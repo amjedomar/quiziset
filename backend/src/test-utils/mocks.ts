@@ -3,6 +3,7 @@
  */
 import { Quiz } from '@/generated/prisma/client'
 import { QuestionType } from '@/modules/quiz/dto/create-quiz.dto'
+import { QuizEntity } from '@/modules/quiz/entities/quiz.entity'
 import { buildSessionQuestions } from '@/utils/quiz/quiz-session'
 
 export const CREATED_AT = new Date('2026-01-01T10:00:00.000Z')
@@ -59,7 +60,7 @@ function makeQuizQuestions() {
   ]
 }
 
-export function makeQuizRecord(overrides: Partial<Quiz> = {}) {
+export function makeQuizRecord(overrides: Partial<Quiz> = {}): Required<QuizEntity> {
   return {
     id: QUIZ_ID,
     title: 'js basics',
@@ -75,6 +76,9 @@ export function makeQuizRecord(overrides: Partial<Quiz> = {}) {
     manager: makePublicUser(),
     createdAt: CREATED_AT,
     updatedAt: UPDATED_AT,
+    doesCurrentUserHaveActiveSession: false,
+    isFavorite: false,
+    wasTakenByCurrentUserAtLeastOnce: false,
     ...overrides,
   }
 }

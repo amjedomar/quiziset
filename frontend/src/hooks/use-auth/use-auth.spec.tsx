@@ -84,7 +84,11 @@ describe('useAuth', () => {
       await result.current.login({ email: 'amjed@example.com', password: 'some-secret-123' })
     })
 
-    expect(jsCookieSet).toHaveBeenCalledWith(USER_TOKEN_COOKIE, 'new-token', { expires: now + MONTH_IN_MS })
+    expect(jsCookieSet).toHaveBeenCalledWith(
+      USER_TOKEN_COOKIE,
+      'new-token',
+      expect.objectContaining({ expires: now + MONTH_IN_MS, sameSite: 'lax' }),
+    )
     expect(result.current.isLoggedIn).toBe(true)
   })
 
@@ -97,7 +101,7 @@ describe('useAuth', () => {
       result.current.logout()
     })
 
-    expect(jsCookieRemove).toHaveBeenCalledWith(USER_TOKEN_COOKIE)
+    expect(jsCookieRemove).toHaveBeenCalledWith(USER_TOKEN_COOKIE, expect.objectContaining({ sameSite: 'lax' }))
     expect(result.current.isLoggedIn).toBe(false)
     expect(queryClientClear).toHaveBeenCalled()
     expect(push).toHaveBeenCalledWith('/')

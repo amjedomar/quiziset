@@ -41,3 +41,21 @@ export function appendQueryParam(url: string, paramKey: string, paramValue: stri
 
   return `${urlBeforeHash}${separator}${paramKey}=${encodedValue}${hashSegment}`
 }
+
+/**
+ * returns the "parent" domain of a url's hostname
+ *
+ * e.g.
+ *  - quiziset-api.amjed.dev -> amjed.dev
+ *  - amjed.dev -> amjed.dev
+ *  - localhost -> localhost
+ */
+export function getParentDomain(url: string): string | undefined {
+  try {
+    const { hostname } = new URL(url)
+
+    return hostname.split('.').slice(-2).join('.')
+  } catch {
+    return undefined
+  }
+}

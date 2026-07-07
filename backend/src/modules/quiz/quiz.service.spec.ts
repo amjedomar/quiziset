@@ -1,3 +1,4 @@
+import { ForbiddenException } from '@nestjs/common'
 import { QuizService } from '@/modules/quiz/quiz.service'
 import { makeQuizRecord, QUIZ_ID, REQ_USER } from '@/test-utils/mocks'
 
@@ -7,8 +8,11 @@ describe('QuizService', () => {
   let service: QuizService
 
   beforeEach(() => {
+    jest.resetAllMocks()
+
     prisma = {
-      $transaction: jest.fn(),
+      // prisma transaction can accept either function or array (so the mock follow the same behavior)
+      $transaction: jest.fn((arg: unknown) => (typeof arg === 'function' ? arg(prisma) : Promise.resolve(arg))),
       quiz: {
         findMany: jest.fn(),
         findUnique: jest.fn(),
@@ -19,6 +23,11 @@ describe('QuizService', () => {
       },
       favorite: {
         findMany: jest.fn(),
+      },
+      quizUpload: {
+        findMany: jest.fn().mockResolvedValue([]),
+        updateMany: jest.fn().mockResolvedValue({ count: 0 }),
+        deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
       },
     }
     sessionService = {
@@ -81,22 +90,56 @@ describe('QuizService', () => {
     const createdQuiz = makeQuizRecord({ ...dto })
 
     prisma.quiz.create.mockResolvedValue(createdQuiz)
+    // the cover upload belongs to the user (so linking succeeds)
+    prisma.quizUpload.findMany.mockResolvedValue([{ fileName: 'cover.png' }])
 
     const result = await service.create(dto, REQ_USER.userId)
 
     expect(prisma.quiz.create).toHaveBeenCalledWith({ data: { ...dto, managerId: REQ_USER.userId } })
+    // the referenced upload is linked to the new quiz
+    expect(prisma.quizUpload.updateMany).toHaveBeenCalledWith({
+      where: { bucket: 'quizzes', fileName: { in: ['cover.png'] } },
+      data: { quizId: QUIZ_ID },
+    })
     expect(result).toBe(createdQuiz)
   })
 
-  it('updates a quiz owned by the current user', async () => {
-    const updatedQuiz = makeQuizRecord({ title: 'new title' })
+  it('rejects creating a quiz that references an image the user does not own', async () => {
+    const dto = {
+      title: 'js basics',
+      description: 'a quiz about javascript',
+      timeDurationInMinutes: 30,
+      imageUrl: '/uploads/quizzes/not-mine.png',
+      isPublic: true,
+      isAnalyticsEnabled: false,
+      questions: [],
+    }
 
-    prisma.quiz.findUnique.mockResolvedValue(makeQuizRecord({ imageUrl: '/public/cover.png' }))
+    prisma.quiz.create.mockResolvedValue(makeQuizRecord({ ...dto }))
+    // no eligible upload row -> the image isn't the user's
+    prisma.quizUpload.findMany.mockResolvedValue([])
+
+    await expect(service.create(dto, REQ_USER.userId)).rejects.toThrow(ForbiddenException)
+  })
+
+  it('updates a quiz owned by the current user', async () => {
+    const OLD_COVER = '/uploads/quizzes/old-cover.png'
+    const NEW_COVER = '/uploads/quizzes/new-cover.png'
+
+    const updatedQuiz = makeQuizRecord({ title: 'new title', imageUrl: NEW_COVER })
+
+    prisma.quiz.findUnique.mockResolvedValue(makeQuizRecord({ imageUrl: OLD_COVER }))
     prisma.quiz.update.mockResolvedValue(updatedQuiz)
+    // the updated quiz's cover upload belongs to the user (so linking succeeds)
+    prisma.quizUpload.findMany.mockResolvedValue([{ fileName: 'new-cover.png' }])
 
     const result = await service.update(QUIZ_ID, { title: 'new title' }, REQ_USER.userId)
 
     expect(prisma.quiz.update).toHaveBeenCalledWith({ where: { id: QUIZ_ID }, data: { title: 'new title' } })
+    // rows of images no longer referenced by the quiz (e.g. the old cover) are pruned
+    expect(prisma.quizUpload.deleteMany).toHaveBeenCalledWith({
+      where: { bucket: 'quizzes', quizId: QUIZ_ID, fileName: { notIn: ['new-cover.png'] } },
+    })
     expect(result).toBe(updatedQuiz)
   })
 

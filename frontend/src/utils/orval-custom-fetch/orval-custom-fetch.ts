@@ -1,5 +1,5 @@
 import jsCookie from 'js-cookie'
-import { USER_TOKEN_COOKIE } from '@/constants/auth'
+import { USER_TOKEN_COOKIE, getUserTokenCookieAttributes } from '@/constants/auth'
 import { appendRedirectParam } from '@/utils/redirect'
 import { API_BASE_URL_ADAPTED } from '@/constants/api-url'
 
@@ -43,7 +43,7 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 
 const handleUnauthorized = () => {
   // if token cookie exists then remove it (since it is invalid)
-  jsCookie.remove(USER_TOKEN_COOKIE)
+  jsCookie.remove(USER_TOKEN_COOKIE, getUserTokenCookieAttributes())
 
   const { pathname, search } = window.location
 

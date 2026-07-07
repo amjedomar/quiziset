@@ -7,7 +7,7 @@ import {
   deleteUploadedFileByUrl,
   deleteUploadedFilesByUrls,
   getUploadedFilePath,
-} from './uploads-management'
+} from './uploads-fs'
 
 jest.mock('fs/promises')
 

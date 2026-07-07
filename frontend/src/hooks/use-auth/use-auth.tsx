@@ -6,7 +6,7 @@ import { useLogin, useSignup } from '@/generated-api-client/auth'
 import { useGetMe } from '@/generated-api-client/user'
 import { AuthToken, ErrorResponse, LoginDto, SignupDto, UserEntity } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
-import { USER_TOKEN_COOKIE } from '@/constants/auth'
+import { USER_TOKEN_COOKIE, getUserTokenCookieAttributes } from '@/constants/auth'
 
 const MONTH_IN_MS = 1000 * 60 * 60 * 24 * 30
 
@@ -63,7 +63,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // handleAuthSuccess (called after login or signup succeeded)
   const handleAuthSuccess = useCallback((accessToken: string) => {
-    jsCookie.set(USER_TOKEN_COOKIE, accessToken, { expires: Date.now() + MONTH_IN_MS })
+    jsCookie.set(USER_TOKEN_COOKIE, accessToken, {
+      expires: Date.now() + MONTH_IN_MS,
+      ...getUserTokenCookieAttributes(),
+    })
     setIsLoggedIn(true)
   }, [])
 
@@ -95,7 +98,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   )
 
   const logout = useCallback(() => {
-    jsCookie.remove(USER_TOKEN_COOKIE)
+    jsCookie.remove(USER_TOKEN_COOKIE, getUserTokenCookieAttributes())
     setIsLoggedIn(false)
     /**
      * clear all cached data (since some might be related to

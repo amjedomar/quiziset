@@ -1,5 +1,6 @@
 import { UploadsController } from '@/modules/uploads/uploads.controller'
 import { BucketName } from '@/modules/uploads/dto/upload-params.dto'
+import { REQ_USER } from '@/test-utils/mocks'
 
 // the service is mocked so we only test that the controller delegates correctly
 describe('UploadsController', () => {
@@ -11,34 +12,34 @@ describe('UploadsController', () => {
     controller = new UploadsController(uploadsService)
   })
 
-  it('delegates uploading a file to the service and returns its result', async () => {
+  it('delegates uploading a file (with the current user) to the service and returns its result', async () => {
     const file = { originalname: 'pic.png', buffer: Buffer.from('data') }
     const response = { url: '/uploads/quizzes/pic.png' }
 
     uploadsService.upload.mockResolvedValue(response)
 
-    const result = await controller.upload({ bucketName: BucketName.Quizzes }, file as any)
+    const result = await controller.upload({ bucketName: BucketName.Quizzes }, file as any, REQ_USER)
 
-    expect(uploadsService.upload).toHaveBeenCalledWith(BucketName.Quizzes, file)
+    expect(uploadsService.upload).toHaveBeenCalledWith(BucketName.Quizzes, file, REQ_USER.userId)
     expect(result).toBe(response)
   })
 
-  it('delegates getting a file to the service and returns its result', () => {
+  it('delegates getting a file (forwarding the cookie header) to the service and returns its result', () => {
     const stream = { stream: true }
 
     uploadsService.getFile.mockReturnValue(stream)
 
-    const result = controller.getFile({ bucketName: BucketName.Quizzes, fileName: 'pic.png' })
+    const result = controller.getFile({ bucketName: BucketName.Quizzes, fileName: 'pic.png' }, 'cookie-header')
 
-    expect(uploadsService.getFile).toHaveBeenCalledWith(BucketName.Quizzes, 'pic.png')
+    expect(uploadsService.getFile).toHaveBeenCalledWith(BucketName.Quizzes, 'pic.png', 'cookie-header')
     expect(result).toBe(stream)
   })
 
-  it('delegates deleting a file to the service', async () => {
+  it('delegates deleting a file (with the current user) to the service', async () => {
     uploadsService.deleteFile.mockResolvedValue(undefined)
 
-    await controller.deleteFile({ bucketName: BucketName.Quizzes, fileName: 'pic.png' })
+    await controller.deleteFile({ bucketName: BucketName.Quizzes, fileName: 'pic.png' }, REQ_USER)
 
-    expect(uploadsService.deleteFile).toHaveBeenCalledWith(BucketName.Quizzes, 'pic.png')
+    expect(uploadsService.deleteFile).toHaveBeenCalledWith(BucketName.Quizzes, 'pic.png', REQ_USER.userId)
   })
 })

@@ -3,14 +3,10 @@ import { mkdir, unlink, writeFile } from 'fs/promises'
 import { join } from 'path'
 import { randomUUID } from 'crypto'
 import { checkFileExists } from '@/utils/check-file-exists'
+import { parseUploadedFileUrl } from '@/utils/uploads-management/uploads-url'
+import { collectAnswerImageUrls, QuestionsWithAnswerImages } from '@/utils/uploads-management/quiz-uploads'
 
 const UPLOADS_DIR = join(process.cwd(), 'uploads')
-
-/**
- * the part of a quiz "questions" json we care about here
- * is the image urls (of 'question-cards' type) only
- */
-type QuestionsWithAnswerImages = { answers?: { imageUrl?: string | null }[] }[]
 
 /**
  * creates the bucket directory (if it doesn't already exist) then saves the file inside it
@@ -69,18 +65,13 @@ export async function deleteUploadedFile(bucketName: string, fileName: string): 
  * however "/public" files are kept (not removed) as they are sample files
  */
 export async function deleteUploadedFileByUrl(url: string | null | undefined): Promise<void> {
-  if (!url || !url.startsWith('/uploads/')) {
+  const parsed = parseUploadedFileUrl(url)
+
+  if (!parsed) {
     return
   }
 
-  // the url schema is /uploads/{bucketName}/{fileName}
-  const [bucketName, fileName] = url.split('/').slice(2)
-
-  if (!bucketName || !fileName) {
-    return
-  }
-
-  await deleteUploadedFile(bucketName, fileName)
+  await deleteUploadedFile(parsed.bucketName, parsed.fileName)
 }
 
 /**
@@ -88,28 +79,6 @@ export async function deleteUploadedFileByUrl(url: string | null | undefined): P
  */
 export async function deleteUploadedFilesByUrls(urls: Iterable<string>): Promise<void> {
   await Promise.all([...urls].map((url) => deleteUploadedFileByUrl(url)))
-}
-
-/**
- * collects all answer image urls found in a quiz "questions" json
- * (btw only "question-cards" answers have an imageUrl)
- */
-function collectAnswerImageUrls(questions?: QuestionsWithAnswerImages): Set<string> {
-  const urls = new Set<string>()
-
-  if (!Array.isArray(questions)) {
-    return urls
-  }
-
-  for (const question of questions) {
-    for (const answer of question.answers ?? []) {
-      if (answer.imageUrl) {
-        urls.add(answer.imageUrl)
-      }
-    }
-  }
-
-  return urls
 }
 
 /**

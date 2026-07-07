@@ -9,7 +9,8 @@ import { PaginatedQuizzesEntity } from '@/modules/quiz/entities/paginated-quizze
 import { QuizSessionService } from '@/modules/quiz-session/quiz-session.service'
 import { QuizErrors } from '@/modules/quiz/quiz.errors'
 import { omitUndefinedAttrs } from '@/utils/omit-undefined-attrs'
-import { deleteAllQuizImageFiles, deleteReplacedQuizImageFiles } from '@/utils/uploads-management'
+import { deleteAllQuizImageFiles, deleteReplacedQuizImageFiles } from '@/utils/uploads-management/uploads-fs'
+import { attachQuizUploadsOrThrow, pruneUnreferencedQuizUploads } from '@/utils/uploads-management/quiz-uploads'
 import { findAccessibleQuizOrThrow } from '@/utils/quiz/quiz-access'
 import { buildQuizListQuery, QUIZZES_PAGE_SIZE } from '@/utils/quiz/build-quiz-list-query'
 import { Prisma } from '@/generated/prisma/client'
@@ -115,11 +116,18 @@ export class QuizService {
   }
 
   async create(dto: CreateQuizDto, managerId: number): Promise<QuizEntity> {
-    return this.prisma.quiz.create({
-      data: {
-        ...dto,
-        managerId,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      const quiz = await tx.quiz.create({
+        data: {
+          ...dto,
+          managerId,
+        },
+      })
+
+      // link the referenced uploads to the quiz (throws if any image isn't uploaded by current user)
+      await attachQuizUploadsOrThrow(tx, quiz.id, managerId, quiz)
+
+      return quiz
     })
   }
 
@@ -147,14 +155,24 @@ export class QuizService {
       delete dto.totalFinishes
     }
 
-    const result = await this.prisma.quiz.update({
-      where: {
-        id,
-      },
-      data: omitUndefinedAttrs(dto),
+    const result = await this.prisma.$transaction(async (tx) => {
+      const updated = await tx.quiz.update({
+        where: {
+          id,
+        },
+        data: omitUndefinedAttrs(dto),
+      })
+
+      // link newly referenced uploads (throws if any image isn't the user's)
+      // then drop the rows of images this quiz no longer references
+      await attachQuizUploadsOrThrow(tx, id, userId, updated)
+      await pruneUnreferencedQuizUploads(tx, id, updated)
+
+      return updated
     })
 
     // delete old images files that have been replaced
+    // (disk cleanup after the DB transaction is executed)
     await deleteReplacedQuizImageFiles(quiz, dto)
 
     return result

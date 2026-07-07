@@ -23,6 +23,7 @@ model User {
   quizSessions   QuizSession[]
   reviews        Review[]
   favorites      Favorite[]
+  quizUploads    QuizUpload[]
 }
 
 model Quiz {
@@ -46,6 +47,26 @@ model Quiz {
   sessions              QuizSession[]
   reviews               Review[]
   favorites             Favorite[]
+  quizUploads           QuizUpload[]
+}
+
+/// tracks each quiz uploaded file so the serve endpoint can decide who may view it
+/// e.g. PRIVATE quiz images can be viewed by the quiz owner only
+model QuizUpload {
+  id        Int      @id @default(autoincrement())
+  bucket    String   @db.VarChar(64)
+  fileName  String   @db.VarChar(255)
+  /// the user who uploaded the file
+  ownerId   Int
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  /// the quiz the file belongs to (null until the file is attached to a quiz on save)
+  quizId    Int?
+  quiz      Quiz?    @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([bucket, fileName])
+  @@index([quizId])
+  @@index([ownerId])
 }
 
 model Review {

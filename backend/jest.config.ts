@@ -6,6 +6,14 @@ const config: Config = {
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
+  /**
+   * "cookie" npm package is an ESM package only
+   * so it must be transpiled like our own source code
+   * instead of being skipped as node_modules usually are
+   * 
+   * please see https://stackoverflow.com/questions/49263429/jest-gives-an-error-syntaxerror-unexpected-token-export
+   */
+  transformIgnorePatterns: ['node_modules/(?!(cookie)/)'],
   moduleNameMapper: {
     /**
      * maps the "@/" path alias (defined in tsconfig) so jest can resolve "@/..." imports

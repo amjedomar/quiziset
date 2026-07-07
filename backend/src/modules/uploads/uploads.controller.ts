@@ -1,11 +1,12 @@
-import { Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { Controller, Delete, Get, Headers, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { ApiBody, ApiConsumes, ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger'
 import { GetUploadParamsDto, UploadParamsDto } from '@/modules/uploads/dto/upload-params.dto'
 import { UploadBodyDto } from '@/modules/uploads/dto/upload-body.dto'
 import { UploadsService } from '@/modules/uploads/uploads.service'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
 import { IsPublic } from '@/decorators/is-public'
+import { AuthUser, type AuthUserData } from '@/decorators/auth-user'
 import { ApiResponsesList } from '@/decorators/api-responses-list'
 
 @Controller('uploads')
@@ -24,23 +25,30 @@ export class UploadsController {
   async upload(
     @Param() { bucketName }: UploadParamsDto,
     @UploadedFile() file: Express.Multer.File,
+    @AuthUser() user: AuthUserData,
   ): Promise<UploadResponse> {
-    return this.uploadsService.upload(bucketName, file)
+    return this.uploadsService.upload(bucketName, file, user.userId)
   }
 
   /**
    * Get file endpoint
+   *
+   * it is public (so logged-out users can view public quiz images) but for
+   * "quizzes" images the service still checks access using the auth cookie
    */
   @Get('/:bucketName/:fileName')
   @IsPublic()
   @ApiOperation({ summary: 'returns file (e.g. image)' })
-  @ApiResponsesList({
-    status: 200,
-    description: 'file stream', // file streams are memory-friendly as explained in "uploads.service.ts"
-  })
-  @ApiResponse({ status: 404, description: 'file not found' })
-  getFile(@Param() { bucketName, fileName }: GetUploadParamsDto) {
-    return this.uploadsService.getFile(bucketName, fileName)
+  @ApiResponsesList(
+    {
+      status: 200,
+      description: 'file stream', // file streams are memory-friendly as explained in "uploads.service.ts"
+    },
+    { status: 403, description: 'not allowed to view this file' },
+    { status: 404, description: 'file not found' },
+  )
+  getFile(@Param() { bucketName, fileName }: GetUploadParamsDto, @Headers('cookie') cookieHeader?: string) {
+    return this.uploadsService.getFile(bucketName, fileName, cookieHeader)
   }
 
   /**
@@ -59,8 +67,11 @@ export class UploadsController {
    */
   @Delete('/:bucketName/:fileName')
   @ApiOperation({ summary: 'delete an uploaded file' })
-  @ApiResponsesList({ status: 200, description: 'file deleted (or does not exist)' }, 401, 422)
-  async deleteFile(@Param() { bucketName, fileName }: GetUploadParamsDto): Promise<void> {
-    await this.uploadsService.deleteFile(bucketName, fileName)
+  @ApiResponsesList({ status: 200, description: 'file deleted (or does not exist)' }, 401, 403, 422)
+  async deleteFile(
+    @Param() { bucketName, fileName }: GetUploadParamsDto,
+    @AuthUser() user: AuthUserData,
+  ): Promise<void> {
+    await this.uploadsService.deleteFile(bucketName, fileName, user.userId)
   }
 }

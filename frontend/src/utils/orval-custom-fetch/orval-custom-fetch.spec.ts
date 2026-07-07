@@ -47,6 +47,6 @@ describe('customFetch (browser)', () => {
 
     await customFetch('/quizzes/1')
 
-    expect(jsCookieRemove).toHaveBeenCalledWith(USER_TOKEN_COOKIE)
+    expect(jsCookieRemove).toHaveBeenCalledWith(USER_TOKEN_COOKIE, expect.objectContaining({ sameSite: 'lax' }))
   })
 })

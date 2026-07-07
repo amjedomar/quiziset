@@ -1,4 +1,4 @@
-import { appendQueryParam, isInternalRelativeUrl } from './url'
+import { appendQueryParam, getParentDomain, isInternalRelativeUrl } from './url'
 
 describe('isInternalRelativeUrl', () => {
   it('returns true for an internal relative url', () => {
@@ -25,5 +25,23 @@ describe('appendQueryParam', () => {
 
   it('keeps the hash fragment as the last part', () => {
     expect(appendQueryParam('/login#section', 'redirect', '/profile')).toBe('/login?redirect=%2Fprofile#section')
+  })
+})
+
+describe('getParentDomain', () => {
+  it('returns the parent domain for an api subdomain', () => {
+    expect(getParentDomain('https://quiziset-api.amjed.dev')).toBe('amjed.dev')
+  })
+
+  it("returns the same domain when it doesn't have a subdomain", () => {
+    expect(getParentDomain('https://amjed.dev')).toBe('amjed.dev')
+  })
+
+  it('returns the host as it is for a single-name host (e.g. localhost)', () => {
+    expect(getParentDomain('http://localhost:4004')).toBe('localhost')
+  })
+
+  it('returns undefined for an invalid url', () => {
+    expect(getParentDomain('')).toBeUndefined()
   })
 })
