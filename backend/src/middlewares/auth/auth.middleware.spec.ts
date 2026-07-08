@@ -1,6 +1,13 @@
 import { Request, Response } from 'express'
 import { AuthMiddleware } from './auth.middleware'
 
+// the token verification logic is mocked so these tests focus on the middleware itself
+// it is tested in "auth-token.spec.ts" instead
+const verifyAccessToken = jest.fn()
+jest.mock('@/utils/auth-token', () => ({
+  verifyAccessToken: (...args: unknown[]) => verifyAccessToken(...args),
+}))
+
 describe('AuthMiddleware', () => {
   let jwtService: any
   let prisma: any
@@ -9,22 +16,22 @@ describe('AuthMiddleware', () => {
   let next: jest.Mock
 
   beforeEach(() => {
-    jwtService = { verifyAsync: jest.fn() }
-    prisma = { user: { findUnique: jest.fn() } }
+    jest.clearAllMocks()
+    jwtService = {}
+    prisma = {}
     middleware = new AuthMiddleware(jwtService, prisma)
     res = {} as Response
     next = jest.fn()
   })
 
-  it('sets req.user when the token is valid and the user exists', async () => {
+  it('sets req.user when the token is valid', async () => {
     const req = { headers: { authorization: 'Bearer the-token' } } as Request
 
-    jwtService.verifyAsync.mockResolvedValue({ userId: 1 })
-    prisma.user.findUnique.mockResolvedValue({ id: 1 })
+    verifyAccessToken.mockResolvedValue(1)
 
     await middleware.use(req, res, next)
 
-    expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { id: 1 } })
+    expect(verifyAccessToken).toHaveBeenCalledWith(jwtService, prisma, 'the-token')
     expect(req.user).toEqual({ userId: 1 })
     expect(next).toHaveBeenCalled()
   })
@@ -34,27 +41,15 @@ describe('AuthMiddleware', () => {
 
     await middleware.use(req, res, next)
 
-    expect(jwtService.verifyAsync).not.toHaveBeenCalled()
+    expect(verifyAccessToken).not.toHaveBeenCalled()
     expect(req.user).toBeUndefined()
     expect(next).toHaveBeenCalled()
   })
 
-  it('does not set req.user when the token is invalid', async () => {
-    const req = { headers: { authorization: 'Bearer invalid-token' } } as Request
+  it('does not set req.user when the token is invalid or revoked', async () => {
+    const req = { headers: { authorization: 'Bearer bad-token' } } as Request
 
-    jwtService.verifyAsync.mockRejectedValue(new Error('invalid signature'))
-
-    await middleware.use(req, res, next)
-
-    expect(req.user).toBeUndefined()
-    expect(next).toHaveBeenCalled()
-  })
-
-  it('does not set req.user when the token is valid but the user no longer exists', async () => {
-    const req = { headers: { authorization: 'Bearer the-token' } } as Request
-
-    jwtService.verifyAsync.mockResolvedValue({ userId: 1 })
-    prisma.user.findUnique.mockResolvedValue(null)
+    verifyAccessToken.mockResolvedValue(null)
 
     await middleware.use(req, res, next)
 

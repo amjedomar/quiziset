@@ -10,6 +10,7 @@ export const CREATED_AT = new Date('2026-01-01T10:00:00.000Z')
 export const UPDATED_AT = new Date('2026-01-02T10:00:00.000Z')
 export const START_TIME = new Date('2026-01-03T10:00:00.000Z')
 export const FINISH_TIME = new Date('2026-01-03T10:30:00.000Z')
+export const PASSWORD_LAST_CHANGED_AT = new Date('2026-01-01T09:00:00.000Z')
 
 /**
  * Mock IDs (I set each ID to a different value) so unit tests are more reliable
@@ -32,13 +33,15 @@ export function makeUserRecord(overrides: Record<string, any> = {}) {
     name: 'Amjed Omar',
     email: 'amjed@example.com',
     password: 'hashed-password',
+    passwordLastChangedAt: PASSWORD_LAST_CHANGED_AT,
     imageUrl: '/uploads/profiles/amjed.jpg',
     ...overrides,
   }
 }
 
 export function makeUserEntity(overrides: Record<string, any> = {}) {
-  const { password, ...userEntity } = makeUserRecord()
+  // "password" and "passwordLastChangedAt" are internal so they aren't part of the public entity
+  const { password, passwordLastChangedAt, ...userEntity } = makeUserRecord()
   return { ...userEntity, ...overrides }
 }
 

@@ -13,6 +13,7 @@ import { BucketName } from '@/modules/uploads/dto/upload-params.dto'
 import { createUploadedFile, deleteUploadedFile, getUploadedFilePath } from '@/utils/uploads-management/uploads-fs'
 import { canViewQuizUpload, USER_TOKEN_COOKIE } from '@/utils/uploads-management/uploads-access'
 import { UploadResponse } from '@/modules/uploads/entities/upload-response.entity'
+import { verifyAccessToken } from '@/utils/auth-token'
 import { parseCookie } from 'cookie'
 
 const MIME_TYPES: Record<string, string> = {
@@ -142,16 +143,10 @@ export class UploadsService {
       return undefined
     }
 
-    try {
-      const decoded = (await this.jwtService.verifyAsync(token)) as unknown
+    // "verifyAccessToken" verifies the token (but keep in mind that it
+    // rejects it if the token was issued before the user's last password change)
+    const userId = await verifyAccessToken(this.jwtService, this.prisma, token)
 
-      if (decoded instanceof Object && 'userId' in decoded && typeof decoded.userId === 'number') {
-        return decoded.userId
-      }
-    } catch {
-      // invalid/expired token --> treat as anonymous (undefined is returned below)
-    }
-
-    return undefined
+    return userId ?? undefined
   }
 }

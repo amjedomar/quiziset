@@ -2,6 +2,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { NextFunction, Request, Response } from 'express'
 import { PrismaService } from '@/prisma-service'
+import { verifyAccessToken } from '@/utils/auth-token'
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -24,24 +25,6 @@ export class AuthMiddleware implements NestMiddleware {
   }
 
   /**
-   * in case verification succeed then userId will be returned
-   * otherwise it will return null
-   */
-  private async verifyToken(token: string): Promise<number | null> {
-    try {
-      const decoded = (await this.jwtService.verifyAsync(token)) as unknown
-
-      if (decoded instanceof Object && 'userId' in decoded && typeof decoded?.userId === 'number') {
-        return decoded.userId
-      }
-
-      return null
-    } catch {
-      return null
-    }
-  }
-
-  /**
    * middleware logic is coded here (set "req.user" if user is authenticated)
    */
   async use(req: Request, res: Response, next: NextFunction) {
@@ -51,21 +34,12 @@ export class AuthMiddleware implements NestMiddleware {
       return next()
     }
 
-    const userId = await this.verifyToken(token)
+    // "verifyAccessToken" verifies the token (but keep in mind that it
+    // rejects it if the token was issued before the user's last password change)
+    const userId = await verifyAccessToken(this.jwtService, this.prisma, token)
 
-    if (!userId) {
-      return next()
-    }
-
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-    })
-
-    // only set "req.user" if user exists in database
-    if (user) {
-      req.user = {
-        userId: user.id,
-      }
+    if (userId) {
+      req.user = { userId }
     }
 
     next()

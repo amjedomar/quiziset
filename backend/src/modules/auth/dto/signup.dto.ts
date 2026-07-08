@@ -13,7 +13,7 @@ export class SignupDto {
   @IsEmail({}, { message: 'Email is invalid' })
   @Length(1, 255)
   @ApiProperty({
-    example: 'johndoe@example.com',
+    example: 'amjed@example.com',
     description: 'A valid email address (max length: 255)',
   })
   readonly email: string

@@ -23,6 +23,12 @@ services:
       - NODE_ENV=development
     command: tail -f /dev/null
 
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - '1080:1080'
+      - '1025:1025'
+
   frontend:
     image: node:24.15.0
     working_dir: /app

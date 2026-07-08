@@ -17,6 +17,9 @@ model User {
   name           String        @db.VarChar(64)
   email          String        @unique @db.VarChar(255)
   password       String        @db.VarChar(1024)
+  /// when the password was last changed (default is the account creation time)
+  /// it is included in the JWT token so changing the password revokes all older tokens :)
+  passwordLastChangedAt DateTime @default(now())
   /// relative path of the profile image (null when the user has no profile image)
   imageUrl       String?       @db.VarChar(1024)
   managedQuizzes Quiz[]

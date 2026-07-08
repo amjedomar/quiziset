@@ -26,6 +26,13 @@ jest.mock('@/utils/uploads-management/uploads-access', () => ({
   USER_TOKEN_COOKIE: 'quiziset-user-token',
 }))
 
+// the token verification logic is mocked so these tests focus on the middleware itself
+// it is tested in "auth-token.spec.ts" instead
+const verifyAccessToken = jest.fn()
+jest.mock('@/utils/auth-token', () => ({
+  verifyAccessToken: (...args: unknown[]) => verifyAccessToken(...args),
+}))
+
 describe('UploadsService', () => {
   let prisma: any
   let jwtService: any
@@ -84,10 +91,11 @@ describe('UploadsService', () => {
     })
 
     it('gets the user from the cookie and passes it to the access check', async () => {
-      jwtService.verifyAsync.mockResolvedValue({ userId: USER_ID })
+      verifyAccessToken.mockResolvedValue(USER_ID)
 
       await service.getFile(BucketName.Quizzes, 'pic.png', 'quiziset-user-token=a-token')
 
+      expect(verifyAccessToken).toHaveBeenCalledWith(jwtService, prisma, 'a-token')
       expect(canViewQuizUpload).toHaveBeenCalledWith(prisma, 'pic.png', USER_ID)
     })
 
