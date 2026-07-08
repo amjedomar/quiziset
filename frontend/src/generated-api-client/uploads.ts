@@ -23,7 +23,7 @@ import type {
 
 import type { ErrorResponse, UploadBodyDto, UploadResponse } from './model'
 
-import { customFetch } from '../utils/orval-custom-fetch'
+import { customFetch } from '../utils/orval-custom-fetch/orval-custom-fetch'
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
@@ -152,8 +152,13 @@ export type getFileResponse200 = {
   status: 200
 }
 
+export type getFileResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
 export type getFileResponse404 = {
-  data: void
+  data: ErrorResponse
   status: 404
 }
 
@@ -165,7 +170,7 @@ export type getFileResponse500 = {
 export type getFileResponseSuccess = getFileResponse200 & {
   headers: Headers
 }
-export type getFileResponseError = (getFileResponse404 | getFileResponse500) & {
+export type getFileResponseError = (getFileResponse403 | getFileResponse404 | getFileResponse500) & {
   headers: Headers
 }
 
@@ -193,7 +198,7 @@ export const getGetFileQueryKey = (bucketName: 'quizzes' | 'profiles', fileName:
   return [`/uploads/${bucketName}/${fileName}`] as const
 }
 
-export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -219,9 +224,9 @@ export const getGetFileQueryOptions = <TData = Awaited<ReturnType<typeof getFile
 }
 
 export type GetFileQueryResult = NonNullable<Awaited<ReturnType<typeof getFile>>>
-export type GetFileQueryError = void | ErrorResponse
+export type GetFileQueryError = ErrorResponse
 
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options: {
@@ -234,7 +239,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   },
   queryClient?: QueryClient,
 ): DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -247,7 +252,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
   },
   queryClient?: QueryClient,
 ): UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -260,7 +265,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
  * @summary returns file (e.g. image)
  */
 
-export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
   options?: {
@@ -281,7 +286,7 @@ export function useGetFile<TData = Awaited<ReturnType<typeof getFile>>, TError =
 /**
  * @summary returns file (e.g. image)
  */
-export const prefetchGetFileQuery = async <TData = Awaited<ReturnType<typeof getFile>>, TError = void | ErrorResponse>(
+export const prefetchGetFileQuery = async <TData = Awaited<ReturnType<typeof getFile>>, TError = ErrorResponse>(
   queryClient: QueryClient,
   bucketName: 'quizzes' | 'profiles',
   fileName: string,
@@ -307,6 +312,11 @@ export type deleteFileResponse401 = {
   status: 401
 }
 
+export type deleteFileResponse403 = {
+  data: ErrorResponse
+  status: 403
+}
+
 export type deleteFileResponse422 = {
   data: ErrorResponse
   status: 422
@@ -320,7 +330,12 @@ export type deleteFileResponse500 = {
 export type deleteFileResponseSuccess = deleteFileResponse200 & {
   headers: Headers
 }
-export type deleteFileResponseError = (deleteFileResponse401 | deleteFileResponse422 | deleteFileResponse500) & {
+export type deleteFileResponseError = (
+  | deleteFileResponse401
+  | deleteFileResponse403
+  | deleteFileResponse422
+  | deleteFileResponse500
+) & {
   headers: Headers
 }
 

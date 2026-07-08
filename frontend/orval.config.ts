@@ -17,7 +17,7 @@ export default defineConfig({
       namingConvention: 'kebab-case',
       override: {
         mutator: {
-          path: './src/utils/orval-custom-fetch.ts',
+          path: './src/utils/orval-custom-fetch/orval-custom-fetch.ts',
           name: 'customFetch',
         },
         query: {
@@ -31,7 +31,7 @@ export default defineConfig({
               onMutations: ['createReview', 'updateReview', 'deleteReview'],
               invalidates: [
                 'getQuizReviews',
-                'getSingleQuiz' // a review change also affects the quiz's averageRating
+                'getSingleQuiz', // a review change also affects the quiz's averageRating
               ],
             },
             {
@@ -42,11 +42,14 @@ export default defineConfig({
               // refresh the current user profile (e.g. navbar avatar) after a profile change
               onMutations: ['updateMe'],
               invalidates: ['getMe'],
-            }
+            },
           ],
         },
       },
       clean: true,
+    },
+    hooks: {
+      afterAllFilesWrite: 'prettier --write src/generated-api-client',
     },
   },
 })

@@ -8,9 +8,17 @@
 import { useMutation } from '@tanstack/react-query'
 import type { MutationFunction, QueryClient, UseMutationOptions, UseMutationResult } from '@tanstack/react-query'
 
-import type { AuthToken, ErrorResponse, LoginDto, SignupDto } from './model'
+import type {
+  AuthToken,
+  ErrorResponse,
+  LoginDto,
+  PasswordResetRequestResponse,
+  RequestPasswordResetDto,
+  ResetPasswordDto,
+  SignupDto,
+} from './model'
 
-import { customFetch } from '../utils/orval-custom-fetch'
+import { customFetch } from '../utils/orval-custom-fetch/orval-custom-fetch'
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
@@ -170,4 +178,210 @@ export const useLogin = <TError = ErrorResponse, TContext = unknown>(
   queryClient?: QueryClient,
 ): UseMutationResult<Awaited<ReturnType<typeof login>>, TError, { data: LoginDto }, TContext> => {
   return useMutation(getLoginMutationOptions(options), queryClient)
+}
+export type requestPasswordResetResponse201 = {
+  data: PasswordResetRequestResponse
+  status: 201
+}
+
+export type requestPasswordResetResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type requestPasswordResetResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type requestPasswordResetResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type requestPasswordResetResponseSuccess = requestPasswordResetResponse201 & {
+  headers: Headers
+}
+export type requestPasswordResetResponseError = (
+  | requestPasswordResetResponse400
+  | requestPasswordResetResponse422
+  | requestPasswordResetResponse500
+) & {
+  headers: Headers
+}
+
+export type requestPasswordResetResponse = requestPasswordResetResponseSuccess | requestPasswordResetResponseError
+
+export const getRequestPasswordResetUrl = () => {
+  return `/auth/request-password-reset`
+}
+
+/**
+ * @summary Sends a password reset email
+ */
+export const requestPasswordReset = async (
+  requestPasswordResetDto: RequestPasswordResetDto,
+  options?: RequestInit,
+): Promise<requestPasswordResetResponse> => {
+  return customFetch<requestPasswordResetResponse>(getRequestPasswordResetUrl(), {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(requestPasswordResetDto),
+  })
+}
+
+export const getRequestPasswordResetMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof requestPasswordReset>>,
+    TError,
+    { data: RequestPasswordResetDto },
+    TContext
+  >
+  request?: SecondParameter<typeof customFetch>
+}): UseMutationOptions<
+  Awaited<ReturnType<typeof requestPasswordReset>>,
+  TError,
+  { data: RequestPasswordResetDto },
+  TContext
+> => {
+  const mutationKey = ['requestPasswordReset']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<
+    Awaited<ReturnType<typeof requestPasswordReset>>,
+    { data: RequestPasswordResetDto }
+  > = (props) => {
+    const { data } = props ?? {}
+
+    return requestPasswordReset(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type RequestPasswordResetMutationResult = NonNullable<Awaited<ReturnType<typeof requestPasswordReset>>>
+export type RequestPasswordResetMutationBody = RequestPasswordResetDto
+export type RequestPasswordResetMutationError = ErrorResponse
+
+/**
+ * @summary Sends a password reset email
+ */
+export const useRequestPasswordReset = <TError = ErrorResponse, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof requestPasswordReset>>,
+      TError,
+      { data: RequestPasswordResetDto },
+      TContext
+    >
+    request?: SecondParameter<typeof customFetch>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<
+  Awaited<ReturnType<typeof requestPasswordReset>>,
+  TError,
+  { data: RequestPasswordResetDto },
+  TContext
+> => {
+  return useMutation(getRequestPasswordResetMutationOptions(options), queryClient)
+}
+export type resetPasswordResponse201 = {
+  data: AuthToken
+  status: 201
+}
+
+export type resetPasswordResponse400 = {
+  data: ErrorResponse
+  status: 400
+}
+
+export type resetPasswordResponse422 = {
+  data: ErrorResponse
+  status: 422
+}
+
+export type resetPasswordResponse500 = {
+  data: ErrorResponse
+  status: 500
+}
+
+export type resetPasswordResponseSuccess = resetPasswordResponse201 & {
+  headers: Headers
+}
+export type resetPasswordResponseError = (
+  | resetPasswordResponse400
+  | resetPasswordResponse422
+  | resetPasswordResponse500
+) & {
+  headers: Headers
+}
+
+export type resetPasswordResponse = resetPasswordResponseSuccess | resetPasswordResponseError
+
+export const getResetPasswordUrl = () => {
+  return `/auth/reset-password`
+}
+
+/**
+ * @summary Resets the password and logs the user in
+ */
+export const resetPassword = async (
+  resetPasswordDto: ResetPasswordDto,
+  options?: RequestInit,
+): Promise<resetPasswordResponse> => {
+  return customFetch<resetPasswordResponse>(getResetPasswordUrl(), {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(resetPasswordDto),
+  })
+}
+
+export const getResetPasswordMutationOptions = <TError = ErrorResponse, TContext = unknown>(options?: {
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof resetPassword>>, TError, { data: ResetPasswordDto }, TContext>
+  request?: SecondParameter<typeof customFetch>
+}): UseMutationOptions<Awaited<ReturnType<typeof resetPassword>>, TError, { data: ResetPasswordDto }, TContext> => {
+  const mutationKey = ['resetPassword']
+  const { mutation: mutationOptions, request: requestOptions } = options
+    ? options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey
+      ? options
+      : { ...options, mutation: { ...options.mutation, mutationKey } }
+    : { mutation: { mutationKey }, request: undefined }
+
+  const mutationFn: MutationFunction<Awaited<ReturnType<typeof resetPassword>>, { data: ResetPasswordDto }> = (
+    props,
+  ) => {
+    const { data } = props ?? {}
+
+    return resetPassword(data, requestOptions)
+  }
+
+  return { mutationFn, ...mutationOptions }
+}
+
+export type ResetPasswordMutationResult = NonNullable<Awaited<ReturnType<typeof resetPassword>>>
+export type ResetPasswordMutationBody = ResetPasswordDto
+export type ResetPasswordMutationError = ErrorResponse
+
+/**
+ * @summary Resets the password and logs the user in
+ */
+export const useResetPassword = <TError = ErrorResponse, TContext = unknown>(
+  options?: {
+    mutation?: UseMutationOptions<
+      Awaited<ReturnType<typeof resetPassword>>,
+      TError,
+      { data: ResetPasswordDto },
+      TContext
+    >
+    request?: SecondParameter<typeof customFetch>
+  },
+  queryClient?: QueryClient,
+): UseMutationResult<Awaited<ReturnType<typeof resetPassword>>, TError, { data: ResetPasswordDto }, TContext> => {
+  return useMutation(getResetPasswordMutationOptions(options), queryClient)
 }

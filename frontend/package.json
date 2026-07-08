@@ -9,7 +9,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0 --fix",
-    "generate:api-client": "orval && prettier --write src/api-client",
+    "generate:api-client": "orval",
     "test": "jest",
     "test:watch": "jest --watch"
   },

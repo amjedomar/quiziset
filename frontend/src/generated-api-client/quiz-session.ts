@@ -10,7 +10,7 @@ import type { MutationFunction, QueryClient, UseMutationOptions, UseMutationResu
 
 import type { ErrorResponse, QuizSessionStateEntity, StartQuizSessionDto, SubmitQuizSessionAnswerDto } from './model'
 
-import { customFetch } from '../utils/orval-custom-fetch'
+import { customFetch } from '../utils/orval-custom-fetch/orval-custom-fetch'
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 

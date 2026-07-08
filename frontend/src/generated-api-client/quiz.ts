@@ -32,7 +32,7 @@ import type {
   UpdateQuizDto,
 } from './model'
 
-import { customFetch } from '../utils/orval-custom-fetch'
+import { customFetch } from '../utils/orval-custom-fetch/orval-custom-fetch'
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1]
 
