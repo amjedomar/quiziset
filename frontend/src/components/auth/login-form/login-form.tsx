@@ -46,6 +46,12 @@ export function LoginForm({ safeRedirectTo }: LoginFormProps) {
 
           <FormInput name="password" label="Password" type="password" />
 
+          <Typography level="body-sm">
+            <Link component={NextLink} href="/forgot-password">
+              Forgot password?
+            </Link>
+          </Typography>
+
           <Button data-testid="login-submit-button" type="submit" loading={isLogging}>
             Login
           </Button>

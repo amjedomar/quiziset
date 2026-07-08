@@ -26,9 +26,13 @@ jest.mock('@tanstack/react-query', () => ({
 
 const mutateLogin = jest.fn()
 const mutateSignup = jest.fn()
+const mutateRequestPasswordReset = jest.fn()
+const mutateResetPassword = jest.fn()
 jest.mock('@/generated-api-client/auth', () => ({
   useLogin: () => ({ mutateAsync: mutateLogin, isPending: false }),
   useSignup: () => ({ mutateAsync: mutateSignup, isPending: false }),
+  useRequestPasswordReset: () => ({ mutateAsync: mutateRequestPasswordReset, isPending: false }),
+  useResetPassword: () => ({ mutateAsync: mutateResetPassword, isPending: false }),
 }))
 
 const useGetMe = jest.fn()
@@ -84,6 +88,44 @@ describe('useAuth', () => {
       await result.current.login({ email: 'amjed@example.com', password: 'some-secret-123' })
     })
 
+    expect(jsCookieSet).toHaveBeenCalledWith(
+      USER_TOKEN_COOKIE,
+      'new-token',
+      expect.objectContaining({ expires: now + MONTH_IN_MS, sameSite: 'lax' }),
+    )
+    expect(result.current.isLoggedIn).toBe(true)
+  })
+
+  it('requests a password reset', async () => {
+    jsCookieGet.mockReturnValue(undefined)
+    mutateRequestPasswordReset.mockResolvedValue({ data: { previewUrl: 'http://localhost:1080' } })
+
+    const { result } = renderHook(() => useAuth(), { wrapper })
+
+    let response
+    await act(async () => {
+      response = await result.current.requestPasswordReset({ email: 'amjed@example.com' })
+    })
+
+    expect(mutateRequestPasswordReset).toHaveBeenCalledWith({ data: { email: 'amjed@example.com' } })
+    expect(response).toEqual({ previewUrl: 'http://localhost:1080' })
+    expect(result.current.isLoggedIn).toBe(false)
+  })
+
+  it('resets the password and logs the user in on success', async () => {
+    const now = Date.now()
+    jest.spyOn(Date, 'now').mockReturnValue(now)
+
+    jsCookieGet.mockReturnValue(undefined)
+    mutateResetPassword.mockResolvedValue({ data: { accessToken: 'new-token' } })
+
+    const { result } = renderHook(() => useAuth(), { wrapper })
+
+    await act(async () => {
+      await result.current.resetPassword({ token: 'reset-token', password: 'new-secret-123' })
+    })
+
+    expect(mutateResetPassword).toHaveBeenCalledWith({ data: { token: 'reset-token', password: 'new-secret-123' } })
     expect(jsCookieSet).toHaveBeenCalledWith(
       USER_TOKEN_COOKIE,
       'new-token',
