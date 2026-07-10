@@ -11,6 +11,18 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  phpmyadmin:
+    image: phpmyadmin:5.2.3
+    depends_on:
+      - db
+    ports:
+      - '8082:80'
+    environment:
+      PMA_HOST: db
+      # auto login as root so no login page is shown
+      PMA_USER: root
+      PMA_PASSWORD: quiziset
+
   backend:
     image: node:24.15.0
     working_dir: /app
