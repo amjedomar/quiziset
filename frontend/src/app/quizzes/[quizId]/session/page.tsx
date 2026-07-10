@@ -1,11 +1,13 @@
-'use client'
-
+import type { Metadata } from 'next'
 import { Container } from '@mui/joy'
-import { useParams } from 'next/navigation'
 import { QuizSession } from '@/components/quiz/quiz-session'
 
-export default function QuizSessionPage() {
-  const { quizId } = useParams<{ quizId: string }>()
+export const metadata: Metadata = {
+  title: 'Quiz Session',
+}
+
+export default async function QuizSessionPage({ params }: { params: Promise<{ quizId: string }> }) {
+  const { quizId } = await params
 
   return (
     <Container maxWidth="md">

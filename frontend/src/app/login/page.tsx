@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import { Container } from '@mui/joy'
 import { LoginForm } from '@/components/auth/login-form'
 import { isSafeRedirect, REDIRECT_PARAM } from '@/utils/redirect'
+
+export const metadata: Metadata = {
+  title: 'Login',
+}
 
 interface LoginPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>

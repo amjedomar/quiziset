@@ -1,30 +1,16 @@
-'use client'
+import type { Metadata } from 'next'
+import { QuizUpdateForm } from '@/components/quiz/quiz-update-form'
 
-import { CircularProgress, Container, Stack } from '@mui/joy'
-import { useParams } from 'next/navigation'
-import { useGetSingleQuiz } from '@/generated-api-client/quiz'
-import { QuizForm } from '@/components/quiz/quiz-form'
-import { isErrorResponse } from '@/utils/is-error-response'
+export const metadata: Metadata = {
+  title: 'Edit Quiz',
+}
 
-export default function QuizUpdatePage() {
-  const { quizId } = useParams<{ quizId: string }>()
-  const { data, isLoading } = useGetSingleQuiz(Number(quizId), { fields: 'DETAILS' })
+interface QuizUpdatePageProps {
+  params: Promise<{ quizId: string }>
+}
 
-  if (isErrorResponse(data?.data)) {
-    return <p>Error {data.data.message}</p>
-  }
+export default async function QuizUpdatePage({ params }: QuizUpdatePageProps) {
+  const { quizId } = await params
 
-  return (
-    <Container maxWidth="lg">
-      {isLoading ? (
-        <Stack alignItems="center" justifyContent="center">
-          <CircularProgress data-testid="loading-indicator" />
-        </Stack>
-      ) : data ? (
-        <QuizForm existingQuiz={data.data} />
-      ) : (
-        <p>Not Found</p>
-      )}
-    </Container>
-  )
+  return <QuizUpdateForm quizId={Number(quizId)} />
 }

@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
   sassOptions: {
     additionalData: '@use "@/theme.scss" as *;',
   },
+  /**
+   * fully disable streaming metadata of `generateMetadata`
+   * so meta tags are returned instantly with the SSR rendered page
+   * see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#streaming-metadata
+   */
+  htmlLimitedBots: /.*/,
 }
 
 export default nextConfig

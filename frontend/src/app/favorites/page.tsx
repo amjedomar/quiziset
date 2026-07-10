@@ -1,7 +1,10 @@
+import type { Metadata } from 'next'
 import { Container, Stack, Typography } from '@mui/joy'
 import { FavoriteQuizzesList } from '@/components/quiz/favorite-quizzes-list'
 
-export const dynamic = 'force-dynamic'
+export const metadata: Metadata = {
+  title: 'Favorites',
+}
 
 export default function FavoritesPage() {
   return (
