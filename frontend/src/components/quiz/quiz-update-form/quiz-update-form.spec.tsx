@@ -2,6 +2,10 @@ import { render } from '@testing-library/react'
 import { makeQuiz } from '@/test-utils/mocks'
 import { QuizUpdateForm } from './quiz-update-form'
 
+jest.mock('@/constants/api-url', () => ({
+  NEXT_PUBLIC_API_BASE_URL: 'http://mock-backend',
+}))
+
 const useGetSingleQuiz = jest.fn()
 jest.mock('@/generated-api-client/quiz', () => ({
   useGetSingleQuiz: (...args: unknown[]) => useGetSingleQuiz(...args),
