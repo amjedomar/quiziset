@@ -15,38 +15,43 @@ export const TEST_USERS = [
   { name: 'Nathan', email: 'nathan@example.com', avatar: null },
 ]
 
-// 30 quizzes
-export const QUIZZES_LIST = [
-  'chemistry',
-  'biology',
-  'math',
-  'statistics',
-  'geology',
-  'meteorology',
-  'oceans',
-  'space',
-  'energy',
-  'electronics',
-  'robotics',
-  'computers',
-  'technology',
-  'health',
-  'nature',
-  'geography',
-  'economics',
-  'business',
-  'law',
-  'history',
-  'literature',
-  'english',
-  'architecture',
-  'art',
-  'music',
-  'food',
-  'travel',
-  'mountains',
-  'football',
-  'cinema',
+interface QuizSeed {
+  name: string
+  totalFinishes: number
+  reviewRatings: number[]
+}
+
+export const QUIZZES_LIST: QuizSeed[] = [
+  { name: 'meteorology', totalFinishes: 22, reviewRatings: [5, 5, 5, 5, 4, 4, 5] },
+  { name: 'mountains', totalFinishes: 22, reviewRatings: [2, 3, 3, 2, 2, 2, 2] },
+  { name: 'business', totalFinishes: 13, reviewRatings: [4, 3, 3, 4, 4, 4, 4] },
+  { name: 'english', totalFinishes: 17, reviewRatings: [3, 3, 3, 3, 3, 4, 3] },
+  { name: 'robotics', totalFinishes: 13, reviewRatings: [4, 4, 4, 4, 3, 3, 3] },
+  { name: 'architecture', totalFinishes: 15, reviewRatings: [3, 4, 4, 3, 3, 3, 3] },
+  { name: 'history', totalFinishes: 30, reviewRatings: [5, 4, 4, 4, 4, 5, 5] },
+  { name: 'economics', totalFinishes: 27, reviewRatings: [2, 1, 1, 2, 2, 2, 2] },
+  { name: 'statistics', totalFinishes: 37, reviewRatings: [4, 5, 4, 3, 5, 4, 3] },
+  { name: 'art', totalFinishes: 14, reviewRatings: [3, 3, 3, 3, 4, 4, 4] },
+  { name: 'chemistry', totalFinishes: 40, reviewRatings: [5, 4, 4, 3, 5, 4, 3] },
+  { name: 'biology', totalFinishes: 39, reviewRatings: [4, 4, 4, 5, 4, 4, 4] },
+  { name: 'geology', totalFinishes: 37, reviewRatings: [4, 4, 3, 4, 4, 4, 4] },
+  { name: 'technology', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 4, 4, 4] },
+  { name: 'literature', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 5, 5, 4] },
+  { name: 'space', totalFinishes: 33, reviewRatings: [5, 5, 4, 4, 4, 4, 4] },
+  { name: 'law', totalFinishes: 35, reviewRatings: [4, 5, 4, 4, 4, 4, 4] },
+  { name: 'math', totalFinishes: 38, reviewRatings: [4, 4, 4, 4, 4, 4, 4] },
+  { name: 'travel', totalFinishes: 16, reviewRatings: [1, 2, 2, 1, 1, 1, 1] },
+  { name: 'football', totalFinishes: 28, reviewRatings: [1, 1, 1, 1, 2, 2, 2] },
+  { name: 'health', totalFinishes: 27, reviewRatings: [2, 2, 2, 2, 1, 1, 1] },
+  { name: 'electronics', totalFinishes: 31, reviewRatings: [5, 5, 4, 5, 5, 5, 5] },
+  { name: 'geography', totalFinishes: 31, reviewRatings: [4, 4, 5, 5, 5, 5, 4] },
+  { name: 'cinema', totalFinishes: 25, reviewRatings: [2, 2, 2, 2, 2, 1, 2] },
+  { name: 'music', totalFinishes: 24, reviewRatings: [4, 4, 5, 5, 4, 4, 4] },
+  { name: 'nature', totalFinishes: 18, reviewRatings: [3, 3, 3, 3, 3, 3, 3] },
+  { name: 'oceans', totalFinishes: 19, reviewRatings: [2, 2, 2, 2, 3, 3, 3] },
+  { name: 'computers', totalFinishes: 19, reviewRatings: [3, 3, 3, 3, 2, 2, 2] },
+  { name: 'food', totalFinishes: 19, reviewRatings: [3, 2, 2, 3, 3, 3, 3] },
+  { name: 'energy', totalFinishes: 18, reviewRatings: [3, 3, 3, 3, 3, 2, 3] },
 ]
 
 // to keep things simple every quiz have the same 4 questions
@@ -92,24 +97,53 @@ export const QUIZ_QUESTIONS: PrismaJson.QuizQuestions = [
 // the time limit that a quiz may randomly have (null means the quiz has no time limit)
 export const TIME_LIMIT_OPTIONS = [null, 10, 15, 20, 30, 45, 60]
 
-// a list of couple mock review comments & rating stars
-export const REVIEWS_LIST = [
-  { rating: 5, comment: 'I really liked this quiz' },
-  { rating: 4, comment: 'It was fun and not too hard' },
-  { rating: 4.5, comment: 'I learned new things' },
-  { rating: 3, comment: 'Some questions were hard' },
-  { rating: 4.5, comment: 'Nice quiz I might take again in the future' },
-  { rating: 5, comment: 'Good questions' },
-  { rating: 2, comment: 'It was too easy for me' },
-  { rating: 4.5, comment: 'I liked the card questions' },
-  { rating: 5, comment: 'This quiz was very fun' },
-  { rating: 4, comment: 'I enjoyed it' },
-  { rating: 3.5, comment: 'It was good but needs more questions' },
-  { rating: 4.5, comment: 'The questions were easy to understand' },
-  { rating: 5, comment: 'I want to take more quizzes like this' },
-  { rating: 4, comment: 'It was simple and fun' },
-  { rating: 5, comment: 'Great quiz for learning' },
-]
+export const STAR_COMMENTS: Record<number, string[]> = {
+  1: [
+    'I did not like it',
+    'Quite boring',
+    'Not good at all',
+    'A bit of a waste of time',
+    'Very weak quiz',
+    'I would not take it again',
+    'Pretty disappointing',
+  ],
+  2: [
+    'A bit weak',
+    'Not that fun for me',
+    'Kind of boring',
+    'It was too easy',
+    'Needs more work',
+    'I expected more',
+    'Not great honestly',
+  ],
+  3: [
+    'It was okay',
+    'Not bad overall',
+    'Just an average quiz',
+    'A decent quiz',
+    'Fine but nothing special',
+    'It could be better',
+    'An ok quiz',
+  ],
+  4: [
+    'Good quiz',
+    'I enjoyed it',
+    'Nice one',
+    'Pretty fun to take',
+    'I liked it a lot',
+    'Well made quiz',
+    'Happy I took it',
+  ],
+  5: [
+    'Great quiz',
+    'I really loved it',
+    'This was so much fun',
+    'One of the best quizzes here',
+    'I learned a lot',
+    'I would take it again',
+    'Excellent quiz',
+  ],
+}
 
 // the lowest value a quiz can have for createdAt
 export const QUIZ_CREATED_BASE = new Date('2026-05-04T09:00:00.000Z')

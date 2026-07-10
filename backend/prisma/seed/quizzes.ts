@@ -3,7 +3,7 @@ import {
   QUIZ_QUESTIONS,
   QUIZZES_LIST,
   QUIZ_CREATED_BASE,
-  REVIEWS_LIST,
+  STAR_COMMENTS,
   REVIEW_CREATED_BASE,
   SESSION_CREATED_BASE,
   TEST_USERS,
@@ -20,7 +20,8 @@ import { buildSessionQuestions } from '@/utils/quiz/quiz-session'
  * seeds quiz together with its finished sessions and its reviews
  */
 export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: number, quizIndex: number) {
-  const quizName = QUIZZES_LIST[quizIndex]
+  const quizSeed = QUIZZES_LIST[quizIndex]
+  const quizName = quizSeed.name
 
   // analytics is enabled for even quiz indexes (0, 2, 4 ...) otherwise it is disabled
   const isAnalyticsEnabled = quizIndex % 2 === 0
@@ -28,23 +29,30 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   // pick timeDuration randomly (based on the modulo residual)
   const timeDurationInMinutes = TIME_LIMIT_OPTIONS[quizIndex % TIME_LIMIT_OPTIONS.length]
 
-  const perUser = users.map((user, userIndex) => ({
-    user,
-    // randomly decide how many times a user will finish this quiz (1 to 3)
-    finishCount: ((quizIndex + userIndex) % 3) + 1,
-    // pick random review
-    review: REVIEWS_LIST[(quizIndex + userIndex) % REVIEWS_LIST.length],
-  }))
+  // spread the hardcoded totalFinishes across every user
+  const finishCounts = distributeEvenly(quizSeed.totalFinishes, users.length)
 
-  // set the totalFinishes and averageRating (to match the sessions/reviews that I created later below)
-  const totalFinishes = perUser.reduce((sum, user) => sum + user.finishCount, 0)
-  const averageRating = round1(perUser.reduce((sum, user) => sum + user.review.rating, 0) / perUser.length)
+  const perUser = users.map((user, userIndex) => {
+    // the review rating is hardcoded per user and its comment is picked by userIndex
+    const rating = quizSeed.reviewRatings[userIndex]
+    const comment = STAR_COMMENTS[rating][userIndex]
 
-  /**
-   * make sure that quizzes in the top of the QUIZZES_LIST (e.g. index 0)
-   * have the newest time (so in frontend they appear at same order
-   * as QUIZZES_LIST) because default sorting returned from Backend is "newest" first
-   */
+    return {
+      user,
+      finishCount: finishCounts[userIndex],
+      review: { rating, comment },
+    }
+  })
+
+  // totalFinishes matches the sessions (which I created below see "session" const)
+  const totalFinishes = quizSeed.totalFinishes
+
+  // averageRating is calculated based on the rating of the reviews
+  const averageRating = round1(
+    quizSeed.reviewRatings.reduce((sum, rating) => sum + rating, 0) / quizSeed.reviewRatings.length,
+  )
+
+  // quizzes at the top of QUIZZES_LIST (e.g. index 0) get the newest createdAt
   const quizCreatedAt = addDays(QUIZ_CREATED_BASE, QUIZZES_LIST.length - 1 - quizIndex)
 
   const quiz = await prisma.quiz.create({
@@ -124,4 +132,10 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   await prisma.review.createMany({ data: reviews, skipDuplicates: true })
 
   return { quizId: quiz.id, sessionsCount: sessions.length, reviewsCount: reviews.length }
+}
+
+function distributeEvenly(total: number, count: number): number[] {
+  const base = Math.floor(total / count)
+  const remainder = total % count
+  return Array.from({ length: count }, (_, index) => base + (index < remainder ? 1 : 0))
 }

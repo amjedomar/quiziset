@@ -43,7 +43,7 @@ async function main() {
       totalSessions += result.sessionsCount
       totalReviews += result.reviewsCount
       console.log(
-        `  • ${toTitleCase(QUIZZES_LIST[index])} (${result.sessionsCount} sessions, ${result.reviewsCount} reviews)`,
+        `  • ${toTitleCase(QUIZZES_LIST[index].name)} (${result.sessionsCount} sessions, ${result.reviewsCount} reviews)`,
       )
     }
 
