@@ -5,7 +5,7 @@ import { QuizEntity } from '@/generated-api-client/model'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import { Loading } from '@/components/loading'
-import { BackendImage } from '@/ui/backend-image'
+import { BackendBackgroundImage } from '@/ui/backend-background-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import QuizIcon from '@mui/icons-material/Quiz'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
@@ -48,7 +48,12 @@ export function QuizzesGrid({ quizzes, isLoading, emptyInfo }: QuizzesGridProps)
           className={styles.quizCard}
           href={`/quizzes/${quiz.id}/overview`}
         >
-          <BackendImage className={styles.image} src={quiz.imageUrl} alt="" />
+          {/*
+            to avoid image flashing issue (during page load)
+            use `background-image` style INSTEAD OF <img /> (with object-fit: cover)
+            see https://stackoverflow.com/a/64209838/8148505
+          */}
+          <BackendBackgroundImage className={styles.image} src={quiz.imageUrl} />
 
           <div className={styles.details}>
             <div>

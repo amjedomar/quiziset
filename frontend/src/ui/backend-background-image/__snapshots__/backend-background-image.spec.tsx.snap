@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`BackendBackgroundImage renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    style="background-image: url("http://mock-backend/public/images/quizzes/math.jpg");"
+  />
+</DocumentFragment>
+`;

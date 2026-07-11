@@ -8,11 +8,14 @@
 }
 
 .image {
+  flex-shrink: 0;
   width: 100%;
   aspect-ratio: 2/1;
-  object-fit: cover;
   border-radius: 6px;
-  max-height: 150px;
+  max-height: 180px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .details {
