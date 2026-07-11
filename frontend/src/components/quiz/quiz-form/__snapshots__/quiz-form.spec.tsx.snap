@@ -163,7 +163,9 @@ exports[`QuizForm correctly renders 1`] = `
                 name="timeDurationInMinutes"
                 role="combobox"
                 type="button"
-              />
+              >
+                No Time Limit
+              </button>
               <span
                 class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
               >
@@ -273,6 +275,7 @@ exports[`QuizForm correctly renders 1`] = `
                       />
                     </svg>
                   </span>
+                  Checkbox
                 </button>
                 <span
                   class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"

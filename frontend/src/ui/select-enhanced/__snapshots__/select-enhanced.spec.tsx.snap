@@ -13,7 +13,9 @@ exports[`SelectEnhanced renders correctly 1`] = `
         data-testid="select"
         role="combobox"
         type="button"
-      />
+      >
+        Option A
+      </button>
       <span
         class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
       >

@@ -40,7 +40,9 @@ exports[`FavoriteQuizzesList correctly renders 1`] = `
           class="MuiSelect-button css-1hr8yhh-JoySelect-button"
           role="combobox"
           type="button"
-        />
+        >
+          Newest
+        </button>
         <span
           class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
         >

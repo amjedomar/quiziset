@@ -169,7 +169,9 @@ exports[`QuizUpdateForm correctly renders 1`] = `
                   name="timeDurationInMinutes"
                   role="combobox"
                   type="button"
-                />
+                >
+                  00:30
+                </button>
                 <span
                   class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
                 >

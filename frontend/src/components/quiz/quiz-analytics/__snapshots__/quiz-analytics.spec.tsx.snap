@@ -52,7 +52,9 @@ exports[`QuizAnalytics correctly renders 1`] = `
           class="MuiSelect-button css-1hr8yhh-JoySelect-button"
           role="combobox"
           type="button"
-        />
+        >
+          20 per page
+        </button>
         <span
           class="MuiSelect-indicator css-wmwett-JoySelect-indicator"
         >
