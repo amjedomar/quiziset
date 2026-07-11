@@ -82,10 +82,9 @@ exports[`FavoriteQuizzesList correctly renders 1`] = `
         class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral quizCard css-ylro10-JoySheet-root"
         href="/quizzes/1/overview"
       >
-        <img
-          alt=""
+        <div
           class="image"
-          src="http://mock-backend/uploads/quizzes/cover.png"
+          style="background-image: url("http://mock-backend/uploads/quizzes/cover.png");"
         />
         <div
           class="details"
