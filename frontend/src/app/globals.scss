@@ -1,0 +1,15 @@
+html {
+  /*
+    when user tries to submit a form with an invalid input
+    then "react-hook-form (e.g. in QuizForm) calls .focus()
+    to scroll to that invalid input and shows the error message
+
+    now the issue if the input is covered by navbar then NO scroll occurs!
+    because browser consider it visible (but in reality it is hidden behind
+    the navbar and user can't see it without scrolling manually)
+
+    Fix is easy: we just need to set "scroll-padding-top" I set it to 120px
+    = 60px (navbar height) + 60px (extra top space so input is visible clearly)
+  */
+  scroll-padding-top: 120px;
+}
