@@ -1,4 +1,7 @@
 import type { Metadata } from 'next'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { prefetchGetSingleQuizQuery } from '@/generated-api-client/quiz'
+import { makeQueryClient } from '@/utils/query-client'
 import { QuizUpdateForm } from '@/components/quiz/quiz-update-form'
 
 export const metadata: Metadata = {
@@ -12,5 +15,13 @@ interface QuizUpdatePageProps {
 export default async function QuizUpdatePage({ params }: QuizUpdatePageProps) {
   const { quizId } = await params
 
-  return <QuizUpdateForm quizId={Number(quizId)} />
+  const queryClient = makeQueryClient()
+
+  await prefetchGetSingleQuizQuery(queryClient, Number(quizId), { fields: 'DETAILS' })
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <QuizUpdateForm quizId={Number(quizId)} />
+    </HydrationBoundary>
+  )
 }
