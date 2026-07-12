@@ -4,8 +4,8 @@ import { Fragment, useState } from 'react'
 import { Box, Button, Divider, Sheet, Tooltip, Typography } from '@mui/joy'
 import RateReviewIcon from '@mui/icons-material/RateReview'
 import { useDeleteReview, useGetQuizReviews } from '@/generated-api-client/review'
-import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 import { Loading } from '@/components/loading'
 import { StarsRating } from '@/components/reviews/stars-rating'
 import { ReviewItem } from '@/components/reviews/review-item'
@@ -21,17 +21,16 @@ interface ReviewsSectionProps {
 export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
   const [isWriting, setIsWriting] = useState(false)
 
-  const { data, isLoading } = useGetQuizReviews(quizId)
+  const queryResult = useGetQuizReviews(quizId)
+  const { data: reviews, error, isLoading } = useRetainedQuery(queryResult)
   const { mutateAsync: deleteReview, isPending: isDeleting } = useDeleteReview()
-
-  const reviews = data?.data
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (isErrorOrNoResponse(reviews)) {
-    return <ErrorResponseView error={reviews} />
+  if (!reviews) {
+    return <ErrorResponseView error={error} />
   }
 
   const myReview = reviews.find((review) => review.isMine)

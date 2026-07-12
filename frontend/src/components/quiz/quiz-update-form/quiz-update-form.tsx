@@ -4,17 +4,18 @@ import { CircularProgress, Container, Stack } from '@mui/joy'
 import { useGetSingleQuiz } from '@/generated-api-client/quiz'
 import { QuizForm } from '@/components/quiz/quiz-form'
 import { ErrorResponseView } from '@/components/error-response-view'
-import { isErrorResponse } from '@/utils/is-error-response'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 
 interface QuizUpdateFormProps {
   quizId: number
 }
 
 export function QuizUpdateForm({ quizId }: QuizUpdateFormProps) {
-  const { data, isLoading } = useGetSingleQuiz(quizId, { fields: 'DETAILS' })
+  const queryResult = useGetSingleQuiz(quizId, { fields: 'DETAILS' })
+  const { data: quiz, error, isLoading } = useRetainedQuery(queryResult)
 
-  if (isErrorResponse(data?.data)) {
-    return <ErrorResponseView error={data.data} />
+  if (error && !quiz) {
+    return <ErrorResponseView error={error} />
   }
 
   return (
@@ -23,8 +24,8 @@ export function QuizUpdateForm({ quizId }: QuizUpdateFormProps) {
         <Stack alignItems="center" justifyContent="center">
           <CircularProgress data-testid="loading-indicator" />
         </Stack>
-      ) : data ? (
-        <QuizForm existingQuiz={data.data} />
+      ) : quiz ? (
+        <QuizForm existingQuiz={quiz} />
       ) : (
         <p>Not Found</p>
       )}

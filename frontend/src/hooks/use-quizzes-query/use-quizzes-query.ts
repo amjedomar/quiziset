@@ -1,7 +1,7 @@
 import { keepPreviousData } from '@tanstack/react-query'
 import { useGetAllQuizzes } from '@/generated-api-client/quiz'
 import { ErrorResponse, GetAllQuizzesParams, QuizEntity } from '@/generated-api-client/model'
-import { isErrorResponse } from '@/utils/is-error-response'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 
 interface QuizzesQueryResult {
   quizzes?: QuizEntity[]
@@ -12,11 +12,9 @@ interface QuizzesQueryResult {
 }
 
 export function useQuizzesQuery(params?: GetAllQuizzesParams): QuizzesQueryResult {
-  const { data, isLoading } = useGetAllQuizzes(params, { query: { placeholderData: keepPreviousData } })
+  const queryResult = useGetAllQuizzes(params, { query: { placeholderData: keepPreviousData } })
 
-  const body = data?.data
-  const error = body && isErrorResponse(body) ? body : null
-  const result = body && !isErrorResponse(body) ? body : undefined
+  const { data: result, error, isLoading } = useRetainedQuery(queryResult)
 
   return {
     quizzes: result?.data,

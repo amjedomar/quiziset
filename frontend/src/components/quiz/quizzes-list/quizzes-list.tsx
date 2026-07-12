@@ -74,7 +74,7 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
     />
   )
 
-  if (error) {
+  if (error && !quizzes) {
     return <ErrorResponseView error={error} />
   }
 

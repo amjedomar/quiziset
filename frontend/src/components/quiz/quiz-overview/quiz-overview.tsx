@@ -2,8 +2,8 @@
 
 import { Breadcrumbs, Button, Chip, Container, Divider, Link, Typography } from '@mui/joy'
 import { useGetSingleQuiz } from '@/generated-api-client/quiz'
-import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 import { Loading } from '@/components/loading'
 import { ReviewsSection } from '@/components/reviews/reviews-section'
 import NextLink from 'next/link'
@@ -23,16 +23,15 @@ interface QuizOverviewProps {
 }
 
 export function QuizOverview({ quizId }: QuizOverviewProps) {
-  const { data, isLoading } = useGetSingleQuiz(quizId, { fields: 'OVERVIEW' })
-
-  const quiz = data?.data
+  const queryResult = useGetSingleQuiz(quizId, { fields: 'OVERVIEW' })
+  const { data: quiz, error, isLoading } = useRetainedQuery(queryResult)
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (isErrorOrNoResponse(quiz)) {
-    return <ErrorResponseView error={quiz} />
+  if (!quiz) {
+    return <ErrorResponseView error={error} />
   }
 
   const {

@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import styles from './error-response-view.module.scss'
 
 interface ErrorResponseViewProps {
-  error: ErrorResponse | undefined
+  error: ErrorResponse | undefined | null
 }
 
 export function ErrorResponseView({ error }: ErrorResponseViewProps) {

@@ -5,8 +5,8 @@ import { keepPreviousData } from '@tanstack/react-query'
 import { Alert, Button, Sheet, Typography } from '@mui/joy'
 import NextLink from 'next/link'
 import { useGetQuizAnalytics } from '@/generated-api-client/quiz-analytics'
-import { isErrorOrNoResponse } from '@/utils/is-error-response'
 import { ErrorResponseView } from '@/components/error-response-view'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 import { Loading } from '@/components/loading'
 import { Pagination } from '@/ui/pagination'
 import { SelectEnhanced } from '@/ui/select-enhanced'
@@ -29,25 +29,21 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE)
 
-  const { data, isLoading } = useGetQuizAnalytics(
-    quizId,
-    { page, pageSize },
-    { query: { placeholderData: keepPreviousData } },
-  )
-  const body = data?.data
+  const queryResult = useGetQuizAnalytics(quizId, { page, pageSize }, { query: { placeholderData: keepPreviousData } })
+  const { data: body, error, isLoading } = useRetainedQuery(queryResult)
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (isErrorOrNoResponse(body)) {
+  if (!body) {
     // analytics disabled --> show the message with a link to the update quiz page
-    if (body?.statusCode === 400) {
+    if (error?.statusCode === 400) {
       return (
         <Alert color="warning" variant="soft" startDecorator={<WarningIcon />} className={styles.disabledAlert}>
           <div className={styles.disabledContent}>
             <Typography level="title-md">Analytics is disabled</Typography>
-            <Typography level="body-sm">{body.message}</Typography>
+            <Typography level="body-sm">{error.message}</Typography>
             <Button
               data-testid="update-quiz-link"
               component={NextLink}
@@ -65,7 +61,7 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
       )
     }
 
-    return <ErrorResponseView error={body} />
+    return <ErrorResponseView error={error} />
   }
 
   const { data: sessions, totalMatches, totalPages } = body
