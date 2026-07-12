@@ -95,22 +95,45 @@ exports[`Navbar correctly renders 1`] = `
         </div>
       </div>
       <div
-        class="MuiStack-root desktopAuth css-17cqx72-JoyStack-root"
+        class="MuiStack-root desktopAuth css-cs594i-JoyStack-root"
       >
-        <a
-          class="MuiButton-root MuiButton-variantOutlined MuiButton-colorPrimary MuiButton-sizeMd css-1enwr29-JoyButton-root"
-          data-testid="login-link"
-          href="/login"
+        <div
+          class="authLoggedOut"
         >
-          Login
-        </a>
-        <a
-          class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
-          data-testid="signup-link"
-          href="/signup"
+          <a
+            class="MuiButton-root MuiButton-variantOutlined MuiButton-colorPrimary MuiButton-sizeMd css-1enwr29-JoyButton-root"
+            data-testid="login-link"
+            href="/login"
+          >
+            Login
+          </a>
+          <a
+            class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+            data-testid="signup-link"
+            href="/signup"
+          >
+            Sign Up
+          </a>
+        </div>
+        <div
+          class="authLoggedIn"
         >
-          Sign Up
-        </a>
+          <button
+            aria-controls="_r_0_"
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorNeutral MuiIconButton-sizeMd MuiMenuButton-root MuiMenuButton-variantOutlined MuiMenuButton-colorNeutral MuiMenuButton-sizeMd css-bz58ia-JoyIconButton-root"
+            data-testid="profile-menu-button"
+            tabindex="0"
+            type="button"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-variantSoft MuiAvatar-colorNeutral MuiAvatar-sizeMd css-1h6xj9p-JoyAvatar-root"
+            >
+              AO
+            </div>
+          </button>
+        </div>
       </div>
       <button
         class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorNeutral MuiIconButton-sizeMd mobileMenuButton css-ly6tea-JoyIconButton-root"

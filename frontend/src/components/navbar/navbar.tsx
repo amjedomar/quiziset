@@ -2,7 +2,6 @@
 import { Box, Container, IconButton, Stack } from '@mui/joy'
 import styles from '@/components/navbar/navbar.module.scss'
 import Link from 'next/link'
-import { useAuth } from '@/hooks/use-auth'
 import { ProfileDesktopMenu } from '@/components/navbar/profile-desktop-menu'
 import { AuthButtons } from '@/components/navbar/auth-buttons'
 import { NavLinkButton } from '@/components/navbar/nav-link-button'
@@ -12,7 +11,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { useCallback, useState } from 'react'
 
 export function Navbar() {
-  const { isLoggedIn } = useAuth()
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const closeDrawer = useCallback(() => {
@@ -39,8 +37,14 @@ export function Navbar() {
             </Stack>
           </div>
 
-          <Stack className={styles.desktopAuth} direction="row" spacing={1.5}>
-            {isLoggedIn ? <ProfileDesktopMenu /> : <AuthButtons />}
+          {/* see "authNavbarScript" in "app/layout.tsx" */}
+          <Stack className={styles.desktopAuth} direction="row">
+            <div className={styles.authLoggedOut}>
+              <AuthButtons />
+            </div>
+            <div className={styles.authLoggedIn}>
+              <ProfileDesktopMenu />
+            </div>
           </Stack>
 
           <IconButton

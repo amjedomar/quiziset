@@ -58,6 +58,31 @@ $bottomSpace: 32px;
   }
 }
 
+.desktopAuth {
+  align-items: center;
+}
+
+.authLoggedOut {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authLoggedIn {
+  display: none;
+  align-items: center;
+}
+
+:global(html[data-auth-logged-in='true']) {
+  .authLoggedOut {
+    display: none;
+  }
+
+  .authLoggedIn {
+    display: flex;
+  }
+}
+
 .mobileMenuButton {
   display: none;
 

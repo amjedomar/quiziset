@@ -4,6 +4,28 @@ import '@/app/globals.scss'
 import { AppProvider } from '@/app/app-provider'
 import { Navbar } from '@/components/navbar/navbar'
 import { Footer } from '@/components/footer'
+import { USER_TOKEN_COOKIE } from '@/constants/auth'
+
+/**
+ * To avoid displaying auth buttons INITIALLY on navbar when user is LOGGED-IN
+ *
+ * we use this script workaround
+ *
+ * side-note: DON'T access cookies() from "next/headers" package in this layout.tsx
+ * because doing so will opt-out static generation for ALL PAGES!
+ * and FORCE them to be SSR
+ *
+ * this is why we use this JS trick instead :)
+ */
+const authNavbarScript = `
+  (function () {
+    try {
+      var cookies = '; ' + document.cookie
+      var isLoggedIn = cookies.indexOf('; ${USER_TOKEN_COOKIE}=') > -1
+      document.documentElement.setAttribute('data-auth-logged-in', String(isLoggedIn))
+    } catch (e) {}
+  })()
+`
 
 const inter = Geist({
   variable: '--font-inter',
@@ -33,8 +55,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.className}`}>
+    <html lang="en" className={`${inter.className}`} suppressHydrationWarning>
       <body>
+        <script dangerouslySetInnerHTML={{ __html: authNavbarScript }} />
         <AppProvider>
           <Navbar />
           {children}
