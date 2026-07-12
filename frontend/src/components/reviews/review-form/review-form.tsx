@@ -43,7 +43,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
   }
 
   return (
-    <Box>
+    <Box sx={{ py: 2 }}>
       <Typography level="title-md" sx={{ mb: 2 }}>
         {isEditing ? 'Edit your review' : 'Write a review'}
       </Typography>

@@ -8,6 +8,7 @@ import { StarsRating } from '@/components/reviews/stars-rating'
 import { UserAvatar } from '@/components/user-avatar'
 import styles from './review-item.module.scss'
 import { formatDate } from '@/utils/dates'
+import clsx from 'clsx'
 
 interface ReviewItemProps {
   review: ReviewEntity
@@ -16,13 +17,14 @@ interface ReviewItemProps {
   onEdit?: () => void
   onDelete?: () => void
   isDeleting?: boolean
+  myReview?: boolean
 }
 
-export function ReviewItem({ review, onEdit, onDelete, isDeleting }: ReviewItemProps) {
+export function ReviewItem({ review, myReview, onEdit, onDelete, isDeleting }: ReviewItemProps) {
   const { author, rating, comment, isMine, updatedAt } = review
 
   return (
-    <Box className={styles.item}>
+    <Box className={clsx(styles.item, { [styles.myReviewItem]: myReview })}>
       <div className={styles.header}>
         <div>
           <div className={styles.authorRow}>

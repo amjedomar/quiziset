@@ -69,6 +69,7 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
             onEdit={() => setIsWriting(true)}
             onDelete={handleDelete}
             isDeleting={isDeleting}
+            myReview
           />
         </Sheet>
       )
@@ -115,7 +116,7 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
         )}
       </div>
 
-      <Box sx={{ mt: 2.5, mb: 3 }}>{renderMyReview()}</Box>
+      <Box sx={{ mt: 2.5, mb: 1 }}>{renderMyReview()}</Box>
 
       {otherReviews.map((review, index) => (
         <Fragment key={review.id}>

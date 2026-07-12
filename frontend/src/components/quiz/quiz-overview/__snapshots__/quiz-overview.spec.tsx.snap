@@ -94,31 +94,6 @@ exports[`QuizOverview correctly renders 1`] = `
                   class="MuiChip-label MuiChip-labelMd css-14g1v9j-JoyChip-label"
                   id="_r_1_"
                 >
-                  Collects Analytics
-                </span>
-                <span
-                  class="MuiChip-startDecorator css-17xyl9j-JoyChip-startDecorator"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                    data-testid="AnalyticsIcon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M9 17H7v-5h2zm4 0h-2v-3h2zm0-5h-2v-2h2zm4 5h-2V7h2z"
-                    />
-                  </svg>
-                </span>
-              </div>
-              <div
-                class="MuiChip-root MuiChip-colorNeutral MuiChip-sizeMd MuiChip-variantSoft css-ww29n0-JoyChip-root"
-              >
-                <span
-                  class="MuiChip-label MuiChip-labelMd css-14g1v9j-JoyChip-label"
-                  id="_r_2_"
-                >
                   3 finishes
                 </span>
                 <span

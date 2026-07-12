@@ -12,7 +12,7 @@ import TimerIcon from '@mui/icons-material/Timer'
 import TimerOffIcon from '@mui/icons-material/TimerOff'
 import GroupsIcon from '@mui/icons-material/Groups'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import AnalyticsIcon from '@mui/icons-material/Analytics'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import { UserAvatar } from '@/components/user-avatar'
@@ -39,6 +39,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
     title,
     description,
     imageUrl,
+    isAnalyticsEnabled,
     timeDurationInMinutes,
     totalFinishes,
     wasTakenByCurrentUserAtLeastOnce,
@@ -75,9 +76,11 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
                   {timeDurationInMinutes ? `${timeDurationInMinutes} min` : 'No time limit'}
                 </Chip>
 
-                <Chip variant="soft" color="neutral" startDecorator={<AnalyticsIcon />}>
-                  Collects Analytics
-                </Chip>
+                {isAnalyticsEnabled && (
+                  <Chip variant="soft" color="neutral" startDecorator={<PrivacyTipIcon />}>
+                    Collects Analytics
+                  </Chip>
+                )}
 
                 <Chip variant="soft" color="neutral" startDecorator={<GroupsIcon />}>
                   {totalFinishes} {totalFinishes === 1 ? 'finish' : 'finishes'}
@@ -92,8 +95,6 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
             </div>
 
             <div className={styles.actions}>
-              <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
-
               <Button
                 data-testid="start-quiz-link"
                 component={NextLink}
@@ -104,6 +105,8 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
               >
                 {doesCurrentUserHaveActiveSession ? 'Resume Quiz' : 'Start Quiz'}
               </Button>
+
+              <FavoriteButton quizId={quizId} isFavorite={!!isFavorite} size="lg" />
             </div>
           </div>
 

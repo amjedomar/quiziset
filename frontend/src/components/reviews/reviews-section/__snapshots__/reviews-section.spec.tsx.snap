@@ -84,13 +84,13 @@ exports[`ReviewsSection correctly renders 1`] = `
       </p>
     </div>
     <div
-      class="MuiBox-root css-cmy0m4"
+      class="MuiBox-root css-1ri4ry"
     >
       <div
         class="MuiSheet-root MuiSheet-variantSoft MuiSheet-colorNeutral myReviewBox css-aco57x-JoySheet-root"
       >
         <div
-          class="item MuiBox-root css-0"
+          class="item myReviewItem MuiBox-root css-0"
         >
           <div
             class="header"

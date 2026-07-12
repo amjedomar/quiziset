@@ -7,9 +7,10 @@ import { ReactNode } from 'react'
 import { Loading } from '@/components/loading'
 import { BackendBackgroundImage } from '@/ui/backend-background-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
-import QuizIcon from '@mui/icons-material/Quiz'
+import QuizIcon from '@mui/icons-material/Article'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import GroupsIcon from '@mui/icons-material/Groups'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTipOutlined'
 import styles from './quizzes-grid.module.scss'
 
 interface QuizzesGridProps {
@@ -63,13 +64,21 @@ export function QuizzesGrid({ quizzes, isLoading, emptyInfo }: QuizzesGridProps)
                 <Typography
                   level="body-sm"
                   startDecorator={<StarRoundedIcon fontSize="small" className={styles.ratingIcon} />}
+                  className={styles.ratingMeta}
                 >
                   {quiz.averageRating.toFixed(1)}
                 </Typography>
 
-                <Typography level="body-sm" textColor="text.tertiary" startDecorator={<GroupsIcon fontSize="small" />}>
+                <Typography
+                  className={styles.finishesMeta}
+                  level="body-sm"
+                  textColor="text.tertiary"
+                  startDecorator={<GroupsIcon fontSize="small" />}
+                >
                   {quiz.totalFinishes} {quiz.totalFinishes === 1 ? 'finish' : 'finishes'}
                 </Typography>
+
+                {quiz.isAnalyticsEnabled && <PrivacyTipIcon />}
               </div>
             </div>
 

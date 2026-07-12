@@ -2,18 +2,22 @@
   padding: 16px 0;
 }
 
+.myReviewItem {
+  padding: 12px 0;
+}
+
 .header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0 12px;
+  flex-wrap: wrap-reverse;
 }
 
 .authorRow {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .comment {
@@ -25,4 +29,6 @@
   display: flex;
   gap: 4px;
   flex-shrink: 0;
+  align-self: flex-end;
+  margin-left: auto;
 }

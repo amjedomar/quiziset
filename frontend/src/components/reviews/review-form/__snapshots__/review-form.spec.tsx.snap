@@ -3,7 +3,7 @@
 exports[`ReviewForm correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root css-0"
+    class="MuiBox-root css-1sf3xto"
   >
     <p
       class="MuiTypography-root MuiTypography-title-md css-14hhskb-JoyTypography-root"
