@@ -65,6 +65,6 @@ describe('QuizUpdateForm', () => {
 
     const { getByText } = render(<QuizUpdateForm quizId={5} />)
 
-    expect(getByText('Error Quiz not found')).toBeInTheDocument()
+    expect(getByText('Page was not found')).toBeInTheDocument()
   })
 })

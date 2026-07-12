@@ -3,6 +3,7 @@
 import { Stack } from '@mui/joy'
 import { GetAllQuizzesParams, QuizEntity } from '@/generated-api-client/model'
 import { ReactNode, useEffect, useState } from 'react'
+import { ErrorResponseView } from '@/components/error-response-view'
 import { Pagination } from '@/ui/pagination'
 import { SelectEnhanced } from '@/ui/select-enhanced'
 import { useQuizzesQuery } from '@/hooks/use-quizzes-query'
@@ -74,7 +75,7 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
   )
 
   if (error) {
-    return <p>Error {error.message}</p>
+    return <ErrorResponseView error={error} />
   }
 
   return (

@@ -9,7 +9,7 @@ describe('ErrorResponseView', () => {
   })
 
   it('renders the error message', () => {
-    const { getByText } = render(<ErrorResponseView error={{ statusCode: 500, message: 'Something broke' }} />)
+    const { getByText } = render(<ErrorResponseView error={{ statusCode: 400, message: 'Something broke' }} />)
 
     expect(getByText('Error: Something broke')).toBeInTheDocument()
   })

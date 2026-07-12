@@ -1,5 +1,6 @@
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
 import { customFetch } from './orval-custom-fetch'
+import { NETWORK_ERROR } from '@/constants/network-error-status'
 
 const jsCookieGet = jest.fn()
 const jsCookieRemove = jest.fn()
@@ -48,5 +49,17 @@ describe('customFetch (browser)', () => {
     await customFetch('/quizzes/1')
 
     expect(jsCookieRemove).toHaveBeenCalledWith(USER_TOKEN_COOKIE, expect.objectContaining({ sameSite: 'lax' }))
+  })
+
+  it('returns a network error response when the request failed to reach the backend', async () => {
+    fetchMock.mockRejectedValue(new Error('Failed to fetch'))
+
+    const result = await customFetch('/quizzes/1')
+
+    expect(result).toEqual({
+      status: NETWORK_ERROR,
+      data: { statusCode: NETWORK_ERROR, message: 'Failed to fetch' },
+      headers: expect.any(Headers),
+    })
   })
 })

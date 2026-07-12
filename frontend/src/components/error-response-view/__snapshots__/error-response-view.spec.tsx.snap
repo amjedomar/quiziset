@@ -3,9 +3,33 @@
 exports[`ErrorResponseView correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="message"
+    class="errorState"
   >
-    Error: Something broke
+    <div
+      class="iconWrapper"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium errorIcon muiJoyIcon css-1umw9bq-MuiSvgIcon-root"
+        data-testid="ReportIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27zM12 17.3c-.72 0-1.3-.58-1.3-1.3s.58-1.3 1.3-1.3 1.3.58 1.3 1.3-.58 1.3-1.3 1.3m1-4.3h-2V7h2z"
+        />
+      </svg>
+    </div>
+    <p
+      class="heading"
+    >
+      Something went wrong on our end
+    </p>
+    <p
+      class="description"
+    >
+      Our backend ran into an internal error (Please try again later)
+    </p>
   </div>
 </DocumentFragment>
 `;

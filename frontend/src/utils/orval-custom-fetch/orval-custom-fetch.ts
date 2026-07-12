@@ -1,5 +1,7 @@
 import jsCookie from 'js-cookie'
+import { ErrorResponse } from '@/generated-api-client/model'
 import { USER_TOKEN_COOKIE, getUserTokenCookieAttributes } from '@/constants/auth'
+import { NETWORK_ERROR } from '@/constants/network-error-status'
 import { appendRedirectParam } from '@/utils/redirect'
 import { API_BASE_URL_ADAPTED } from '@/constants/api-url'
 
@@ -90,10 +92,26 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
   const requestUrl = API_BASE_URL_ADAPTED + url
   const requestHeaders = await getHeaders(options?.headers)
 
-  const response = await fetch(requestUrl, {
-    ...options,
-    headers: requestHeaders,
-  })
+  let response: Response
+
+  try {
+    response = await fetch(requestUrl, {
+      ...options,
+      headers: requestHeaders,
+    })
+  } catch (error) {
+    const errorMessage =
+      error instanceof Object && 'message' in error && typeof error.message === 'string'
+        ? error.message
+        : 'Network Error'
+
+    const networkError: ErrorResponse = {
+      statusCode: NETWORK_ERROR,
+      message: errorMessage,
+    }
+
+    return { status: NETWORK_ERROR, data: networkError, headers: new Headers() } as T
+  }
 
   /**
    * run "handleUnauthorized" when status is 401 (in browser only)

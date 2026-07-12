@@ -3,18 +3,61 @@
 exports[`NotFound correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiContainer-root MuiContainer-maxWidthLg css-6fxdje-JoyContainer-root"
+    class="container"
   >
-    <h2>
-      Page was not found
-    </h2>
-    <a
-      class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineAlways css-1fvek0w-JoyLink-root"
-      data-testid="explore-link"
-      href="/"
+    <div
+      class="heading"
     >
-      Return to Explore Page
-    </a>
+      <svg
+        aria-hidden="true"
+        class="lucide lucide-ghost icon"
+        fill="none"
+        height="38"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="38"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M9 10h.01"
+        />
+        <path
+          d="M15 10h.01"
+        />
+        <path
+          d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"
+        />
+      </svg>
+      <h1
+        class="MuiTypography-root MuiTypography-h1 code css-wiz2yh-JoyTypography-root"
+      >
+        404
+      </h1>
+    </div>
+    <div
+      class="body"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1yf9pfh-JoyTypography-root"
+      >
+        Page was not found
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body-md description css-clolfy-JoyTypography-root"
+      >
+        The page you are looking for doesn't exist or may have been moved
+      </p>
+      <a
+        class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineAlways css-1fvek0w-JoyLink-root"
+        data-testid="explore-link"
+        href="/"
+      >
+        Return to Explore Page
+      </a>
+    </div>
   </div>
 </DocumentFragment>
 `;
