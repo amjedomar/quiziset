@@ -3,7 +3,32 @@
 exports[`Footer renders correctly 1`] = `
 <DocumentFragment>
   <div
-    style="padding: 32px 0px;"
-  />
+    class="footer"
+  >
+    <p
+      class="note"
+    >
+      Quiziset was developed by 
+      <a
+        class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineHover css-4h25pf-JoyLink-root"
+        href="https://www.linkedin.com/in/amjedomar"
+        target="_blank"
+      >
+        Amjed Omar
+      </a>
+    </p>
+    <p
+      class="note"
+    >
+      Images from 
+      <a
+        class="MuiLink-root MuiLink-colorPrimary MuiLink-body-md MuiLink-underlineAlways css-dt7lyo-JoyLink-root"
+        href="https://unsplash.com"
+        target="_blank"
+      >
+        Unsplash
+      </a>
+    </p>
+  </div>
 </DocumentFragment>
 `;
