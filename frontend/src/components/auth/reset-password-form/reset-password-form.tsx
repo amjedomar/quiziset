@@ -4,21 +4,18 @@ import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
 import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { isErrorResponse } from '@/utils/is-error-response'
+import { resetPasswordSchema, ResetPasswordFormData } from '@/components/auth/auth-schema'
 
 interface ResetPasswordFormProps {
   token?: string // the reset token from the emailed link (?token=... query param)
 }
 
-interface ResetPasswordFormData {
-  password: string
-  confirmPassword: string
-}
-
 export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
-  const form = useForm<ResetPasswordFormData>()
+  const form = useForm<ResetPasswordFormData>({ resolver: zodResolver(resetPasswordSchema) })
 
   const { resetPassword, isResettingPassword } = useAuth()
 
@@ -42,11 +39,6 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   const onSubmit = async (data: ResetPasswordFormData) => {
     setErrorMessage(null)
-
-    if (data.password !== data.confirmPassword) {
-      form.setError('confirmPassword', { message: 'Passwords do not match' })
-      return
-    }
 
     const response = await resetPassword({ token, password: data.password })
 
@@ -78,22 +70,9 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             </Alert>
           )}
 
-          <FormInput
-            name="password"
-            label="New password"
-            type="password"
-            rules={{
-              required: 'Password is required',
-              minLength: { value: 8, message: 'Password must be at least 8 characters' },
-            }}
-          />
+          <FormInput name="password" label="New password" type="password" />
 
-          <FormInput
-            name="confirmPassword"
-            label="Confirm new password"
-            type="password"
-            rules={{ required: 'Please confirm your password' }}
-          />
+          <FormInput name="confirmPassword" label="Confirm new password" type="password" />
 
           <Button data-testid="reset-submit-button" type="submit" loading={isResettingPassword}>
             Reset password and login

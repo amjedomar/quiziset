@@ -28,11 +28,11 @@ describe('SignupForm', () => {
 
     fireEvent.change(getByLabelText('Name'), { target: { value: 'Amjed Omar' } })
     fireEvent.change(getByLabelText('Email'), { target: { value: 'amjed@example.com' } })
-    fireEvent.change(getByLabelText('Password'), { target: { value: 'secret' } })
+    fireEvent.change(getByLabelText('Password'), { target: { value: 'secret-123' } })
     fireEvent.click(getByTestId('signup-submit-button'))
 
     await waitFor(() => {
-      expect(signup).toHaveBeenCalledWith({ name: 'Amjed Omar', email: 'amjed@example.com', password: 'secret' })
+      expect(signup).toHaveBeenCalledWith({ name: 'Amjed Omar', email: 'amjed@example.com', password: 'secret-123' })
       expect(replace).toHaveBeenCalledWith('/')
     })
   })

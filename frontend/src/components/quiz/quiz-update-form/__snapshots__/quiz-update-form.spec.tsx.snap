@@ -5,7 +5,9 @@ exports[`QuizUpdateForm correctly renders 1`] = `
   <div
     class="MuiContainer-root MuiContainer-maxWidthLg css-pv8j0-JoyContainer-root"
   >
-    <form>
+    <form
+      novalidate=""
+    >
       <div
         class="MuiStack-root css-194i09z-JoyStack-root"
       >

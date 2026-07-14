@@ -1,14 +1,16 @@
 'use client'
-import { Button, Link, Stack, Typography } from '@mui/joy'
+import { useState } from 'react'
+import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
 import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
-import { LoginDto } from '@/generated-api-client/model'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
 import { appendRedirectParam, LoginReason } from '@/utils/redirect'
 import { AuthRedirectAlert } from '@/components/auth/auth-redirect-alert'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { isErrorResponse } from '@/utils/is-error-response'
+import { loginSchema, LoginFormData } from '@/components/auth/auth-schema'
 
 interface LoginFormProps {
   safeRedirectTo?: string // where to redirect the user after a successful login
@@ -16,29 +18,42 @@ interface LoginFormProps {
 }
 
 export function LoginForm({ safeRedirectTo, reason }: LoginFormProps) {
-  const form = useForm<LoginDto>()
+  const form = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) })
 
   const { login, isLogging } = useAuth()
 
   const router = useRouter()
 
-  const onSubmit = async (payload: LoginDto) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  const onSubmit = async (payload: LoginFormData) => {
+    setErrorMessage(null)
+
     const response = await login(payload)
 
-    if (!isErrorResponse(response)) {
-      router.replace(safeRedirectTo ?? '/')
+    if (isErrorResponse(response)) {
+      setErrorMessage(response.message)
+      return
     }
+
+    router.replace(safeRedirectTo ?? '/')
   }
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <Stack direction="column" spacing={2}>
           <Typography level="h3" textAlign="center">
             Login
           </Typography>
 
           {reason && <AuthRedirectAlert action="login" reason={reason} />}
+
+          {errorMessage && (
+            <Alert color="danger" variant="soft" data-testid="login-error-alert">
+              {errorMessage}
+            </Alert>
+          )}
 
           <FormInput name="email" label="Email" type="email" />
 

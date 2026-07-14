@@ -81,7 +81,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
         <Stack direction="column" spacing={3}>
           <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
 

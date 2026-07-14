@@ -56,9 +56,11 @@ describe('customFetch (browser)', () => {
 
     const result = await customFetch('/quizzes/1')
 
+    const networkErrorMessage = "Failed to connect to Quiziset API (either you\'re offline or our backend is down)"
+
     expect(result).toEqual({
       status: NETWORK_ERROR,
-      data: { statusCode: NETWORK_ERROR, message: 'Failed to fetch' },
+      data: { statusCode: NETWORK_ERROR, message: networkErrorMessage },
       headers: expect.any(Headers),
     })
   })

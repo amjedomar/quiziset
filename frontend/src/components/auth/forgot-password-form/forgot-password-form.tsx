@@ -3,14 +3,14 @@ import { useState } from 'react'
 import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
 import NextLink from 'next/link'
 import { FormProvider, useForm } from 'react-hook-form'
-import { RequestPasswordResetDto } from '@/generated-api-client/model'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { isErrorResponse } from '@/utils/is-error-response'
-import { EMAIL_REGEX } from '@/constants/email-regex'
+import { forgotPasswordSchema, ForgotPasswordFormData } from '@/components/auth/auth-schema'
 
 export function ForgotPasswordForm() {
-  const form = useForm<RequestPasswordResetDto>()
+  const form = useForm<ForgotPasswordFormData>({ resolver: zodResolver(forgotPasswordSchema) })
 
   const { requestPasswordReset, isRequestingPasswordReset } = useAuth()
 
@@ -19,7 +19,7 @@ export function ForgotPasswordForm() {
   // the mailcatcher web UI link (only returned in development)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
-  const onSubmit = async (payload: RequestPasswordResetDto) => {
+  const onSubmit = async (payload: ForgotPasswordFormData) => {
     setErrorMessage(null)
 
     const response = await requestPasswordReset(payload)
@@ -64,22 +64,14 @@ export function ForgotPasswordForm() {
                 <Alert color="danger" variant="soft" data-testid="reset-error-alert">
                   <Stack spacing={1}>
                     <span>{errorMessage}</span>
-                    <Link component={NextLink} href="/login">
-                      Go to login
+                    <Link component={NextLink} href="/signup">
+                      Go to Sign Up
                     </Link>
                   </Stack>
                 </Alert>
               )}
 
-              <FormInput
-                name="email"
-                label="Email"
-                type="email"
-                rules={{
-                  required: 'Email is required',
-                  pattern: { value: EMAIL_REGEX, message: 'Email is invalid' },
-                }}
-              />
+              <FormInput name="email" label="Email" type="email" />
 
               <Button data-testid="request-reset-button" type="submit" loading={isRequestingPasswordReset}>
                 Send reset link

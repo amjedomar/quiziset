@@ -9,8 +9,6 @@ interface FormFieldCoreProps {
   defaultValue: unknown
   renderField: ControllerProps['render']
   disableErrorState?: boolean
-  // react-hook-form validation rules (e.g. required, minLength, pattern)
-  rules?: ControllerProps['rules']
 }
 
 /**
@@ -27,7 +25,6 @@ export function FormFieldCore({
   renderField,
   defaultValue,
   disableErrorState,
-  rules,
 }: FormFieldCoreProps) {
   const { control } = useFormContext()
 
@@ -36,7 +33,6 @@ export function FormFieldCore({
       name={name}
       control={control}
       defaultValue={defaultValue}
-      rules={rules}
       render={(renderData) => {
         const { fieldState } = renderData
         const errorMessage = fieldState.error?.message

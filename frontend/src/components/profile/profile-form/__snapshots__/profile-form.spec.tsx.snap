@@ -48,7 +48,9 @@ exports[`ProfileForm correctly renders 1`] = `
         />
       </label>
     </div>
-    <form>
+    <form
+      novalidate=""
+    >
       <div
         class="MuiStack-root css-10jjy1j-JoyStack-root"
       >

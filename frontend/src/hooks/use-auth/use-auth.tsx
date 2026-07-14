@@ -76,6 +76,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsCheckingLogin(false)
   }, [])
 
+  useEffect(() => {
+    if (isCheckingLogin) return
+
+    // see "app/layout.tsx" for more info
+    document.documentElement.setAttribute('data-auth-logged-in', String(isLoggedIn))
+  }, [isLoggedIn, isCheckingLogin])
+
   // handleAuthSuccess (called after login or signup succeeded)
   const handleAuthSuccess = useCallback((accessToken: string) => {
     jsCookie.set(USER_TOKEN_COOKIE, accessToken, {

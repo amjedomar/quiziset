@@ -2,6 +2,7 @@
 
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/joy'
 import { FormProvider, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import SaveIcon from '@mui/icons-material/Save'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { useUpdateMe } from '@/generated-api-client/user'
@@ -9,11 +10,7 @@ import { useAuth } from '@/hooks/use-auth'
 import { ProfileAvatarEditor } from '@/components/profile/profile-avatar-editor'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
-
-interface ProfileFormData {
-  name: string
-  email: string
-}
+import { profileSchema, ProfileFormData } from '@/components/auth/auth-schema'
 
 export function ProfileForm() {
   const { isCheckingLogin, currentUser, isLoadingCurrentUser } = useAuth()
@@ -21,6 +18,7 @@ export function ProfileForm() {
   const { mutateAsync: updateMe, isPending: isUpdating } = useUpdateMe()
 
   const form = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
     defaultValues: currentUser ? { name: currentUser.name, email: currentUser.email } : undefined,
   })
 
@@ -60,7 +58,7 @@ export function ProfileForm() {
       <ProfileAvatarEditor user={currentUser} />
 
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
           <Stack spacing={2}>
             <FormInput name="name" label="Name" type="text" />
 

@@ -103,15 +103,10 @@ export const customFetch = async <T>(url: string, options?: RequestInit) => {
       ...options,
       headers: requestHeaders,
     })
-  } catch (error) {
-    const errorMessage =
-      error instanceof Object && 'message' in error && typeof error.message === 'string'
-        ? error.message
-        : 'Network Error'
-
+  } catch {
     const networkError: ErrorResponse = {
       statusCode: NETWORK_ERROR,
-      message: errorMessage,
+      message: "Failed to connect to Quiziset API (either you're offline or our backend is down)",
     }
 
     return { status: NETWORK_ERROR, data: networkError, headers: new Headers() } as T

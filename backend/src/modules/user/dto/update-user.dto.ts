@@ -14,7 +14,7 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsEmail({}, { message: 'Email is invalid' })
-  @Length(1, 255)
+  @Length(0, 255)
   @ApiPropertyOptional({
     example: 'amjed@example.com',
     description: 'a valid email address (max length: 255)',
