@@ -1,6 +1,11 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { FavoriteButton } from './favorite-button'
 
+const push = jest.fn()
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push }),
+}))
+
 const addFavorite = jest.fn()
 const removeFavorite = jest.fn()
 jest.mock('@/generated-api-client/quiz', () => ({

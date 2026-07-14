@@ -12,7 +12,7 @@ describe('isSafeRedirect', () => {
 
 describe('appendRedirectParam', () => {
   it('appends the redirect param when redirectTo is given', () => {
-    expect(appendRedirectParam('/login', '/profile')).toBe('/login?redirect=%2Fprofile')
+    expect(appendRedirectParam('/login', '/profile')).toBe('/login?redirect=%2Fprofile&reason=access-protected-page')
   })
 
   it('returns the url unchanged when redirectTo is not given', () => {

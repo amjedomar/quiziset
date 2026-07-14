@@ -3,15 +3,15 @@
 import { Button } from '@mui/joy'
 import Link from 'next/link'
 import { ReactNode, Suspense } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { appendRedirectParam, REDIRECT_PARAM } from '@/utils/redirect'
+import { ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation'
+import { appendRedirectParam, isLoginReason, LOGIN_REASON_PARAM, LoginReason, REDIRECT_PARAM } from '@/utils/redirect'
 
 export function AuthButtons() {
   const pathname = usePathname()
   const isAuthPage = pathname === '/login' || pathname === '/signup'
 
   /**
-   * only the login/signup pages need the "redirect" param (and they are dynamic anyway)
+   * only the login/signup pages need the "redirect" (and "reason") params (and they are dynamic anyway)
    * so only there we should use useSearchParams (which requires <Suspense>
    * but again since auth pages are dynamic these buttons will be rendered immediately
    * <Suspense> is just needed to avoid production build errors)
@@ -25,9 +25,18 @@ export function AuthButtons() {
 
   return (
     <Suspense>
-      <WithSearchParam paramKey={REDIRECT_PARAM}>
-        {(redirectTo) => <AuthLinks redirectTo={redirectTo} />}
-      </WithSearchParam>
+      <WithSearchParams>
+        {(searchParams) => {
+          const reasonParam = searchParams.get(LOGIN_REASON_PARAM)
+
+          return (
+            <AuthLinks
+              redirectTo={searchParams.get(REDIRECT_PARAM)}
+              reason={isLoginReason(reasonParam) ? reasonParam : undefined}
+            />
+          )
+        }}
+      </WithSearchParams>
     </Suspense>
   )
 }
@@ -36,25 +45,19 @@ export function AuthButtons() {
  * a trick to use "useSearchParams" in login/signup pages ONLY
  * check comment of `AuthButtons` component above for more info
  */
-const WithSearchParam = ({
-  paramKey,
-  children,
-}: {
-  paramKey: string
-  children: (paramValue: string | null) => ReactNode
-}) => {
+const WithSearchParams = ({ children }: { children: (searchParams: ReadonlyURLSearchParams) => ReactNode }) => {
   const searchParams = useSearchParams()
-  return children(searchParams.get(paramKey))
+  return children(searchParams)
 }
 
-function AuthLinks({ redirectTo }: { redirectTo?: string | null }) {
+function AuthLinks({ redirectTo, reason }: { redirectTo?: string | null; reason?: LoginReason }) {
   return (
     <>
       <Button
         data-testid="login-link"
         variant="outlined"
         component={Link}
-        href={appendRedirectParam('/login', redirectTo)}
+        href={appendRedirectParam('/login', redirectTo, reason)}
       >
         Login
       </Button>
@@ -63,7 +66,7 @@ function AuthLinks({ redirectTo }: { redirectTo?: string | null }) {
         data-testid="signup-link"
         variant="solid"
         component={Link}
-        href={appendRedirectParam('/signup', redirectTo)}
+        href={appendRedirectParam('/signup', redirectTo, reason)}
       >
         Sign Up
       </Button>

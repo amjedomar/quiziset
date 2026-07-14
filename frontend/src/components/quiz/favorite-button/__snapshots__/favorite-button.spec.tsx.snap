@@ -3,7 +3,6 @@
 exports[`FavoriteButton correctly renders 1`] = `
 <DocumentFragment>
   <button
-    aria-label=""
     class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd css-3oglbe-JoyIconButton-root"
     data-testid="favorite-button"
     type="button"

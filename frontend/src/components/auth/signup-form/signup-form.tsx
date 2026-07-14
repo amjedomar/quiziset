@@ -1,19 +1,21 @@
 'use client'
-import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
+import { Button, Link, Stack, Typography } from '@mui/joy'
 import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { SignupDto } from '@/generated-api-client/model'
 import { useAuth } from '@/hooks/use-auth'
-import { appendRedirectParam } from '@/utils/redirect'
+import { appendRedirectParam, LoginReason } from '@/utils/redirect'
+import { AuthRedirectAlert } from '@/components/auth/auth-redirect-alert'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { isErrorResponse } from '@/utils/is-error-response'
 
 interface SignupFormProps {
   safeRedirectTo?: string // where to redirect the user after a successful signup
+  reason?: LoginReason // the reason the user was redirected to the signup page
 }
 
-export function SignupForm({ safeRedirectTo }: SignupFormProps) {
+export function SignupForm({ safeRedirectTo, reason }: SignupFormProps) {
   const form = useForm<SignupDto>()
 
   const { signup, isSigningUp } = useAuth()
@@ -36,11 +38,7 @@ export function SignupForm({ safeRedirectTo }: SignupFormProps) {
             Sign Up
           </Typography>
 
-          {safeRedirectTo && (
-            <Alert color="primary" variant="soft">
-              Please signup then you will be redirected back to the last page you were trying to access
-            </Alert>
-          )}
+          {reason && <AuthRedirectAlert action="signup" reason={reason} />}
 
           <FormInput name="name" label="Name" type="text" />
 
@@ -54,7 +52,7 @@ export function SignupForm({ safeRedirectTo }: SignupFormProps) {
 
           <Typography level="body-sm" textAlign="center">
             Already have an account?{' '}
-            <Link component={NextLink} href={appendRedirectParam('/login', safeRedirectTo)}>
+            <Link component={NextLink} href={appendRedirectParam('/login', safeRedirectTo, reason)}>
               Login
             </Link>
           </Typography>

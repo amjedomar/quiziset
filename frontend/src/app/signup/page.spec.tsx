@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import SignupPage from './page'
+import { LoginReason } from '@/utils/redirect'
 
 const SignupForm = jest.fn<React.JSX.Element, [unknown]>(() => <div data-testid="signup-form" />)
 jest.mock('@/components/auth/signup-form', () => ({
@@ -14,9 +15,13 @@ describe('SignupPage', () => {
   })
 
   it('passes a safe redirect param to the signup form', async () => {
-    render(await SignupPage({ searchParams: Promise.resolve({ redirect: '/profile' }) }))
+    render(
+      await SignupPage({
+        searchParams: Promise.resolve({ redirect: '/profile', reason: LoginReason.AccessProtectedPage }),
+      }),
+    )
 
-    expect(SignupForm).toHaveBeenCalledWith({ safeRedirectTo: '/profile' })
+    expect(SignupForm).toHaveBeenCalledWith({ safeRedirectTo: '/profile', reason: LoginReason.AccessProtectedPage })
   })
 
   it('ignores an unsafe redirect param', async () => {

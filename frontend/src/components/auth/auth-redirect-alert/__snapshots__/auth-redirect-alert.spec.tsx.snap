@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AuthRedirectAlert correctly renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiAlert-root MuiAlert-sizeMd MuiAlert-colorPrimary MuiAlert-variantSoft css-1kb97uw-JoyAlert-root"
+    role="alert"
+  >
+    Please login then you will be redirected back to the last page you were trying to access
+  </div>
+</DocumentFragment>
+`;

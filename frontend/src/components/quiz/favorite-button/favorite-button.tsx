@@ -1,13 +1,15 @@
 'use client'
 
 import { MouseEvent, useEffect, useState } from 'react'
-import { IconButton, Tooltip } from '@mui/joy'
+import { IconButton } from '@mui/joy'
+import { useRouter } from 'next/navigation'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { useAddFavorite, useRemoveFavorite } from '@/generated-api-client/quiz'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
 import { useAuth } from '@/hooks/use-auth'
+import { appendRedirectParam, LoginReason } from '@/utils/redirect'
 
 interface FavoriteButtonProps {
   quizId: number
@@ -22,10 +24,9 @@ export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: Fav
   const { mutateAsync: removeFavorite, isPending: isRemoving } = useRemoveFavorite()
   const { showError } = useSnackbar()
   const { isLoggedIn, isCheckingLogin } = useAuth()
+  const router = useRouter()
 
   const isPending = isAdding || isRemoving
-
-  const isReallyLoggedOut = !isCheckingLogin && !isLoggedIn
 
   useEffect(() => {
     setIsFavorite(isFavoriteProp) // keep in sync when the server value changes
@@ -36,39 +37,36 @@ export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: Fav
     e.preventDefault()
     e.stopPropagation()
 
-    if (!isLoggedIn) return
+    if (!isLoggedIn) {
+      if (isCheckingLogin) return
+
+      const currentPageUrl = window.location.pathname
+      router.push(appendRedirectParam('/login', currentPageUrl, LoginReason.Favorite))
+      return
+    }
 
     if (isPending) return
 
-    try {
-      const response = isFavorite ? await removeFavorite({ quizId }) : await addFavorite({ quizId })
+    const response = isFavorite ? await removeFavorite({ quizId }) : await addFavorite({ quizId })
 
-      if (isErrorResponse(response.data)) {
-        showError(response.data.message)
-        return
-      }
-
-      setIsFavorite(!isFavorite)
-    } catch {
+    if (isErrorResponse(response.data)) {
       showError(`Failed to ${isFavorite ? 'unfavorite' : 'favorite'} the quiz (please check your internet connection)`)
+      return
     }
+
+    setIsFavorite(!isFavorite)
   }
 
   return (
-    <Tooltip
-      title={isReallyLoggedOut ? 'Please login to favorite quizzes' : ''}
-      enterTouchDelay={0} // source: https://stackoverflow.com/a/70270694/8148505
+    <IconButton
+      data-testid="favorite-button"
+      variant="outlined"
+      color={isFavorite ? 'danger' : 'neutral'}
+      size={size}
+      disabled={isPending}
+      onClick={handleClick}
     >
-      <IconButton
-        data-testid="favorite-button"
-        variant="outlined"
-        color={isFavorite ? 'danger' : 'neutral'}
-        size={size}
-        disabled={isPending}
-        onClick={handleClick}
-      >
-        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-      </IconButton>
-    </Tooltip>
+      {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+    </IconButton>
   )
 }

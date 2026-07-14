@@ -2,7 +2,7 @@ import jsCookie from 'js-cookie'
 import { ErrorResponse } from '@/generated-api-client/model'
 import { USER_TOKEN_COOKIE, getUserTokenCookieAttributes } from '@/constants/auth'
 import { NETWORK_ERROR } from '@/constants/network-error-status'
-import { appendRedirectParam } from '@/utils/redirect'
+import { appendRedirectParam, LoginReason } from '@/utils/redirect'
 import { API_BASE_URL_ADAPTED } from '@/constants/api-url'
 
 /**
@@ -44,6 +44,8 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 }
 
 const handleUnauthorized = () => {
+  const hadToken = !!jsCookie.get(USER_TOKEN_COOKIE)
+
   // if token cookie exists then remove it (since it is invalid)
   jsCookie.remove(USER_TOKEN_COOKIE, getUserTokenCookieAttributes())
 
@@ -57,7 +59,9 @@ const handleUnauthorized = () => {
   // Redirect to login page
   const currentPageUrl = pathname + search
 
-  const loginUrl = appendRedirectParam('/login', currentPageUrl)
+  const reason = hadToken ? LoginReason.SessionTimeout : LoginReason.AccessProtectedPage
+
+  const loginUrl = appendRedirectParam('/login', currentPageUrl, reason)
 
   /**
    * skip the navigation in tests to avoid "Error: Not implemented: navigation (except hash changes)"
