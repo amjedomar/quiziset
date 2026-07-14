@@ -27,11 +27,11 @@ describe('LoginForm', () => {
     const { getByLabelText, getByTestId } = render(<LoginForm />)
 
     fireEvent.change(getByLabelText('Email'), { target: { value: 'amjed@example.com' } })
-    fireEvent.change(getByLabelText('Password'), { target: { value: 'secret' } })
+    fireEvent.change(getByLabelText('Password'), { target: { value: 'secret-123' } })
     fireEvent.click(getByTestId('login-submit-button'))
 
     await waitFor(() => {
-      expect(login).toHaveBeenCalledWith({ email: 'amjed@example.com', password: 'secret' })
+      expect(login).toHaveBeenCalledWith({ email: 'amjed@example.com', password: 'secret-123' })
       expect(replace).toHaveBeenCalledWith('/')
     })
   })
