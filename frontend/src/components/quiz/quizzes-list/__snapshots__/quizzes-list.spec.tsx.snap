@@ -2,75 +2,84 @@
 
 exports[`QuizzesList correctly renders 1`] = `
 <DocumentFragment>
-  <p>
-    3 matches
-  </p>
-  <div
-    class="MuiStack-root css-194i09z-JoyStack-root"
-  >
-    <p>
-      the quizzes
-    </p>
-    <nav
-      class="pagination"
+  <div>
+    <div
+      class="totalMatches"
     >
-      <button
-        class="MuiIconButton-root Mui-disabled MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
-        data-testid="pagination-prev"
-        disabled=""
-        type="button"
+      <p
+        class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"
+        data-testid="total-matches"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-          data-testid="ChevronLeftIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        3 total matches
+      </p>
+    </div>
+    <div
+      class="MuiStack-root css-194i09z-JoyStack-root"
+    >
+      <p>
+        the quizzes
+      </p>
+      <nav
+        class="pagination"
+      >
+        <button
+          class="MuiIconButton-root Mui-disabled MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+          data-testid="pagination-prev"
+          disabled=""
+          type="button"
         >
-          <path
-            d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-          />
-        </svg>
-      </button>
-      <button
-        class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm css-j89a8f-JoyIconButton-root"
-        data-testid="pagination-page-1"
-        type="button"
-      >
-        1
-      </button>
-      <button
-        class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
-        data-testid="pagination-page-2"
-        type="button"
-      >
-        2
-      </button>
-      <button
-        class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
-        data-testid="pagination-page-3"
-        type="button"
-      >
-        3
-      </button>
-      <button
-        class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
-        data-testid="pagination-next"
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-          data-testid="ChevronRightIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="ChevronLeftIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+            />
+          </svg>
+        </button>
+        <button
+          class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm css-j89a8f-JoyIconButton-root"
+          data-testid="pagination-page-1"
+          type="button"
         >
-          <path
-            d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-          />
-        </svg>
-      </button>
-    </nav>
+          1
+        </button>
+        <button
+          class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+          data-testid="pagination-page-2"
+          type="button"
+        >
+          2
+        </button>
+        <button
+          class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+          data-testid="pagination-page-3"
+          type="button"
+        >
+          3
+        </button>
+        <button
+          class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+          data-testid="pagination-next"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="ChevronRightIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+            />
+          </svg>
+        </button>
+      </nav>
+    </div>
   </div>
 </DocumentFragment>
 `;

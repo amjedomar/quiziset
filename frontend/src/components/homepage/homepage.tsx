@@ -1,7 +1,6 @@
 'use client'
-import { Typography, Link, Input } from '@mui/joy'
+import { Typography, Link } from '@mui/joy'
 import NextLink from 'next/link'
-import SearchIcon from '@mui/icons-material/Search'
 import { GetAllQuizzesParams } from '@/generated-api-client/model'
 import { QuizzesList } from '@/components/quiz/quizzes-list'
 import { QuizzesGrid } from '@/components/quiz/quizzes-grid'
@@ -15,7 +14,7 @@ export function Homepage({ initialParams }: HomepageProps) {
   return (
     <QuizzesList
       params={initialParams}
-      renderHeader={({ SortComponent, totalMatches, onSearch }) => (
+      renderHeader={({ SearchComponent, SortComponent, TotalMatchesComponent }) => (
         <>
           <div className={styles.hero}>
             <Typography className={styles.title} level="h1" textAlign="center" color="primary">
@@ -35,22 +34,17 @@ export function Homepage({ initialParams }: HomepageProps) {
             </Typography>
 
             <div className={styles.searchRow}>
-              <Input
-                className={styles.searchInput}
-                variant="outlined"
-                startDecorator={<SearchIcon />}
-                placeholder="Search for Quizzes"
-                size="lg"
-                onChange={(event) => onSearch(event.target.value)}
-              />
+              <SearchComponent className={styles.searchInput} placeholder="Search for Quizzes" size="lg" />
 
               <SortComponent className={styles.sortSelect} size="lg" />
             </div>
           </div>
 
-          <Typography data-testid="total-matches" className={styles.totalMatches} textColor="text.tertiary">
-            {totalMatches} total {totalMatches === 1 ? 'match' : 'matches'}
-          </Typography>
+          <TotalMatchesComponent
+            label={{ singular: 'match', plural: 'matches' }}
+            size="md"
+            className={styles.totalMatches}
+          />
         </>
       )}
       renderQuizzes={({ quizzes, isLoading }) => <QuizzesGrid quizzes={quizzes} isLoading={isLoading} />}

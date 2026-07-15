@@ -1,11 +1,10 @@
 'use client'
-import { Button, CircularProgress, Input, Sheet, Typography } from '@mui/joy'
+import { Button, CircularProgress, Sheet, Typography } from '@mui/joy'
 import Link from 'next/link'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import { QuizzesList } from '@/components/quiz/quizzes-list'
 import styles from './managed-quizzes-list.module.scss'
-import SearchIcon from '@mui/icons-material/Search'
 import UpdateIcon from '@mui/icons-material/Edit'
 import AnalyticsIcon from '@mui/icons-material/Insights'
 import CreateIcon from '@mui/icons-material/Add'
@@ -18,7 +17,7 @@ export function ManagedQuizzesList() {
   return (
     <QuizzesList
       params={{ managedByMe: true }}
-      renderHeader={({ SortComponent, totalMatches, onSearch }) => (
+      renderHeader={({ SearchComponent, SortComponent, TotalMatchesComponent }) => (
         <div className={styles.headerSection}>
           <div className={styles.header}>
             <Typography level="h2">Manage Quizzes</Typography>
@@ -35,20 +34,12 @@ export function ManagedQuizzesList() {
           </div>
 
           <div className={styles.searchRow}>
-            <Input
-              className={styles.searchInput}
-              variant="outlined"
-              startDecorator={<SearchIcon />}
-              placeholder="Search your quizzes"
-              onChange={(event) => onSearch(event.target.value)}
-            />
+            <SearchComponent className={styles.searchInput} placeholder="Search your quizzes" />
 
             <SortComponent />
           </div>
 
-          <Typography level="body-sm" textColor="text.tertiary">
-            {totalMatches} total {totalMatches === 1 ? 'match' : 'matches'}
-          </Typography>
+          <TotalMatchesComponent label={{ singular: 'match', plural: 'matches' }} />
         </div>
       )}
       renderQuizzes={({ quizzes, isLoading }) =>

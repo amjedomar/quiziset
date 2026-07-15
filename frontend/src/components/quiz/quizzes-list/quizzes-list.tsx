@@ -1,8 +1,10 @@
 'use client'
 
-import { Stack } from '@mui/joy'
+import { CircularProgress, Input, Stack, Typography } from '@mui/joy'
+import clsx from 'clsx'
+import SearchIcon from '@mui/icons-material/Search'
 import { GetAllQuizzesParams, QuizEntity } from '@/generated-api-client/model'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { Pagination } from '@/ui/pagination'
 import { SelectEnhanced } from '@/ui/select-enhanced'
@@ -10,16 +12,29 @@ import { useQuizzesQuery } from '@/hooks/use-quizzes-query'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { QUIZ_SORT_OPTIONS, SortValue, getQuizSortData, getSortValueFromParams } from '@/constants/quizzes-list-sort'
 import { useSnackbar } from '@/components/snackbar'
+import styles from './quizzes-list.module.scss'
+
+interface QuizSearchComponentProps {
+  placeholder?: string
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+}
 
 interface QuizSortComponentProps {
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
 
+interface QuizTotalMatchesComponentProps {
+  label: { singular: string; plural: string }
+  size?: 'sm' | 'md'
+  className?: string
+}
+
 interface HeaderRenderArgs {
+  SearchComponent: (props: QuizSearchComponentProps) => ReactNode
   SortComponent: (props: QuizSortComponentProps) => ReactNode
-  totalMatches: number
-  onSearch: (value: string) => void
+  TotalMatchesComponent: (props: QuizTotalMatchesComponentProps) => ReactNode
 }
 
 interface QuizzesRenderArgs {
@@ -58,7 +73,8 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
     ...(debouncedSearch ? { search: debouncedSearch } : {}),
   }
 
-  const { quizzes, totalMatches, totalPages, isLoading, error } = useQuizzesQuery(effectiveParams)
+  const { quizzes, totalMatches, totalPages, isLoading, isFetchingChangedQuery, error } =
+    useQuizzesQuery(effectiveParams)
 
   useEffect(() => {
     if (error) {
@@ -66,21 +82,59 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
     }
   }, [error, showError])
 
-  function handleSortChange(value: string | null) {
+  const handleSortChange = useCallback((value: string | null) => {
     if (value) {
       setSortValue(value as SortValue)
       setPage(1) // changing the sort also resets to the first page
     }
-  }
+  }, [])
 
-  const SortComponent = (props: QuizSortComponentProps) => (
-    <SelectEnhanced
-      value={sortValue}
-      multiple={false}
-      onChange={(_event, value) => handleSortChange(value)}
-      options={QUIZ_SORT_OPTIONS.map((option) => ({ value: option.value, label: option.label }))}
-      {...props}
-    />
+  const SearchComponent = useCallback(
+    (props: QuizSearchComponentProps) => (
+      <Input
+        variant="outlined"
+        startDecorator={<SearchIcon />}
+        onChange={(event) => setSearch(event.target.value)}
+        {...props}
+      />
+    ),
+    [],
+  )
+
+  const SortComponent = useCallback(
+    (props: QuizSortComponentProps) => (
+      <SelectEnhanced
+        value={sortValue}
+        multiple={false}
+        onChange={(_event, value) => handleSortChange(value)}
+        options={QUIZ_SORT_OPTIONS.map((option) => ({ value: option.value, label: option.label }))}
+        {...props}
+      />
+    ),
+    [sortValue, handleSortChange],
+  )
+
+  const TotalMatchesComponent = useCallback(
+    ({ label, size = 'sm', className }: QuizTotalMatchesComponentProps) => {
+      if (totalMatches === null) {
+        return null
+      }
+
+      return (
+        <div className={clsx(styles.totalMatches, className)}>
+          <Typography
+            data-testid="total-matches"
+            level={size === 'md' ? 'body-md' : 'body-sm'}
+            textColor="text.tertiary"
+          >
+            {totalMatches} total {totalMatches === 1 ? label.singular : label.plural}
+          </Typography>
+
+          {isFetchingChangedQuery && <CircularProgress size="sm" />}
+        </div>
+      )
+    },
+    [totalMatches, isFetchingChangedQuery],
   )
 
   if (error && !quizzes) {
@@ -88,14 +142,14 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
   }
 
   return (
-    <>
-      {renderHeader({ SortComponent, totalMatches, onSearch: setSearch })}
+    <div>
+      {renderHeader({ SearchComponent, SortComponent, TotalMatchesComponent })}
 
       <Stack spacing={3}>
         {renderQuizzes({ quizzes, isLoading })}
 
-        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        <Pagination page={page} totalPages={totalPages ?? 0} onPageChange={setPage} />
       </Stack>
-    </>
+    </div>
   )
 }

@@ -18,7 +18,9 @@ describe('QuizzesList', () => {
   it('correctly renders', () => {
     const { asFragment } = render(
       <QuizzesList
-        renderHeader={({ totalMatches }) => <p>{totalMatches} matches</p>}
+        renderHeader={({ TotalMatchesComponent }) => (
+          <TotalMatchesComponent label={{ singular: 'match', plural: 'matches' }} />
+        )}
         renderQuizzes={() => <p>the quizzes</p>}
       />,
     )
