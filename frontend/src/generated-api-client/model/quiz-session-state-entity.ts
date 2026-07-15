@@ -9,6 +9,8 @@ import type { QuizSessionQuestionEntity } from './quiz-session-question-entity'
 
 export interface QuizSessionStateEntity {
   sessionId: number
+  /** the title of the quiz being taken */
+  quizTitle: string
   questionsCount: number
   currentQuestionIndex: number
   /**

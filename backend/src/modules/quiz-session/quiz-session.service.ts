@@ -40,7 +40,7 @@ export class QuizSessionService {
         await this.finalizeSession(activeSession)
       } else {
         // otherwise resume the existing session
-        return buildSessionState(activeSession)
+        return buildSessionState({ session: activeSession, quizTitle: quiz.title })
       }
     }
 
@@ -68,7 +68,7 @@ export class QuizSessionService {
       },
     })
 
-    return buildSessionState(createdSession)
+    return buildSessionState({ session: createdSession, quizTitle: quiz.title })
   }
 
   /**
@@ -84,6 +84,7 @@ export class QuizSessionService {
   async submitAnswer(quizId: number, userId: number, dto: SubmitQuizSessionAnswerDto): Promise<QuizSessionStateEntity> {
     const session = await this.prisma.quizSession.findFirst({
       where: { quizId, userId, finishTime: null },
+      include: { quiz: { select: { title: true } } },
     })
 
     if (!session) {
@@ -99,7 +100,7 @@ export class QuizSessionService {
     // so if this answer is for an old question --> ignore it and just return the current state
     // (this way the old tab syncs with the latest question instead of grading a wrong answer)
     if (dto.questionIndex !== session.currentQuestionIndex) {
-      return buildSessionState(session)
+      return buildSessionState({ session, quizTitle: session.quiz.title })
     }
 
     const currentQuestion = session.questions[session.currentQuestionIndex]
@@ -120,7 +121,7 @@ export class QuizSessionService {
       },
     })
 
-    return buildSessionState(updatedSession)
+    return buildSessionState({ session: updatedSession, quizTitle: session.quiz.title })
   }
 
   /**
@@ -159,6 +160,7 @@ export class QuizSessionService {
           finishTime,
           ...(isLastQuestionAnswerSuccessful ? { successfulAnswersCount: session.successfulAnswersCount + 1 } : {}),
         },
+        include: { quiz: { select: { title: true } } },
       }),
       this.prisma.quiz.update({
         where: { id: session.quizId },
@@ -166,6 +168,6 @@ export class QuizSessionService {
       }),
     ])
 
-    return buildSessionState(finishedSession)
+    return buildSessionState({ session: finishedSession, quizTitle: finishedSession.quiz.title })
   }
 }

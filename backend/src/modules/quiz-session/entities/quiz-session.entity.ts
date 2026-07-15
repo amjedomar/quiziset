@@ -67,6 +67,9 @@ export class QuizSessionQuestionEntity {
 export class QuizSessionStateEntity {
   @ApiProperty() sessionId: number
 
+  @ApiProperty({ description: 'the title of the quiz being taken' })
+  quizTitle: string
+
   @ApiProperty() questionsCount: number
 
   @ApiProperty() currentQuestionIndex: number

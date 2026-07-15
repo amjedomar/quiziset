@@ -138,11 +138,18 @@ export function toExposedQuestion(question: QuizSessionStoredQuestion): QuizSess
  * NOTE!!: the session "questions" aren't exposed to frontend as it is
  * instead only current question is returned (without isCorrect/correctOrder answers attrs)
  */
-export function buildSessionState(session: QuizSession): QuizSessionStateEntity {
+export function buildSessionState({
+  session,
+  quizTitle,
+}: {
+  session: QuizSession
+  quizTitle: string
+}): QuizSessionStateEntity {
   const isFinished = session.finishTime !== null
 
   const state: QuizSessionStateEntity = {
     sessionId: session.id,
+    quizTitle,
     questionsCount: session.questionsCount,
     currentQuestionIndex: session.currentQuestionIndex,
     expireTime: session.expireTime,

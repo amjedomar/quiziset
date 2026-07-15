@@ -13,6 +13,7 @@ import { QuizSessionTimer } from '@/components/quiz/quiz-session/quiz-session-ti
 import { QuizQuestion } from '@/components/quiz/quiz-session/quiz-question'
 import { QuizResult } from '@/components/quiz/quiz-session/quiz-result'
 import { useSnackbar } from '@/components/snackbar'
+import styles from './quiz-session.module.scss'
 
 interface QuizSessionProps {
   quizId: number
@@ -136,7 +137,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
     return <QuizResult state={sessionState} quizId={quizId} />
   }
 
-  const { currentQuestion, currentQuestionIndex, questionsCount, expireTime } = sessionState
+  const { currentQuestion, currentQuestionIndex, questionsCount, expireTime, quizTitle } = sessionState
   const isLastQuestion = currentQuestionIndex === questionsCount - 1
   const canSubmit = answerIndexes.length > 0
 
@@ -148,6 +149,10 @@ export function QuizSession({ quizId }: QuizSessionProps) {
 
   return (
     <Stack spacing={3} sx={{ py: 2 }}>
+      <Typography level="h3" className={styles.quizTitle}>
+        Quiz: {quizTitle}
+      </Typography>
+
       <QuizSessionProgress currentQuestionIndex={currentQuestionIndex} questionsCount={questionsCount} />
 
       {expireTime && <QuizSessionTimer expireTime={expireTime} onExpire={handleExpire} />}

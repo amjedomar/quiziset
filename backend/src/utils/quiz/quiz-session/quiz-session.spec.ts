@@ -205,8 +205,9 @@ describe('buildSessionState', () => {
       ),
     })
 
-    expect(buildSessionState(session)).toEqual({
+    expect(buildSessionState({ session, quizTitle: 'js basics' })).toEqual({
       sessionId: session.id,
+      quizTitle: 'js basics',
       questionsCount: session.questionsCount,
       currentQuestionIndex: 0,
       expireTime: session.expireTime,
@@ -226,8 +227,9 @@ describe('buildSessionState', () => {
       successfulAnswersCount: 1,
     })
 
-    expect(buildSessionState(session)).toEqual({
+    expect(buildSessionState({ session, quizTitle: 'js basics' })).toEqual({
       sessionId: session.id,
+      quizTitle: 'js basics',
       questionsCount: session.questionsCount,
       currentQuestionIndex: 2,
       expireTime: session.expireTime,

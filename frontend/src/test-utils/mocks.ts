@@ -55,6 +55,7 @@ export function makeQuizSessionQuestion(
 export function makeQuizSessionState(overrides: Partial<QuizSessionStateEntity> = {}): QuizSessionStateEntity {
   return {
     sessionId: 1,
+    quizTitle: 'js basics',
     questionsCount: 5,
     currentQuestionIndex: 0,
     expireTime: null,

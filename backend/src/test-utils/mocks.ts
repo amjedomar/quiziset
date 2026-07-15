@@ -117,6 +117,7 @@ export function makeSessionRecord(overrides: Record<string, any> = {}) {
     currentQuestionIndex: 0,
     isAnalyticsShared: true,
     quizId: QUIZ_ID,
+    quiz: { title: 'js basics' },
     userId: USER_ID,
     ...overrides,
   }

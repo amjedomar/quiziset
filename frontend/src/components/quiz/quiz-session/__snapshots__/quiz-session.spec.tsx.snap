@@ -5,6 +5,11 @@ exports[`QuizSession correctly renders 1`] = `
   <div
     class="MuiStack-root css-hynh5r-JoyStack-root"
   >
+    <h3
+      class="MuiTypography-root MuiTypography-h3 quizTitle css-1yf9pfh-JoyTypography-root"
+    >
+      Quiz: js basics
+    </h3>
     <div
       class="MuiStack-root css-yyryo3-JoyStack-root"
     >

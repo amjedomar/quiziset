@@ -35,6 +35,7 @@ describe('QuizSessionService', () => {
     expect(prisma.quizSession.create).toHaveBeenCalled()
     expect(result).toEqual({
       sessionId: QUIZ_SESSION_ID,
+      quizTitle: 'js basics',
       questionsCount: 2,
       currentQuestionIndex: 0,
       expireTime: null,
@@ -66,6 +67,7 @@ describe('QuizSessionService', () => {
 
     expect(result).toEqual({
       sessionId: QUIZ_SESSION_ID,
+      quizTitle: 'js basics',
       questionsCount: 2,
       currentQuestionIndex: 1,
       expireTime: null,
@@ -89,6 +91,7 @@ describe('QuizSessionService', () => {
     expect(prisma.quizSession.update).toHaveBeenCalledWith({
       where: { id: QUIZ_SESSION_ID },
       data: { finishTime: expireTime },
+      include: { quiz: { select: { title: true } } },
     })
 
     expect(prisma.quiz.update).toHaveBeenCalledWith({
