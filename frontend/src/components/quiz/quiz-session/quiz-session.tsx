@@ -12,6 +12,7 @@ import { QuizSessionProgress } from '@/components/quiz/quiz-session/quiz-session
 import { QuizSessionTimer } from '@/components/quiz/quiz-session/quiz-session-timer'
 import { QuizQuestion } from '@/components/quiz/quiz-session/quiz-question'
 import { QuizResult } from '@/components/quiz/quiz-session/quiz-result'
+import { useSnackbar } from '@/components/snackbar'
 
 interface QuizSessionProps {
   quizId: number
@@ -32,6 +33,8 @@ function getDefaultAnswer(question: QuizSessionStateEntity['currentQuestion']): 
 
 export function QuizSession({ quizId }: QuizSessionProps) {
   const hasStartedRef = useRef(false)
+
+  const { showError: showSnackbarError } = useSnackbar()
 
   const [isStarting, setIsStarting] = useState(false)
   const [sessionState, setSessionState] = useState<QuizSessionStateEntity | null>(null)
@@ -67,12 +70,16 @@ export function QuizSession({ quizId }: QuizSessionProps) {
         // the quiz has analytics enabled -> ask the user to share analytics first
         setNeedsAnalyticsConsent(true)
       } else {
-        setError(data)
+        if (needsAnalyticsConsent) {
+          showSnackbarError(data.message)
+        } else {
+          setError(data)
+        }
       }
 
       setIsStarting(false)
     },
-    [quizId, startSession, updateSessionData],
+    [needsAnalyticsConsent, quizId, showSnackbarError, startSession, updateSessionData],
   )
 
   useEffect(() => {
@@ -94,10 +101,10 @@ export function QuizSession({ quizId }: QuizSessionProps) {
       if (status === 200) {
         updateSessionData(data)
       } else {
-        setError(data)
+        showSnackbarError(data.message)
       }
     },
-    [quizId, submitAnswer, updateSessionData, sessionState],
+    [quizId, submitAnswer, updateSessionData, sessionState, showSnackbarError],
   )
 
   const handleExpire = useCallback(() => {

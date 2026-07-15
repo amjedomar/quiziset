@@ -11,6 +11,7 @@ import { ProfileAvatarEditor } from '@/components/profile/profile-avatar-editor'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
 import { profileSchema, ProfileFormData } from '@/components/auth/auth-schema'
+import { useEffect } from 'react'
 
 export function ProfileForm() {
   const { isCheckingLogin, currentUser, isLoadingCurrentUser } = useAuth()
@@ -32,6 +33,12 @@ export function ProfileForm() {
 
     showSuccess('Profile updated')
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      form.setValues(currentUser)
+    }
+  }, [currentUser, form])
 
   if (isCheckingLogin || isLoadingCurrentUser) {
     return (

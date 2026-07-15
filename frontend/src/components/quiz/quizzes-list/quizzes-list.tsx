@@ -9,6 +9,7 @@ import { SelectEnhanced } from '@/ui/select-enhanced'
 import { useQuizzesQuery } from '@/hooks/use-quizzes-query'
 import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { QUIZ_SORT_OPTIONS, SortValue, getQuizSortData, getSortValueFromParams } from '@/constants/quizzes-list-sort'
+import { useSnackbar } from '@/components/snackbar'
 
 interface QuizSortComponentProps {
   size?: 'sm' | 'md' | 'lg'
@@ -33,6 +34,8 @@ interface QuizzesListProps {
 }
 
 export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesListProps) {
+  const { showError } = useSnackbar()
+
   const [search, setSearch] = useState('')
 
   const [sortValue, setSortValue] = useState<SortValue>(() => getSortValueFromParams(params) ?? 'newest')
@@ -56,6 +59,12 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
   }
 
   const { quizzes, totalMatches, totalPages, isLoading, error } = useQuizzesQuery(effectiveParams)
+
+  useEffect(() => {
+    if (error) {
+      showError(error.message)
+    }
+  }, [error, showError])
 
   function handleSortChange(value: string | null) {
     if (value) {

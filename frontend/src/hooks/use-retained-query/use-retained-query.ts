@@ -7,6 +7,10 @@ interface OrvalQueryResult<TResponse extends { data: unknown }> {
   isLoading: boolean
 }
 
+interface RetainedQueryOptions {
+  allowUndefined?: boolean
+}
+
 interface RetainedQueryResult<TSuccessBody> {
   data?: TSuccessBody
   error: ErrorResponse | null
@@ -21,8 +25,11 @@ interface RetainedQueryResult<TSuccessBody> {
  */
 export function useRetainedQuery<TResponse extends { data: unknown }>(
   queryResult: OrvalQueryResult<TResponse>,
+  options: RetainedQueryOptions = {},
 ): RetainedQueryResult<Exclude<TResponse['data'], ErrorResponse>> {
   type SuccessBody = Exclude<TResponse['data'], ErrorResponse>
+
+  const { allowUndefined } = options
 
   const [lastSucceedBody, setLastSucceedBody] = useState<SuccessBody | undefined>(undefined)
 
@@ -31,7 +38,7 @@ export function useRetainedQuery<TResponse extends { data: unknown }>(
   const error = body !== undefined && isErrorResponse(body) ? body : null
   const freshBody = body !== undefined && !isErrorResponse(body) ? (body as SuccessBody) : undefined
 
-  if (freshBody !== undefined && freshBody !== lastSucceedBody) {
+  if ((allowUndefined ? !error : freshBody !== undefined) && freshBody !== lastSucceedBody) {
     setLastSucceedBody(freshBody)
   }
 

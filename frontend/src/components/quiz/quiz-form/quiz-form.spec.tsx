@@ -29,6 +29,10 @@ jest.mock('@dnd-kit/react/sortable', () => ({
   isSortableOperation: () => false,
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 describe('QuizForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -44,6 +48,8 @@ describe('QuizForm', () => {
     const existingQuiz = makeQuiz({ id: 5, questions: [makeQuizQuestion('question-checkbox')] })
 
     const { getByTestId } = render(<QuizForm existingQuiz={existingQuiz} />)
+
+    updateQuiz.mockResolvedValueOnce({ data: { id: 5 } })
 
     fireEvent.click(getByTestId('quiz-form-submit-button'))
 
@@ -62,16 +68,19 @@ describe('QuizForm', () => {
           questions: existingQuiz.questions,
         },
       })
-      expect(push).toHaveBeenCalledWith('/manage-quizzes')
     })
   })
 
-  it('deletes the quiz when clicking the delete button', () => {
+  it('deletes the quiz when clicking the delete button', async () => {
     const { getByText } = render(<QuizForm existingQuiz={makeQuiz({ id: 5 })} />)
+
+    deleteQuiz.mockResolvedValueOnce({ data: null })
 
     fireEvent.click(getByText('Delete'))
 
-    expect(deleteQuiz).toHaveBeenCalledWith({ id: 5 })
-    expect(push).toHaveBeenCalledWith('/manage-quizzes')
+    await waitFor(() => {
+      expect(deleteQuiz).toHaveBeenCalledWith({ id: 5 })
+      expect(push).toHaveBeenCalledWith('/manage-quizzes')
+    })
   })
 })

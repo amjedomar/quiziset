@@ -50,7 +50,7 @@ export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: Fav
     const response = isFavorite ? await removeFavorite({ quizId }) : await addFavorite({ quizId })
 
     if (isErrorResponse(response.data)) {
-      showError(`Failed to ${isFavorite ? 'unfavorite' : 'favorite'} the quiz (please check your internet connection)`)
+      showError(response.data.message)
       return
     }
 

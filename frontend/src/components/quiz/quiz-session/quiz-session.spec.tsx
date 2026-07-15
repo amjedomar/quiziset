@@ -24,6 +24,10 @@ jest.mock('@dnd-kit/helpers', () => ({
   move: jest.fn(),
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn() }),
+}))
+
 describe('QuizSession', () => {
   const firstQuestionTitle = 'What is the highest mountain in the world?'
   const secondQuestionTitle = 'What is the capital of Malaysia?'

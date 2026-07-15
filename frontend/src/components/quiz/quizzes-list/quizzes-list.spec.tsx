@@ -6,6 +6,10 @@ jest.mock('@/hooks/use-quizzes-query', () => ({
   useQuizzesQuery: (params: unknown) => useQuizzesQuery(params),
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 describe('QuizzesList', () => {
   beforeEach(() => {
     useQuizzesQuery.mockReturnValue({ quizzes: [], totalMatches: 3, totalPages: 3, isLoading: false, error: null })

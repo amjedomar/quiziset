@@ -31,6 +31,10 @@ jest.mock('@dnd-kit/react/sortable', () => ({
   isSortableOperation: () => false,
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 describe('QuizUpdateForm', () => {
   it('correctly renders', () => {
     useGetSingleQuiz.mockReturnValue({ data: { data: makeQuiz() }, isLoading: false })

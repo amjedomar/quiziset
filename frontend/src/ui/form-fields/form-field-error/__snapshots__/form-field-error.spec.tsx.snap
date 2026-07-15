@@ -3,7 +3,7 @@
 exports[`FormFieldError displays the error message for the given field 1`] = `
 <DocumentFragment>
   <div
-    class="MuiFormHelperText-root css-1h9yhev-JoyFormHelperText-root"
+    class="MuiFormHelperText-root css-gj1jcm-JoyFormHelperText-root"
   >
     At least one answer must be correct
   </div>

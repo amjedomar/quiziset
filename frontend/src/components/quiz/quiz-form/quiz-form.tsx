@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Stack, Typography } from '@mui/joy'
+import { Button, Stack, Typography, Link } from '@mui/joy'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { FormTextarea } from '@/ui/form-fields/form-textarea'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
@@ -17,8 +17,11 @@ import { quizSchema, QuizFormData } from '@/components/quiz/quiz-form/quiz-schem
 import { FormSwitch } from '@/ui/form-fields/form-switch'
 import { useCreateQuiz, useDeleteQuiz, useUpdateQuiz } from '@/generated-api-client/quiz'
 import { useRouter } from 'next/navigation'
-import { QuizEntity } from '@/generated-api-client/model'
+import { ErrorResponse, QuizEntity } from '@/generated-api-client/model'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { isErrorResponse } from '@/utils/is-error-response'
+import { useSnackbar } from '@/components/snackbar'
+import NextLink from 'next/link'
 
 const defaultQuestion = {
   title: '',
@@ -38,6 +41,9 @@ interface QuizFormProps {
 
 export function QuizForm({ existingQuiz }: QuizFormProps) {
   const router = useRouter()
+
+  const { showError, showSuccess } = useSnackbar()
+
   const { mutateAsync: createQuiz, isPending: isCreating } = useCreateQuiz()
   const { mutateAsync: updateQuiz, isPending: isUpdating } = useUpdateQuiz()
   const { mutateAsync: deleteQuiz, isPending: isDeleting } = useDeleteQuiz()
@@ -60,28 +66,60 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
 
   const onSubmit = useCallback(
     async (data: QuizFormData) => {
+      let responseData: QuizEntity | ErrorResponse
       if (existingQuiz) {
-        await updateQuiz({ id: existingQuiz.id, data })
+        responseData = (await updateQuiz({ id: existingQuiz.id, data })).data
       } else {
-        await createQuiz({ data })
+        responseData = (await createQuiz({ data })).data
       }
 
-      router.push('/manage-quizzes')
+      if (isErrorResponse(responseData)) {
+        showError(responseData.message)
+      } else {
+        const quizOverviewLink = `/quizzes/${responseData.id}/overview`
+
+        if (existingQuiz) {
+          showSuccess(
+            <>
+              <span>Quiz updated Successfully!</span>
+
+              <Link component={NextLink} href={quizOverviewLink} underline="always">
+                View Quiz
+              </Link>
+            </>,
+          )
+        } else {
+          router.push(quizOverviewLink)
+          showSuccess('Quiz created successfully!')
+        }
+      }
     },
-    [existingQuiz, createQuiz, updateQuiz, router],
+    [existingQuiz, updateQuiz, createQuiz, showError, showSuccess, router],
   )
 
-  const onDelete = useCallback(() => {
+  const onValidationError = useCallback(() => {
+    showError(
+      'Please make sure to fill all fields & in case of checkbox/cards/radio questions make sure to select at least one answer',
+      { autoHideDuration: 10000 },
+    )
+  }, [showError])
+
+  const onDelete = useCallback(async () => {
     if (!existingQuiz) return // if form is in "create" mode then return
 
-    deleteQuiz({ id: existingQuiz.id })
-
+    const response = await deleteQuiz({ id: existingQuiz.id })
     router.push('/manage-quizzes')
-  }, [deleteQuiz, existingQuiz, router])
+
+    if (isErrorResponse(response.data)) {
+      showError(response.data.message)
+    } else {
+      showSuccess('Quiz was deleted successfully!')
+    }
+  }, [deleteQuiz, existingQuiz, router, showError, showSuccess])
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={form.handleSubmit(onSubmit, onValidationError)} noValidate>
         <Stack direction="column" spacing={3}>
           <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
 

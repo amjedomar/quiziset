@@ -16,6 +16,7 @@ import {
 } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { USER_TOKEN_COOKIE, getUserTokenCookieAttributes } from '@/constants/auth'
+import { useRetainedQuery } from '@/hooks/use-retained-query'
 
 const MONTH_IN_MS = 1000 * 60 * 60 * 24 * 30
 
@@ -27,7 +28,7 @@ interface AuthContextValue {
   isSigningUp: boolean
   isRequestingPasswordReset: boolean
   isResettingPassword: boolean
-  currentUser: UserEntity | null
+  currentUser: UserEntity | undefined
   isLoadingCurrentUser: boolean
 
   // methods
@@ -58,10 +59,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // fetch the current user profile (only while logged in so anonymous users never trigger the 401-redirect
   // which is handled in "orval-custom-fetch.ts")
-  const { data: currentUserResponse, isLoading: isLoadingCurrentUser } = useGetMe({ query: { enabled: isLoggedIn } })
+  const currentUserQuery = useGetMe({ query: { enabled: isLoggedIn } })
 
-  const currentUser =
-    currentUserResponse && !isErrorResponse(currentUserResponse.data) ? currentUserResponse.data : null
+  const { data: currentUser, isLoading: isLoadingCurrentUser } = useRetainedQuery(currentUserQuery, {
+    allowUndefined: true,
+  })
 
   // Initial Check during page load
   useEffect(() => {

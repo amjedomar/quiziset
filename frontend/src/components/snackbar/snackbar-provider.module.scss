@@ -1,0 +1,12 @@
+.message {
+  min-width: auto;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+
+.message a {
+  font-weight: 700;
+  font-size: inherit;
+}

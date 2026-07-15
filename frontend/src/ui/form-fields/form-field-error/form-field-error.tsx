@@ -27,5 +27,5 @@ export function FormFieldError({ name }: FormFieldErrorProps) {
     return null
   }
 
-  return <FormHelperText sx={{ color: 'danger.500' }}>{errorMessage}</FormHelperText>
+  return <FormHelperText sx={{ color: 'danger.500', fontWeight: 700 }}>{errorMessage}</FormHelperText>
 }
