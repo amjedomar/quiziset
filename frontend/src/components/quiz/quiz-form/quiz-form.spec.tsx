@@ -71,12 +71,13 @@ describe('QuizForm', () => {
     })
   })
 
-  it('deletes the quiz when clicking the delete button', async () => {
-    const { getByText } = render(<QuizForm existingQuiz={makeQuiz({ id: 5 })} />)
+  it('deletes the quiz after confirming in the modal', async () => {
+    const { getByText, getByTestId } = render(<QuizForm existingQuiz={makeQuiz({ id: 5 })} />)
 
     deleteQuiz.mockResolvedValueOnce({ data: null })
 
-    fireEvent.click(getByText('Delete'))
+    fireEvent.click(getByText('Delete')) // open the confirm modal
+    fireEvent.click(getByTestId('confirm-delete-button')) // confirm the deletion
 
     await waitFor(() => {
       expect(deleteQuiz).toHaveBeenCalledWith({ id: 5 })

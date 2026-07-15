@@ -10,7 +10,7 @@ exports[`QuizTimeDurationSelect correctly renders 1`] = `
       for="_r_0_"
       id="_r_0_-label"
     >
-      Time Duration
+      Time Duration (hr:min)
     </label>
     <div
       class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
@@ -20,7 +20,7 @@ exports[`QuizTimeDurationSelect correctly renders 1`] = `
         aria-controls="_r_1_"
         aria-expanded="false"
         aria-labelledby="_r_0_-label"
-        class="MuiSelect-button css-me27eb-JoySelect-button"
+        class="MuiSelect-button css-1hr8yhh-JoySelect-button"
         data-testid="select-timeDurationInMinutes"
         id="_r_0_"
         name="timeDurationInMinutes"
@@ -49,7 +49,7 @@ exports[`QuizTimeDurationSelect correctly renders 1`] = `
         name="timeDurationInMinutes"
         style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
         tabindex="-1"
-        value=""
+        value="none"
       />
     </div>
   </div>

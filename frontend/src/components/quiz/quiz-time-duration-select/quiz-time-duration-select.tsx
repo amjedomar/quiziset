@@ -1,14 +1,23 @@
-import { FormSelect } from '@/ui/form-fields/form-select'
-import { SelectEnhancedOption } from '@/ui/select-enhanced'
+import { FormFieldCore } from '@/ui/form-fields/form-field-core'
+import { SelectEnhanced, SelectEnhancedOption } from '@/ui/select-enhanced'
+
+/**
+ * mui/joy have internal issue (when "null" is passed as a default value
+ * then menu doesn't close when user clicks outside it (if there is no
+ * selected option i.e. null)
+ *
+ * Thus, instead use 'none' then map it to `null` when `onChange`
+ */
+const NO_LIMIT = 'none'
 
 /**
  * builds the list of durations (in minutes)
- * - starts with 5
+ * - starts with 1, 2, 3, 4, 5
  * - then 15
  * - then steps by 15 until it reaches 3 hrs (180 mins)
  */
 const buildDurationMinutes = (): number[] => {
-  const minutes = [5, 15]
+  const minutes = [1, 2, 3, 4, 5, 15]
 
   for (let value = 30; value <= 180; value += 15) {
     minutes.push(value)
@@ -28,7 +37,7 @@ const formatDuration = (totalMinutes: number): string => {
 }
 
 const TIME_DURATION_OPTIONS: SelectEnhancedOption[] = [
-  { label: 'No Time Limit', value: null },
+  { label: 'No Time Limit', value: NO_LIMIT },
   ...buildDurationMinutes().map((minutes) => ({ label: formatDuration(minutes), value: minutes })),
 ]
 
@@ -38,13 +47,22 @@ interface QuizTimeDurationSelectProps {
 
 export function QuizTimeDurationSelect({ name }: QuizTimeDurationSelectProps) {
   return (
-    <FormSelect
+    <FormFieldCore
       name={name}
-      label="Time Duration"
-      placeholder=""
+      label="Time Duration (hr:min)"
       defaultValue={null}
-      style={{ width: 160 }}
-      options={TIME_DURATION_OPTIONS}
+      renderField={({ field: { ref, name: fieldName, value, onChange } }) => (
+        <SelectEnhanced
+          ref={ref}
+          name={fieldName}
+          value={value ?? NO_LIMIT}
+          onChange={(_, newValue) => onChange(newValue === NO_LIMIT ? null : newValue)}
+          options={TIME_DURATION_OPTIONS}
+          placeholder=""
+          style={{ width: 160 }}
+          testId={`select-${name}`}
+        />
+      )}
     />
   )
 }

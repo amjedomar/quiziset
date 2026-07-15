@@ -23,21 +23,22 @@ exports[`QuizForm correctly renders 1`] = `
             class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
           >
             <div
-              class="MuiSwitch-root MuiSwitch-variantSolid MuiSwitch-colorNeutral MuiSwitch-sizeMd css-1ch0weh-JoySwitch-root"
+              class="MuiSwitch-root Mui-checked MuiSwitch-variantSolid MuiSwitch-colorPrimary MuiSwitch-sizeMd css-y9aki5-JoySwitch-root"
               name="isPublic"
             >
               <span
-                class="MuiSwitch-track css-1kynshp-JoySwitch-track"
+                class="MuiSwitch-track Mui-checked css-1kynshp-JoySwitch-track"
               >
                 <span
-                  class="MuiSwitch-thumb css-d5sxl0-JoySwitch-thumb"
+                  class="MuiSwitch-thumb Mui-checked css-d5sxl0-JoySwitch-thumb"
                 />
               </span>
               <div
                 class="MuiSwitch-action css-8hil84-JoySwitch-action"
               >
                 <input
-                  aria-checked="false"
+                  aria-checked="true"
+                  checked=""
                   class="MuiSwitch-input css-iegj0b-JoySwitch-input"
                   data-testid="switch-isPublic"
                   role="switch"
@@ -149,7 +150,7 @@ exports[`QuizForm correctly renders 1`] = `
               for="_r_2_"
               id="_r_2_-label"
             >
-              Time Duration
+              Time Duration (hr:min)
             </label>
             <div
               class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
@@ -159,7 +160,7 @@ exports[`QuizForm correctly renders 1`] = `
                 aria-controls="_r_3_"
                 aria-expanded="false"
                 aria-labelledby="_r_2_-label"
-                class="MuiSelect-button css-me27eb-JoySelect-button"
+                class="MuiSelect-button css-1hr8yhh-JoySelect-button"
                 data-testid="select-timeDurationInMinutes"
                 id="_r_2_"
                 name="timeDurationInMinutes"
@@ -188,7 +189,7 @@ exports[`QuizForm correctly renders 1`] = `
                 name="timeDurationInMinutes"
                 style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
                 tabindex="-1"
-                value=""
+                value="none"
               />
             </div>
           </div>

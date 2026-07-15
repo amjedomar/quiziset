@@ -5,7 +5,7 @@ import { FormInput } from '@/ui/form-fields/form-input'
 import { FormTextarea } from '@/ui/form-fields/form-textarea'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
 import SaveIcon from '@mui/icons-material/Save'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormImage } from '@/ui/form-fields/form-image'
 import styles from './quiz-form.module.scss'
@@ -21,6 +21,7 @@ import { ErrorResponse, QuizEntity } from '@/generated-api-client/model'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
+import { ConfirmDeleteModal } from '@/components/confirm-delete-modal'
 import NextLink from 'next/link'
 
 const defaultQuestion = {
@@ -28,6 +29,8 @@ const defaultQuestion = {
   questionType: QuestionType.Checkbox,
   answers: [{ text: '' }, { text: '' }, { text: '' }],
 }
+
+const newQuizDefaults = { isPublic: true, timeDurationInMinutes: null, questions: [defaultQuestion] }
 
 interface QuizFormProps {
   /**
@@ -48,11 +51,13 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
   const { mutateAsync: updateQuiz, isPending: isUpdating } = useUpdateQuiz()
   const { mutateAsync: deleteQuiz, isPending: isDeleting } = useDeleteQuiz()
 
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false)
+
   const form = useForm<QuizFormData>({
     resolver: zodResolver(quizSchema),
     // QuizEntity is a superset of QuizData (it adds e.g. id/managerId/createdAt/updatedAt)
     // so it can be used directly as the form's default values
-    defaultValues: existingQuiz ?? { timeDurationInMinutes: null, questions: [defaultQuestion] },
+    defaultValues: existingQuiz ?? newQuizDefaults,
   })
 
   const {
@@ -108,12 +113,12 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     if (!existingQuiz) return // if form is in "create" mode then return
 
     const response = await deleteQuiz({ id: existingQuiz.id })
-    router.push('/manage-quizzes')
 
     if (isErrorResponse(response.data)) {
       showError(response.data.message)
     } else {
       showSuccess('Quiz was deleted successfully!')
+      router.push('/manage-quizzes')
     }
   }, [deleteQuiz, existingQuiz, router, showError, showSuccess])
 
@@ -163,15 +168,25 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
           </Button>
 
           {existingQuiz && (
-            <Button
-              variant="outlined"
-              color="danger"
-              startDecorator={<DeleteIcon />}
-              loading={isDeleting}
-              onClick={onDelete}
-            >
-              Delete
-            </Button>
+            <>
+              <Button
+                variant="outlined"
+                color="danger"
+                startDecorator={<DeleteIcon />}
+                onClick={() => setIsConfirmingDelete(true)}
+              >
+                Delete
+              </Button>
+
+              <ConfirmDeleteModal
+                open={isConfirmingDelete}
+                isDeleting={isDeleting}
+                title="Delete quiz"
+                message="Are you sure you want to delete this quiz?"
+                onConfirm={onDelete}
+                onCancel={() => setIsConfirmingDelete(false)}
+              />
+            </>
           )}
         </div>
       </form>
