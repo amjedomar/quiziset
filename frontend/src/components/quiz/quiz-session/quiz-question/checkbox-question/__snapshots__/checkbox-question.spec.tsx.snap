@@ -6,16 +6,16 @@ exports[`CheckboxQuestion correctly renders 1`] = `
     class="MuiStack-root css-1s5gupf-JoyStack-root"
   >
     <div
-      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
     >
       <span
-        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-zue3tt-JoyCheckbox-root"
       >
         <span
           class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
         >
           <span
-            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            class="MuiCheckbox-action css-101pdd6-JoyCheckbox-action"
           >
             <input
               aria-checked="false"
@@ -34,16 +34,16 @@ exports[`CheckboxQuestion correctly renders 1`] = `
       </span>
     </div>
     <div
-      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
     >
       <span
-        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-zue3tt-JoyCheckbox-root"
       >
         <span
           class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
         >
           <span
-            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            class="MuiCheckbox-action css-101pdd6-JoyCheckbox-action"
           >
             <input
               aria-checked="false"

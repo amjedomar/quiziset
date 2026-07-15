@@ -13,10 +13,10 @@ exports[`RadioQuestion correctly renders 1`] = `
       data-parent="RadioGroup"
     >
       <div
-        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
       >
         <span
-          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1p4941o-JoyRadio-root"
         >
           <span
             class="MuiRadio-radio css-ji34he-JoyRadio-radio"
@@ -25,7 +25,7 @@ exports[`RadioQuestion correctly renders 1`] = `
               class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
             />
             <span
-              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+              class="MuiRadio-action css-hysfad-JoyRadio-action"
             >
               <input
                 aria-checked="false"
@@ -46,10 +46,10 @@ exports[`RadioQuestion correctly renders 1`] = `
         </span>
       </div>
       <div
-        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
       >
         <span
-          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1p4941o-JoyRadio-root"
         >
           <span
             class="MuiRadio-radio css-ji34he-JoyRadio-radio"
@@ -58,7 +58,7 @@ exports[`RadioQuestion correctly renders 1`] = `
               class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
             />
             <span
-              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+              class="MuiRadio-action css-hysfad-JoyRadio-action"
             >
               <input
                 aria-checked="false"

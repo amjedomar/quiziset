@@ -11,6 +11,8 @@ import { StarsRating } from '@/components/reviews/stars-rating'
 import { ReviewItem } from '@/components/reviews/review-item'
 import { ReviewForm } from '@/components/reviews/review-form'
 import styles from './reviews-section.module.scss'
+import { useSnackbar } from '@/components/snackbar'
+import { isErrorResponse } from '@/utils/is-error-response'
 
 interface ReviewsSectionProps {
   quizId: number
@@ -20,6 +22,8 @@ interface ReviewsSectionProps {
 
 export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
   const [isWriting, setIsWriting] = useState(false)
+
+  const { showError } = useSnackbar()
 
   const queryResult = useGetQuizReviews(quizId)
   const { data: reviews, error, isLoading } = useRetainedQuery(queryResult)
@@ -41,7 +45,11 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
 
   const handleDelete = async () => {
     if (!myReview) return
-    await deleteReview({ quizId, reviewId: myReview.id })
+    const response = await deleteReview({ quizId, reviewId: myReview.id })
+
+    if (isErrorResponse(response.data)) {
+      showError(response.data.message)
+    }
   }
 
   const renderMyReview = () => {
@@ -52,7 +60,10 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
           <ReviewForm
             quizId={quizId}
             existingReview={myReview}
-            onDone={() => setIsWriting(false)}
+            onDone={async () => {
+              await queryResult.refetch()
+              setIsWriting(false)
+            }}
             onCancel={() => setIsWriting(false)}
           />
         </Sheet>

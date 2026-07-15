@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Alert, Box, Button, FormControl, FormLabel, Stack, Textarea, Typography } from '@mui/joy'
+import { Box, Button, FormControl, FormLabel, Stack, Textarea, Typography } from '@mui/joy'
 import { useCreateReview, useUpdateReview } from '@/generated-api-client/review'
 import { ReviewEntity } from '@/generated-api-client/model'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { StarsRating } from '@/components/reviews/stars-rating'
+import { useSnackbar } from '@/components/snackbar'
 
 interface ReviewFormProps {
   quizId: number
@@ -17,7 +18,7 @@ interface ReviewFormProps {
 export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewFormProps) {
   const [rating, setRating] = useState(existingReview?.rating ?? 0)
   const [comment, setComment] = useState(existingReview?.comment ?? '')
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const { showError } = useSnackbar()
 
   const { mutateAsync: createReview, isPending: isCreating } = useCreateReview()
   const { mutateAsync: updateReview, isPending: isUpdating } = useUpdateReview()
@@ -26,8 +27,6 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
   const isEditing = Boolean(existingReview)
 
   const handleSubmit = async () => {
-    setErrorMessage(null)
-
     const data = { rating, comment: comment.trim() }
 
     const response = existingReview
@@ -35,7 +34,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
       : await createReview({ quizId, data })
 
     if (isErrorResponse(response.data)) {
-      setErrorMessage(response.data.message)
+      showError(response.data.message)
       return
     }
 
@@ -64,12 +63,6 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
             slotProps={{ textarea: { maxLength: 255, 'data-testid': 'review-comment-textarea' } }}
           />
         </FormControl>
-
-        {errorMessage && (
-          <Alert color="danger" variant="soft">
-            {errorMessage}
-          </Alert>
-        )}
 
         <Stack direction="row" spacing={1}>
           <Button data-testid="submit-review-button" onClick={handleSubmit} loading={isPending} disabled={rating === 0}>

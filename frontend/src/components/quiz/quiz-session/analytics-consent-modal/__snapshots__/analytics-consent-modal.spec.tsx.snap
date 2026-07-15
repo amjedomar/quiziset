@@ -66,7 +66,7 @@ exports[`AnalyticsConsentModal correctly renders 1`] = `
           style="margin: 0px;"
         >
           <li>
-            Your name & profile link on Quiziset
+            Your name & avatar on Quiziset
           </li>
           <li>
             Your score of this quiz

@@ -30,6 +30,10 @@ jest.mock('@/generated-api-client/review', () => ({
   useDeleteReview: () => ({ mutateAsync: jest.fn(), isPending: false }),
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 describe('ReviewsSection', () => {
   beforeEach(() => {
     getQuizReviewsResult = { data: { data: reviews }, isLoading: false }

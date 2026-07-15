@@ -11,7 +11,17 @@ interface QuizUpdateFormProps {
 }
 
 export function QuizUpdateForm({ quizId }: QuizUpdateFormProps) {
-  const queryResult = useGetSingleQuiz(quizId, { fields: 'DETAILS' })
+  const queryResult = useGetSingleQuiz(
+    quizId,
+    { fields: 'DETAILS' },
+    {
+      query: {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+      },
+    },
+  )
   const { data: quiz, error, isLoading } = useRetainedQuery(queryResult)
 
   if (error && !quiz) {

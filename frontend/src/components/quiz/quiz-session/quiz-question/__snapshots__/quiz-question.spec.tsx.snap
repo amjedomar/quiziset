@@ -3,10 +3,10 @@
 exports[`QuizQuestion correctly renders a question-cards question 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root css-17g4p10"
+    class="grid"
   >
     <div
-      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd card css-1p3o6sg-JoyCard-root"
       data-testid="question-cards-answer-0"
     >
       <div
@@ -14,7 +14,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         data-first-child=""
       >
         <div
-          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+          class="MuiAspectRatio-root image css-jzkjfy-JoyAspectRatio-root"
         >
           <div
             class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
@@ -36,10 +36,9 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium icon css-1umw9bq-MuiSvgIcon-root"
             data-testid="RadioButtonUncheckedIcon"
             focusable="false"
-            style="margin-top: 5px;"
             viewBox="0 0 24 24"
           >
             <path
@@ -55,7 +54,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
       </div>
     </div>
     <div
-      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd css-3tvds3-JoyCard-root"
+      class="MuiCard-root MuiCard-vertical MuiCard-variantOutlined MuiCard-colorNeutral MuiCard-sizeMd card css-1p3o6sg-JoyCard-root"
       data-testid="question-cards-answer-1"
     >
       <div
@@ -63,7 +62,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         data-first-child=""
       >
         <div
-          class="MuiAspectRatio-root css-jzkjfy-JoyAspectRatio-root"
+          class="MuiAspectRatio-root image css-jzkjfy-JoyAspectRatio-root"
         >
           <div
             class="MuiAspectRatio-content MuiAspectRatio-variantSoft MuiAspectRatio-colorNeutral css-6e7lq1-JoyAspectRatio-content"
@@ -85,10 +84,9 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium icon css-1umw9bq-MuiSvgIcon-root"
             data-testid="RadioButtonUncheckedIcon"
             focusable="false"
-            style="margin-top: 5px;"
             viewBox="0 0 24 24"
           >
             <path
@@ -113,16 +111,16 @@ exports[`QuizQuestion correctly renders a question-checkbox question 1`] = `
     class="MuiStack-root css-1s5gupf-JoyStack-root"
   >
     <div
-      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
     >
       <span
-        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-zue3tt-JoyCheckbox-root"
       >
         <span
           class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
         >
           <span
-            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            class="MuiCheckbox-action css-101pdd6-JoyCheckbox-action"
           >
             <input
               aria-checked="false"
@@ -141,16 +139,16 @@ exports[`QuizQuestion correctly renders a question-checkbox question 1`] = `
       </span>
     </div>
     <div
-      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+      class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
     >
       <span
-        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-zue3tt-JoyCheckbox-root"
       >
         <span
           class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
         >
           <span
-            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+            class="MuiCheckbox-action css-101pdd6-JoyCheckbox-action"
           >
             <input
               aria-checked="false"
@@ -185,10 +183,10 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
       data-parent="RadioGroup"
     >
       <div
-        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
       >
         <span
-          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1p4941o-JoyRadio-root"
         >
           <span
             class="MuiRadio-radio css-ji34he-JoyRadio-radio"
@@ -197,7 +195,7 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
               class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
             />
             <span
-              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+              class="MuiRadio-action css-hysfad-JoyRadio-action"
             >
               <input
                 aria-checked="false"
@@ -218,10 +216,10 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
         </span>
       </div>
       <div
-        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral css-13vy2mq-JoySheet-root"
+        class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
       >
         <span
-          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1ns9av0-JoyRadio-root"
+          class="MuiRadio-root MuiRadio-variantOutlined MuiRadio-colorNeutral MuiRadio-sizeMd css-1p4941o-JoyRadio-root"
         >
           <span
             class="MuiRadio-radio css-ji34he-JoyRadio-radio"
@@ -230,7 +228,7 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
               class="MuiRadio-icon css-h1cd45-JoyRadio-icon"
             />
             <span
-              class="MuiRadio-action css-phjqy5-JoyRadio-action"
+              class="MuiRadio-action css-hysfad-JoyRadio-action"
             >
               <input
                 aria-checked="false"

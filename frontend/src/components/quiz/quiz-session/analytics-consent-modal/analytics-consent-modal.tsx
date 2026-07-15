@@ -21,7 +21,7 @@ export function AnalyticsConsentModal({ isAccepting, onAccept, onQuit }: Analyti
             This quiz will share the following data <b>with the quiz creator</b>:
           </p>
           <ul style={{ margin: 0 }}>
-            <li>Your name & profile link on Quiziset</li>
+            <li>Your name & avatar on Quiziset</li>
             <li>Your score of this quiz</li>
             <li>The start time & duration you took to finish this quiz</li>
           </ul>

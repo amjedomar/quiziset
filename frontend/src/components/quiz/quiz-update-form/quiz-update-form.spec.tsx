@@ -49,7 +49,18 @@ describe('QuizUpdateForm', () => {
 
     const { getByTestId } = render(<QuizUpdateForm quizId={5} />)
 
-    expect(useGetSingleQuiz).toHaveBeenCalledWith(5, { fields: 'DETAILS' })
+    expect(useGetSingleQuiz).toHaveBeenCalledWith(
+      5,
+      { fields: 'DETAILS' },
+      {
+        query: {
+          refetchOnMount: false,
+          refetchOnWindowFocus: false,
+          refetchOnReconnect: false,
+        },
+      },
+    )
+
     expect(getByTestId('quiz-form-submit-button')).toHaveTextContent('Update Quiz')
   })
 

@@ -16,9 +16,12 @@ $color-natural-500: #636b74;
 $color-danger-500: #c41c1c;
 
 // media breakpoints
+$screen-xxs: 400px;
 $screen-sm: 600px;
 $screen-md: 900px;
 
+$min-screen-xxs: "(min-width: #{$screen-xxs})";
+$max-screen-xxs: "(max-width: #{$screen-xxs - 1px})";
 $min-screen-sm: "(min-width: #{$screen-sm})";
 $max-screen-sm: "(max-width: #{$screen-sm - 1px})";
 $min-screen-md: "(min-width: #{$screen-md})";

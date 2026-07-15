@@ -8,6 +8,10 @@ jest.mock('@/generated-api-client/review', () => ({
   useUpdateReview: () => ({ mutateAsync: updateReview, isPending: false }),
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 describe('ReviewForm', () => {
   it('correctly renders', () => {
     const { asFragment } = render(<ReviewForm quizId={1} onDone={jest.fn()} onCancel={jest.fn()} />)

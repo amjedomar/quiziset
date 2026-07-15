@@ -1,8 +1,9 @@
-import { AspectRatio, Box, Card, CardContent, CardOverflow, Stack, Typography } from '@mui/joy'
+import { AspectRatio, Card, CardContent, CardOverflow, Stack, Typography } from '@mui/joy'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import { QuestionRendererProps } from '@/components/quiz/quiz-session/quiz-question'
 import { BackendImage } from '@/ui/backend-image'
+import styles from './cards-question.module.scss'
 
 /**
  * "question-cards" is answered by selecting the cards the user thinks are correct
@@ -15,16 +16,7 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
   }
 
   return (
-    <Box
-      sx={{
-        display: 'grid',
-        gap: 2,
-        gridTemplateColumns: {
-          xs: 'repeat(2, minmax(0, 1fr))',
-          sm: 'repeat(3, minmax(0, 1fr))',
-        },
-      }}
-    >
+    <div className={styles.grid}>
       {answers.map((answer, index) => {
         const isSelected = value.includes(index)
 
@@ -35,11 +27,10 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
             variant={isSelected ? 'solid' : 'outlined'}
             color={isSelected ? 'primary' : 'neutral'}
             onClick={() => toggle(index)}
-            // I set borderWidth to avoid width/height changing when variant is switched
-            sx={{ cursor: 'pointer', borderWidth: 1, borderStyle: 'solid' }}
+            className={styles.card}
           >
             <CardOverflow>
-              <AspectRatio ratio="1">
+              <AspectRatio ratio="1" className={styles.image}>
                 {answer.imageUrl && <BackendImage src={answer.imageUrl} alt={answer.text} />}
               </AspectRatio>
             </CardOverflow>
@@ -47,9 +38,9 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
             <CardContent>
               <Stack direction="row" spacing={1}>
                 {isSelected ? (
-                  <CheckCircleIcon style={{ marginTop: 5 }} />
+                  <CheckCircleIcon className={styles.icon} />
                 ) : (
-                  <RadioButtonUncheckedIcon style={{ marginTop: 5 }} />
+                  <RadioButtonUncheckedIcon className={styles.icon} />
                 )}
                 <Typography textColor="inherit">{answer.text}</Typography>
               </Stack>
@@ -57,6 +48,6 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
           </Card>
         )
       })}
-    </Box>
+    </div>
   )
 }
