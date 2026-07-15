@@ -28,6 +28,17 @@ export const QUESTION_TYPES: QuestionTypeOption[] = [
   { label: 'Cards', value: QuestionType.Cards, decorator: <QuestionCardsIcon fontSize="inherit" /> },
 ]
 
+export function getQuestionHint(questionType: QuestionType): string {
+  switch (questionType) {
+    case QuestionType.Radio:
+      return 'Select the correct answer'
+    case QuestionType.Reorder:
+      return 'Put the answers in the correct order'
+    default:
+      return 'Select correct answer(s)'
+  }
+}
+
 interface QuestionTypeSelectProps extends Omit<SelectEnhancedProps<false>, 'options' | 'onChange'> {
   formFieldName?: string
   onChange?: (newValue: QuestionType) => void

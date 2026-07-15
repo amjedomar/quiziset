@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`FormFieldHint correctly renders the hint and marks it as an error when the field is invalid 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormHelperText-root css-138efzq-JoyFormHelperText-root"
+  >
+    Select the correct answer
+  </div>
+</DocumentFragment>
+`;

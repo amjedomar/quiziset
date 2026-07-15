@@ -363,6 +363,12 @@ exports[`QuizForm correctly renders 1`] = `
                 Answers
               </label>
               <div
+                class="MuiFormHelperText-root css-1gynn8o-JoyFormHelperText-root"
+                id="_r_8_-helper-text"
+              >
+                Select correct answer(s)
+              </div>
+              <div
                 class="answerRow"
               >
                 <div

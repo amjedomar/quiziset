@@ -13,6 +13,7 @@ import { QuizSessionTimer } from '@/components/quiz/quiz-session/quiz-session-ti
 import { QuizQuestion } from '@/components/quiz/quiz-session/quiz-question'
 import { QuizResult } from '@/components/quiz/quiz-session/quiz-result'
 import { useSnackbar } from '@/components/snackbar'
+import { getQuestionHint } from '@/components/quiz/question-type-select'
 import styles from './quiz-session.module.scss'
 
 interface QuizSessionProps {
@@ -157,9 +158,15 @@ export function QuizSession({ quizId }: QuizSessionProps) {
 
       {expireTime && <QuizSessionTimer expireTime={expireTime} onExpire={handleExpire} />}
 
-      <Typography level="h4" data-testid="quiz-question-title">
-        {currentQuestion.title}
-      </Typography>
+      <div>
+        <Typography level="h4" data-testid="quiz-question-title">
+          {currentQuestion.title}
+        </Typography>
+
+        <Typography level="body-sm" textColor="text.tertiary" sx={{ mt: 0.5 }}>
+          {getQuestionHint(currentQuestion.questionType)}
+        </Typography>
+      </div>
 
       <QuizQuestion question={currentQuestion} value={answerIndexes} onChange={setAnswerIndexes} />
 

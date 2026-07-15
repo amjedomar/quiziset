@@ -1,12 +1,12 @@
 import { FormInput } from '@/ui/form-fields/form-input'
 import { FormCheckbox } from '@/ui/form-fields/form-checkbox'
 import { FormRadio } from '@/ui/form-fields/form-radio'
-import { FormFieldError } from '@/ui/form-fields/form-field-error'
+import { FormFieldHint } from '@/ui/form-fields/form-field-hint'
 import { HandleRef, Sortable } from '@/ui/sortable'
 import { FormControl, FormLabel, IconButton, Sheet, Stack } from '@mui/joy'
 import DeleteIcon from '@mui/icons-material/Delete'
 import styles from './question-form.module.scss'
-import { QuestionType, QuestionTypeSelect } from '@/components/quiz/question-type-select'
+import { getQuestionHint, QuestionType, QuestionTypeSelect } from '@/components/quiz/question-type-select'
 import { DragDropProvider, DragEndEvent } from '@dnd-kit/react'
 import { isSortableOperation } from '@dnd-kit/react/sortable'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
@@ -225,12 +225,9 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
           <Stack spacing={1}>
             <FormLabel>Answers</FormLabel>
 
-            {/*
-              In case no answers are selected.
-              Then zod validation will set the error on the first answer's "isCorrect" field
-              This is why we set the path to the first answer's "isCorrect" field
-            */}
-            <FormFieldError name={`${questionFieldName}.answers.0.isCorrect`} />
+            <FormFieldHint name={`${questionFieldName}.answers.0.isCorrect`}>
+              {getQuestionHint(questionType)}
+            </FormFieldHint>
 
             {questionType === QuestionType.Reorder ? (
               <DragDropProvider onDragEnd={handleAnswerDragEnd}>

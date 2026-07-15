@@ -1,8 +1,9 @@
 'use client'
 
 import { Fragment, useState } from 'react'
-import { Box, Button, Divider, Sheet, Tooltip, Typography } from '@mui/joy'
+import { Alert, Box, Button, Divider, Sheet, Tooltip, Typography } from '@mui/joy'
 import RateReviewIcon from '@mui/icons-material/RateReview'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useDeleteReview, useGetQuizReviews } from '@/generated-api-client/review'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
@@ -109,6 +110,12 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
       <Typography level="title-lg" sx={{ mb: 1.5 }}>
         Reviews
       </Typography>
+
+      {!canReview && (
+        <Alert color="warning" variant="soft" startDecorator={<WarningRoundedIcon />} sx={{ mb: 2 }}>
+          Finish the quiz at least once so you can leave a review
+        </Alert>
+      )}
 
       <div className={styles.summary}>
         {reviewsCount === 0 ? (
