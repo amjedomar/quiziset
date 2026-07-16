@@ -170,7 +170,11 @@ backend and frontend
 
 In case you wanna **re-run** the prisma seed command (i.e. reset back to the default DB dummy data for local setup)
 
-- first you'll have to clear up all the current DB data by running the following command (**Caution:** this is ok for local setup only but not on real live production since all data on database will be lost)
+- First enter the "**backend**" Docker container
+  ```shell
+  docker compose exec backend /bin/bash
+  ```
+- Then you'll have to clear up all the current DB data by running the following command (**Caution:** this is ok for local setup only but not on real live production since all data on database will be lost)
   ```shell
   npx prisma migrate reset --force
   ```
