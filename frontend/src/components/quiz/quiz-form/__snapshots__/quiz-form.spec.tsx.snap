@@ -18,7 +18,7 @@ exports[`QuizForm correctly renders 1`] = `
         </h3>
       </div>
       <div
-        class="MuiStack-root css-11jetsa-JoyStack-root"
+        class="switches"
       >
         <label
           class="MuiTypography-root MuiTypography-body-md label css-dd8p4m-JoyTypography-root"

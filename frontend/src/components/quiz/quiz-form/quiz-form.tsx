@@ -137,10 +137,10 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             )}
           </div>
 
-          <Stack alignItems="flex-start" direction="column" spacing={0.5}>
+          <div className={styles.switches}>
             <FormSwitch name="isPublic" label="Public" />
             <FormSwitch name="isAnalyticsEnabled" label="Analytics" />
-          </Stack>
+          </div>
 
           <div className={styles.overviewSection}>
             <Stack direction="column" spacing={3}>

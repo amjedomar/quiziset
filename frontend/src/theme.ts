@@ -67,6 +67,19 @@ export const theme = extendTheme({
         }),
       },
     },
+    JoySwitch: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            [theme.breakpoints.down('md')]: {
+              '--Switch-trackWidth': '38px',
+              '--Switch-trackHeight': '22px',
+              '--Switch-thumbSize': '16px',
+            },
+          }),
+        }),
+      },
+    },
   },
   colorSchemes: {
     light: {

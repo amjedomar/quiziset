@@ -7,6 +7,17 @@
   min-height: 36px;
 }
 
+.switches {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  @media ($max-screen-md) {
+    gap: 12px;
+  }
+}
+
 .overviewSection {
   display: grid;
   grid-template-columns: 1fr auto;
