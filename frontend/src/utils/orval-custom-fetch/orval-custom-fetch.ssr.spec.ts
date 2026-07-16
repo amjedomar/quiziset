@@ -37,10 +37,27 @@ describe('customFetch (SSR)', () => {
 
     const result = await customFetch('/quizzes/1')
 
+    expect(cookies).toHaveBeenCalled()
     expect(fetchMock).toHaveBeenCalledWith('http://mock-backend/quizzes/1', {
       headers: { Authorization: 'Bearer the-token' },
     })
     expect(result).toEqual({ status: 200, data: { id: 1 }, headers: expect.any(Headers) })
+  })
+
+  // on the server the cookie is only read for GET requests to avoid CSRF attacks
+  it('does not attach the auth token for a non-GET request', async () => {
+    cookies.mockResolvedValue({ get: () => ({ value: 'the-token' }) })
+
+    fetchMock.mockResolvedValue({
+      status: 200,
+      headers: new Headers({ 'content-type': 'application/json' }),
+      json: () => Promise.resolve({ id: 1 }),
+    })
+
+    await customFetch('/quizzes', { method: 'POST' })
+
+    expect(cookies).not.toHaveBeenCalled()
+    expect(fetchMock).toHaveBeenCalledWith('http://mock-backend/quizzes', { method: 'POST', headers: {} })
   })
 
   /**

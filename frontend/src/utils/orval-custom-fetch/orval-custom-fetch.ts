@@ -8,10 +8,24 @@ import { API_BASE_URL_ADAPTED } from '@/constants/api-url'
 /**
  * reads the user's auth token cookie
  *  - in the browser: via "js-cookie"
- *  - during SSR: via "next/headers"
+ *  - during SSR: via "next/headers" (only for GET requests see below)
  */
-const getUserToken = async (): Promise<string | undefined> => {
+const getUserToken = async (method: string): Promise<string | undefined> => {
   if (typeof window === 'undefined') {
+    /**
+     * in SSR (since browser send cookies automatically)
+     * we should pass the user token for GET requests ONLY (to avoid CSRF attack)
+     *
+     * btw since in the token cookie we already set "sameSite" to "lax" (see constants/auth.ts)
+     * this already provides an automatic protection against CSRF by the browser
+     * see https://security.stackexchange.com/questions/234386/do-i-still-need-csrf-protection-when-samesite-is-set-to-lax
+     *
+     * but it is better to be EXTRA CAREFUL and set it for GET requests only :)
+     */
+    if (method !== 'GET') {
+      return undefined
+    }
+
     // "next/headers" is server-only so it is imported dynamically
     // (a static import would crash in client)
     const { cookies } = await import('next/headers')
@@ -23,8 +37,8 @@ const getUserToken = async (): Promise<string | undefined> => {
   return jsCookie.get(USER_TOKEN_COOKIE)
 }
 
-const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
-  const token = await getUserToken()
+const getHeaders = async (headers: HeadersInit | undefined, method: string): Promise<HeadersInit> => {
+  const token = await getUserToken(method)
 
   return {
     ...headers,
@@ -89,12 +103,14 @@ const handleUnauthorized = () => {
  *
  * What it does?
  *  - It includes authorization header (with user's token from cookie) on every request
+ *    (during SSR only for GET requests to avoid CSRF)
  *  - On a 401 response it logs the user out and redirects to the /login page
  *    (except if user is already on /login or /signup page)
  */
 export const customFetch = async <T>(url: string, options?: RequestInit) => {
   const requestUrl = API_BASE_URL_ADAPTED + url
-  const requestHeaders = await getHeaders(options?.headers)
+  const method = options?.method?.toUpperCase() ?? 'GET'
+  const requestHeaders = await getHeaders(options?.headers, method)
 
   let response: Response
 
