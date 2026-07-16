@@ -8,39 +8,27 @@ exports[`QuizOverview correctly renders 1`] = `
     <div
       class="topBar"
     >
-      <nav
-        class="MuiBreadcrumbs-root MuiBreadcrumbs-sizeMd breadcrumbs css-ld9wxb-JoyBreadcrumbs-root"
+      <a
+        class="MuiButton-root MuiButton-variantPlain MuiButton-colorPrimary MuiButton-sizeSm backButton css-k1zra7-JoyButton-root"
+        href="/"
       >
-        <ol
-          class="MuiBreadcrumbs-ol css-1el1t46-JoyBreadcrumbs-ol"
+        <span
+          class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
         >
-          <li
-            class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
-          >
-            <a
-              class="MuiLink-root MuiLink-colorNeutral MuiLink-inherit MuiLink-underlineHover css-129quq9-JoyLink-root"
-              href="/"
-            >
-              Explore
-            </a>
-          </li>
-          <li
+          <svg
             aria-hidden="true"
-            class="MuiBreadcrumbs-separator css-13c1213-JoyBreadcrumbs-separator"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="ArrowBackIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
           >
-            /
-          </li>
-          <li
-            class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
-          >
-            <span
-              class="MuiTypography-root MuiTypography-inherit css-1vbiijx-JoyTypography-root"
-            >
-              JS Basics
-            </span>
-          </li>
-        </ol>
-      </nav>
+            <path
+              d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"
+            />
+          </svg>
+        </span>
+        Explore
+      </a>
       <button
         class="MuiButton-root MuiButton-variantOutlined MuiButton-colorNeutral MuiButton-sizeMd responsive css-s62xdh-JoyButton-root"
         data-testid="share-quiz-1-button"

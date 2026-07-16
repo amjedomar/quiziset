@@ -1,4 +1,7 @@
 html {
+  color-scheme: light;
+  background-color: #fff;
+
   /*
     when user tries to submit a form with an invalid input
     then "react-hook-form (e.g. in QuizForm) calls .focus()

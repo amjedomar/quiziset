@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
 import '@/app/globals.scss'
 import { AppProvider } from '@/app/app-provider'
@@ -47,6 +47,11 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
   },
+}
+
+export const viewport: Viewport = {
+  colorScheme: 'light',
+  themeColor: '#fff',
 }
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 'use client'
 
-import { Breadcrumbs, Button, Chip, Container, Divider, Link, Typography } from '@mui/joy'
+import { Button, Chip, Container, Divider, Typography } from '@mui/joy'
 import { useGetSingleQuiz } from '@/generated-api-client/quiz'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
@@ -13,6 +13,8 @@ import TimerOffIcon from '@mui/icons-material/TimerOff'
 import GroupsIcon from '@mui/icons-material/Groups'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import PrivateIcon from '@mui/icons-material/Lock'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
@@ -52,12 +54,16 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
   return (
     <Container maxWidth="lg">
       <div className={styles.topBar}>
-        <Breadcrumbs className={styles.breadcrumbs}>
-          <Link component={NextLink} href="/" color="neutral">
-            Explore
-          </Link>
-          <Typography>{title}</Typography>
-        </Breadcrumbs>
+        <Button
+          component={NextLink}
+          href="/"
+          variant="plain"
+          size="sm"
+          startDecorator={<ArrowBackIcon />}
+          className={styles.backButton}
+        >
+          Explore
+        </Button>
 
         <ShareQuizButton quizId={quizId} size="md" labelDisplay="responsive" disabled={!isPublic} />
       </div>
@@ -75,6 +81,12 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
               </div>
 
               <div className={styles.chipsContainer}>
+                {!isPublic && (
+                  <Chip variant="soft" color="danger" startDecorator={<PrivateIcon />}>
+                    Private
+                  </Chip>
+                )}
+
                 <Chip
                   variant="soft"
                   color="neutral"
