@@ -252,8 +252,7 @@ exports[`QuizForm correctly renders 1`] = `
               class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
             >
               <div
-                class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
-                style="width: 150px;"
+                class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-1o44s9-JoySelect-root"
               >
                 <button
                   aria-controls="_r_6_"
@@ -373,214 +372,218 @@ exports[`QuizForm correctly renders 1`] = `
                 Select correct answer(s)
               </div>
               <div
-                class="answerRow"
+                class="answers"
               >
                 <div
-                  class="correctSelector"
+                  class="answerRow"
                 >
                   <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
-                  >
-                    <span
-                      class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
-                    >
-                      <span
-                        class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
-                      >
-                        <span
-                          class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
-                        >
-                          <input
-                            aria-checked="false"
-                            class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
-                            data-testid="checkbox-questions.0.answers.0.isCorrect"
-                            id="_r_9_"
-                            name="questions.0.answers.0.isCorrect"
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                        </span>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="answerInputWrapper"
-                >
-                  <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
+                    class="correctSelector"
                   >
                     <div
-                      class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
-                    >
-                      <input
-                        class="MuiInput-input css-1gw9vc6-JoyInput-input"
-                        data-testid="input-questions.0.answers.0.text"
-                        id="_r_b_"
-                        name="questions.0.answers.0.text"
-                        placeholder="Answer 1"
-                        value=""
-                      />
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
-                  tabindex="-1"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                    data-testid="DeleteIcon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div
-                class="answerRow"
-              >
-                <div
-                  class="correctSelector"
-                >
-                  <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
-                  >
-                    <span
-                      class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
                     >
                       <span
-                        class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+                        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
                       >
                         <span
-                          class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+                          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
                         >
-                          <input
-                            aria-checked="false"
-                            class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
-                            data-testid="checkbox-questions.0.answers.1.isCorrect"
-                            id="_r_c_"
-                            name="questions.0.answers.1.isCorrect"
-                            tabindex="-1"
-                            type="checkbox"
-                          />
+                          <span
+                            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+                          >
+                            <input
+                              aria-checked="false"
+                              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+                              data-testid="checkbox-questions.0.answers.0.isCorrect"
+                              id="_r_9_"
+                              name="questions.0.answers.0.isCorrect"
+                              tabindex="-1"
+                              type="checkbox"
+                            />
+                          </span>
                         </span>
                       </span>
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="answerInputWrapper"
-                >
-                  <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
-                  >
-                    <div
-                      class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
-                    >
-                      <input
-                        class="MuiInput-input css-1gw9vc6-JoyInput-input"
-                        data-testid="input-questions.0.answers.1.text"
-                        id="_r_e_"
-                        name="questions.0.answers.1.text"
-                        placeholder="Answer 2"
-                        value=""
-                      />
                     </div>
                   </div>
-                </div>
-                <button
-                  class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
-                  tabindex="-1"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                    data-testid="DeleteIcon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
+                  <div
+                    class="answerInputWrapper"
                   >
-                    <path
-                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div
-                class="answerRow"
-              >
+                    <div
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
+                    >
+                      <div
+                        class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+                      >
+                        <input
+                          class="MuiInput-input css-1gw9vc6-JoyInput-input"
+                          data-testid="input-questions.0.answers.0.text"
+                          id="_r_b_"
+                          name="questions.0.answers.0.text"
+                          placeholder="Answer 1"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                      data-testid="DeleteIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                      />
+                    </svg>
+                  </button>
+                </div>
                 <div
-                  class="correctSelector"
+                  class="answerRow"
                 >
                   <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+                    class="correctSelector"
                   >
-                    <span
-                      class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+                    <div
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
                     >
                       <span
-                        class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+                        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
                       >
                         <span
-                          class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+                          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
                         >
-                          <input
-                            aria-checked="false"
-                            class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
-                            data-testid="checkbox-questions.0.answers.2.isCorrect"
-                            id="_r_f_"
-                            name="questions.0.answers.2.isCorrect"
-                            tabindex="-1"
-                            type="checkbox"
-                          />
+                          <span
+                            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+                          >
+                            <input
+                              aria-checked="false"
+                              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+                              data-testid="checkbox-questions.0.answers.1.isCorrect"
+                              id="_r_c_"
+                              name="questions.0.answers.1.isCorrect"
+                              tabindex="-1"
+                              type="checkbox"
+                            />
+                          </span>
                         </span>
                       </span>
-                    </span>
-                  </div>
-                </div>
-                <div
-                  class="answerInputWrapper"
-                >
-                  <div
-                    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
-                  >
-                    <div
-                      class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
-                    >
-                      <input
-                        class="MuiInput-input css-1gw9vc6-JoyInput-input"
-                        data-testid="input-questions.0.answers.2.text"
-                        id="_r_h_"
-                        name="questions.0.answers.2.text"
-                        placeholder="Answer 3"
-                        value=""
-                      />
                     </div>
                   </div>
-                </div>
-                <button
-                  class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
-                  tabindex="-1"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                    data-testid="DeleteIcon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
+                  <div
+                    class="answerInputWrapper"
                   >
-                    <path
-                      d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
-                    />
-                  </svg>
-                </button>
+                    <div
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
+                    >
+                      <div
+                        class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+                      >
+                        <input
+                          class="MuiInput-input css-1gw9vc6-JoyInput-input"
+                          data-testid="input-questions.0.answers.1.text"
+                          id="_r_e_"
+                          name="questions.0.answers.1.text"
+                          placeholder="Answer 2"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                      data-testid="DeleteIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  class="answerRow"
+                >
+                  <div
+                    class="correctSelector"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+                    >
+                      <span
+                        class="MuiCheckbox-root MuiCheckbox-variantOutlined MuiCheckbox-colorNeutral MuiCheckbox-sizeMd css-1xi8ehd-JoyCheckbox-root"
+                      >
+                        <span
+                          class="MuiCheckbox-checkbox css-1hi37tf-JoyCheckbox-checkbox"
+                        >
+                          <span
+                            class="MuiCheckbox-action css-8bculf-JoyCheckbox-action"
+                          >
+                            <input
+                              aria-checked="false"
+                              class="MuiCheckbox-input css-137agis-JoyCheckbox-input"
+                              data-testid="checkbox-questions.0.answers.2.isCorrect"
+                              id="_r_f_"
+                              name="questions.0.answers.2.isCorrect"
+                              tabindex="-1"
+                              type="checkbox"
+                            />
+                          </span>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="answerInputWrapper"
+                  >
+                    <div
+                      class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd answerInput css-1jf2wst-JoyFormControl-root"
+                    >
+                      <div
+                        class="MuiInput-root MuiInput-variantOutlined MuiInput-colorNeutral MuiInput-sizeMd MuiInput-formControl css-kf85qm-JoyInput-root"
+                      >
+                        <input
+                          class="MuiInput-input css-1gw9vc6-JoyInput-input"
+                          data-testid="input-questions.0.answers.2.text"
+                          id="_r_h_"
+                          name="questions.0.answers.2.text"
+                          placeholder="Answer 3"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                      data-testid="DeleteIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -612,8 +615,8 @@ exports[`QuizForm correctly renders 1`] = `
           Question
         </button>
         <div
-          class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
-          style="border-bottom-left-radius: 0; border-top-left-radius: 0; width: 70px;"
+          class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-1a2zvhl-JoySelect-root"
+          style="border-bottom-left-radius: 0; border-top-left-radius: 0;"
         >
           <button
             aria-controls="_r_i_"

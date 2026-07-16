@@ -295,8 +295,8 @@ exports[`QuizUpdateForm correctly renders 1`] = `
             Question
           </button>
           <div
-            class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
-            style="border-bottom-left-radius: 0; border-top-left-radius: 0; width: 70px;"
+            class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-1a2zvhl-JoySelect-root"
+            style="border-bottom-left-radius: 0; border-top-left-radius: 0;"
           >
             <button
               aria-controls="_r_5_"
@@ -373,7 +373,7 @@ exports[`QuizUpdateForm correctly renders 1`] = `
           Update Quiz
         </button>
         <button
-          class="MuiButton-root MuiButton-variantOutlined MuiButton-colorDanger MuiButton-sizeMd css-ow548w-JoyButton-root"
+          class="MuiButton-root MuiButton-variantOutlined MuiButton-colorDanger MuiButton-sizeMd deleteButton css-ow548w-JoyButton-root"
           type="button"
         >
           <span

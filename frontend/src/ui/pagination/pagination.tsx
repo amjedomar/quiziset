@@ -22,7 +22,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         data-testid="pagination-prev"
         variant="outlined"
         color="neutral"
-        size="sm"
+        className={styles.button}
         disabled={page <= 1}
         onClick={() => onPageChange(page - 1)}
       >
@@ -35,7 +35,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
           data-testid={`pagination-page-${pageNumber}`}
           variant={pageNumber === page ? 'solid' : 'outlined'}
           color={pageNumber === page ? 'primary' : 'neutral'}
-          size="sm"
+          className={styles.button}
           onClick={() => onPageChange(pageNumber)}
         >
           {pageNumber}
@@ -46,7 +46,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         data-testid="pagination-next"
         variant="outlined"
         color="neutral"
-        size="sm"
+        className={styles.button}
         disabled={page >= totalPages}
         onClick={() => onPageChange(page + 1)}
       >

@@ -53,7 +53,7 @@ export function QuestionTypeSelect({
   const selectProps: SelectEnhancedProps<false> = {
     ...restProps,
     options: QUESTION_TYPES,
-    style: { ...restProps.style, width: hideSelectedOptionLabel ? 70 : 150 },
+    sx: { ...restProps.style, width: hideSelectedOptionLabel ? { md: 70, xs: 77 } : { md: 150, xs: 158 } },
     decoratorStyle: { ...restProps.decoratorStyle, minWidth: 27, fontSize: 20 },
     onChange: (_, value) => onChange?.(value as QuestionType),
   }

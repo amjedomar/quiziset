@@ -5,3 +5,11 @@
     justify-content: center;
     gap: 8px;
 }
+
+.button {
+    @media ($min-screen-md) {
+        min-width: 32px;
+        min-height: 32px;
+        font-size: 14px;
+    }
+}

@@ -70,11 +70,18 @@ export function ProfileForm() {
             <FormInput name="name" label="Name" type="text" />
 
             <FormInput name="email" label="Email" type="email" />
-
-            <Button data-testid="save-profile-button" type="submit" startDecorator={<SaveIcon />} loading={isUpdating}>
-              Save
-            </Button>
           </Stack>
+
+          <Button
+            sx={{ mt: 3 }}
+            data-testid="save-profile-button"
+            type="submit"
+            startDecorator={<SaveIcon />}
+            loading={isUpdating}
+            fullWidth
+          >
+            Save
+          </Button>
         </form>
       </FormProvider>
     </Stack>

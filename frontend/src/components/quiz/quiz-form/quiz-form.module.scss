@@ -21,8 +21,11 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 50px;
+  gap: 48px;
+  margin-top: 48px;
   align-items: center;
+}
+
+.deleteButton {
+  margin-left: auto;
 }

@@ -6,7 +6,7 @@ exports[`Pagination renders correctly 1`] = `
     class="pagination"
   >
     <button
-      class="MuiIconButton-root Mui-disabled MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      class="MuiIconButton-root Mui-disabled MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd button css-3oglbe-JoyIconButton-root"
       data-testid="pagination-prev"
       disabled=""
       type="button"
@@ -24,28 +24,28 @@ exports[`Pagination renders correctly 1`] = `
       </svg>
     </button>
     <button
-      class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeSm css-j89a8f-JoyIconButton-root"
+      class="MuiIconButton-root MuiIconButton-variantSolid MuiIconButton-colorPrimary MuiIconButton-sizeMd button css-1bd7rs7-JoyIconButton-root"
       data-testid="pagination-page-1"
       type="button"
     >
       1
     </button>
     <button
-      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd button css-3oglbe-JoyIconButton-root"
       data-testid="pagination-page-2"
       type="button"
     >
       2
     </button>
     <button
-      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd button css-3oglbe-JoyIconButton-root"
       data-testid="pagination-page-3"
       type="button"
     >
       3
     </button>
     <button
-      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeSm css-14km8c7-JoyIconButton-root"
+      class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd button css-3oglbe-JoyIconButton-root"
       data-testid="pagination-next"
       type="button"
     >

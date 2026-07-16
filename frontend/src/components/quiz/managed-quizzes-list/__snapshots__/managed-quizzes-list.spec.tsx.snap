@@ -175,14 +175,14 @@ exports[`ManagedQuizzesList correctly renders 1`] = `
                 3 finishes
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body-sm css-1m0azy9-JoyTypography-root"
+                class="MuiTypography-root MuiTypography-body-sm publicLabel css-1m0azy9-JoyTypography-root"
               >
                 <span
                   class="MuiTypography-startDecorator css-1lgggw0-JoyTypography-startDecorator"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-120dh41-MuiSvgIcon-root"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall publicIcon css-120dh41-MuiSvgIcon-root"
                     data-testid="LockOpenIcon"
                     focusable="false"
                     viewBox="0 0 24 24"

@@ -179,6 +179,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
           {existingQuiz && (
             <>
               <Button
+                className={styles.deleteButton}
                 variant="outlined"
                 color="danger"
                 startDecorator={<DeleteIcon />}

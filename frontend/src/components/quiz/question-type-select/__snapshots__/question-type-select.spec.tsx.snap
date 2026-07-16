@@ -6,8 +6,7 @@ exports[`QuestionTypeSelect correctly renders 1`] = `
     class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
   >
     <div
-      class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-whi0zy-JoySelect-root"
-      style="width: 150px;"
+      class="MuiSelect-root MuiSelect-variantOutlined MuiSelect-colorNeutral MuiSelect-sizeMd css-1o44s9-JoySelect-root"
     >
       <button
         aria-controls="_r_1_"

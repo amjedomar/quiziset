@@ -238,9 +238,9 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
               {getQuestionHint(questionType)}
             </FormFieldHint>
 
-            {questionType === QuestionType.Reorder ? (
-              <DragDropProvider onDragEnd={handleAnswerDragEnd}>
-                <Stack spacing={1}>
+            <div className={styles.answers}>
+              {questionType === QuestionType.Reorder ? (
+                <DragDropProvider onDragEnd={handleAnswerDragEnd}>
                   {answers.map((answer, answerIndex) => (
                     <Sortable
                       className={styles.answerRow}
@@ -252,32 +252,32 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
                       {renderAnswerRowContent(answerIndex)}
                     </Sortable>
                   ))}
-                </Stack>
-              </DragDropProvider>
-            ) : (
-              answers.map((answer, answerIndex) => (
-                <div key={answer.id} className={styles.answerRow}>
-                  <div className={styles.correctSelector}>
-                    {questionType === QuestionType.Radio ? (
-                      <FormRadio
-                        name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
-                        slotProps={{ input: { tabIndex: -1 } }}
-                        onChange={() => handleRadioSelect(answerIndex)}
-                        disableErrorState
-                      />
-                    ) : (
-                      <FormCheckbox
-                        name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
-                        slotProps={{ input: { tabIndex: -1 } }}
-                        disableErrorState
-                      />
-                    )}
-                  </div>
+                </DragDropProvider>
+              ) : (
+                answers.map((answer, answerIndex) => (
+                  <div key={answer.id} className={styles.answerRow}>
+                    <div className={styles.correctSelector}>
+                      {questionType === QuestionType.Radio ? (
+                        <FormRadio
+                          name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
+                          slotProps={{ input: { tabIndex: -1 } }}
+                          onChange={() => handleRadioSelect(answerIndex)}
+                          disableErrorState
+                        />
+                      ) : (
+                        <FormCheckbox
+                          name={`${questionFieldName}.answers.${answerIndex}.isCorrect`}
+                          slotProps={{ input: { tabIndex: -1 } }}
+                          disableErrorState
+                        />
+                      )}
+                    </div>
 
-                  {renderAnswerRowContent(answerIndex)}
-                </div>
-              ))
-            )}
+                    {renderAnswerRowContent(answerIndex)}
+                  </div>
+                ))
+              )}
+            </div>
           </Stack>
         </FormControl>
       </Stack>

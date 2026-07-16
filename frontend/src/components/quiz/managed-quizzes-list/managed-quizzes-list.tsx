@@ -78,7 +78,14 @@ export function ManagedQuizzesList() {
                     <Typography
                       level="body-sm"
                       textColor="text.tertiary"
-                      startDecorator={quiz.isPublic ? <LockOpenIcon fontSize="small" /> : <LockIcon fontSize="small" />}
+                      className={quiz.isPublic ? styles.publicLabel : styles.privateLabel}
+                      startDecorator={
+                        quiz.isPublic ? (
+                          <LockOpenIcon className={styles.publicIcon} fontSize="small" />
+                        ) : (
+                          <LockIcon className={styles.privateIcon} color="error" />
+                        )
+                      }
                     >
                       {quiz.isPublic ? 'Public' : 'Private'}
                     </Typography>

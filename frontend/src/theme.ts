@@ -36,6 +36,37 @@ export const theme = extendTheme({
         }),
       },
     },
+    JoyInput: {
+      styleOverrides: {
+        input: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            [theme.breakpoints.down('md')]: {
+              padding: '7px 0',
+            },
+          }),
+        }),
+      },
+    },
+    JoySelect: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            [theme.breakpoints.down('md')]: {
+              '--Button-paddingBlock': '8px',
+              paddingInline: '16px',
+              minHeight: 40,
+            },
+          }),
+        }),
+        listbox: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            [theme.breakpoints.down('md')]: {
+              '--ListItem-paddingY': '8px',
+            },
+          }),
+        }),
+      },
+    },
   },
   colorSchemes: {
     light: {

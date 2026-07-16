@@ -68,6 +68,16 @@
   color: #f5a623;
 }
 
+.publicIcon,
+.privateIcon {
+  font-size: 18px;
+}
+
+.privateLabel,
+.privateIcon {
+  color: $color-danger-500;
+}
+
 .primaryActions {
   display: flex;
   flex-direction: row;
@@ -86,7 +96,11 @@
 
   &,
   .primaryActionsSub {
-    gap: 12px 16px;
+    gap: 10px;
+
+    @media ($max-screen-md) {
+      gap: 12px 16px;
+    }
   }
 }
 
@@ -115,12 +129,12 @@
     justify-content: space-between;
 
     .previewAction {
-      background-color: #fff;
+      background-color: #e7eaeb;
       border-radius: 6px;
     }
 
     .shareActionWrapper {
-      background-color: #fff;
+      background-color: #e7eaeb;
       border-radius: 6px;
     }
   }

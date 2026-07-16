@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function FavoritesPage() {
   return (
-    <Container maxWidth="xl" sx={{ py: 3 }}>
+    <Container maxWidth="xl">
       <Stack spacing={3}>
         <Typography level="h2">Favorites</Typography>
 
