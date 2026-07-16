@@ -32,10 +32,12 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   // spread the hardcoded totalFinishes across every user
   const finishCounts = distributeEvenly(quizSeed.totalFinishes, users.length)
 
+  const hasReviews = quizSeed.reviewRatings.length > 0
+
   const perUser = users.map((user, userIndex) => {
     // the review rating is hardcoded per user and its comment is picked by userIndex
     const rating = quizSeed.reviewRatings[userIndex]
-    const comment = STAR_COMMENTS[rating][userIndex]
+    const comment = hasReviews ? STAR_COMMENTS[rating][userIndex] : ''
 
     return {
       user,
@@ -48,9 +50,9 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   const totalFinishes = quizSeed.totalFinishes
 
   // averageRating is calculated based on the rating of the reviews
-  const averageRating = round1(
-    quizSeed.reviewRatings.reduce((sum, rating) => sum + rating, 0) / quizSeed.reviewRatings.length,
-  )
+  const averageRating = hasReviews
+    ? round1(quizSeed.reviewRatings.reduce((sum, rating) => sum + rating, 0) / quizSeed.reviewRatings.length)
+    : 0
 
   // quizzes at the top of QUIZZES_LIST (e.g. index 0) get the newest createdAt
   const quizCreatedAt = addDays(QUIZ_CREATED_BASE, QUIZZES_LIST.length - 1 - quizIndex)
@@ -61,7 +63,7 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
       description: `Test your knowledge of ${quizName} this quiz has ${QUIZ_QUESTIONS.length} questions one of each type (checkbox, radio, reorder, and cards)`,
       timeDurationInMinutes,
       imageUrl: getQuizSampleImagePath(quizName),
-      isPublic: true,
+      isPublic: !quizSeed.isPrivate,
       isAnalyticsEnabled,
       totalFinishes,
       averageRating,
@@ -115,19 +117,21 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   await prisma.quizSession.createMany({ data: sessions })
 
   // one review per user
-  const reviews = perUser.map(({ user, review }, userIndex) => {
-    // set random createdAt
-    const createdAt = addDays(REVIEW_CREATED_BASE, (quizIndex + userIndex) % TEST_USERS.length)
+  const reviews = !hasReviews
+    ? []
+    : perUser.map(({ user, review }, userIndex) => {
+        // set random createdAt
+        const createdAt = addDays(REVIEW_CREATED_BASE, (quizIndex + userIndex) % TEST_USERS.length)
 
-    return {
-      quizId: quiz.id,
-      userId: user.id,
-      rating: review.rating,
-      comment: review.comment,
-      createdAt,
-      updatedAt: createdAt,
-    }
-  })
+        return {
+          quizId: quiz.id,
+          userId: user.id,
+          rating: review.rating,
+          comment: review.comment,
+          createdAt,
+          updatedAt: createdAt,
+        }
+      })
 
   await prisma.review.createMany({ data: reviews, skipDuplicates: true })
 

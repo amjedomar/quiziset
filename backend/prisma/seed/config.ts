@@ -19,9 +19,11 @@ interface QuizSeed {
   name: string
   totalFinishes: number
   reviewRatings: number[]
+  isPrivate?: boolean
 }
 
 export const QUIZZES_LIST: QuizSeed[] = [
+  { name: 'agriculture', totalFinishes: 0, reviewRatings: [], isPrivate: true },
   { name: 'meteorology', totalFinishes: 22, reviewRatings: [5, 5, 5, 5, 4, 4, 5] },
   { name: 'mountains', totalFinishes: 22, reviewRatings: [2, 3, 3, 2, 2, 2, 2] },
   { name: 'business', totalFinishes: 13, reviewRatings: [4, 3, 3, 4, 4, 4, 4] },

@@ -11,6 +11,7 @@ import QuizIcon from '@mui/icons-material/Article'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import GroupsIcon from '@mui/icons-material/Groups'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTipOutlined'
+import PrivateIcon from '@mui/icons-material/Lock'
 import styles from './quizzes-grid.module.scss'
 
 interface QuizzesGridProps {
@@ -78,7 +79,10 @@ export function QuizzesGrid({ quizzes, isLoading, emptyInfo }: QuizzesGridProps)
                   {quiz.totalFinishes} {quiz.totalFinishes === 1 ? 'finish' : 'finishes'}
                 </Typography>
 
-                {quiz.isAnalyticsEnabled && <PrivacyTipIcon />}
+                {quiz.isAnalyticsEnabled && <PrivacyTipIcon className={styles.privacyTipIcon} />}
+
+                {/* this won't be visible in Explore page (since there only public quizzes are displayed) */}
+                {!quiz.isPublic && <PrivateIcon className={styles.privateIcon} color="error" />}
               </div>
             </div>
 

@@ -13,8 +13,8 @@ import PreviewIcon from '@mui/icons-material/VisibilityOutlined'
 import CreateIcon from '@mui/icons-material/Add'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import GroupsIcon from '@mui/icons-material/Groups'
-import LockIcon from '@mui/icons-material/Lock'
-import LockOpenIcon from '@mui/icons-material/LockOpen'
+import PrivateIcon from '@mui/icons-material/Lock'
+import PublicIcon from '@mui/icons-material/LockOpen'
 
 export function ManagedQuizzesList() {
   return (
@@ -81,9 +81,9 @@ export function ManagedQuizzesList() {
                       className={quiz.isPublic ? styles.publicLabel : styles.privateLabel}
                       startDecorator={
                         quiz.isPublic ? (
-                          <LockOpenIcon className={styles.publicIcon} fontSize="small" />
+                          <PublicIcon className={styles.publicIcon} fontSize="small" />
                         ) : (
-                          <LockIcon className={styles.privateIcon} color="error" />
+                          <PrivateIcon className={styles.privateIcon} color="error" />
                         )
                       }
                     >

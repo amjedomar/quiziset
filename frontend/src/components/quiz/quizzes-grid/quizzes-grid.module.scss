@@ -27,11 +27,21 @@
   flex-grow: 1;
 }
 
+.privacyTipIcon {
+  margin-right: 10px;
+}
+
+.privateIcon {
+  color: $color-danger-500;
+}
+
 .meta {
   margin-top: 4px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 0;
 }
 
 .ratingMeta {
@@ -39,7 +49,7 @@
 }
 
 .finishesMeta {
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .ratingIcon {
