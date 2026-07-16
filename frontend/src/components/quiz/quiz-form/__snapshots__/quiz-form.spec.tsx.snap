@@ -8,11 +8,15 @@ exports[`QuizForm correctly renders 1`] = `
     <div
       class="MuiStack-root css-194i09z-JoyStack-root"
     >
-      <h3
-        class="MuiTypography-root MuiTypography-h3 css-1yf9pfh-JoyTypography-root"
+      <div
+        class="header"
       >
-        Create New Quiz
-      </h3>
+        <h3
+          class="MuiTypography-root MuiTypography-h3 css-1yf9pfh-JoyTypography-root"
+        >
+          Create New Quiz
+        </h3>
+      </div>
       <div
         class="MuiStack-root css-11jetsa-JoyStack-root"
       >

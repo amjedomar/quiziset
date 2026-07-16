@@ -1,0 +1,13 @@
+.responsiveLabel {
+  @media ($max-screen-sm) {
+    display: none;
+  }
+}
+
+.responsive {
+  @media ($max-screen-sm) {
+    :global(.MuiButton-startDecorator) {
+      margin: 0;
+    }
+  }
+}

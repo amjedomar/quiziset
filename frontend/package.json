@@ -30,6 +30,7 @@
     "next": "16.2.9",
     "prettier": "^3.8.3",
     "react": "19.2.4",
+    "react-copy-to-clipboard": "^5.1.1",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.75.0",
     "zod": "^4.4.3"
@@ -42,6 +43,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
     "eslint": "^9",

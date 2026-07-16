@@ -1,3 +1,12 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+}
+
 .overviewSection {
   display: grid;
   grid-template-columns: 1fr auto;

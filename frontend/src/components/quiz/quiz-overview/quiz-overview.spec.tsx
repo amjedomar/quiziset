@@ -14,6 +14,10 @@ jest.mock('@/components/reviews/reviews-section', () => ({
   ReviewsSection: () => null,
 }))
 
+jest.mock('@/components/snackbar', () => ({
+  useSnackbar: () => ({ showError: jest.fn(), showSuccess: jest.fn() }),
+}))
+
 const useGetSingleQuiz = jest.fn()
 jest.mock('@/generated-api-client/quiz', () => ({
   useGetSingleQuiz: (...args: unknown[]) => useGetSingleQuiz(...args),

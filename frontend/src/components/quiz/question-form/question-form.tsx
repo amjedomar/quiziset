@@ -155,8 +155,10 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
         <IconButton
           color="danger"
           size="sm"
-          disabled={answers.length <= 2}
-          onClick={() => remove(answerIndex)}
+          // mui joy drops the disabled attribute during SSR
+          // but as a workaround I pass it via slotProps.root which fixes the issue :)
+          // in this case I also need to pass `onClick` to slotProps.root (otherwise it'll be ignored)
+          slotProps={{ root: { disabled: answers.length <= 2, onClick: () => remove(answerIndex) } }}
           tabIndex={-1}
         >
           <DeleteIcon />
@@ -213,7 +215,14 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
           <QuestionTypeSelect formFieldName={`${questionFieldName}.questionType`} />
         </Stack>
 
-        <IconButton color="danger" onClick={onDelete} disabled={disableDeletion}>
+        <IconButton
+          color="danger"
+          disabled={disableDeletion}
+          // mui joy drops the disabled attribute during SSR
+          // but as a workaround I pass it via slotProps.root which fixes the issue :)
+          // in this case I also need to pass `onClick` to slotProps.root (otherwise it'll be ignored)
+          slotProps={{ root: { disabled: disableDeletion, onClick: onDelete } }}
+        >
           <DeleteIcon />
         </IconButton>
       </div>

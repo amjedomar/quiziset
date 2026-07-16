@@ -5,39 +5,69 @@ exports[`QuizOverview correctly renders 1`] = `
   <div
     class="MuiContainer-root MuiContainer-maxWidthLg css-pv8j0-JoyContainer-root"
   >
-    <nav
-      class="MuiBreadcrumbs-root MuiBreadcrumbs-sizeMd breadcrumbs css-ld9wxb-JoyBreadcrumbs-root"
+    <div
+      class="topBar"
     >
-      <ol
-        class="MuiBreadcrumbs-ol css-1el1t46-JoyBreadcrumbs-ol"
+      <nav
+        class="MuiBreadcrumbs-root MuiBreadcrumbs-sizeMd breadcrumbs css-ld9wxb-JoyBreadcrumbs-root"
       >
-        <li
-          class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
+        <ol
+          class="MuiBreadcrumbs-ol css-1el1t46-JoyBreadcrumbs-ol"
         >
-          <a
-            class="MuiLink-root MuiLink-colorNeutral MuiLink-inherit MuiLink-underlineHover css-129quq9-JoyLink-root"
-            href="/"
+          <li
+            class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
           >
-            Explore
-          </a>
-        </li>
-        <li
-          aria-hidden="true"
-          class="MuiBreadcrumbs-separator css-13c1213-JoyBreadcrumbs-separator"
-        >
-          /
-        </li>
-        <li
-          class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
-        >
-          <span
-            class="MuiTypography-root MuiTypography-inherit css-1vbiijx-JoyTypography-root"
+            <a
+              class="MuiLink-root MuiLink-colorNeutral MuiLink-inherit MuiLink-underlineHover css-129quq9-JoyLink-root"
+              href="/"
+            >
+              Explore
+            </a>
+          </li>
+          <li
+            aria-hidden="true"
+            class="MuiBreadcrumbs-separator css-13c1213-JoyBreadcrumbs-separator"
           >
-            JS Basics
-          </span>
-        </li>
-      </ol>
-    </nav>
+            /
+          </li>
+          <li
+            class="MuiBreadcrumbs-li css-jc8rex-JoyBreadcrumbs-li"
+          >
+            <span
+              class="MuiTypography-root MuiTypography-inherit css-1vbiijx-JoyTypography-root"
+            >
+              JS Basics
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <button
+        class="MuiButton-root MuiButton-variantOutlined MuiButton-colorNeutral MuiButton-sizeMd responsive css-s62xdh-JoyButton-root"
+        data-testid="share-quiz-1-button"
+        type="button"
+      >
+        <span
+          class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+            data-testid="ShareOutlinedIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92M18 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1M6 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1m12 7.02c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1"
+            />
+          </svg>
+        </span>
+        <span
+          class="responsive"
+        >
+          Share
+        </span>
+      </button>
+    </div>
     <div
       class="paper"
     >
@@ -53,12 +83,14 @@ exports[`QuizOverview correctly renders 1`] = `
           class="header"
         >
           <div>
-            <h1
-              class="MuiTypography-root MuiTypography-h1 title css-wiz2yh-JoyTypography-root"
-              data-testid="quiz-title"
-            >
-              JS Basics
-            </h1>
+            <div>
+              <h1
+                class="MuiTypography-root MuiTypography-h1 title css-wiz2yh-JoyTypography-root"
+                data-testid="quiz-title"
+              >
+                JS Basics
+              </h1>
+            </div>
             <div
               class="chipsContainer"
             >

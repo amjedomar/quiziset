@@ -66,12 +66,22 @@
   color: #f5a623;
 }
 
-.actions {
+.actions,
+.primaryActions,
+.secondaryActions {
   display: flex;
   flex-direction: row;
   gap: 8px;
-  margin-top: 8px;
   flex-wrap: wrap;
+}
+
+.actions {
+  justify-content: space-between;
+  margin-top: 8px;
+
+  @media ($max-screen-sm) {
+    gap: 20px;
+  }
 }
 
 .details {

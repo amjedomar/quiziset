@@ -15,6 +15,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
+import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
 import { UserAvatar } from '@/components/user-avatar'
 import styles from './quiz-overview.module.scss'
 
@@ -38,6 +39,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
     title,
     description,
     imageUrl,
+    isPublic,
     isAnalyticsEnabled,
     timeDurationInMinutes,
     totalFinishes,
@@ -49,12 +51,16 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
 
   return (
     <Container maxWidth="lg">
-      <Breadcrumbs className={styles.breadcrumbs}>
-        <Link component={NextLink} href="/" color="neutral">
-          Explore
-        </Link>
-        <Typography>{title}</Typography>
-      </Breadcrumbs>
+      <div className={styles.topBar}>
+        <Breadcrumbs className={styles.breadcrumbs}>
+          <Link component={NextLink} href="/" color="neutral">
+            Explore
+          </Link>
+          <Typography>{title}</Typography>
+        </Breadcrumbs>
+
+        <ShareQuizButton quizId={quizId} size="md" labelDisplay="responsive" disabled={!isPublic} />
+      </div>
 
       <div className={styles.paper}>
         <BackendImage className={styles.image} src={imageUrl} alt={title} />
@@ -62,9 +68,11 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
         <div className={styles.body}>
           <div className={styles.header}>
             <div>
-              <Typography data-testid="quiz-title" level="h1" className={styles.title}>
-                {title}
-              </Typography>
+              <div>
+                <Typography data-testid="quiz-title" level="h1" className={styles.title}>
+                  {title}
+                </Typography>
+              </div>
 
               <div className={styles.chipsContainer}>
                 <Chip

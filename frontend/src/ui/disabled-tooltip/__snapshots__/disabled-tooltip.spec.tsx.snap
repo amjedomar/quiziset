@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`DisabledTooltip correctly renders (disabled state) 1`] = `
+<DocumentFragment>
+  <span
+    aria-label="Not available"
+    class="trigger"
+  >
+    <button
+      class="MuiButton-root Mui-disabled MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+      data-testid="child"
+      disabled=""
+      type="button"
+    >
+      Action
+    </button>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`DisabledTooltip correctly renders (enabled state) 1`] = `
+<DocumentFragment>
+  <button
+    class="MuiButton-root MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"
+    data-testid="child"
+    type="button"
+  >
+    Action
+  </button>
+</DocumentFragment>
+`;

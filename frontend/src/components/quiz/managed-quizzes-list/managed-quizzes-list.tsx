@@ -1,12 +1,15 @@
 'use client'
-import { Button, CircularProgress, Sheet, Typography } from '@mui/joy'
+import { Button, CircularProgress, IconButton, Sheet, Typography } from '@mui/joy'
 import Link from 'next/link'
 import { BackendImage } from '@/ui/backend-image'
+import { DisabledTooltip } from '@/ui/disabled-tooltip'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
+import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
 import { QuizzesList } from '@/components/quiz/quizzes-list'
 import styles from './managed-quizzes-list.module.scss'
 import UpdateIcon from '@mui/icons-material/Edit'
 import AnalyticsIcon from '@mui/icons-material/Insights'
+import PreviewIcon from '@mui/icons-material/VisibilityOutlined'
 import CreateIcon from '@mui/icons-material/Add'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import GroupsIcon from '@mui/icons-material/Groups'
@@ -86,28 +89,47 @@ export function ManagedQuizzesList() {
                   </Typography>
 
                   <div className={styles.actions}>
-                    <Button
-                      data-testid={`update-quiz-${quiz.id}-link`}
-                      component={Link}
-                      href={`/manage-quizzes/${quiz.id}/update`}
-                      variant="soft"
-                      startDecorator={<UpdateIcon />}
-                    >
-                      Update
-                    </Button>
+                    <div className={styles.primaryActions}>
+                      <Button
+                        data-testid={`update-quiz-${quiz.id}-link`}
+                        component={Link}
+                        href={`/manage-quizzes/${quiz.id}/update`}
+                        variant="soft"
+                        startDecorator={<UpdateIcon />}
+                      >
+                        Update
+                      </Button>
 
-                    <Button
-                      data-testid={`quiz-${quiz.id}-analytics-link`}
-                      component={Link}
-                      href={`/manage-quizzes/${quiz.id}/analytics`}
-                      variant="outlined"
-                      disabled={!quiz.isAnalyticsEnabled}
-                      startDecorator={<AnalyticsIcon />}
-                    >
-                      Analytics
-                    </Button>
+                      <DisabledTooltip
+                        disabled={!quiz.isAnalyticsEnabled}
+                        title="Analytics is not enabled for this quiz"
+                      >
+                        <Button
+                          data-testid={`quiz-${quiz.id}-analytics-link`}
+                          component={Link}
+                          href={`/manage-quizzes/${quiz.id}/analytics`}
+                          variant="outlined"
+                          startDecorator={<AnalyticsIcon />}
+                        >
+                          Analytics
+                        </Button>
+                      </DisabledTooltip>
+                    </div>
 
-                    <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
+                    <div className={styles.secondaryActions}>
+                      <IconButton
+                        data-testid={`quiz-${quiz.id}-overview-link`}
+                        component={Link}
+                        href={`/quizzes/${quiz.id}/overview`}
+                        variant="outlined"
+                      >
+                        <PreviewIcon />
+                      </IconButton>
+
+                      <ShareQuizButton quizId={quiz.id} labelDisplay="never" disabled={!quiz.isPublic} />
+
+                      <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
+                    </div>
                   </div>
                 </div>
               </Sheet>

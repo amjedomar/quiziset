@@ -3,7 +3,7 @@
 import { Button, Stack, Typography, Link } from '@mui/joy'
 import { FormInput } from '@/ui/form-fields/form-input'
 import { FormTextarea } from '@/ui/form-fields/form-textarea'
-import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
+import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import SaveIcon from '@mui/icons-material/Save'
 import { useCallback, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
 import { ConfirmDeleteModal } from '@/components/confirm-delete-modal'
+import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
 import NextLink from 'next/link'
 
 const defaultQuestion = {
@@ -68,6 +69,8 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     control: form.control,
     name: 'questions',
   })
+
+  const isPublic = useWatch({ control: form.control, name: 'isPublic' })
 
   const onSubmit = useCallback(
     async (data: QuizFormData) => {
@@ -126,7 +129,13 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit, onValidationError)} noValidate>
         <Stack direction="column" spacing={3}>
-          <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
+          <div className={styles.header}>
+            <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
+
+            {existingQuiz && (
+              <ShareQuizButton quizId={existingQuiz.id} size="md" labelDisplay="responsive" disabled={!isPublic} />
+            )}
+          </div>
 
           <Stack alignItems="flex-start" direction="column" spacing={0.5}>
             <FormSwitch name="isPublic" label="Public" />

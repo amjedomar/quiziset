@@ -9,9 +9,13 @@ type SnackbarOptions = { autoHideDuration: number }
 type SnackbarColor = 'danger' | 'success' | 'neutral'
 
 interface SnackbarState {
+  // a unique id per trigger (used as the Snackbar `key`) to force mui to restart its auto-hide
+  // timer on every call (even when the message text is identical to the previous one)
+  id: number
   message: ReactNode
   color: SnackbarColor
   autoHideDuration: number
+  open: boolean
 }
 
 interface SnackbarContextValue {
@@ -29,7 +33,17 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SnackbarState | null>(null)
 
   const show = useCallback((message: ReactNode, color: SnackbarColor, options?: SnackbarOptions) => {
-    setState({ message, color, autoHideDuration: options?.autoHideDuration ?? 4000 })
+    setState((prev) => ({
+      id: (prev?.id ?? 0) + 1,
+      message,
+      color,
+      autoHideDuration: options?.autoHideDuration ?? 4000,
+      open: true,
+    }))
+  }, [])
+
+  const close = useCallback(() => {
+    setState((prev) => (prev ? { ...prev, open: false } : null))
   }, [])
 
   const value = useMemo<SnackbarContextValue>(
@@ -47,7 +61,7 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
       const isLinkClicked = target.tagName.toLowerCase() === 'a' || target.closest('a')
 
       if (isLinkClicked) {
-        setState(null) // close snackbar
+        close() // close snackbar
       }
     }
   }
@@ -57,9 +71,10 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
       {children}
 
       <Snackbar
+        key={state?.id}
         className={styles.message}
-        open={!!state}
-        onClose={() => setState(null)}
+        open={state?.open ?? false}
+        onClose={close}
         autoHideDuration={state?.autoHideDuration}
         color={state?.color}
         variant="solid"

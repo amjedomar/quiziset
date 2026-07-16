@@ -203,7 +203,7 @@ exports[`QuizQuestionForm correctly renders 1`] = `
               </div>
             </div>
             <button
-              class="MuiIconButton-root Mui-disabled MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+              class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
               disabled=""
               tabindex="-1"
               type="button"
@@ -274,7 +274,7 @@ exports[`QuizQuestionForm correctly renders 1`] = `
               </div>
             </div>
             <button
-              class="MuiIconButton-root Mui-disabled MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
+              class="MuiIconButton-root MuiIconButton-variantPlain MuiIconButton-colorDanger MuiIconButton-sizeSm css-19yj8ul-JoyIconButton-root"
               disabled=""
               tabindex="-1"
               type="button"

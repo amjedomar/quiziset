@@ -15,17 +15,26 @@ export const theme = extendTheme({
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
           ...(ownerState.size === 'md' && {
-            // '--Button-paddingBlock': '8px',
             paddingInline: '14px',
             [theme.breakpoints.down('md')]: {
               '--Button-paddingBlock': '8px',
               paddingInline: '16px',
             },
+            [theme.breakpoints.down('sm')]: {
+              minHeight: 40,
+            },
           }),
-          // ...(ownerState.size === 'lg' && {
-          //   fontSize: '14px',
-          //   '--Icon-fontSize': '20px',
-          // }),
+        }),
+      },
+    },
+    JoyIconButton: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.size === 'md' && {
+            [theme.breakpoints.down('sm')]: {
+              padding: '7px',
+            },
+          }),
         }),
       },
     },
