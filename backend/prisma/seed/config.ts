@@ -1,18 +1,31 @@
 import { QuestionType } from '@/modules/quiz/dto/create-quiz.dto'
 import { getQuizSampleImagePath } from '@/utils/sample-images'
 
+const { SEED_DUMMY_USER_EMAIL, SEED_DUMMY_USER_PASSWORD } = process.env
+
+if (!SEED_DUMMY_USER_EMAIL) {
+  throw new Error('Please define `SEED_DUMMY_USER_EMAIL` in backend/.env')
+}
+
+if (!SEED_DUMMY_USER_PASSWORD) {
+  throw new Error('Please define `SEED_DUMMY_USER_PASSWORD` in backend/.env')
+}
+
 // to simplify things the 7 created test users will have the same password
-export const TEST_USER_PASSWORD = 'quiziset789'
+export const TEST_USER_PASSWORD = SEED_DUMMY_USER_PASSWORD
 
 // 7 users (avatars exists under src/public/images/avatars)
 export const TEST_USERS = [
-  { name: 'Amjed Omar', email: 'amjed@example.com', avatar: 'avatar1' },
-  { name: 'Daniel', email: 'daniel@example.com', avatar: 'avatar2' },
-  { name: 'Amir', email: 'amir@example.com', avatar: 'avatar3' },
-  { name: 'Sara', email: 'sara@example.com', avatar: 'avatar4' },
-  { name: 'Nadia', email: 'nadia@example.com', avatar: 'avatar5' },
-  { name: 'Emma', email: 'emma@example.com', avatar: 'avatar6' },
-  { name: 'Nathan', email: 'nathan@example.com', avatar: null },
+  // This is the main dummy user account (that owns all the quizzes)
+  { name: 'Amjed Omar', email: SEED_DUMMY_USER_EMAIL, avatar: 'avatar1' },
+
+  // rest accounts are only needed for reviews / totalFinishes / quiz analytics records
+  { name: 'Daniel', email: 'daniel@quiziset.local', avatar: 'avatar2' },
+  { name: 'Amir', email: 'amir@quiziset.local', avatar: 'avatar3' },
+  { name: 'Sara', email: 'sara@quiziset.local', avatar: 'avatar4' },
+  { name: 'Nadia', email: 'nadia@quiziset.local', avatar: 'avatar5' },
+  { name: 'Emma', email: 'emma@quiziset.local', avatar: 'avatar6' },
+  { name: 'Nathan', email: 'nathan@quiziset.local', avatar: null },
 ]
 
 interface QuizSeed {

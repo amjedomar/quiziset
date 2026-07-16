@@ -1,6 +1,6 @@
 # Quiziset
 
-A quiz web app where users can create, share and explore quizzes
+A quiz web app where users can create, share and explore quizzes (I created this project as a university assignment for the course "DLBCSPJWD01" as part of my CS bachelor studies at [IUBH](https://www.iu.org))
 
 The backend is built with [Nest.js](https://nestjs.com) and the frontend
 with [Next.js](https://nextjs.org)
@@ -14,6 +14,7 @@ with [Next.js](https://nextjs.org)
 - [App Urls](#app-urls)
 - [Stop App](#stop-app)
 - [GitHub CI](#github-ci)
+- [Re-run Prisma Seed Dummy Data](#re-run-prisma-seed-dummy-data)
 - [Guidelines regarding Backend development](#guidelines-regarding-backend-development)
 - [Guidelines regarding Frontend development](#guidelines-regarding-frontend-development)
 - [Coding Conventions](#coding-conventions)
@@ -63,7 +64,7 @@ Run the following npm installs on your local machine (i.e. this step should be d
   ```
 - Setup local `.env` file
   ```shell
-  node ./scripts/setup-development-dotenv.js
+  npm run generate:dotenv
   ```
 - Generate Prisma Client
   ```shell
@@ -89,6 +90,8 @@ Finally start the backend **(inside Docker)**:
   npm run build
   npm run start:prod
   ```
+
+Then you can check the API Swagger Docs here: http://localhost:4004/api-docs
 
 ## Start Frontend (inside Docker)
 
@@ -118,6 +121,17 @@ Finally start the frontend **(inside Docker)**:
   npm run build
   npm run start
   ```
+
+Then open http://localhost:3003
+
+btw if you ran the **prisma seed in the Backend step** then in frontend you can login on http://localhost:3003/login via
+
+- email: see `SEED_DUMMY_USER_EMAIL` in `backend/.env`
+- password: see `SEED_DUMMY_USER_PASSWORD` in `backend/.env`
+
+which is a dummy account created by Prisma Seed command for local setup only
+
+Otherwise, you can create a new account on the Sign Up page http://localhost:3003/signup
 
 ## App Urls
 
@@ -151,6 +165,19 @@ See https://github.com/amjedomar/quiziset/actions
 
 on every push to GitHub the CI runs ESLint, builds the app, and runs the Jest unit tests for both
 backend and frontend
+
+## Re-run Prisma Seed Dummy Data
+
+In case you wanna **re-run** the prisma seed command (i.e. reset back to the default DB dummy data for local setup)
+
+- first you'll have to clear up all the current DB data by running the following command (**Caution:** this is ok for local setup only but not on real live production since all data on database will be lost)
+  ```shell
+  npx prisma migrate reset --force
+  ```
+- Then run the prisma seed command
+  ```shell
+  npx prisma db seed
+  ```
 
 ## Guidelines regarding Backend development
 
@@ -199,9 +226,9 @@ backend and frontend
   - Never edit anything inside it manually
   - After the backend api changes run the following in frontend (but make sure that the
     backend is running before you run this command)
-  ```shell
-  npm run generate:api-client
-  ```
+    ```shell
+    npm run generate:api-client
+    ```
 
 - **proxy.ts**
   - `src/proxy.ts` is the Next.js proxy (middleware)
