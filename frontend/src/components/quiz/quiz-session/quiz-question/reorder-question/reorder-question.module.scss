@@ -6,4 +6,9 @@
   align-items: center;
   gap: 8px;
   cursor: grab;
+
+    @media ($max-screen-md) {
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
 }

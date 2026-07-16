@@ -10,7 +10,7 @@ interface AnalyticsConsentModalProps {
 export function AnalyticsConsentModal({ isAccepting, onAccept, onQuit }: AnalyticsConsentModalProps) {
   return (
     <Modal open>
-      <ModalDialog maxWidth="sm">
+      <ModalDialog sx={{ width: 'calc(100% - 32px)', maxWidth: 500 }}>
         <DialogTitle>
           <AnalyticsIcon />
           Share analytics?

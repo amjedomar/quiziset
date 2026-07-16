@@ -24,7 +24,7 @@ exports[`AnalyticsConsentModal correctly renders 1`] = `
       aria-describedby="_r_1_"
       aria-labelledby="_r_0_"
       aria-modal="true"
-      class="MuiModalDialog-root MuiModalDialog-variantOutlined MuiModalDialog-colorNeutral MuiModalDialog-sizeMd MuiModalDialog-layoutCenter css-18trnhg-JoyModalDialog-root"
+      class="MuiModalDialog-root MuiModalDialog-variantOutlined MuiModalDialog-colorNeutral MuiModalDialog-sizeMd MuiModalDialog-layoutCenter css-jwq9nc-JoyModalDialog-root"
       role="dialog"
       tabindex="-1"
     >
