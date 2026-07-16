@@ -15,9 +15,10 @@ interface FavoriteButtonProps {
   quizId: number
   isFavorite: boolean // the current favorite state coming from the server
   size?: 'sm' | 'md' | 'lg'
+  className?: string
 }
 
-export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: FavoriteButtonProps) {
+export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size, className }: FavoriteButtonProps) {
   const [isFavorite, setIsFavorite] = useState(isFavoriteProp)
 
   const { mutateAsync: addFavorite, isPending: isAdding } = useAddFavorite()
@@ -65,6 +66,7 @@ export function FavoriteButton({ quizId, isFavorite: isFavoriteProp, size }: Fav
       size={size}
       disabled={isPending}
       onClick={handleClick}
+      className={className}
     >
       {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
     </IconButton>

@@ -62,7 +62,7 @@ exports[`QuizOverview correctly renders 1`] = `
           </svg>
         </span>
         <span
-          class="responsive"
+          class="responsiveLabel"
         >
           Share
         </span>

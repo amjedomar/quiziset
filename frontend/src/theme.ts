@@ -19,8 +19,6 @@ export const theme = extendTheme({
             [theme.breakpoints.down('md')]: {
               '--Button-paddingBlock': '8px',
               paddingInline: '16px',
-            },
-            [theme.breakpoints.down('sm')]: {
               minHeight: 40,
             },
           }),
@@ -31,7 +29,7 @@ export const theme = extendTheme({
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
           ...(ownerState.size === 'md' && {
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('md')]: {
               padding: '7px',
             },
           }),

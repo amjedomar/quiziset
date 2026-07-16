@@ -41,6 +41,7 @@
 }
 
 .quizItem {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -59,28 +60,69 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px 8px;
+  gap: 6px 12px;
+  margin-bottom: 2px;
 }
 
 .ratingIcon {
   color: #f5a623;
 }
 
-.actions,
-.primaryActions,
-.secondaryActions {
+.primaryActions {
   display: flex;
   flex-direction: row;
-  gap: 8px;
   flex-wrap: wrap;
+  margin-top: 6px;
+
+  .favoriteAction {
+    margin-left: auto;
+  }
+
+  .primaryActionsSub {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  &,
+  .primaryActionsSub {
+    gap: 12px 16px;
+  }
 }
 
-.actions {
-  justify-content: space-between;
-  margin-top: 8px;
+.secondaryActions {
+  position: absolute;
+  display: flex;
+  top: 10px;
+
+  @media ($min-screen-sm) {
+    right: 12px;
+    gap: 16px;
+
+    .previewAction {
+      border-color: transparent;
+    }
+
+    .shareAction {
+      border-color: transparent;
+    }
+  }
 
   @media ($max-screen-sm) {
-    gap: 20px;
+    top: 24px;
+    left: 24px;
+    width: calc(100% - 48px);
+    justify-content: space-between;
+
+    .previewAction {
+      background-color: #fff;
+      border-radius: 6px;
+    }
+
+    .shareActionWrapper {
+      background-color: #fff;
+      border-radius: 6px;
+    }
   }
 }
 

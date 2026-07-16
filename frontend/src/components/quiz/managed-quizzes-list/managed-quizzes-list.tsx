@@ -88,18 +88,18 @@ export function ManagedQuizzesList() {
                     {quiz.description}
                   </Typography>
 
-                  <div className={styles.actions}>
-                    <div className={styles.primaryActions}>
-                      <Button
-                        data-testid={`update-quiz-${quiz.id}-link`}
-                        component={Link}
-                        href={`/manage-quizzes/${quiz.id}/update`}
-                        variant="soft"
-                        startDecorator={<UpdateIcon />}
-                      >
-                        Update
-                      </Button>
+                  <div className={styles.primaryActions}>
+                    <Button
+                      data-testid={`update-quiz-${quiz.id}-link`}
+                      component={Link}
+                      href={`/manage-quizzes/${quiz.id}/update`}
+                      variant="soft"
+                      startDecorator={<UpdateIcon />}
+                    >
+                      Update
+                    </Button>
 
+                    <div className={styles.primaryActionsSub}>
                       <DisabledTooltip
                         disabled={!quiz.isAnalyticsEnabled}
                         title="Analytics is not enabled for this quiz"
@@ -114,21 +114,36 @@ export function ManagedQuizzesList() {
                           Analytics
                         </Button>
                       </DisabledTooltip>
+
+                      <FavoriteButton
+                        className={styles.favoriteAction}
+                        quizId={quiz.id}
+                        isFavorite={!!quiz.isFavorite}
+                      />
                     </div>
+                  </div>
 
-                    <div className={styles.secondaryActions}>
-                      <IconButton
-                        data-testid={`quiz-${quiz.id}-overview-link`}
-                        component={Link}
-                        href={`/quizzes/${quiz.id}/overview`}
+                  <div className={styles.secondaryActions}>
+                    <IconButton
+                      className={styles.previewAction}
+                      data-testid={`quiz-${quiz.id}-overview-link`}
+                      component={Link}
+                      href={`/quizzes/${quiz.id}/overview`}
+                      color="primary"
+                      variant="outlined"
+                    >
+                      <PreviewIcon />
+                    </IconButton>
+
+                    <div className={styles.shareActionWrapper}>
+                      <ShareQuizButton
+                        quizId={quiz.id}
+                        labelDisplay="never"
+                        disabled={!quiz.isPublic}
+                        className={styles.shareAction}
+                        color="primary"
                         variant="outlined"
-                      >
-                        <PreviewIcon />
-                      </IconButton>
-
-                      <ShareQuizButton quizId={quiz.id} labelDisplay="never" disabled={!quiz.isPublic} />
-
-                      <FavoriteButton quizId={quiz.id} isFavorite={!!quiz.isFavorite} />
+                      />
                     </div>
                   </div>
                 </div>

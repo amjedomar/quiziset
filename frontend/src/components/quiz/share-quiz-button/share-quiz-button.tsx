@@ -17,6 +17,7 @@ interface ShareQuizButtonProps {
   color?: ButtonProps['color']
   labelDisplay?: LabelDisplay
   disabled?: boolean
+  className?: string
 }
 
 export function getQuizShareUrl(quizId: number): string {
@@ -31,6 +32,7 @@ export function ShareQuizButton({
   color = 'neutral',
   labelDisplay = 'always',
   disabled = false,
+  className,
 }: ShareQuizButtonProps) {
   const { showSuccess } = useSnackbar()
 
@@ -44,6 +46,7 @@ export function ShareQuizButton({
     labelDisplay === 'never' ? (
       <IconButton
         data-testid={testId}
+        className={className}
         size={size}
         variant={variant}
         color={color}
@@ -59,10 +62,10 @@ export function ShareQuizButton({
         variant={variant}
         color={color}
         startDecorator={<ShareOutlinedIcon />}
-        className={clsx({ [styles.responsive]: labelDisplay === 'responsive' })}
+        className={clsx({ [styles.responsive]: labelDisplay === 'responsive' }, className)}
         {...disabledProp}
       >
-        <span className={clsx({ [styles.responsive]: labelDisplay === 'responsive' })}>Share</span>
+        <span className={clsx({ [styles.responsiveLabel]: labelDisplay === 'responsive' })}>Share</span>
       </Button>
     )
 

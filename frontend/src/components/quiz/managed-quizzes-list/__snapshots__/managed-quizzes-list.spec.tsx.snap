@@ -201,33 +201,33 @@ exports[`ManagedQuizzesList correctly renders 1`] = `
               A quiz about javascript
             </p>
             <div
-              class="actions"
+              class="primaryActions"
             >
-              <div
-                class="primaryActions"
+              <a
+                class="MuiButton-root MuiButton-variantSoft MuiButton-colorPrimary MuiButton-sizeMd css-aqrsm8-JoyButton-root"
+                data-testid="update-quiz-1-link"
+                href="/manage-quizzes/1/update"
               >
-                <a
-                  class="MuiButton-root MuiButton-variantSoft MuiButton-colorPrimary MuiButton-sizeMd css-aqrsm8-JoyButton-root"
-                  data-testid="update-quiz-1-link"
-                  href="/manage-quizzes/1/update"
+                <span
+                  class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
                 >
-                  <span
-                    class="MuiButton-startDecorator css-187ulk2-JoyButton-startDecorator"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                    data-testid="EditIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                      data-testid="EditIcon"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
-                      />
-                    </svg>
-                  </span>
-                  Update
-                </a>
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
+                    />
+                  </svg>
+                </span>
+                Update
+              </a>
+              <div
+                class="primaryActionsSub"
+              >
                 <span
                   aria-label="Analytics is not enabled for this quiz"
                   class="trigger"
@@ -261,29 +261,33 @@ exports[`ManagedQuizzesList correctly renders 1`] = `
                   </a>
                 </span>
               </div>
-              <div
-                class="secondaryActions"
+            </div>
+            <div
+              class="secondaryActions"
+            >
+              <a
+                class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorPrimary MuiIconButton-sizeMd previewAction css-1hta6ux-JoyIconButton-root"
+                data-testid="quiz-1-overview-link"
+                href="/quizzes/1/overview"
               >
-                <a
-                  class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd css-3oglbe-JoyIconButton-root"
-                  data-testid="quiz-1-overview-link"
-                  href="/quizzes/1/overview"
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+                  data-testid="VisibilityOutlinedIcon"
+                  focusable="false"
+                  viewBox="0 0 24 24"
                 >
-                  <svg
-                    aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
-                    data-testid="VisibilityOutlinedIcon"
-                    focusable="false"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4m0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7"
-                    />
-                  </svg>
-                </a>
+                  <path
+                    d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4m0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7"
+                  />
+                </svg>
+              </a>
+              <div
+                class="shareActionWrapper"
+              >
                 <button
                   aria-label="Share quiz"
-                  class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorNeutral MuiIconButton-sizeMd css-3oglbe-JoyIconButton-root"
+                  class="MuiIconButton-root MuiIconButton-variantOutlined MuiIconButton-colorPrimary MuiIconButton-sizeMd shareAction css-1hta6ux-JoyIconButton-root"
                   data-testid="share-quiz-1-button"
                   type="button"
                 >
