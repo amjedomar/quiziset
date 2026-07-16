@@ -10,13 +10,19 @@ exports[`QuizAnalyticsDesktop correctly renders 1`] = `
     >
       <thead>
         <tr>
-          <th>
+          <th
+            class="userColumn"
+          >
             User
           </th>
-          <th>
+          <th
+            class="scoreColumn"
+          >
             Score
           </th>
-          <th>
+          <th
+            class="durationColumn"
+          >
             Duration
           </th>
           <th
@@ -29,14 +35,18 @@ exports[`QuizAnalyticsDesktop correctly renders 1`] = `
           >
             Finished
           </th>
-          <th>
+          <th
+            class="statusColumn"
+          >
             Status
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>
+          <td
+            class="userColumn"
+          >
             <div
               class="userCell"
             >
@@ -45,17 +55,19 @@ exports[`QuizAnalyticsDesktop correctly renders 1`] = `
               >
                 AO
               </div>
-              <span
-                class="userName"
-              >
+              <span>
                 Amjed Omar
               </span>
             </div>
           </td>
-          <td>
+          <td
+            class="scoreColumn"
+          >
             3 / 5 (60%)
           </td>
-          <td>
+          <td
+            class="durationColumn"
+          >
             30m 0s
           </td>
           <td
@@ -68,7 +80,9 @@ exports[`QuizAnalyticsDesktop correctly renders 1`] = `
           >
             2026-01-01 10:30
           </td>
-          <td>
+          <td
+            class="statusColumn"
+          >
             <div
               class="MuiChip-root MuiChip-colorSuccess MuiChip-sizeSm MuiChip-variantSoft css-ksiv8u-JoyChip-root"
             >

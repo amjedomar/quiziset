@@ -10,7 +10,7 @@ export function SessionUserCell({ user }: SessionUserCellProps) {
   return (
     <div className={styles.userCell}>
       <UserAvatar name={user.name} imageUrl={user.imageUrl} size="sm" />
-      <span className={styles.userName}>{user.name}</span>
+      <span>{user.name}</span>
     </div>
   )
 }

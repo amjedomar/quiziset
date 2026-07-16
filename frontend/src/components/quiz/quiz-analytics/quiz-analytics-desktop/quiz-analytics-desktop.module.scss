@@ -8,11 +8,35 @@
 }
 
 .table {
+  --TableCell-paddingY: 10px;
+
   th {
     white-space: nowrap;
   }
+
+  th,
+  td {
+    vertical-align: middle;
+  }
+}
+
+.userColumn {
+  --TableCell-paddingX: 16px;
+  width: 170px;
+}
+
+.scoreColumn {
+  width: 120px;
+}
+
+.durationColumn {
+  width: 120px;
 }
 
 .dateColumn {
-  width: 190px;
+  width: 170px;
+}
+
+.statusColumn {
+  width: 120px;
 }

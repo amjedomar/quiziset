@@ -10,9 +10,7 @@ exports[`SessionUserCell correctly renders 1`] = `
     >
       AO
     </div>
-    <span
-      class="userName"
-    >
+    <span>
       Amjed Omar
     </span>
   </div>

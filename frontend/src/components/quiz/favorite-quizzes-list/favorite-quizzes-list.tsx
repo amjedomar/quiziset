@@ -9,7 +9,7 @@ import styles from './favorite-quizzes-list.module.scss'
 export function FavoriteQuizzesList() {
   return (
     <QuizzesList
-      params={{ favoritedByMe: true }}
+      params={{ favoritedByMe: true, sortBy: 'name', sortOrder: 'asc' }}
       renderHeader={({ SearchComponent, SortComponent, TotalMatchesComponent }) => (
         <div className={styles.header}>
           <div className={styles.searchRow}>

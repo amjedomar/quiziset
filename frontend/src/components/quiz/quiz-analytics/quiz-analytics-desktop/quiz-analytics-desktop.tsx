@@ -21,25 +21,27 @@ export function QuizAnalyticsDesktop({ sessions }: QuizAnalyticsDesktopProps) {
       <Table stickyHeader hoverRow className={styles.table}>
         <thead>
           <tr>
-            <th>User</th>
-            <th>Score</th>
-            <th>Duration</th>
+            <th className={styles.userColumn}>User</th>
+            <th className={styles.scoreColumn}>Score</th>
+            <th className={styles.durationColumn}>Duration</th>
             <th className={styles.dateColumn}>Started</th>
             <th className={styles.dateColumn}>Finished</th>
-            <th>Status</th>
+            <th className={styles.statusColumn}>Status</th>
           </tr>
         </thead>
         <tbody>
           {sessions.map((session) => (
             <tr key={session.id}>
-              <td>
+              <td className={styles.userColumn}>
                 <SessionUserCell user={session.user} />
               </td>
-              <td>{formatQuizSessionScore(session)}</td>
-              <td>{session.finishTime ? formatTimeDuration(session.startTime, session.finishTime) : '—'}</td>
+              <td className={styles.scoreColumn}>{formatQuizSessionScore(session)}</td>
+              <td className={styles.durationColumn}>
+                {session.finishTime ? formatTimeDuration(session.startTime, session.finishTime) : '—'}
+              </td>
               <td className={styles.dateColumn}>{formatDateTime(session.startTime)}</td>
               <td className={styles.dateColumn}>{session.finishTime ? formatDateTime(session.finishTime) : '—'}</td>
-              <td>
+              <td className={styles.statusColumn}>
                 <SessionStatusChip isFinished={!!session.finishTime} />
               </td>
             </tr>

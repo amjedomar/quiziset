@@ -19,7 +19,7 @@ import PublicIcon from '@mui/icons-material/LockOpen'
 export function ManagedQuizzesList() {
   return (
     <QuizzesList
-      params={{ managedByMe: true }}
+      params={{ managedByMe: true, sortBy: 'date', sortOrder: 'desc' }}
       renderHeader={({ SearchComponent, SortComponent, TotalMatchesComponent }) => (
         <div className={styles.headerSection}>
           <div className={styles.header}>

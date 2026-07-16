@@ -42,7 +42,7 @@ exports[`FavoriteQuizzesList correctly renders 1`] = `
             role="combobox"
             type="button"
           >
-            Newest
+            Name (A-Z)
           </button>
           <span
             class="MuiSelect-indicator css-b0m4zx-JoySelect-indicator"
@@ -63,7 +63,7 @@ exports[`FavoriteQuizzesList correctly renders 1`] = `
             aria-hidden="true"
             style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;"
             tabindex="-1"
-            value="newest"
+            value="name-az"
           />
         </div>
       </div>

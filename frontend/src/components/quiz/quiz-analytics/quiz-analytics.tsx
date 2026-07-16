@@ -91,12 +91,12 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
       </div>
 
       <div className={styles.toolbar}>
-        <Typography level="body-sm" textColor="text.tertiary">
+        <Typography textColor="text.tertiary">
           {totalMatches} {totalMatches === 1 ? 'session' : 'sessions'}
         </Typography>
 
         <SelectEnhanced
-          size="sm"
+          size="md"
           value={String(pageSize)}
           multiple={false}
           onChange={(_event, value) => handlePageSizeChange(value)}
