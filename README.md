@@ -2,7 +2,7 @@
 
 A quiz web app where users can create, share and explore quizzes (I created this project as a university assignment for the course "DLBCSPJWD01" as part of my CS bachelor studies at [IUBH](https://www.iu.org))
 
-The backend is built with [Nest.js](https://nestjs.com) and the frontend
+The backend is built with [NestJS](https://nestjs.com) and the frontend
 with [Next.js](https://nextjs.org)
 
 ## Table of Contents
@@ -143,7 +143,7 @@ Otherwise, you can create a new account on the Sign Up page http://localhost:300
 | Service             | Url                                 | What it is                                                                                     |
 | ------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Frontend            | http://localhost:3003               | Next.js app                                                                                    |
-| Backend             | http://localhost:4004               | Nest.js api                                                                                    |
+| Backend             | http://localhost:4004               | NestJS api                                                                                    |
 | Backend API Docs    | http://localhost:4004/api-docs      | browse the Backend REST API docs using Swagger UI                                              |
 | OpenAPI json        | http://localhost:4004/api-docs-json | used by [Orval](https://www.npmjs.com/package/orval) (to auto-generate api client in frontend) |
 | MySQL               | localhost:3308                      | database                                                                                       |
@@ -192,7 +192,7 @@ In case you wanna **re-run** the prisma seed command (i.e. reset back to the def
     migration with `npx prisma migrate dev` (please make sure to run these
     commands inside the "backend" docker container)
 
-- **Nest.js Controller method names** (i.e. those files that ends with
+- **NestJS Controller method names** (i.e. those files that ends with
   `*.controller.ts`)
   - The method name in a controller must include the resource name
   - For example name it `createQuiz` not `create`
@@ -211,9 +211,9 @@ In case you wanna **re-run** the prisma seed command (i.e. reset back to the def
   - To get the logged-in user inside a controller method use the `@AuthUser()`
     param decorator (it gives you the `userId`)
 
-- **Nest.js Modules**
+- **NestJS Modules**
   - Each API feature is a module under `backend/src/modules`
-  - A Nest.js module folder has the three files `*.controller.ts` `*.service.ts`
+  - A NestJS module folder has the three files `*.controller.ts` `*.service.ts`
     `*.module.ts` plus `dto` and `entities` folders
 
 - **Validation**
@@ -252,7 +252,7 @@ In case you wanna **re-run** the prisma seed command (i.e. reset back to the def
 - **File structure**
   - Each TS file is wrapped in its own directory with an `index.ts` that
     re-exports it
-  - The exception is the backend `modules` folder because a Nest.js module
+  - The exception is the backend `modules` folder because a NestJS module
     holds more
     than one file (service, controller, module)
 
