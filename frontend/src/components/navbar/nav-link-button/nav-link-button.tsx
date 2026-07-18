@@ -1,5 +1,8 @@
+'use client'
+
 import { Button, ButtonProps } from '@mui/joy'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
 export interface NavLinkButtonProps {
@@ -27,6 +30,10 @@ export function NavLinkButton({
   size,
   testIdPrefix,
 }: NavLinkButtonProps) {
+  const pathname = usePathname()
+
+  const isActive = pathname === href
+
   return (
     <Button
       data-testid={`${testIdPrefix ? `${testIdPrefix}-` : ''}nav-link${href}`}
@@ -38,7 +45,11 @@ export function NavLinkButton({
       fullWidth={fullWidth}
       onClick={onNavigate}
       size={size}
-      sx={{ justifyContent: 'start' }}
+      sx={{
+        justifyContent: 'start',
+        // see https://v7.mui.com/joy-ui/customization/theme-colors/
+        ...(isActive && { bgcolor: `neutral.${variant}HoverBg` }),
+      }}
     >
       {label}
     </Button>
