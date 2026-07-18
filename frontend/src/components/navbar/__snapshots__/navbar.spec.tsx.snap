@@ -24,7 +24,7 @@ exports[`Navbar correctly renders 1`] = `
           Quiziset
         </a>
         <div
-          class="MuiStack-root desktopNav css-kfie9m-JoyStack-root"
+          class="desktopNav"
         >
           <a
             class="MuiButton-root MuiButton-variantPlain MuiButton-colorNeutral MuiButton-sizeMd css-1kmcu7h-JoyButton-root"

@@ -1,10 +1,13 @@
-import NextLink, { LinkProps as NextLinkProps } from 'next/link'
+import NextLink from 'next/link'
+import { ComponentProps } from 'react'
 import { PROTECTED_ROUTES, GUEST_ONLY_ROUTES } from '@/constants/auth-pages'
 import { matchesRoute } from '@/utils/url'
 
 const PROXY_REDIRECTED_ROUTES = [...PROTECTED_ROUTES, ...GUEST_ONLY_ROUTES]
 
-export function AppLink({ href, prefetch, ...props }: NextLinkProps) {
+type AppLinkProps = ComponentProps<typeof NextLink>
+
+export function AppLink({ href, prefetch, ...props }: AppLinkProps) {
   /**
    * Next.js has an internal bug see https://github.com/vercel/next.js/issues/88937
    * in "production" mode after it prefetches the page (it doesn't re-run proxy.ts

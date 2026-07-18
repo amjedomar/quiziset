@@ -30,11 +30,11 @@ export function Navbar() {
               Quiziset
             </AppLink>
 
-            <Stack className={styles.desktopNav} direction="row" spacing={0.75}>
+            <div className={styles.desktopNav}>
               {NAV_LINKS.map((link) => (
                 <NavLinkButton key={link.href} {...link} testIdPrefix="desktop" />
               ))}
-            </Stack>
+            </div>
           </div>
 
           {/* see "authNavbarScript" in "app/layout.tsx" */}
