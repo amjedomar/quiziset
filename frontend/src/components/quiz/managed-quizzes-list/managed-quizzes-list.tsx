@@ -1,6 +1,6 @@
 'use client'
 import { Button, CircularProgress, IconButton, Sheet, Typography } from '@mui/joy'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { BackendImage } from '@/ui/backend-image'
 import { DisabledTooltip } from '@/ui/disabled-tooltip'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
@@ -27,7 +27,7 @@ export function ManagedQuizzesList() {
 
             <Button
               data-testid="create-quiz-link"
-              component={Link}
+              component={AppLink}
               href={`/manage-quizzes/create`}
               variant="solid"
               startDecorator={<CreateIcon />}
@@ -98,7 +98,7 @@ export function ManagedQuizzesList() {
                   <div className={styles.primaryActions}>
                     <Button
                       data-testid={`update-quiz-${quiz.id}-link`}
-                      component={Link}
+                      component={AppLink}
                       href={`/manage-quizzes/${quiz.id}/update`}
                       variant="soft"
                       startDecorator={<UpdateIcon />}
@@ -113,7 +113,7 @@ export function ManagedQuizzesList() {
                       >
                         <Button
                           data-testid={`quiz-${quiz.id}-analytics-link`}
-                          component={Link}
+                          component={AppLink}
                           href={`/manage-quizzes/${quiz.id}/analytics`}
                           variant="outlined"
                           startDecorator={<AnalyticsIcon />}
@@ -134,7 +134,7 @@ export function ManagedQuizzesList() {
                     <IconButton
                       className={styles.previewAction}
                       data-testid={`quiz-${quiz.id}-overview-link`}
-                      component={Link}
+                      component={AppLink}
                       href={`/quizzes/${quiz.id}/overview`}
                       color="primary"
                       variant="outlined"

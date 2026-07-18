@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -67,7 +67,7 @@ export function SignupForm({ safeRedirectTo, reason }: SignupFormProps) {
 
           <Typography level="body-sm" textAlign="center">
             Already have an account?{' '}
-            <Link component={NextLink} href={appendRedirectParam('/login', safeRedirectTo, reason)}>
+            <Link component={AppLink} href={appendRedirectParam('/login', safeRedirectTo, reason)}>
               Login
             </Link>
           </Typography>

@@ -11,7 +11,7 @@ import {
   MenuItem,
   Typography,
 } from '@mui/joy'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import PersonOutlineIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useAuth } from '@/hooks/use-auth'
@@ -56,7 +56,7 @@ export function ProfileDesktopMenu() {
 
         <ListDivider />
 
-        <MenuItem component={Link} href="/profile">
+        <MenuItem component={AppLink} href="/profile">
           <ListItemDecorator>
             <PersonOutlineIcon />
           </ListItemDecorator>

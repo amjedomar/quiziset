@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
@@ -64,7 +64,7 @@ export function ForgotPasswordForm() {
                 <Alert color="danger" variant="soft" data-testid="reset-error-alert">
                   <Stack spacing={1}>
                     <span>{errorMessage}</span>
-                    <Link component={NextLink} href="/signup">
+                    <Link component={AppLink} href="/signup">
                       Go to Sign Up
                     </Link>
                   </Stack>
@@ -79,7 +79,7 @@ export function ForgotPasswordForm() {
 
               <Typography level="body-sm" textAlign="center">
                 Remembered your password?{' '}
-                <Link component={NextLink} href="/login">
+                <Link component={AppLink} href="/login">
                   Login
                 </Link>
               </Typography>

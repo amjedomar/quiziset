@@ -2,7 +2,7 @@
 
 import { Box, Button, Sheet, Typography } from '@mui/joy'
 import { QuizEntity } from '@/generated-api-client/model'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { ReactNode } from 'react'
 import { Loading } from '@/components/loading'
 import { BackendBackgroundImage } from '@/ui/backend-background-image'
@@ -45,7 +45,7 @@ export function QuizzesGrid({ quizzes, isLoading, emptyInfo }: QuizzesGridProps)
       {quizzes?.map((quiz) => (
         <Sheet
           key={quiz.id}
-          component={Link}
+          component={AppLink}
           variant="outlined"
           className={styles.quizCard}
           href={`/quizzes/${quiz.id}/overview`}

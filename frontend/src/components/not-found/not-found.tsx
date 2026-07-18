@@ -1,6 +1,6 @@
 'use client'
 import { Link, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { Ghost } from 'lucide-react'
 import styles from './not-found.module.scss'
 
@@ -22,7 +22,7 @@ export function NotFound() {
           The page you are looking for {"doesn't"} exist or may have been moved
         </Typography>
 
-        <Link data-testid="explore-link" component={NextLink} href="/" underline="always">
+        <Link data-testid="explore-link" component={AppLink} href="/" underline="always">
           Return to Explore Page
         </Link>
       </div>

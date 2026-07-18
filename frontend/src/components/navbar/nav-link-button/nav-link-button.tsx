@@ -1,9 +1,9 @@
 'use client'
 
 import { Button, ButtonProps } from '@mui/joy'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
+import { AppLink } from '@/ui/app-link'
 
 export interface NavLinkButtonProps {
   href: string
@@ -37,7 +37,7 @@ export function NavLinkButton({
   return (
     <Button
       data-testid={`${testIdPrefix ? `${testIdPrefix}-` : ''}nav-link${href}`}
-      component={Link}
+      component={AppLink}
       color="neutral"
       variant={variant}
       href={href}

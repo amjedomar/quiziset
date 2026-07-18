@@ -6,7 +6,6 @@ import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
 import { Loading } from '@/components/loading'
 import { ReviewsSection } from '@/components/reviews/reviews-section'
-import NextLink from 'next/link'
 import StartIcon from '@mui/icons-material/PlayCircleFilledWhite'
 import TimerIcon from '@mui/icons-material/Timer'
 import TimerOffIcon from '@mui/icons-material/TimerOff'
@@ -19,6 +18,7 @@ import { BackendImage } from '@/ui/backend-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
 import { UserAvatar } from '@/components/user-avatar'
+import { AppLink } from '@/ui/app-link'
 import styles from './quiz-overview.module.scss'
 
 interface QuizOverviewProps {
@@ -55,7 +55,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
     <Container maxWidth="lg">
       <div className={styles.topBar}>
         <Button
-          component={NextLink}
+          component={AppLink}
           href="/"
           variant="plain"
           size="sm"
@@ -116,7 +116,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
             <div className={styles.actions}>
               <Button
                 data-testid="start-quiz-link"
-                component={NextLink}
+                component={AppLink}
                 href={`/quizzes/${quizId}/session`}
                 startDecorator={<StartIcon />}
                 size="lg"

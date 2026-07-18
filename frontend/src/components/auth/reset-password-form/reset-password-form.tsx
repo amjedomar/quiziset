@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,7 +29,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       <Alert color="danger" variant="soft" data-testid="reset-invalid-link-alert">
         <Stack spacing={1}>
           <span>This password reset link is invalid. Please request a new one.</span>
-          <Link component={NextLink} href="/forgot-password">
+          <Link component={AppLink} href="/forgot-password">
             Request a new link
           </Link>
         </Stack>
@@ -63,7 +63,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
             <Alert color="danger" variant="soft" data-testid="reset-error-alert">
               <Stack spacing={1}>
                 <span>{errorMessage}</span>
-                <Link component={NextLink} href="/forgot-password">
+                <Link component={AppLink} href="/forgot-password">
                   Request a new link
                 </Link>
               </Stack>

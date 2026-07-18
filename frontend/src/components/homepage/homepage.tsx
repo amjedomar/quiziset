@@ -1,7 +1,7 @@
 'use client'
 import { Typography, Link } from '@mui/joy'
-import NextLink from 'next/link'
 import { GetAllQuizzesParams } from '@/generated-api-client/model'
+import { AppLink } from '@/ui/app-link'
 import { QuizzesList } from '@/components/quiz/quizzes-list'
 import { QuizzesGrid } from '@/components/quiz/quizzes-grid'
 import styles from './homepage.module.scss'
@@ -23,12 +23,7 @@ export function Homepage({ initialParams }: HomepageProps) {
 
             <Typography className={styles.subtitle} textAlign="center">
               Explore different quizzes to test your skills or{' '}
-              <Link
-                data-testid="create-quiz-link"
-                component={NextLink}
-                href="/manage-quizzes/create"
-                underline="always"
-              >
+              <Link data-testid="create-quiz-link" component={AppLink} href="/manage-quizzes/create" underline="always">
                 create your own quiz
               </Link>
             </Typography>

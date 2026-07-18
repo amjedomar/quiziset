@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { keepPreviousData } from '@tanstack/react-query'
 import { Alert, Button, Sheet, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { useGetQuizAnalytics } from '@/generated-api-client/quiz-analytics'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
@@ -46,7 +46,7 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
             <Typography level="body-sm">{error.message}</Typography>
             <Button
               data-testid="update-quiz-link"
-              component={NextLink}
+              component={AppLink}
               href={`/manage-quizzes/${quizId}/update`}
               variant="solid"
               color="warning"
@@ -77,7 +77,7 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
     <div className={styles.container}>
       <div className={styles.header}>
         <Button
-          component={NextLink}
+          component={AppLink}
           href="/manage-quizzes"
           variant="plain"
           size="sm"

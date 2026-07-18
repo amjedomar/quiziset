@@ -240,8 +240,8 @@ In case you wanna **re-run** the prisma seed command (i.e. reset back to the def
     redirects to `/login`
   - If a logged-in user opens a guest-only route like `/login` it redirects
     to home page
-  - When you add or remove a route (if it should be protected or guest-only) then update both the `ROUTES` object and the
-    `config.matcher` in this `proxy.ts` file
+  - When you add or remove a route (if it should be protected or guest-only) then update both the `constants/auth-pages.ts` file and the
+    `config.matcher` in `proxy.ts` file
 - **UI / Styling**
   - we use `mui/joi` https://v7.mui.com/joy-ui/getting-started/usage
   - but for custom styles you can create `*.module.scss` file then code it using SCSS

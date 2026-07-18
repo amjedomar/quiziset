@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@mui/joy'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { ReactNode, Suspense } from 'react'
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from 'next/navigation'
 import { appendRedirectParam, isLoginReason, LOGIN_REASON_PARAM, LoginReason, REDIRECT_PARAM } from '@/utils/redirect'
@@ -56,7 +56,7 @@ function AuthLinks({ redirectTo, reason }: { redirectTo?: string | null; reason?
       <Button
         data-testid="login-link"
         variant="outlined"
-        component={Link}
+        component={AppLink}
         href={appendRedirectParam('/login', redirectTo, reason)}
       >
         Login
@@ -65,7 +65,7 @@ function AuthLinks({ redirectTo, reason }: { redirectTo?: string | null; reason?
       <Button
         data-testid="signup-link"
         variant="solid"
-        component={Link}
+        component={AppLink}
         href={appendRedirectParam('/signup', redirectTo, reason)}
       >
         Sign Up

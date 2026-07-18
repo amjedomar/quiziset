@@ -1,5 +1,5 @@
 import { Button, Card, Stack, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { QuizSessionStateEntity } from '@/generated-api-client/model'
 
 interface QuizResultProps {
@@ -23,7 +23,7 @@ export function QuizResult({ state, quizId }: QuizResultProps) {
 
         <Button
           data-testid="back-to-quiz-overview-link"
-          component={NextLink}
+          component={AppLink}
           href={`/quizzes/${quizId}/overview`}
           sx={{ mt: 2 }}
         >

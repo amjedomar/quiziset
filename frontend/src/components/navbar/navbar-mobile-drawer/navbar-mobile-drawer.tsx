@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Button, Divider, Drawer, Stack, Typography } from '@mui/joy'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import PersonOutlineIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useAuth } from '@/hooks/use-auth'
@@ -39,7 +39,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
             data-testid="mobile-login-link"
             fullWidth
             variant="outlined"
-            component={Link}
+            component={AppLink}
             href="/login"
             onClick={onClose}
           >
@@ -50,7 +50,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
             data-testid="mobile-signup-link"
             fullWidth
             variant="solid"
-            component={Link}
+            component={AppLink}
             href="/signup"
             onClick={onClose}
           >

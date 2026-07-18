@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Alert, Button, Link, Stack, Typography } from '@mui/joy'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { useRouter } from 'next/navigation'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -60,7 +60,7 @@ export function LoginForm({ safeRedirectTo, reason }: LoginFormProps) {
           <FormInput name="password" label="Password" type="password" />
 
           <Typography level="body-sm">
-            <Link component={NextLink} href="/forgot-password">
+            <Link component={AppLink} href="/forgot-password">
               Forgot password?
             </Link>
           </Typography>
@@ -71,7 +71,7 @@ export function LoginForm({ safeRedirectTo, reason }: LoginFormProps) {
 
           <Typography level="body-sm" textAlign="center">
             Do not have an account?{' '}
-            <Link component={NextLink} href={appendRedirectParam('/signup', safeRedirectTo, reason)}>
+            <Link component={AppLink} href={appendRedirectParam('/signup', safeRedirectTo, reason)}>
               Sign up
             </Link>
           </Typography>

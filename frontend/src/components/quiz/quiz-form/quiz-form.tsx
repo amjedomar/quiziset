@@ -23,7 +23,7 @@ import { isErrorResponse } from '@/utils/is-error-response'
 import { useSnackbar } from '@/components/snackbar'
 import { ConfirmDeleteModal } from '@/components/confirm-delete-modal'
 import { ShareQuizButton } from '@/components/quiz/share-quiz-button'
-import NextLink from 'next/link'
+import { AppLink } from '@/ui/app-link'
 
 const defaultQuestion = {
   title: '',
@@ -91,7 +91,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
             <>
               <span>Quiz updated Successfully!</span>
 
-              <Link component={NextLink} href={quizOverviewLink} underline="always">
+              <Link component={AppLink} href={quizOverviewLink} underline="always">
                 View Quiz
               </Link>
             </>,

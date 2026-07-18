@@ -1,7 +1,7 @@
 'use client'
 import { Box, Container, IconButton, Stack } from '@mui/joy'
 import styles from '@/components/navbar/navbar.module.scss'
-import Link from 'next/link'
+import { AppLink } from '@/ui/app-link'
 import { ProfileDesktopMenu } from '@/components/navbar/profile-desktop-menu'
 import { AuthButtons } from '@/components/navbar/auth-buttons'
 import { NavLinkButton } from '@/components/navbar/nav-link-button'
@@ -26,9 +26,9 @@ export function Navbar() {
       <Box className={styles.navbar} sx={{ boxShadow: 'sm' }}>
         <Container className={styles.navbarInner} maxWidth="xl">
           <div className={styles.mainNav}>
-            <Link className={styles.appName} href="/">
+            <AppLink className={styles.appName} href="/">
               Quiziset
-            </Link>
+            </AppLink>
 
             <Stack className={styles.desktopNav} direction="row" spacing={0.75}>
               {NAV_LINKS.map((link) => (

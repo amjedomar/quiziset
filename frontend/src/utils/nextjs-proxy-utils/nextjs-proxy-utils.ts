@@ -41,34 +41,3 @@ export function checkIfUserLikelyLoggedIn(token: string | undefined): boolean {
 
   return expireInMs > Date.now()
 }
-
-export function matchesRoute(pathname: string, routes: string[]) {
-  const pathSegments = pathname.split('/').filter((segment) => segment.length > 0)
-
-  return routes.some((route) => {
-    const routeSegments = route.split('/').filter((segment) => segment.length > 0)
-
-    /**
-     * if there are more `routeSegments` than `pathSegments` then return false
-     * otherwise (in case `routeSegments` <= `pathSegments`) we need to check for a match
-     *
-     * we use `>` (not `!==`) to allow for prefix matching
-     *
-     * e.g.
-     * the pathname "/managed-quizzes/create" should match the route
-     * "/managed-quizzes" because the pathname starts with the route
-     */
-    if (routeSegments.length > pathSegments.length) {
-      return false
-    }
-
-    return routeSegments.every((routeSegment, index) => {
-      // ":param" matches any single path segment
-      if (routeSegment.startsWith(':')) {
-        return true
-      }
-
-      return routeSegment === pathSegments[index]
-    })
-  })
-}

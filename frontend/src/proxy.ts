@@ -1,32 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { USER_TOKEN_COOKIE } from '@/constants/auth'
+import { PROTECTED_ROUTES, GUEST_ONLY_ROUTES } from '@/constants/auth-pages'
 import { appendRedirectParam } from '@/utils/redirect'
-import { checkIfUserLikelyLoggedIn, matchesRoute } from '@/utils/nextjs-proxy-utils'
-
-/**
- * IMPORTANT!!!: When you add/remove routes here then please also update config "matcher" below
- */
-const ROUTES = {
-  // Routes that require user to be logged in
-  PROTECTED: ['/manage-quizzes', '/quizzes/:quizId/session', '/favorites', '/profile'],
-
-  // Routes that can be accessed only if user is logged out
-  GUEST_ONLY: ['/login', '/signup'],
-}
+import { matchesRoute } from '@/utils/url'
+import { checkIfUserLikelyLoggedIn } from '@/utils/nextjs-proxy-utils'
 
 /**
  * This proxy ensures that:
- * - if user is logged out and tried to access "ROUTES.PROTECTED"
+ * - if user is logged out and tried to access PROTECTED_ROUTES
  *   it will redirect them to /login (with "?redirect" query param)
- * - In contrast, if logged in user tried to access "Routes.GUEST_ONLY"
+ * - In contrast, if logged in user tried to access GUEST_ONLY_ROUTES
  *   it will redirect them to home page
+ *
+ * PROTECTED_ROUTES / GUEST_ONLY_ROUTES exists in "constants/auth-pages.ts"
+ * because <AppLink> uses them too (to disable prefetch for these routes)
  */
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
   const token = request.cookies.get(USER_TOKEN_COOKIE)?.value
   const isUserLikelyLoggedIn = checkIfUserLikelyLoggedIn(token)
 
-  if (!isUserLikelyLoggedIn && matchesRoute(pathname, ROUTES.PROTECTED)) {
+  if (!isUserLikelyLoggedIn && matchesRoute(pathname, PROTECTED_ROUTES)) {
     const currentPageUrl = pathname + search
 
     // NextResponse.redirect requires an absolute URL
@@ -37,7 +31,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(loginFinalUrl)
   }
 
-  if (isUserLikelyLoggedIn && matchesRoute(pathname, ROUTES.GUEST_ONLY)) {
+  if (isUserLikelyLoggedIn && matchesRoute(pathname, GUEST_ONLY_ROUTES)) {
     // NextResponse.redirect requires an absolute URL
     const homeAbsoluteUrl = new URL('/', request.url).toString()
 
