@@ -35,6 +35,18 @@ const questionSchema = z
         })
       }
     }
+
+    if (data.questionType === QuestionType.Cards) {
+      data.answers.forEach((answer, index) => {
+        if (!answer.imageUrl) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'Please upload an image',
+            path: [`answers.${index}.imageUrl`],
+          })
+        }
+      })
+    }
   })
 
 export const quizSchema = z.object({

@@ -25,6 +25,11 @@ const BOX_SIZE_CLASSES: Record<NonNullable<FormImageProps['boxSize']>, string> =
   md: styles.wrapperMd,
 }
 
+const CONTROL_SIZE_CLASSES: Record<NonNullable<FormImageProps['boxSize']>, string> = {
+  sm: styles.controlSm,
+  md: styles.controlMd,
+}
+
 export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImageProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const { mutateAsync: uploadFile, isPending: isUploading } = useUpload()
@@ -58,6 +63,7 @@ export function FormImage({ name, label, boxSize = 'md', bucketName }: FormImage
     <FormFieldCore
       name={name}
       label={label}
+      formControlClassName={clsx(styles.control, CONTROL_SIZE_CLASSES[boxSize])}
       defaultValue=""
       renderField={({ field: { ref, onChange, value: imageUrl }, fieldState: { invalid } }) => {
         const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {

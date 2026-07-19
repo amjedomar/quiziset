@@ -3,7 +3,7 @@
 exports[`FormImage renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+    class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd control controlMd css-1jf2wst-JoyFormControl-root"
   >
     <div
       class="wrapper wrapperMd"

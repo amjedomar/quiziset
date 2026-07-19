@@ -199,7 +199,7 @@ exports[`QuizForm correctly renders 1`] = `
           </div>
         </div>
         <div
-          class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
+          class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd control controlMd css-1jf2wst-JoyFormControl-root"
         >
           <label
             class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"
