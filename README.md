@@ -26,7 +26,7 @@ The whole app runs inside Docker
 - First make sure that Docker is installed in your machine
   - [Install Docker Desktop on Mac](https://docs.docker.com/desktop/setup/install/mac-install)
   - [Install Docker Desktop on Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
-- Then start all the docker containers
+- Then start all the docker containers (`docker compose` can only be executed at the project root directory)
   ```shell
   docker compose up -d
   ```
@@ -52,8 +52,9 @@ Run the following npm installs on your local machine (i.e. this step should be d
 
 ## Start Backend (inside Docker)
 
-- First enter the "**backend**" Docker container
+- First enter the "**backend**" Docker container (`docker compose` can only be executed at the project root directory)
   ```shell
+  docker compose up -d # start all docker containers
   docker compose exec backend /bin/bash
   ```
 - Install NPM packages (**info:** as I mentioned earlier `node_modules` aren't
@@ -95,8 +96,9 @@ Then you can check the API Swagger Docs here: http://localhost:4004/api-docs
 
 ## Start Frontend (inside Docker)
 
-- First enter the "**frontend**" Docker container
+- First enter the "**frontend**" Docker container (`docker compose` can only be executed at the project root directory)
   ```shell
+  docker compose up -d # start all docker containers
   docker compose exec frontend /bin/bash
   ```
 - Install NPM packages (**info:** as I mentioned earlier `node_modules` aren't
