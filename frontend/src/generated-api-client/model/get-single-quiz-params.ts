@@ -9,7 +9,7 @@ import type { GetSingleQuizFields } from './get-single-quiz-fields'
 
 export type GetSingleQuizParams = {
   /**
-   * DETAILS: include questions (for quiz manager only). OVERVIEW: include wasTakenByCurrentUserAtLeastOnce & doesCurrentUserHaveActiveSession
+   * DETAILS: include questions (for quiz manager only). OVERVIEW: include wasFinishedByCurrentUserAtLeastOnce & doesCurrentUserHaveActiveSession
    */
   fields?: GetSingleQuizFields
 }

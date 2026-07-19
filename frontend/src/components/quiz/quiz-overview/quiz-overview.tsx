@@ -45,7 +45,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
     isAnalyticsEnabled,
     timeDurationInMinutes,
     totalFinishes,
-    wasTakenByCurrentUserAtLeastOnce,
+    wasFinishedByCurrentUserAtLeastOnce,
     doesCurrentUserHaveActiveSession,
     isFavorite,
     manager,
@@ -105,9 +105,9 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
                   {totalFinishes} {totalFinishes === 1 ? 'finish' : 'finishes'}
                 </Chip>
 
-                {wasTakenByCurrentUserAtLeastOnce && (
+                {wasFinishedByCurrentUserAtLeastOnce && (
                   <Chip variant="soft" color="success" startDecorator={<CheckCircleIcon />}>
-                    Taken
+                    I finished it at least once
                   </Chip>
                 )}
               </div>
@@ -150,7 +150,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
 
           <Divider className={styles.divider} />
 
-          <ReviewsSection quizId={quizId} canReview={Boolean(wasTakenByCurrentUserAtLeastOnce)} />
+          <ReviewsSection quizId={quizId} canReview={Boolean(wasFinishedByCurrentUserAtLeastOnce)} />
         </div>
       </div>
     </Container>

@@ -13,7 +13,7 @@ export class GetSingleQuizQueryDto {
     enum: QuizFields,
     description:
       'DETAILS: include questions (for quiz manager only). ' +
-      'OVERVIEW: include wasTakenByCurrentUserAtLeastOnce & doesCurrentUserHaveActiveSession',
+      'OVERVIEW: include wasFinishedByCurrentUserAtLeastOnce & doesCurrentUserHaveActiveSession',
   })
   fields?: QuizFields
 }

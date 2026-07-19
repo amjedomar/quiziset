@@ -81,7 +81,7 @@ export function makeQuizRecord(overrides: Partial<Quiz> = {}): Required<QuizEnti
     updatedAt: UPDATED_AT,
     doesCurrentUserHaveActiveSession: false,
     isFavorite: false,
-    wasTakenByCurrentUserAtLeastOnce: false,
+    wasFinishedByCurrentUserAtLeastOnce: false,
     ...overrides,
   }
 }

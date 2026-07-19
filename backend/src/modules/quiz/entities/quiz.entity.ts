@@ -65,7 +65,7 @@ export class QuizEntity {
     type: Boolean,
     description: 'returned only when querying a single quiz (with ?fields=OVERVIEW)',
   })
-  wasTakenByCurrentUserAtLeastOnce?: boolean
+  wasFinishedByCurrentUserAtLeastOnce?: boolean
 
   @ApiPropertyOptional({
     type: Boolean,

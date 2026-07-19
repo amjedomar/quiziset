@@ -67,7 +67,7 @@ export class QuizService {
     /**
      * first finalize all expired sessions so
      *  - totalFinishes
-     *  - wasTakenByCurrentUserAtLeastOnce
+     *  - wasFinishedByCurrentUserAtLeastOnce
      *  - doesCurrentUserHaveActiveSession
      * have values that are up to date
      */
@@ -95,7 +95,7 @@ export class QuizService {
           id: true,
         }
 
-        result.wasTakenByCurrentUserAtLeastOnce = !!(await this.prisma.quizSession.findFirst({
+        result.wasFinishedByCurrentUserAtLeastOnce = !!(await this.prisma.quizSession.findFirst({
           where: { ...sessionBaseFilter, finishTime: { not: null } },
           select: sessionSelect,
         }))
@@ -105,7 +105,7 @@ export class QuizService {
           select: sessionSelect,
         }))
       } else {
-        result.wasTakenByCurrentUserAtLeastOnce = false
+        result.wasFinishedByCurrentUserAtLeastOnce = false
         result.doesCurrentUserHaveActiveSession = false
       }
     }
