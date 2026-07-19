@@ -25,7 +25,7 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
 
   // analytics is enabled for even quiz indexes (0, 2, 4 ...) otherwise it is disabled
   // but if it is `quizSeed.isOneSessionInProgress` then force the isAnalyticsEnabled to be true
-  const isAnalyticsEnabled = quizSeed.isOneSessionInProgress || quizIndex % 2 === 0
+  const isAnalyticsEnabled = quizSeed.isForceAnalyticsEnabled || quizSeed.isOneSessionInProgress || quizIndex % 2 === 0
 
   // pick timeDuration randomly (based on the modulo residual)
   // but if it is `quizSeed.isOneSessionInProgress` then force the timeDurationInMinutes to be null (i.e. no time-limit)

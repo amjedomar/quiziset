@@ -33,6 +33,7 @@ interface QuizSeed {
   totalFinishes: number
   reviewRatings: number[]
   isPrivate?: boolean
+  isForceAnalyticsEnabled?: boolean
   isOneSessionInProgress?: boolean
 }
 
@@ -52,7 +53,7 @@ export const QUIZZES_LIST: QuizSeed[] = [
   { name: 'biology', totalFinishes: 39, reviewRatings: [4, 4, 4, 5, 4, 4, 4] },
   { name: 'geology', totalFinishes: 37, reviewRatings: [4, 4, 3, 4, 4, 4, 4] },
   { name: 'technology', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 4, 4, 4], isOneSessionInProgress: true },
-  { name: 'literature', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 5, 5, 4] },
+  { name: 'literature', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 5, 5, 4], isForceAnalyticsEnabled: true },
   { name: 'space', totalFinishes: 33, reviewRatings: [5, 5, 4, 4, 4, 4, 4] },
   { name: 'law', totalFinishes: 35, reviewRatings: [4, 5, 4, 4, 4, 4, 4] },
   { name: 'math', totalFinishes: 38, reviewRatings: [4, 4, 4, 4, 4, 4, 4] },
@@ -103,7 +104,7 @@ export const QUIZ_QUESTIONS: PrismaJson.QuizQuestions = [
     title: 'Cards question',
     questionType: QuestionType.Cards,
     answers: [
-      { text: 'Answer 1 (correct)', isCorrect: true, imageUrl: getQuizSampleImagePath('space') },
+      { text: 'Answer 1 (correct)', isCorrect: true, imageUrl: getQuizSampleImagePath('english') },
       { text: 'Answer 2', isCorrect: false, imageUrl: getQuizSampleImagePath('nature') },
       { text: 'Answer 3', isCorrect: false, imageUrl: getQuizSampleImagePath('music') },
     ],
@@ -111,7 +112,7 @@ export const QUIZ_QUESTIONS: PrismaJson.QuizQuestions = [
 ]
 
 // the time limit that a quiz may randomly have (null means the quiz has no time limit)
-export const TIME_LIMIT_OPTIONS = [null, 10, 15, 20, 30, 45, 60]
+export const TIME_LIMIT_OPTIONS = [null, 5, 15, 30, 45, 60, 75]
 
 export const STAR_COMMENTS: Record<number, string[]> = {
   1: [

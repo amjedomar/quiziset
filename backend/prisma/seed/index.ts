@@ -37,9 +37,9 @@ async function main() {
     let totalSessions = 0
     let totalReviews = 0
 
-    for (let index = 0; index < QUIZZES_LIST.length; index++) {
+    for (let index = QUIZZES_LIST.length - 1; index >= 0; index--) {
       const result = await seedQuiz(prisma, users, manager.id, index)
-      quizIds.push(result.quizId)
+      quizIds[index] = result.quizId
       totalSessions += result.sessionsCount
       totalReviews += result.reviewsCount
       console.log(
