@@ -7,7 +7,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useDeleteReview, useGetQuizReviews } from '@/generated-api-client/review'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
-import { Loading } from '@/components/loading'
+import { LoadingBox } from '@/components/loading-box'
 import { StarsRating } from '@/components/reviews/stars-rating'
 import { ReviewItem } from '@/components/reviews/review-item'
 import { ReviewForm } from '@/components/reviews/review-form'
@@ -31,7 +31,7 @@ export function ReviewsSection({ quizId, canReview }: ReviewsSectionProps) {
   const { mutateAsync: deleteReview, isPending: isDeleting } = useDeleteReview()
 
   if (isLoading) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   if (!reviews) {

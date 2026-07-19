@@ -4,7 +4,7 @@ import { Button, Chip, Container, Divider, Typography } from '@mui/joy'
 import { useGetSingleQuiz } from '@/generated-api-client/quiz'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
-import { Loading } from '@/components/loading'
+import { LoadingBox } from '@/components/loading-box'
 import { ReviewsSection } from '@/components/reviews/reviews-section'
 import StartIcon from '@mui/icons-material/PlayCircleFilledWhite'
 import TimerIcon from '@mui/icons-material/Timer'
@@ -30,7 +30,7 @@ export function QuizOverview({ quizId }: QuizOverviewProps) {
   const { data: quiz, error, isLoading } = useRetainedQuery(queryResult)
 
   if (isLoading) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   if (!quiz) {

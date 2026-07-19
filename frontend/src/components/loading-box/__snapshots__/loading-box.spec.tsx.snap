@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Loading correctly renders 1`] = `
+exports[`LoadingBox correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="container"
+    class="loadingBox"
   >
     <span
       class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-variantSoft MuiCircularProgress-sizeMd css-cz5ews-JoyCircularProgress-root"

@@ -4,7 +4,7 @@ import { Box, Button, Sheet, Typography } from '@mui/joy'
 import { QuizEntity } from '@/generated-api-client/model'
 import { AppLink } from '@/ui/app-link'
 import { ReactNode } from 'react'
-import { Loading } from '@/components/loading'
+import { LoadingBox } from '@/components/loading-box'
 import { BackendBackgroundImage } from '@/ui/backend-background-image'
 import { FavoriteButton } from '@/components/quiz/favorite-button'
 import QuizIcon from '@mui/icons-material/Article'
@@ -22,7 +22,7 @@ interface QuizzesGridProps {
 
 export function QuizzesGrid({ quizzes, isLoading, emptyInfo }: QuizzesGridProps) {
   if (isLoading) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   if (quizzes && quizzes.length === 0) {

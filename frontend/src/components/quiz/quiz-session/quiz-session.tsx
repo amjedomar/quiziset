@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useStartQuizSession, useSubmitQuizSessionAnswer } from '@/generated-api-client/quiz-session'
 import { ErrorResponse, QuizSessionStateEntity, QuestionEntityQuestionType } from '@/generated-api-client/model'
-import { Loading } from '@/components/loading'
+import { LoadingBox } from '@/components/loading-box'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { AnalyticsConsentModal } from '@/components/quiz/quiz-session/analytics-consent-modal'
 import { QuizSessionProgress } from '@/components/quiz/quiz-session/quiz-session-progress'
@@ -131,7 +131,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
 
   // still starting (return loading)
   if (!sessionState) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   if (sessionState.isFinished) {
@@ -145,7 +145,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
   // "currentQuestion" is always present while the session is ongoing
   // (this check is just to avoid TypeScript errors while accessing `currentQuestion` below)
   if (!currentQuestion) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   return (

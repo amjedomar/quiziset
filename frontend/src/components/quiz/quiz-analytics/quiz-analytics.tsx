@@ -7,7 +7,7 @@ import { AppLink } from '@/ui/app-link'
 import { useGetQuizAnalytics } from '@/generated-api-client/quiz-analytics'
 import { ErrorResponseView } from '@/components/error-response-view'
 import { useRetainedQuery } from '@/hooks/use-retained-query'
-import { Loading } from '@/components/loading'
+import { LoadingBox } from '@/components/loading-box'
 import { Pagination } from '@/ui/pagination'
 import { SelectEnhanced } from '@/ui/select-enhanced'
 import { QuizAnalyticsDesktop } from '@/components/quiz/quiz-analytics/quiz-analytics-desktop'
@@ -33,7 +33,7 @@ export function QuizAnalytics({ quizId }: QuizAnalyticsProps) {
   const { data: body, error, isLoading } = useRetainedQuery(queryResult)
 
   if (isLoading) {
-    return <Loading />
+    return <LoadingBox />
   }
 
   if (!body) {

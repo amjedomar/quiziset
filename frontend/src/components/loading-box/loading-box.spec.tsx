@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react'
-import { Loading } from './loading'
+import { LoadingBox } from './loading-box'
 
-describe('Loading', () => {
+describe('LoadingBox', () => {
   it('correctly renders', () => {
-    const { asFragment } = render(<Loading />)
+    const { asFragment } = render(<LoadingBox />)
 
     expect(asFragment()).toMatchSnapshot()
   })
