@@ -33,6 +33,7 @@ interface QuizSeed {
   totalFinishes: number
   reviewRatings: number[]
   isPrivate?: boolean
+  isOneSessionInProgress?: boolean
 }
 
 export const QUIZZES_LIST: QuizSeed[] = [
@@ -50,7 +51,7 @@ export const QUIZZES_LIST: QuizSeed[] = [
   { name: 'chemistry', totalFinishes: 40, reviewRatings: [5, 4, 4, 3, 5, 4, 3] },
   { name: 'biology', totalFinishes: 39, reviewRatings: [4, 4, 4, 5, 4, 4, 4] },
   { name: 'geology', totalFinishes: 37, reviewRatings: [4, 4, 3, 4, 4, 4, 4] },
-  { name: 'technology', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 4, 4, 4] },
+  { name: 'technology', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 4, 4, 4], isOneSessionInProgress: true },
   { name: 'literature', totalFinishes: 34, reviewRatings: [4, 4, 4, 4, 5, 5, 4] },
   { name: 'space', totalFinishes: 33, reviewRatings: [5, 5, 4, 4, 4, 4, 4] },
   { name: 'law', totalFinishes: 35, reviewRatings: [4, 5, 4, 4, 4, 4, 4] },

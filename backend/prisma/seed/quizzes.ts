@@ -24,10 +24,14 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
   const quizName = quizSeed.name
 
   // analytics is enabled for even quiz indexes (0, 2, 4 ...) otherwise it is disabled
-  const isAnalyticsEnabled = quizIndex % 2 === 0
+  // but if it is `quizSeed.isOneSessionInProgress` then force the isAnalyticsEnabled to be true
+  const isAnalyticsEnabled = quizSeed.isOneSessionInProgress || quizIndex % 2 === 0
 
   // pick timeDuration randomly (based on the modulo residual)
-  const timeDurationInMinutes = TIME_LIMIT_OPTIONS[quizIndex % TIME_LIMIT_OPTIONS.length]
+  // but if it is `quizSeed.isOneSessionInProgress` then force the timeDurationInMinutes to be null (i.e. no time-limit)
+  const timeDurationInMinutes = quizSeed.isOneSessionInProgress
+    ? null
+    : TIME_LIMIT_OPTIONS[quizIndex % TIME_LIMIT_OPTIONS.length]
 
   // spread the hardcoded totalFinishes across every user
   const finishCounts = distributeEvenly(quizSeed.totalFinishes, users.length)
@@ -116,6 +120,30 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
 
   await prisma.quizSession.createMany({ data: sessions })
 
+  // some quizzes additionally get one in-progress session (i.e. when `isOneSessionInProgress` true)
+  let inProgressCount = 0
+
+  if (quizSeed.isOneSessionInProgress) {
+    const nonOwner = users[1] // the 2nd user (a non-owner since the first user owns every quiz)
+
+    await prisma.quizSession.create({
+      data: {
+        quizId: quiz.id,
+        userId: nonOwner.id,
+        startTime: addDays(SESSION_CREATED_BASE, 10),
+        expireTime: null,
+        finishTime: null,
+        questions: buildSessionQuestions(QUIZ_QUESTIONS),
+        questionsCount: QUIZ_QUESTIONS.length,
+        successfulAnswersCount: 1,
+        currentQuestionIndex: QUIZ_QUESTIONS.length - 2,
+        isAnalyticsShared: isAnalyticsEnabled,
+      },
+    })
+
+    inProgressCount = 1
+  }
+
   // one review per user
   const reviews = !hasReviews
     ? []
@@ -135,7 +163,7 @@ export async function seedQuiz(prisma: PrismaClient, users: User[], managerId: n
 
   await prisma.review.createMany({ data: reviews, skipDuplicates: true })
 
-  return { quizId: quiz.id, sessionsCount: sessions.length, reviewsCount: reviews.length }
+  return { quizId: quiz.id, sessionsCount: sessions.length + inProgressCount, reviewsCount: reviews.length }
 }
 
 function distributeEvenly(total: number, count: number): number[] {
