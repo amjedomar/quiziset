@@ -78,7 +78,13 @@ export class QuizService {
 
     const result: QuizEntity = quizBase
 
-    if (query.fields === QuizFields.DETAILS && userId === quiz.managerId) {
+    if (query.fields === QuizFields.DETAILS) {
+      // DETAILS is only requested by the update quiz page (so block non-owner user)
+      // otherwise a public quiz would let any user to open its update page
+      if (userId !== quiz.managerId) {
+        throw new ForbiddenException(QuizErrors.FORBIDDEN)
+      }
+
       result.questions = questions
     }
 
