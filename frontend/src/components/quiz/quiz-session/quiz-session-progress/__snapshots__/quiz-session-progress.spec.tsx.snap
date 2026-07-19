@@ -3,7 +3,7 @@
 exports[`QuizSessionProgress correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-yyryo3-JoyStack-root"
+    class="MuiStack-root css-1glvowg-JoyStack-root"
   >
     <p
       class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"

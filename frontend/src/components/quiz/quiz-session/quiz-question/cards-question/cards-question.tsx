@@ -36,7 +36,7 @@ export function CardsQuestion({ answers, value, onChange }: QuestionRendererProp
             </CardOverflow>
 
             <CardContent>
-              <Stack direction="row" spacing={1}>
+              <Stack direction="row" sx={{ gap: 1 }}>
                 {isSelected ? (
                   <CheckCircleIcon className={styles.icon} />
                 ) : (

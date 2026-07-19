@@ -13,7 +13,7 @@ import styles from './reorder-question.module.scss'
 export function ReorderQuestion({ answers, value, onChange }: QuestionRendererProps) {
   return (
     <DragDropProvider onDragEnd={(event) => onChange((answers) => move(answers, event))}>
-      <Stack spacing={1}>
+      <Stack sx={{ gap: 1 }}>
         {value.map((answerIndex, position) => (
           <Sortable key={answerIndex} id={String(answerIndex)} index={position}>
             <Sheet data-testid={`question-reorder-answer-${answerIndex}`} variant="outlined" className={styles.row}>

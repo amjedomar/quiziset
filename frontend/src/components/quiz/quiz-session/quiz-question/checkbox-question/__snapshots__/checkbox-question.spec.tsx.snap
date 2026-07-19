@@ -3,7 +3,7 @@
 exports[`CheckboxQuestion correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-1s5gupf-JoyStack-root"
+    class="MuiStack-root css-1i1rxnr-JoyStack-root"
   >
     <div
       class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"

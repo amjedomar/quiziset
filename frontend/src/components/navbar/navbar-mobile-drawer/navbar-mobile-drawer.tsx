@@ -20,7 +20,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
   return (
     <Drawer anchor="right" open={open} onClose={onClose} size="sm">
       {isLoggedIn ? (
-        <Stack alignItems="center" spacing={1} sx={{ p: 2 }}>
+        <Stack alignItems="center" sx={{ p: 2, gap: 1 }}>
           <UserAvatar
             name={currentUser?.name ?? ''}
             imageUrl={currentUser?.imageUrl}
@@ -34,7 +34,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
           </Box>
         </Stack>
       ) : (
-        <Stack sx={{ p: 2 }} spacing={1.5}>
+        <Stack sx={{ p: 2, gap: 1.5 }}>
           <Button
             data-testid="mobile-login-link"
             fullWidth
@@ -61,7 +61,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
 
       <Divider />
 
-      <Stack sx={{ p: 2 }} spacing={1}>
+      <Stack sx={{ gap: 1, p: 2 }}>
         {NAV_LINKS.map((link) => (
           <NavLinkButton key={link.href} {...link} fullWidth size="lg" onNavigate={onClose} testIdPrefix="mobile" />
         ))}
@@ -71,7 +71,7 @@ export function NavbarMobileDrawer({ open, onClose }: NavbarMobileDrawerProps) {
         <>
           <Divider />
 
-          <Stack sx={{ p: 2 }} spacing={1}>
+          <Stack sx={{ gap: 1, p: 2 }}>
             <NavLinkButton
               href="/profile"
               label="Update Profile"

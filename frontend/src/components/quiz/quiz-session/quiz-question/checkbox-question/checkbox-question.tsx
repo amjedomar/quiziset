@@ -8,7 +8,7 @@ export function CheckboxQuestion({ answers, value, onChange }: QuestionRendererP
   }
 
   return (
-    <Stack spacing={1}>
+    <Stack sx={{ gap: 1 }}>
       {answers.map((answer, index) => (
         <Sheet key={index} variant="outlined" className={styles.item}>
           <Checkbox overlay label={answer.text} checked={value.includes(index)} onChange={() => toggle(index)} />

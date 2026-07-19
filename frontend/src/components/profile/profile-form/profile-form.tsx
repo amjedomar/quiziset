@@ -57,7 +57,7 @@ export function ProfileForm() {
   }
 
   return (
-    <Stack spacing={4} sx={{ mt: 4 }}>
+    <Stack sx={{ mt: 4, gap: 4 }}>
       <Typography level="h3" textAlign="center">
         Your Profile
       </Typography>
@@ -66,7 +66,7 @@ export function ProfileForm() {
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-          <Stack spacing={2}>
+          <Stack sx={{ gap: 2 }}>
             <FormInput name="name" label="Name" type="text" />
 
             <FormInput name="email" label="Email" type="email" />

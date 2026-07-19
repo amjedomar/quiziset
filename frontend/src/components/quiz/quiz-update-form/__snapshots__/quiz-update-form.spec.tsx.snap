@@ -9,7 +9,7 @@ exports[`QuizUpdateForm correctly renders 1`] = `
       novalidate=""
     >
       <div
-        class="MuiStack-root css-194i09z-JoyStack-root"
+        class="MuiStack-root css-10ip9al-JoyStack-root"
       >
         <div
           class="header"
@@ -119,7 +119,7 @@ exports[`QuizUpdateForm correctly renders 1`] = `
           class="overviewSection"
         >
           <div
-            class="MuiStack-root css-194i09z-JoyStack-root"
+            class="MuiStack-root css-10ip9al-JoyStack-root"
           >
             <div
               class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"

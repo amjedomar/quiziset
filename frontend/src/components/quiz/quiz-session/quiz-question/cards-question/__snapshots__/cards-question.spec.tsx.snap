@@ -32,7 +32,7 @@ exports[`CardsQuestion correctly renders 1`] = `
         data-last-child=""
       >
         <div
-          class="MuiStack-root css-op0f7u-JoyStack-root"
+          class="MuiStack-root css-1592pth-JoyStack-root"
         >
           <svg
             aria-hidden="true"
@@ -80,7 +80,7 @@ exports[`CardsQuestion correctly renders 1`] = `
         data-last-child=""
       >
         <div
-          class="MuiStack-root css-op0f7u-JoyStack-root"
+          class="MuiStack-root css-1592pth-JoyStack-root"
         >
           <svg
             aria-hidden="true"

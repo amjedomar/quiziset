@@ -6,7 +6,7 @@ exports[`QuizResult correctly renders 1`] = `
     class="MuiCard-root MuiCard-vertical MuiCard-variantSoft MuiCard-colorNeutral MuiCard-sizeMd css-pr54qw-JoyCard-root"
   >
     <div
-      class="MuiStack-root css-hoail5-JoyStack-root"
+      class="MuiStack-root css-nrm99n-JoyStack-root"
       data-first-child=""
       data-last-child=""
     >

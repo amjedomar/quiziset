@@ -42,7 +42,7 @@ export function LoginForm({ safeRedirectTo, reason }: LoginFormProps) {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <Stack direction="column" spacing={2}>
+        <Stack direction="column" sx={{ gap: 2 }}>
           <Typography level="h3" textAlign="center">
             Login
           </Typography>

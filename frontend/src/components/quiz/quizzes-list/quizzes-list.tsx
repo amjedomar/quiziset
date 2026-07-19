@@ -145,7 +145,7 @@ export function QuizzesList({ params, renderHeader, renderQuizzes }: QuizzesList
     <div>
       {renderHeader({ SearchComponent, SortComponent, TotalMatchesComponent })}
 
-      <Stack spacing={3}>
+      <Stack sx={{ gap: 3 }}>
         {renderQuizzes({ quizzes, isLoading })}
 
         <Pagination page={page} totalPages={totalPages ?? 0} onPageChange={setPage} />

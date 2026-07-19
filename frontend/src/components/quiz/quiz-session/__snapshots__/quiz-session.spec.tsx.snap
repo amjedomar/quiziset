@@ -3,7 +3,7 @@
 exports[`QuizSession correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-hynh5r-JoyStack-root"
+    class="MuiStack-root css-11wy7hu-JoyStack-root"
   >
     <h3
       class="MuiTypography-root MuiTypography-h3 quizTitle css-1yf9pfh-JoyTypography-root"
@@ -11,7 +11,7 @@ exports[`QuizSession correctly renders 1`] = `
       Quiz: js basics
     </h3>
     <div
-      class="MuiStack-root css-yyryo3-JoyStack-root"
+      class="MuiStack-root css-1glvowg-JoyStack-root"
     >
       <p
         class="MuiTypography-root MuiTypography-body-sm css-1mpyth4-JoyTypography-root"
@@ -39,7 +39,7 @@ exports[`QuizSession correctly renders 1`] = `
       </p>
     </div>
     <div
-      class="MuiStack-root css-1s5gupf-JoyStack-root"
+      class="MuiStack-root css-1i1rxnr-JoyStack-root"
     >
       <div
         class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"

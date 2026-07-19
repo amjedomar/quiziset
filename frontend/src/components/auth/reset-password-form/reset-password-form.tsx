@@ -27,7 +27,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   if (!token) {
     return (
       <Alert color="danger" variant="soft" data-testid="reset-invalid-link-alert">
-        <Stack spacing={1}>
+        <Stack sx={{ gap: 1 }}>
           <span>This password reset link is invalid. Please request a new one.</span>
           <Link component={AppLink} href="/forgot-password">
             Request a new link
@@ -54,14 +54,14 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <Stack direction="column" spacing={2}>
+        <Stack direction="column" sx={{ gap: 2 }}>
           <Typography level="h3" textAlign="center">
             Choose a new password
           </Typography>
 
           {errorMessage && (
             <Alert color="danger" variant="soft" data-testid="reset-error-alert">
-              <Stack spacing={1}>
+              <Stack sx={{ gap: 1 }}>
                 <span>{errorMessage}</span>
                 <Link component={AppLink} href="/forgot-password">
                   Request a new link

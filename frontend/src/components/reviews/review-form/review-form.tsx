@@ -47,7 +47,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
         {isEditing ? 'Edit your review' : 'Write a review'}
       </Typography>
 
-      <Stack spacing={2}>
+      <Stack sx={{ gap: 2 }}>
         <FormControl>
           <FormLabel>Rating</FormLabel>
           <StarsRating value={rating} onChange={setRating} size="lg" />
@@ -64,7 +64,7 @@ export function ReviewForm({ quizId, existingReview, onDone, onCancel }: ReviewF
           />
         </FormControl>
 
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" sx={{ gap: 1 }}>
           <Button data-testid="submit-review-button" onClick={handleSubmit} loading={isPending} disabled={rating === 0}>
             {isEditing ? 'Update review' : 'Submit review'}
           </Button>

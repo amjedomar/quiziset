@@ -12,7 +12,7 @@ export function RadioQuestion({ answers, value, onChange }: QuestionRendererProp
       value={typeof selectedIndex === 'number' ? String(selectedIndex) : ''}
       onChange={(event) => onChange([Number(event.target.value)])}
     >
-      <Stack spacing={1}>
+      <Stack sx={{ gap: 1 }}>
         {answers.map((answer, index) => (
           <Sheet key={index} variant="outlined" className={styles.item}>
             <Radio value={String(index)} label={answer.text} />

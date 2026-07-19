@@ -29,7 +29,7 @@ exports[`NavbarMobileDrawer correctly renders 1`] = `
       tabindex="-1"
     >
       <div
-        class="MuiStack-root css-sr22mo-JoyStack-root"
+        class="MuiStack-root css-1gh5slh-JoyStack-root"
       >
         <a
           class="MuiButton-root MuiButton-fullWidth MuiButton-variantOutlined MuiButton-colorPrimary MuiButton-sizeMd css-4f85w7-JoyButton-root"
@@ -50,7 +50,7 @@ exports[`NavbarMobileDrawer correctly renders 1`] = `
         class="MuiDivider-root MuiDivider-horizontal css-1gr8z01-JoyDivider-root"
       />
       <div
-        class="MuiStack-root css-7rl2bt-JoyStack-root"
+        class="MuiStack-root css-650tjm-JoyStack-root"
       >
         <a
           class="MuiButton-root MuiButton-fullWidth MuiButton-variantPlain MuiButton-colorNeutral MuiButton-sizeLg css-1w1gui5-JoyButton-root"

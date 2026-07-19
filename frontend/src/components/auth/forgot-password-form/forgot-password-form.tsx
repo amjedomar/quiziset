@@ -37,14 +37,14 @@ export function ForgotPasswordForm() {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <Stack direction="column" spacing={2}>
+        <Stack direction="column" sx={{ gap: 2 }}>
           <Typography level="h3" textAlign="center">
             Reset your password
           </Typography>
 
           {isSent ? (
             <Alert color="success" variant="soft" data-testid="reset-sent-alert">
-              <Stack spacing={1}>
+              <Stack sx={{ gap: 1 }}>
                 <span>We sent an email to you with the link to reset your password (it expires in 3 hours)</span>
 
                 {previewUrl && (
@@ -62,7 +62,7 @@ export function ForgotPasswordForm() {
 
               {errorMessage && (
                 <Alert color="danger" variant="soft" data-testid="reset-error-alert">
-                  <Stack spacing={1}>
+                  <Stack sx={{ gap: 1 }}>
                     <span>{errorMessage}</span>
                     <Link component={AppLink} href="/signup">
                       Go to Sign Up

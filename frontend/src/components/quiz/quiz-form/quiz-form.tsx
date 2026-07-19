@@ -128,7 +128,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit, onValidationError)} noValidate>
-        <Stack direction="column" spacing={3}>
+        <Stack direction="column" sx={{ gap: 3 }}>
           <div className={styles.header}>
             <Typography level="h3">{existingQuiz ? 'Update Quiz' : 'Create New Quiz'}</Typography>
 
@@ -143,7 +143,7 @@ export function QuizForm({ existingQuiz }: QuizFormProps) {
           </div>
 
           <div className={styles.overviewSection}>
-            <Stack direction="column" spacing={3}>
+            <Stack direction="column" sx={{ gap: 3 }}>
               <FormInput name="title" label="Title" />
               <FormTextarea name="description" label="Description" minRows={4} maxRows={6} />
               <QuizTimeDurationSelect name="timeDurationInMinutes" />

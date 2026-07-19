@@ -10,7 +10,7 @@ exports[`QuizQuestionForm correctly renders 1`] = `
       class="header"
     >
       <div
-        class="MuiStack-root css-1dxwi5i-JoyStack-root"
+        class="MuiStack-root css-1b46ung-JoyStack-root"
       >
         <span>
           #1
@@ -93,7 +93,7 @@ exports[`QuizQuestionForm correctly renders 1`] = `
       </button>
     </div>
     <div
-      class="MuiStack-root css-kfzzuj-JoyStack-root"
+      class="MuiStack-root css-aivr49-JoyStack-root"
     >
       <div
         class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
@@ -122,7 +122,7 @@ exports[`QuizQuestionForm correctly renders 1`] = `
         class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
       >
         <div
-          class="MuiStack-root css-1s5gupf-JoyStack-root"
+          class="MuiStack-root css-1i1rxnr-JoyStack-root"
         >
           <label
             class="MuiFormLabel-root css-1ckvkg0-JoyFormLabel-root"

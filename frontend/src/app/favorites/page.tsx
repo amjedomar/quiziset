@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function FavoritesPage() {
   return (
     <Container maxWidth="xl">
-      <Stack spacing={3}>
+      <Stack sx={{ gap: 3 }}>
         <Typography level="h2">Favorites</Typography>
 
         <FavoriteQuizzesList />

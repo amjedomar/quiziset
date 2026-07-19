@@ -110,7 +110,7 @@ exports[`ManagedQuizzesList correctly renders 1`] = `
       </div>
     </div>
     <div
-      class="MuiStack-root css-194i09z-JoyStack-root"
+      class="MuiStack-root css-10ip9al-JoyStack-root"
     >
       <div
         class="quizList"

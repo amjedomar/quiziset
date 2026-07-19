@@ -7,7 +7,7 @@ exports[`RadioQuestion correctly renders 1`] = `
     role="radiogroup"
   >
     <div
-      class="MuiStack-root css-1s5gupf-JoyStack-root"
+      class="MuiStack-root css-1i1rxnr-JoyStack-root"
       data-first-child=""
       data-last-child=""
       data-parent="RadioGroup"

@@ -3,7 +3,7 @@
 exports[`ReorderQuestion correctly renders 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-1s5gupf-JoyStack-root"
+    class="MuiStack-root css-1i1rxnr-JoyStack-root"
   >
     <div
       style="opacity: 1;"

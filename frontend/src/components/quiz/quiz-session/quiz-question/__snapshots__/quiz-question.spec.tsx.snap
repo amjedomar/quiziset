@@ -32,7 +32,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         data-last-child=""
       >
         <div
-          class="MuiStack-root css-op0f7u-JoyStack-root"
+          class="MuiStack-root css-1592pth-JoyStack-root"
         >
           <svg
             aria-hidden="true"
@@ -80,7 +80,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
         data-last-child=""
       >
         <div
-          class="MuiStack-root css-op0f7u-JoyStack-root"
+          class="MuiStack-root css-1592pth-JoyStack-root"
         >
           <svg
             aria-hidden="true"
@@ -108,7 +108,7 @@ exports[`QuizQuestion correctly renders a question-cards question 1`] = `
 exports[`QuizQuestion correctly renders a question-checkbox question 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-1s5gupf-JoyStack-root"
+    class="MuiStack-root css-1i1rxnr-JoyStack-root"
   >
     <div
       class="MuiSheet-root MuiSheet-variantOutlined MuiSheet-colorNeutral item css-ylro10-JoySheet-root"
@@ -177,7 +177,7 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
     role="radiogroup"
   >
     <div
-      class="MuiStack-root css-1s5gupf-JoyStack-root"
+      class="MuiStack-root css-1i1rxnr-JoyStack-root"
       data-first-child=""
       data-last-child=""
       data-parent="RadioGroup"
@@ -256,7 +256,7 @@ exports[`QuizQuestion correctly renders a question-radio question 1`] = `
 exports[`QuizQuestion correctly renders a question-reorder question 1`] = `
 <DocumentFragment>
   <div
-    class="MuiStack-root css-1s5gupf-JoyStack-root"
+    class="MuiStack-root css-1i1rxnr-JoyStack-root"
   >
     <div
       style="opacity: 1;"

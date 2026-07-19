@@ -9,7 +9,7 @@ export function QuizSessionProgress({ currentQuestionIndex, questionsCount }: Qu
   const percentage = questionsCount > 0 ? (currentQuestionIndex / questionsCount) * 100 : 0
 
   return (
-    <Stack spacing={0.5}>
+    <Stack sx={{ gap: 0.5 }}>
       <Typography level="body-sm" textColor="text.tertiary">
         Question {currentQuestionIndex + 1} of {questionsCount}
       </Typography>

@@ -10,7 +10,7 @@ interface QuizResultProps {
 export function QuizResult({ state, quizId }: QuizResultProps) {
   return (
     <Card variant="soft" sx={{ my: 4, p: 4 }}>
-      <Stack spacing={2} alignItems="center" textAlign="center">
+      <Stack sx={{ gap: 2 }} alignItems="center" textAlign="center">
         <Typography level="h3">Quiz completed!</Typography>
 
         <Typography level="h1" textColor="primary.500">

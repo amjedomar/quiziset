@@ -149,7 +149,7 @@ export function QuizSession({ quizId }: QuizSessionProps) {
   }
 
   return (
-    <Stack spacing={3} sx={{ py: 2 }}>
+    <Stack sx={{ py: 2, gap: 3 }}>
       <Typography level="h3" className={styles.quizTitle}>
         Quiz: {quizTitle}
       </Typography>

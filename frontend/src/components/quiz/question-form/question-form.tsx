@@ -210,7 +210,7 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
   return (
     <Sheet className={styles.sheet} sx={{ boxShadow: 'md' }} style={{ padding: 0 }}>
       <div className={styles.header}>
-        <Stack direction="row" alignItems="center" spacing={1}>
+        <Stack direction="row" alignItems="center" sx={{ gap: 1 }}>
           <span>#{index + 1}</span>
           <QuestionTypeSelect formFieldName={`${questionFieldName}.questionType`} />
         </Stack>
@@ -227,11 +227,11 @@ export function QuizQuestionForm({ questionFieldName, onDelete, index, disableDe
         </IconButton>
       </div>
 
-      <Stack sx={{ p: 2 }} spacing={2}>
+      <Stack sx={{ p: 2, gap: 2 }}>
         <FormInput name={`${questionFieldName}.title`} label="Question Title"></FormInput>
 
         <FormControl>
-          <Stack spacing={1}>
+          <Stack sx={{ gap: 1 }}>
             <FormLabel>Answers</FormLabel>
 
             <FormFieldHint name={`${questionFieldName}.answers.0.isCorrect`}>

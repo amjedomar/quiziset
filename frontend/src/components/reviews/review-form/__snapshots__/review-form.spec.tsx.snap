@@ -11,7 +11,7 @@ exports[`ReviewForm correctly renders 1`] = `
       Write a review
     </p>
     <div
-      class="MuiStack-root css-10jjy1j-JoyStack-root"
+      class="MuiStack-root css-f67103-JoyStack-root"
     >
       <div
         class="MuiFormControl-root MuiFormControl-vertical MuiFormControl-sizeMd css-1jf2wst-JoyFormControl-root"
@@ -140,7 +140,7 @@ exports[`ReviewForm correctly renders 1`] = `
         </div>
       </div>
       <div
-        class="MuiStack-root css-op0f7u-JoyStack-root"
+        class="MuiStack-root css-1592pth-JoyStack-root"
       >
         <button
           class="MuiButton-root Mui-disabled MuiButton-variantSolid MuiButton-colorPrimary MuiButton-sizeMd css-1sp0hsh-JoyButton-root"

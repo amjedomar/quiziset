@@ -6,7 +6,7 @@ exports[`SignupForm correctly renders 1`] = `
     novalidate=""
   >
     <div
-      class="MuiStack-root css-10jjy1j-JoyStack-root"
+      class="MuiStack-root css-f67103-JoyStack-root"
     >
       <h3
         class="MuiTypography-root MuiTypography-h3 css-1hp3mo-JoyTypography-root"
