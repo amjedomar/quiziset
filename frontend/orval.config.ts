@@ -45,8 +45,7 @@ export default defineConfig({
             },
           ],
         },
-      },
-      clean: true,
+      }
     },
     hooks: {
       afterAllFilesWrite: 'prettier --write src/generated-api-client',
